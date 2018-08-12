@@ -9,6 +9,8 @@ using HallRental.Data;
 using HallRental.Data.Models;
 using HallRental.Web.Services;
 using HallRental.Web.Infrastructure.Extensions;
+using HallRental.Services;
+using HallRental.Services.Implementations;
 
 namespace HallRental.Web
 {
@@ -39,7 +41,8 @@ namespace HallRental.Web
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
-             
+            services.AddTransient<IIdentityService, IdentityService>();
+
             services.AddMvc();
         }
 

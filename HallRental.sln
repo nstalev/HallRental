@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HallRental.Web", "HallRental.Web\HallRental.Web.csproj", "{8F286CCB-8C27-4C09-BE9B-229F1D4B13AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HallRental.Web", "HallRental.Web\HallRental.Web.csproj", "{8F286CCB-8C27-4C09-BE9B-229F1D4B13AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HallRental.Data", "HallRental.Data\HallRental.Data.csproj", "{681CC134-7DBC-486C-8F8B-2B832EAA4365}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HallRental.Data", "HallRental.Data\HallRental.Data.csproj", "{681CC134-7DBC-486C-8F8B-2B832EAA4365}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HallRental.Services", "HallRental.Services\HallRental.Services.csproj", "{F59A4D4C-920C-4BD1-AD93-EB34CBBB5CFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HallRental.Services", "HallRental.Services\HallRental.Services.csproj", "{F59A4D4C-920C-4BD1-AD93-EB34CBBB5CFF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
