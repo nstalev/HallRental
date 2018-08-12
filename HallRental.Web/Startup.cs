@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using HallRental.Data;
 using HallRental.Data.Models;
 using HallRental.Web.Services;
+using HallRental.Web.Infrastructure.Extensions;
 
 namespace HallRental.Web
 {
@@ -45,6 +46,8 @@ namespace HallRental.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseDatabaseMigration();
+
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
