@@ -1,0 +1,39 @@
+﻿@model UserWithRolesViewModel
+
+@{
+    ViewData["Title"] = "Roles";
+}
+
+<h2>User: @Model.UserName</h2>
+
+@{
+    var routeValue = new Dictionary<string, string> { ["id"] = Model.Id.ToString() };
+}
+
+<a asp-controller="Identity" asp-action="AddRole" asp-all-route-data="routeValue" class="btn btn-sm btn-primary">Add Role</a>
+<hr />
+
+<h3>Roles:</h3>
+
+@if (!@Model.Roles.Any())
+{
+    <h4>No Roles for this user</h4>
+}
+else
+{
+    <ul>
+        @foreach (var role in Model.Roles)
+        {
+            <li>@role</li>
+
+        }
+    </ul>
+
+}
+
+<div>
+    <a  asp-controller="Identity" asp-action="All">Back to List</a>
+</div>
+
+
+

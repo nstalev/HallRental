@@ -41,7 +41,9 @@
                     var routeValue = new Dictionary<string, string> { ["id"] = item.Id.ToString() };
                 }
                 <td>
+                    <a asp-controller="Identity" asp-action="Roles" asp-all-route-data="routeValue" class="btn btn-sm btn-default">Roles</a>
                     <a asp-controller="Identity" asp-action="Delete" asp-all-route-data="routeValue" class="btn btn-sm btn-danger">Delete</a>
+
                 </td>
             </tr>
         }
