@@ -21,8 +21,10 @@ namespace HallRental.Services.Implementations
             return this.db.Users
                 .Select(u => new UserModel
                 {
+                    Id = u.Id,
                     Email = u.Email,
-                    UserName = u.UserName
+                    UserName = u.UserName,
+                    PhoneNumber = u.PhoneNumber
                 }).ToList();
                 
         }

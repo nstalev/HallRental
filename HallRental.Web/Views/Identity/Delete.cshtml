@@ -1,0 +1,15 @@
+﻿@model DeleteUserViewModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Are you sure you want to delete user: @Model.UserName</h2>
+
+@{
+    var routeValue = new Dictionary<string, string> { ["id"] = Model.Id.ToString() };
+}
+
+<a asp-action="All" asp-controller="Identity" class="btn btn-lg btn-default">Back</a>
+<a asp-action="Destroy" asp-controller="Identity" asp-all-route-data="routeValue" class="btn btn-lg btn-danger">DELETE</a>
+
