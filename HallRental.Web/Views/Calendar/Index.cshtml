@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewData["Title"] = "Calendar";
+}
+
+<h2>Calendar</h2>
+
+<hr />
+
+<div id="calendar">
+
+
+</div>
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.print.css" rel="stylesheet" />
+<link href="~/css/calendar.css" rel="stylesheet" />
+
+@section Scripts {
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            console.log("ready!");
+
+            $('#calendar').fullCalendar({
+                defaultView: 'month',
+
+                header: {
+                    left: 'title',
+                    center: '',
+                    right: 'prev,next'
+                },
+                weekNumbers: true,
+                editable: true,
+                droppable: true,
+
+
+            });
+
+            $('#my-prev-button').click(function () {
+                $('#calendar').fullCalendar('prev');
+            });
+
+
+
+        })
+    </script>
+
+}
