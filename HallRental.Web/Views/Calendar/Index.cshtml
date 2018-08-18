@@ -9,7 +9,6 @@
 
 <div id="calendar">
 
-
 </div>
 
 
@@ -24,8 +23,25 @@
 
     <script>
         $(document).ready(function () {
-            console.log("ready!");
+            var events = [];
+            $.ajax({
+                type: "GET",
+                url: "/Calendar/GetEvents",
+                success: function (data) {
 
+                    GenerateCalendar(data)
+                },
+                error: function (error) {
+                    alert('failed');
+                }
+            })
+            })
+
+            function GenerateCalendar(events) {
+                console.log("ready!");
+                console.log(events)
+
+            $('#calender').fullCalendar('destroy');
             $('#calendar').fullCalendar({
                 defaultView: 'month',
 
@@ -37,17 +53,16 @@
                 weekNumbers: true,
                 editable: true,
                 droppable: true,
-
+                eventLimit: true,
+                eventColor: 'red',
+                events: events
 
             });
 
             $('#my-prev-button').click(function () {
                 $('#calendar').fullCalendar('prev');
             });
-
-
-
-        })
+        }
     </script>
 
 }

@@ -42,6 +42,8 @@ namespace HallRental.Web
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IIdentityService, IdentityService>();
+            services.AddTransient<IEventsService, EventsService>();
+            services.AddTransient<ICalendarService, CalendarService>();
 
             services.AddMvc();
         }
