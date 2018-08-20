@@ -25,17 +25,13 @@ namespace HallRental.Web.Controllers
         public IActionResult Create(EventFormModel eventModel)
         {
 
-            if (eventModel.EventStart < DateTime.Now)
+            if (eventModel.EventDate < DateTime.Now)
             {
                 ModelState.AddModelError("EventStart", "Event Start Date cannot be before DateTime Now");
                 return View(eventModel);
             }
 
-            if (eventModel.EventStart >= eventModel.EventEdn)
-            {
-                ModelState.AddModelError("EventStart", "Event Start Date cannot be after Event Edn Date");
-                return View(eventModel);
-            }
+         
 
             if (!ModelState.IsValid)
             {
@@ -47,14 +43,25 @@ namespace HallRental.Web.Controllers
                                eventModel.PhoneNumber,
                                eventModel.Description,
                                eventModel.EventTitle,
-                               eventModel.EventStart,
-                               eventModel.EventEdn,
+                               eventModel.EventDate,
+                               eventModel.RentTime,
                                eventModel.NumberOfPeople
                                );
 
 
 
             return RedirectToAction("Index", "Calendar");
+        }
+
+
+
+        public IActionResult DateCheck()
+        {
+
+            //var vm = new DateCheckFormModel();
+            //vm.RentTime = RentTimeEnum.eightAMtoThreePM;
+
+            return View();
         }
     }
 }

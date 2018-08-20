@@ -4,6 +4,7 @@ namespace HallRental.Services.Implementations
     using HallRental.Data;
     using HallRental.Data.Models;
     using System;
+    using static HallRental.Data.Enums.Enums;
 
     public class EventsService : IEventsService
     {
@@ -14,15 +15,15 @@ namespace HallRental.Services.Implementations
             this.db = db;
         }
 
-
-        public void Create(string email, string phoneNumber, string description, string eventTitle, DateTime eventStart, DateTime eventEdn, int numberOfPeople)
+        public void Create(string email, string phoneNumber, string description, string eventTitle, DateTime evetnDate, RentTimeEnum rentTime, int numberOfPeople)
         {
             var newEvent = new Event()
             {
                 Email = email,
                 Description = description,
-                EventEdn = eventEdn,
-                EventStart = eventStart,
+                EventDate = evetnDate,
+                RentTime = rentTime,
+                EventTitle = eventTitle,
                 PhoneNumber = phoneNumber,
                 NumberOfPeople = numberOfPeople,
                 IsConfirmed = false

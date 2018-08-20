@@ -1,4 +1,5 @@
 ﻿using System;
+using static HallRental.Data.Enums.Enums;
 
 namespace HallRental.Services
 {
@@ -11,8 +12,8 @@ namespace HallRental.Services
                     string phoneNumber,
                     string description,
                     string eventTitle,
-                    DateTime eventStart,
-                    DateTime eventEdn,
+                    DateTime eventDate,
+                    RentTimeEnum timeRent,
                     int numberOfPeople);
     }
 }

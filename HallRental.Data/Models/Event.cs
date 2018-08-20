@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
+using static HallRental.Data.Enums.Enums;
 
 namespace HallRental.Data.Models
 {
@@ -13,9 +12,10 @@ namespace HallRental.Data.Models
         [Display(Name = "Email")]
         public  string Email { get; set; }
 
-        public DateTime EventStart { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime EventDate { get; set; }
 
-        public DateTime EventEdn { get; set; }
+        public RentTimeEnum RentTime { get; set; }
 
         public string PhoneNumber { get; set; }
 

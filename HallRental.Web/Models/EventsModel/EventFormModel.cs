@@ -4,6 +4,7 @@ namespace HallRental.Web.Models.EventsModel
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using static HallRental.Data.Enums.Enums;
 
     public class EventFormModel
     {
@@ -11,11 +12,10 @@ namespace HallRental.Web.Models.EventsModel
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
-        public DateTime EventStart { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime EventDate { get; set; }
 
-        [Required]
-        public DateTime EventEdn { get; set; }
+        public RentTimeEnum RentTime { get; set; }
 
         [Required]
         public string PhoneNumber { get; set; }

@@ -21,8 +21,7 @@ namespace HallRental.Services.Implementations
                 .Select(e => new EventServiceModel
                 {
                     Title = e.EventTitle,
-                    Start = e.EventStart,
-                    End = e.EventEdn,
+                    Start = e.EventDate,
                     Descrtiption = e.Description
                 })
                 .ToArray();
