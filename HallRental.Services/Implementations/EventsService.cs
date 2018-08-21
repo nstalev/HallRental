@@ -4,6 +4,7 @@ namespace HallRental.Services.Implementations
     using HallRental.Data;
     using HallRental.Data.Models;
     using System;
+    using System.Linq;
     using static HallRental.Data.Enums.Enums;
 
     public class EventsService : IEventsService
@@ -32,6 +33,13 @@ namespace HallRental.Services.Implementations
 
             this.db.Events.Add(newEvent);
             this.db.SaveChanges();
+        }
+
+
+
+        public bool EventExists(DateTime date)
+        {
+            return this.db.Events.Any(e => e.EventDate == date);
         }
     }
 }

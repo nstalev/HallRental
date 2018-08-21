@@ -38,16 +38,30 @@
                     <li><a asp-area="" asp-controller="Events" asp-action="DateCheck">Date Check</a></li>
 
                     @if (User.IsInRole(GlobalConstants.AdminRole))
-    {
-                <li><a asp-area="" asp-controller="Identity" asp-action="All">Identity</a></li>
+                    {
+                        <li><a asp-area="" asp-controller="Identity" asp-action="All">Identity</a></li>
 
-}
+                    }
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
         </div>
     </nav>
     <div class="container body-content">
+        @if (TempData.ContainsKey(GlobalConstants.TempDataSuccessMessageKey))
+        {
+            <div class="alert alert-success alert-dismissible fade in">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                @TempData[GlobalConstants.TempDataSuccessMessageKey]
+            </div>
+        }
+        @if (TempData.ContainsKey(GlobalConstants.TempDataErrorMessageKey))
+        {
+            <div class="alert alert-danger alert-dismissible fade in">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                @TempData[GlobalConstants.TempDataErrorMessageKey]
+            </div>
+        }
         @RenderBody()
         <hr />
         <footer>

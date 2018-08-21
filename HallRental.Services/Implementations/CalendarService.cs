@@ -26,5 +26,7 @@ namespace HallRental.Services.Implementations
                 })
                 .ToArray();
         }
+
+
     }
 }

@@ -2,6 +2,7 @@
 namespace HallRental.Web.Controllers
 {
     using HallRental.Services;
+    using HallRental.Web.Infrastructure;
     using HallRental.Web.Models.EventsModel;
     using Microsoft.AspNetCore.Mvc;
     using System;
@@ -61,7 +62,34 @@ namespace HallRental.Web.Controllers
             //var vm = new DateCheckFormModel();
             //vm.RentTime = RentTimeEnum.eightAMtoThreePM;
 
+
             return View();
+        }
+
+
+
+        public IActionResult PriceCheck(DateCheckFormModel dateCheckModel)
+        {
+           
+            if (dateCheckModel.Date == DateTime.MinValue)
+            {
+                TempData.AddErrorMessage("Please make sure all required fields are filled out correctly");
+              return  RedirectToAction(nameof(DateCheck), dateCheckModel);
+            }
+
+            return View();
+        }
+
+        public JsonResult CheckCurrentDate(DateCheckJsonModel dateModel)
+        {
+            var eventExists = events.EventExists(dateModel.Date);
+
+            if (eventExists)
+            {
+
+            }
+
+            return Json("Available");
         }
     }
 }

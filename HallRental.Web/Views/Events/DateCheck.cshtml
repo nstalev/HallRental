@@ -9,26 +9,27 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form>
+        <form asp-action="PriceCheck">
 
             <div class="form-group">
                 <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" required />
+                <input id="EventDate" asp-for="Date" class="form-control" required />
+                <span id="date-error" style="color: red"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="RentTime" class="control-label"></label>
-                <select name="Renttime" class="form-control" required>
+                <select id="RentTime" name="Renttime" class="form-control" required>
 
                     <option value="1">8:00 am to 3:00 pm</option>
                     <option value="2">4:00 pm to Midnight</option>
                     <option value="3">All Day</option>
                 </select>
             </div>
-
-            <button onclick="CheckDateAndTime()" class="btn btn-default">Check</button>
-
+            <input type="button" onclick="CheckDateAndTime()" value="Check" class="btn btn-default" />
+            <input type="submit" class="btn btn-primary" value="Continue" />
         </form>
+
     </div>
 </div>
 
@@ -38,7 +39,42 @@
     <script>
         function CheckDateAndTime() {
 
-            console.log("CheckDateAndTime");
+            let eventDate = $('#EventDate').val();
+            let rentTime = $('#RentTime').val();
+
+            if (!eventDate) {
+                $('#date-error').text('Please specify date')
+            }
+            else {
+                $('#date-error').text('')
+                //console.log(eventDate)
+                //console.log(rentTime)
+                $.ajax({
+                    type: "POST",
+                    url: "/Events/CheckCurrentDate",
+                    data: {
+                        Date: eventDate,
+                        RentTime : rentTime
+                    },
+                    success: function (data) {
+
+                        CheckIfHallIsAvailable(data)
+                    },
+                    error: function (error) {
+                        alert('failed');
+                    }
+                })
+            }
+
+
+            function CheckIfHallIsAvailable(data) {
+                console.log(data)
+
+            }
+
+        
+
+
          }
 
 
