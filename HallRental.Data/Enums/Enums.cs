@@ -18,6 +18,7 @@ namespace HallRental.Data.Enums
             [Display(Name = "AllDay")]
             allDay = 3
 
+
         }
     }
 }

@@ -37,9 +37,35 @@ namespace HallRental.Services.Implementations
 
 
 
-        public bool EventExists(DateTime date)
+        public bool EventExists(DateTime date, RentTimeEnum rentTime)
         {
-            return this.db.Events.Any(e => e.EventDate == date);
+
+            if (rentTime == RentTimeEnum.allDay)
+            {
+                return this.db.Events
+               .Any(e => e.EventDate == date);
+            }
+            else
+            {
+                var AllDayEvent = this.db.Events
+              .Any(e => e.EventDate == date
+              && e.RentTime == RentTimeEnum.allDay);
+
+                if (AllDayEvent)
+                {
+                    return true;
+                }
+                else
+                {
+                    return this.db.Events
+                  .Any(e => e.EventDate == date
+                  && e.RentTime == rentTime
+                  && e.RentTime != RentTimeEnum.allDay);
+                }
+
+            }
+          
         }
+    
     }
 }

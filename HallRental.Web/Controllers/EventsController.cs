@@ -2,10 +2,12 @@
 namespace HallRental.Web.Controllers
 {
     using HallRental.Services;
+    using HallRental.Services.Models.Events;
     using HallRental.Web.Infrastructure;
     using HallRental.Web.Models.EventsModel;
     using Microsoft.AspNetCore.Mvc;
     using System;
+    using System.Collections.Generic;
 
     public class EventsController : Controller
     {
@@ -49,7 +51,7 @@ namespace HallRental.Web.Controllers
                                eventModel.NumberOfPeople
                                );
 
-
+            TempData.AddSuccessMessage("Your event request has been successfully submitted");
 
             return RedirectToAction("Index", "Calendar");
         }
@@ -82,14 +84,19 @@ namespace HallRental.Web.Controllers
 
         public JsonResult CheckCurrentDate(DateCheckJsonModel dateModel)
         {
-            var eventExists = events.EventExists(dateModel.Date);
+            var eventDate = new EventDateModel();
+
+            var eventExists = events.EventExists(dateModel.Date, dateModel.RentTime);
 
             if (eventExists)
             {
 
+                eventDate.EventExists = true;
             }
+          
+            
 
-            return Json("Available");
+            return Json(eventDate);
         }
     }
 }

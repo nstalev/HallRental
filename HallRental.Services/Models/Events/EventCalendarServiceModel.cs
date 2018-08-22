@@ -1,9 +1,9 @@
 ﻿
-namespace HallRental.Services.Models
+namespace HallRental.Services.Models.Events
 {
     using System;
 
-    public class EventServiceModel
+    public class EventCalendarServiceModel
     {
         public string Title { get; set; }
         public string Descrtiption { get; set; }

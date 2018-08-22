@@ -1,12 +1,12 @@
 ﻿
 namespace HallRental.Services
 {
-    using HallRental.Services.Models;
+    using HallRental.Services.Models.Events;
     using System.Collections.Generic;
 
     public interface ICalendarService
     {
 
-        IEnumerable<EventServiceModel> AllEvents();
+        IEnumerable<EventCalendarServiceModel> AllEvents();
     }
 }

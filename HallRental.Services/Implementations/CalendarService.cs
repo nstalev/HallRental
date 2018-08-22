@@ -5,6 +5,7 @@ namespace HallRental.Services.Implementations
     using System.Linq;
     using HallRental.Data;
     using HallRental.Services.Models;
+    using HallRental.Services.Models.Events;
 
     public class CalendarService : ICalendarService
     {
@@ -15,10 +16,10 @@ namespace HallRental.Services.Implementations
             this.db = db;
         }
 
-        public IEnumerable<EventServiceModel> AllEvents()
+        public IEnumerable<EventCalendarServiceModel> AllEvents()
         {
             return this.db.Events
-                .Select(e => new EventServiceModel
+                .Select(e => new EventCalendarServiceModel
                 {
                     Title = e.EventTitle,
                     Start = e.EventDate,
