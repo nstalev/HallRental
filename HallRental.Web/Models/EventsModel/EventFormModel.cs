@@ -29,5 +29,8 @@ namespace HallRental.Web.Models.EventsModel
 
         [Required]
         public string Description { get; set; }
+
+        [Required]
+        public decimal TotalPrice { get; set; }
     }
 }

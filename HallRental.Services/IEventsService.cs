@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using HallRental.Services.Models.Events;
-using static HallRental.Data.Enums.Enums;
-
+﻿
 namespace HallRental.Services
 {
+    using System;
+    using static HallRental.Data.Enums.Enums;
+
     public interface IEventsService
     {
-
-      
 
         void Create(string email,
                     string phoneNumber,
@@ -16,7 +13,8 @@ namespace HallRental.Services
                     string eventTitle,
                     DateTime eventDate,
                     RentTimeEnum timeRent,
-                    int numberOfPeople);
+                    int numberOfPeople,
+                    decimal totalPrice);
 
         bool EventExists(DateTime date, RentTimeEnum rentTime);
 

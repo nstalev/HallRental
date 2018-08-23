@@ -24,6 +24,8 @@ namespace HallRental.Web.Infrastructure.Extensions
                 var userManager = serviceScope.ServiceProvider.GetService<UserManager<User>>();
                 var roleManager = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
 
+                var db = serviceScope.ServiceProvider.GetService<HallRentalDbContext>();
+
                 //To run Async methods in Non-Asyn method
                 Task
                  .Run(async () =>
@@ -67,6 +69,42 @@ namespace HallRental.Web.Infrastructure.Extensions
                              await userManager.AddToRoleAsync(adminUser, GlobalConstants.AdminRole);
                          }
                      }
+
+
+                     //Seed Hall
+                     if (!await db.Halls.AnyAsync())
+                     {
+                         Hall grandFoyerAndBallRoom = new Hall
+                         {
+                             Name = "Grand Foyer and BallRoom",
+                             MondayFriday8amTo3pm = 750,
+                             MondayThursday4pmToMN = 1000,
+                             Friday4pmToMN = 1250,
+                             Saturday8amTo3pm = 1250,
+                             Saturday4pmToMN = 1750,
+                             Sunday8amTo3pm = 750,
+                             Sunday4pmToMN = 1750
+                         };
+
+                         Hall grandFoyerOnly = new Hall
+                         {
+                             Name = "Grand Foyer Only",
+                             MondayFriday8amTo3pm = 250,
+                             MondayThursday4pmToMN = 375,
+                             Friday4pmToMN = 500,
+                             Saturday8amTo3pm = 500,
+                             Saturday4pmToMN = 750,
+                             Sunday8amTo3pm = 250,
+                             Sunday4pmToMN = 750
+                         };
+
+                         await db.Halls.AddAsync(grandFoyerAndBallRoom);
+                         await db.Halls.AddAsync(grandFoyerOnly);
+                         db.SaveChanges();
+                     }
+
+
+                  
                     
                  })
                  .GetAwaiter()

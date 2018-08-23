@@ -4,14 +4,16 @@ using HallRental.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HallRental.Data.Migrations
 {
     [DbContext(typeof(HallRentalDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180823121420_EventHallRelation")]
+    partial class EventHallRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,13 +29,11 @@ namespace HallRental.Data.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("Email")
-                        .IsRequired();
+                    b.Property<string>("Email");
 
                     b.Property<DateTime>("EventDate");
 
-                    b.Property<string>("EventTitle")
-                        .IsRequired();
+                    b.Property<string>("EventTitle");
 
                     b.Property<int>("HallId");
 
@@ -44,8 +44,6 @@ namespace HallRental.Data.Migrations
                     b.Property<string>("PhoneNumber");
 
                     b.Property<int>("RentTime");
-
-                    b.Property<decimal>("TotalPrice");
 
                     b.HasKey("Id");
 

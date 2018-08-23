@@ -34,7 +34,6 @@ namespace HallRental.Web.Controllers
                 return View(eventModel);
             }
 
-         
 
             if (!ModelState.IsValid)
             {
@@ -48,7 +47,8 @@ namespace HallRental.Web.Controllers
                                eventModel.EventTitle,
                                eventModel.EventDate,
                                eventModel.RentTime,
-                               eventModel.NumberOfPeople
+                               eventModel.NumberOfPeople,
+                               eventModel.TotalPrice
                                );
 
             TempData.AddSuccessMessage("Your event request has been successfully submitted");

@@ -4,14 +4,16 @@ using HallRental.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HallRental.Data.Migrations
 {
     [DbContext(typeof(HallRentalDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180823120955_HallEntityAdded")]
+    partial class HallEntityAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,15 +29,11 @@ namespace HallRental.Data.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("Email")
-                        .IsRequired();
+                    b.Property<string>("Email");
 
                     b.Property<DateTime>("EventDate");
 
-                    b.Property<string>("EventTitle")
-                        .IsRequired();
-
-                    b.Property<int>("HallId");
+                    b.Property<string>("EventTitle");
 
                     b.Property<bool>("IsConfirmed");
 
@@ -45,11 +43,7 @@ namespace HallRental.Data.Migrations
 
                     b.Property<int>("RentTime");
 
-                    b.Property<decimal>("TotalPrice");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("HallId");
 
                     b.ToTable("Events");
                 });
@@ -240,14 +234,6 @@ namespace HallRental.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("HallRental.Data.Models.Event", b =>
-                {
-                    b.HasOne("HallRental.Data.Models.Hall", "Hall")
-                        .WithMany("Events")
-                        .HasForeignKey("HallId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
