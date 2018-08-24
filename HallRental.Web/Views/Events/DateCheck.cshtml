@@ -1,4 +1,4 @@
-﻿@model DateCheckFormModel
+﻿@model DateCheckViewModel
 
 @{
     ViewData["Title"] = "DateCheck";
@@ -10,6 +10,14 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="PriceCheck">
+
+            <div class="form-group">
+                <label asp-for="Halls" class="control-label">Select Hall</label>
+                <select name="HallId" asp-items="Model.Halls" class="halls-dropDown form-control">
+                    <option value="" disabled selected>Select Hall...</option>
+                </select>
+                <span id="hall-error" style="color: red"></span>
+            </div>
 
             <div class="form-group">
                 <label asp-for="Date" class="control-label"></label>
@@ -27,18 +35,18 @@
                 </select>
             </div>
             <input type="button" onclick="CheckDateAndTime()" value="Check" class="btn btn-default" />
-            <input type="submit" class="btn btn-primary" value="Continue" />
+            <input type="submit" id="dateCheck-submit-btn" class="btn btn-primary" value="Continue" style="display: none" />
         </form>
 
     </div>
 
     <div class="col-md-6">
-            <h2 id="eventDateResult"></h2>
+        <h2 id="eventDateResult"></h2>
     </div>
 </div>
 
 
-@section Scripts{ 
+@section Scripts{
 
     <script>
         function CheckDateAndTime() {
@@ -46,19 +54,41 @@
             let eventDate = $('#EventDate').val();
             let rentTime = $('#RentTime').val();
 
-            if (!eventDate) {
-                $('#date-error').text('Please specify date')
+            let hallSelected = $('.halls-dropDown option:selected').val();
+                        
+           // console.log(hallSelected)
+
+            if (!eventDate || !hallSelected) {
+
+                if (!eventDate) {
+                    $('#date-error').text('Please specify date')
+                }
+                else {
+                    $('#date-error').text('')
+                }
+
+                if (!hallSelected) {
+                    $('#hall-error').text('Please select Hall')
+                }
+                else {
+                    $('#hall-error').text('')
+                }
             }
+         
             else {
                 $('#date-error').text('')
+                $('#hall-error').text('')
                 //console.log(eventDate)
                 //console.log(rentTime)
+
+                console.log(hallSelected)
                 $.ajax({
                     type: "POST",
                     url: "/Events/CheckCurrentDate",
                     data: {
                         Date: eventDate,
-                        RentTime : rentTime
+                        RentTime: rentTime,
+                        HallId: hallSelected
                     },
                     success: function (data) {
 
@@ -74,21 +104,23 @@
             function CheckIfHallIsAvailable(data) {
                 //console.log(data.eventExists)
                 if (data.eventExists) {
-                    console.log('заета')
+                    console.log('not available')
                     $('#eventDateResult').text('The Hall is not available on this this day and time')
+                    $('#dateCheck-submit-btn').hide();
                 }
                 else {
                     $('#eventDateResult').text('The Hall is available')
-                    console.log('свободна')
+                    $('#dateCheck-submit-btn').show();
+                    console.log('available')
 
                 }
 
             }
 
-        
 
 
-         }
+
+        }
 
 
 

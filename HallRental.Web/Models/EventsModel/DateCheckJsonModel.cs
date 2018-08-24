@@ -12,5 +12,10 @@ namespace HallRental.Web.Models.EventsModel
         public DateTime Date { get; set; }
 
         public RentTimeEnum RentTime { get; set; }
+
+        [Required]
+        public int HallId { get; set; }
+
+
     }
 }

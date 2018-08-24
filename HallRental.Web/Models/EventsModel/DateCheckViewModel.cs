@@ -7,12 +7,12 @@ namespace HallRental.Web.Models.EventsModel
     using System.ComponentModel.DataAnnotations;
     using static HallRental.Data.Enums.Enums;
 
-    public class DateCheckFormModel
+    public class DateCheckViewModel
     {
-        [Required]
-        public int HallId { get; set; }
+        public IEnumerable<SelectListItem> Halls { get; set; }
 
         [DataType(DataType.Date)]
+        [Required]
         public DateTime? Date { get; set; }
 
         [Required]

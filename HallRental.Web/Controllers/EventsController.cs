@@ -2,20 +2,24 @@
 namespace HallRental.Web.Controllers
 {
     using HallRental.Services;
-    using HallRental.Services.Models.Events;
     using HallRental.Web.Infrastructure;
     using HallRental.Web.Models.EventsModel;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using System;
+    using System.Linq;
     using System.Collections.Generic;
 
     public class EventsController : Controller
     {
         private readonly IEventsService events;
+        private readonly IHallsService halls;
 
-        public EventsController(IEventsService events)
+        public EventsController(IEventsService events,
+                                IHallsService halls)
         {
             this.events = events;
+            this.halls = halls;
         }
 
         
@@ -57,15 +61,23 @@ namespace HallRental.Web.Controllers
         }
 
 
-
         public IActionResult DateCheck()
         {
 
-            //var vm = new DateCheckFormModel();
-            //vm.RentTime = RentTimeEnum.eightAMtoThreePM;
+            var vm = new DateCheckViewModel
+            {
+                Halls = this.halls.AllHalls()
+                .Select(h => new SelectListItem
+                {
+                    Text = h.Name,
+                    Value = h.Id.ToString(),
+                    Selected = false
+                }).ToList(),
+                Date = null
+            };
 
 
-            return View();
+            return View(vm);
         }
 
 
@@ -73,7 +85,7 @@ namespace HallRental.Web.Controllers
         public IActionResult PriceCheck(DateCheckFormModel dateCheckModel)
         {
            
-            if (dateCheckModel.Date == DateTime.MinValue)
+            if (dateCheckModel.Date == null || dateCheckModel.HallId == 0)
             {
                 TempData.AddErrorMessage("Please make sure all required fields are filled out correctly");
               return  RedirectToAction(nameof(DateCheck), dateCheckModel);

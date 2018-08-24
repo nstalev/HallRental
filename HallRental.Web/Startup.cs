@@ -44,6 +44,7 @@ namespace HallRental.Web
             services.AddTransient<IIdentityService, IdentityService>();
             services.AddTransient<IEventsService, EventsService>();
             services.AddTransient<ICalendarService, CalendarService>();
+            services.AddTransient<IHallsService, HallsService>();
 
             services.AddMvc();
         }
