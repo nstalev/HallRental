@@ -22,14 +22,14 @@ namespace HallRental.Services.Implementations
             {
                 Email = email,
                 Description = description,
-                EventDate = evetnDate,
+                EventDate = rentTime == RentTimeEnum.eightAMtoThreePM ? evetnDate + new TimeSpan(8,00,00) : evetnDate + new TimeSpan(16, 00, 00),
                 RentTime = rentTime,
                 EventTitle = eventTitle,
                 PhoneNumber = phoneNumber,
                 NumberOfPeople = numberOfPeople,
                 TotalPrice = totalPrice,
                 IsConfirmed = false,
-                HallId = 2
+                HallId = 3
 
             };
 

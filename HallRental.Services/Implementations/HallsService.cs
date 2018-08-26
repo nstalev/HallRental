@@ -22,7 +22,8 @@ namespace HallRental.Services.Implementations
                 {
                     Id = h.Id,
                     Name = h.Name
-                });
+                })
+                .ToList();
                
         }
     }

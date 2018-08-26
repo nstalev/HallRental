@@ -7,6 +7,6 @@ namespace HallRental.Services
     public interface ICalendarService
     {
 
-        IEnumerable<EventCalendarServiceModel> AllEvents();
+        IEnumerable<EventCalendarServiceModel> AllEvents(int hallId);
     }
 }

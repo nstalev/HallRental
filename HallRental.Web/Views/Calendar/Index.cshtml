@@ -1,15 +1,30 @@
-﻿
+﻿@model CalendarViewModel
 @{
     ViewData["Title"] = "Calendar";
 }
 
 <h2>Calendar</h2>
+<div class="btn-group btn-group-justified">
+    @foreach (var item in Model.AllHals)
+    {
+        <a class="btn btn-primary" href="Calendar?hallId=@item.Id">@item.Name</a>
+    }
+
+</div>
 
 <hr />
+
+<h2 id="hall-name"></h2>
 
 <div id="calendar">
 
 </div>
+
+@*@{ 
+    var firstHall = Model.First();
+    string hallName = Model.First().Name;
+
+}*@
 
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css" rel="stylesheet" />
@@ -22,11 +37,35 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
 
     <script>
+
+
         $(document).ready(function () {
-            var events = [];
+
+            GenerateView();
+        })
+
+
+
+
+        function GenerateView() {
+            let hallId = @Model.CurrentHallId;
+            GetCalendarData(hallId)
+        }
+
+
+
+
+        function GetCalendarData(hallId) {
+
+            console.log('aa ' + hallId)
+          //  $('#"hall-name').text(hallName)
+
             $.ajax({
                 type: "GET",
                 url: "/Calendar/GetEvents",
+                data: {
+                    HallId: hallId
+                },
                 success: function (data) {
 
                     GenerateCalendar(data)
@@ -35,23 +74,23 @@
                     alert('failed');
                 }
             })
-            })
 
-            function GenerateCalendar(events) {
-                console.log("ready!");
-                console.log(events)
+        }
+
+        function GenerateCalendar(events) {
+            console.log("ready!");
+            console.log(events)
 
             $('#calender').fullCalendar('destroy');
             $('#calendar').fullCalendar({
                 defaultView: 'month',
-
                 header: {
                     left: 'title',
                     center: '',
                     right: 'prev,next'
                 },
                 weekNumbers: true,
-                editable: true,
+               // editable: true,
                 droppable: true,
                 eventLimit: true,
                 eventColor: 'red',
