@@ -98,7 +98,7 @@ namespace HallRental.Web.Controllers
         {
             var eventDate = new EventDateModel();
 
-            var eventExists = events.EventExists(dateModel.Date, dateModel.RentTime);
+            var eventExists = events.EventExists(dateModel.Date, dateModel.RentTime, dateModel.HallId);
 
             if (eventExists)
             {

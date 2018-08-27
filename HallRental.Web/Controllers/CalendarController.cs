@@ -35,7 +35,7 @@ namespace HallRental.Web.Controllers
             CalendarViewModel vm = new CalendarViewModel()
             {
                 AllHals = halls,
-                CurrentHallId = hallId
+                CurrentHall = halls.FirstOrDefault(h => h.Id == hallId)
             };
 
             return View(vm);

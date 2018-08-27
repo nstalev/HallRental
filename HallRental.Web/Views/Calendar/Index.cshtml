@@ -2,8 +2,8 @@
 @{
     ViewData["Title"] = "Calendar";
 }
+<hr />
 
-<h2>Calendar</h2>
 <div class="btn-group btn-group-justified">
     @foreach (var item in Model.AllHals)
     {
@@ -14,17 +14,18 @@
 
 <hr />
 
-<h2 id="hall-name"></h2>
+<h2 id="hall-name" style="text-align: center;">@Model.CurrentHall.Name</h2>
+<hr />
 
 <div id="calendar">
 
 </div>
 
-@*@{ 
-    var firstHall = Model.First();
-    string hallName = Model.First().Name;
+@*@{
+        var firstHall = Model.First();
+        string hallName = Model.First().Name;
 
-}*@
+    }*@
 
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css" rel="stylesheet" />
@@ -48,7 +49,7 @@
 
 
         function GenerateView() {
-            let hallId = @Model.CurrentHallId;
+            let hallId = @Model.CurrentHall.Id;
             GetCalendarData(hallId)
         }
 

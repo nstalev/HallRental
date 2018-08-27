@@ -29,7 +29,7 @@ namespace HallRental.Services.Implementations
                 NumberOfPeople = numberOfPeople,
                 TotalPrice = totalPrice,
                 IsConfirmed = false,
-                HallId = 3
+                HallId = 9
 
             };
 
@@ -39,19 +39,21 @@ namespace HallRental.Services.Implementations
 
 
 
-        public bool EventExists(DateTime date, RentTimeEnum rentTime)
+        public bool EventExists(DateTime date, RentTimeEnum rentTime, int hallId)
         {
 
             if (rentTime == RentTimeEnum.allDay)
             {
                 return this.db.Events
-               .Any(e => e.EventDate == date);
+                    .Any(e => e.EventDate.Date == date.Date
+                    && e.HallId == hallId);
             }
             else
             {
                 var AllDayEvent = this.db.Events
-              .Any(e => e.EventDate == date
-              && e.RentTime == RentTimeEnum.allDay);
+                 .Any(e => e.EventDate.Date == date.Date
+                 && e.RentTime == RentTimeEnum.allDay
+                  && e.HallId == hallId);
 
                 if (AllDayEvent)
                 {
@@ -60,7 +62,8 @@ namespace HallRental.Services.Implementations
                 else
                 {
                     return this.db.Events
-                  .Any(e => e.EventDate == date
+                  .Any(e => e.EventDate.Date == date.Date
+                   && e.HallId == hallId
                   && e.RentTime == rentTime
                   && e.RentTime != RentTimeEnum.allDay);
                 }

@@ -16,7 +16,7 @@ namespace HallRental.Services
                     int numberOfPeople,
                     decimal totalPrice);
 
-        bool EventExists(DateTime date, RentTimeEnum rentTime);
+        bool EventExists(DateTime date, RentTimeEnum rentTime, int hallId);
 
     }
 }

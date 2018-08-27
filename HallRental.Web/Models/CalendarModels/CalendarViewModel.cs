@@ -8,6 +8,6 @@ namespace HallRental.Web.Models.CalendarModels
     {
         public IEnumerable<HallEventCheckModel> AllHals { get; set; }
 
-        public int CurrentHallId { get; set; }
+        public HallEventCheckModel CurrentHall { get; set; }
     }
 }
