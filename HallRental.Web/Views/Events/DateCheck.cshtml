@@ -106,10 +106,12 @@
                 if (data.eventExists) {
                     console.log('not available')
                     $('#eventDateResult').text('The Hall is not available on this this day and time')
+                    $('#eventDateResult').css("color", "red")
                     $('#dateCheck-submit-btn').hide();
                 }
                 else {
                     $('#eventDateResult').text('The Hall is available')
+                    $('#eventDateResult').css("color", "blue")
                     $('#dateCheck-submit-btn').show();
                     console.log('available')
 

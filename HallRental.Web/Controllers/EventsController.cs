@@ -91,8 +91,19 @@ namespace HallRental.Web.Controllers
               return  RedirectToAction(nameof(DateCheck), dateCheckModel);
             }
 
+            DateTime date = dateCheckModel.Date ?? DateTime.Now;
+
+            if (events.EventExists(date, dateCheckModel.RentTime, dateCheckModel.HallId))
+            {
+                TempData.AddErrorMessage("The selected Hall and Date are already reserved");
+                return RedirectToAction(nameof(DateCheck), dateCheckModel);
+            }
+
             return View();
         }
+
+
+
 
         public JsonResult CheckCurrentDate(DateCheckJsonModel dateModel)
         {

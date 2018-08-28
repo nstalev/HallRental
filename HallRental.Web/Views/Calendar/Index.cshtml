@@ -7,7 +7,7 @@
 <div class="btn-group btn-group-justified">
     @foreach (var item in Model.AllHals)
     {
-        <a class="btn btn-primary" href="Calendar?hallId=@item.Id">@item.Name</a>
+        <a class="btn btn-default @(Model.CurrentHall.Id == @item.Id ? "active": String.Empty)" href="Calendar?hallId=@item.Id">@item.Name</a>
     }
 
 </div>
