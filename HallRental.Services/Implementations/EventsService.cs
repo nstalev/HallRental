@@ -22,7 +22,7 @@ namespace HallRental.Services.Implementations
             {
                 Email = email,
                 Description = description,
-                EventDate = rentTime == RentTimeEnum.eightAMtoThreePM ? evetnDate + new TimeSpan(8,00,00) : evetnDate + new TimeSpan(16, 00, 00),
+                EventDate = rentTime == RentTimeEnum.EightAMtoThreePM ? evetnDate + new TimeSpan(8,00,00) : evetnDate + new TimeSpan(16, 00, 00),
                 RentTime = rentTime,
                 EventTitle = eventTitle,
                 PhoneNumber = phoneNumber,
@@ -42,7 +42,7 @@ namespace HallRental.Services.Implementations
         public bool EventExists(DateTime date, RentTimeEnum rentTime, int hallId)
         {
 
-            if (rentTime == RentTimeEnum.allDay)
+            if (rentTime == RentTimeEnum.AllDay)
             {
                 return this.db.Events
                     .Any(e => e.EventDate.Date == date.Date
@@ -52,7 +52,7 @@ namespace HallRental.Services.Implementations
             {
                 var AllDayEvent = this.db.Events
                  .Any(e => e.EventDate.Date == date.Date
-                 && e.RentTime == RentTimeEnum.allDay
+                 && e.RentTime == RentTimeEnum.AllDay
                   && e.HallId == hallId);
 
                 if (AllDayEvent)
@@ -65,7 +65,7 @@ namespace HallRental.Services.Implementations
                   .Any(e => e.EventDate.Date == date.Date
                    && e.HallId == hallId
                   && e.RentTime == rentTime
-                  && e.RentTime != RentTimeEnum.allDay);
+                  && e.RentTime != RentTimeEnum.AllDay);
                 }
 
             }

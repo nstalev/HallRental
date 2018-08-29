@@ -9,6 +9,9 @@ namespace HallRental.Web.Controllers
     using System;
     using System.Linq;
     using System.Collections.Generic;
+    using HallRental.Data.Models;
+    using HallRental.Data.Enums;
+    using static HallRental.Data.Enums.Enums;
 
     public class EventsController : Controller
     {
@@ -22,7 +25,7 @@ namespace HallRental.Web.Controllers
             this.halls = halls;
         }
 
-        
+
         public IActionResult Create()
         {
             return View();
@@ -84,26 +87,45 @@ namespace HallRental.Web.Controllers
 
         public IActionResult PriceCheck(DateCheckFormModel dateCheckModel)
         {
-           
+
             if (dateCheckModel.Date == null || dateCheckModel.HallId == 0)
             {
                 TempData.AddErrorMessage("Please make sure all required fields are filled out correctly");
-              return  RedirectToAction(nameof(DateCheck), dateCheckModel);
+                return RedirectToAction(nameof(DateCheck), dateCheckModel);
             }
 
-            DateTime date = dateCheckModel.Date ?? DateTime.Now;
+            DateTime eventDate = dateCheckModel.Date ?? DateTime.Now;
 
-            if (events.EventExists(date, dateCheckModel.RentTime, dateCheckModel.HallId))
+            if (events.EventExists(eventDate, dateCheckModel.RentTime, dateCheckModel.HallId))
             {
                 TempData.AddErrorMessage("The selected Hall and Date are already reserved");
                 return RedirectToAction(nameof(DateCheck), dateCheckModel);
             }
 
-            return View();
+            Hall currentHall = this.halls.GetHallById(dateCheckModel.HallId);
+            DayOfWeek eventDateOfWeek = eventDate.DayOfWeek;
+
+
+            decimal startPrice = CheckHallStartPrice(currentHall, eventDateOfWeek, dateCheckModel.RentTime);
+            string hallName = currentHall.Name;
+
+            string rentTimeDisplay = dateCheckModel.RentTime.ToString();
+
+            var priceCheckViewModel = new EventInfoAndPriceCheckViewModel()
+            {
+                Date = eventDate,
+                RentTime = dateCheckModel.RentTime,
+                HallId = dateCheckModel.HallId,
+                HallName = hallName,
+                RentTimeDisplay = rentTimeDisplay,
+                TotalPrice = startPrice
+
+            };
+
+            return View(priceCheckViewModel);
         }
 
-
-
+      
 
         public JsonResult CheckCurrentDate(DateCheckJsonModel dateModel)
         {
@@ -116,10 +138,81 @@ namespace HallRental.Web.Controllers
 
                 eventDate.EventExists = true;
             }
-          
-            
 
             return Json(eventDate);
         }
+
+
+        private decimal CheckHallStartPrice(Hall currentHall, DayOfWeek eventDate, RentTimeEnum rentTime)
+        {
+
+            if (rentTime == RentTimeEnum.EightAMtoThreePM)
+            {
+                if (eventDate == DayOfWeek.Monday 
+                   || eventDate == DayOfWeek.Tuesday
+                   || eventDate == DayOfWeek.Wednesday
+                   || eventDate == DayOfWeek.Thursday
+                   || eventDate == DayOfWeek.Friday)
+                {
+                    return currentHall.MondayFriday8amTo3pm;
+                }
+                else if (eventDate == DayOfWeek.Saturday)
+                {
+                    return currentHall.Saturday8amTo3pm;
+                }
+                else if (eventDate == DayOfWeek.Sunday)
+                {
+                    return currentHall.Sunday8amTo3pm;
+                }
+            }
+            else if (rentTime == RentTimeEnum.FourPMtoMidNight)
+            {
+                if (eventDate == DayOfWeek.Monday
+                   || eventDate == DayOfWeek.Tuesday
+                   || eventDate == DayOfWeek.Wednesday
+                   || eventDate == DayOfWeek.Thursday)
+                {
+                    return currentHall.MondayThursday4pmToMN;
+                }
+                else if (eventDate == DayOfWeek.Friday)
+                {
+                    return currentHall.Friday4pmToMN;
+                }
+                else if (eventDate == DayOfWeek.Saturday)
+                {
+                    return currentHall.Saturday4pmToMN;
+                }
+                else if (eventDate == DayOfWeek.Sunday)
+                {
+                    return currentHall.Sunday4pmToMN;
+                }
+            }
+            else if (rentTime == RentTimeEnum.AllDay)
+            {
+                if (eventDate == DayOfWeek.Monday
+                   || eventDate == DayOfWeek.Tuesday
+                   || eventDate == DayOfWeek.Wednesday
+                   || eventDate == DayOfWeek.Thursday)
+                {
+                    return currentHall.MondayFriday8amTo3pm + currentHall.MondayThursday4pmToMN;
+                }
+                else if (eventDate == DayOfWeek.Friday)
+                {
+                    return currentHall.MondayFriday8amTo3pm + currentHall.Friday4pmToMN;
+                }
+                else if (eventDate == DayOfWeek.Saturday)
+                {
+                    return currentHall.Saturday8amTo3pm + currentHall.Saturday4pmToMN;
+                }
+                else if (eventDate == DayOfWeek.Sunday)
+                {
+                    return currentHall.Sunday8amTo3pm + currentHall.Sunday4pmToMN;
+                }
+            }
+
+            return 0;
+        }
+
+
     }
 }

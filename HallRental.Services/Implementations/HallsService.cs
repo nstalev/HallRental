@@ -4,6 +4,7 @@ namespace HallRental.Services.Implementations
     using System.Collections.Generic;
     using System.Linq;
     using HallRental.Data;
+    using HallRental.Data.Models;
     using HallRental.Services.Models.Halls;
 
     public class HallsService : IHallsService
@@ -25,6 +26,12 @@ namespace HallRental.Services.Implementations
                 })
                 .ToList();
                
+        }
+
+        public  Hall GetHallById(int hallId)
+        {
+            return this.db.Halls.Find(hallId);
+                
         }
     }
 }

@@ -1,7 +1,84 @@
-﻿
+﻿@model EventInfoAndPriceCheckViewModel
+
 @{
     ViewData["Title"] = "PriceCheck";
 }
 
-<h2>PriceCheck</h2>
+<h2>Event Info and Price Check</h2>
 
+<hr />
+<h4><b>Hall: </b>@Model.HallName</h4>
+<h4><b>Date: </b>@Model.Date.ToShortDateString()</h4>
+<h4><b>Time: </b>@Model.RentTimeDisplay</h4>
+
+<div class="row">
+    <div class="col-md-4">
+
+        <form asp-action="PriceCheck">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="Date" class="form-control" type="hidden" />
+            </div>
+            <div class="form-group">
+                <input asp-for="HallId" class="form-control" type="hidden" />
+            </div>
+            <div class="form-group">
+                <input asp-for="RentTime" class="form-control" type="hidden" />
+            </div>
+            <div class="form-group">
+                <label asp-for="EventTitle" class="control-label"></label>
+                <input asp-for="EventTitle" class="form-control" />
+                <span asp-validation-for="EventTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EventStart" class="control-label"></label>
+                <input asp-for="EventStart" class="form-control" />
+                <span asp-validation-for="EventStart" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EventEnd" class="control-label"></label>
+                <input asp-for="EventEnd" class="form-control" />
+                <span asp-validation-for="EventEnd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumberOfPeople" class="control-label"></label>
+                <input asp-for="NumberOfPeople" class="form-control" />
+                <span asp-validation-for="NumberOfPeople" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="UseTablesAndChairs" /> @Html.DisplayNameFor(model => model.UseTablesAndChairs)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="SecurityService" /> @Html.DisplayNameFor(model => model.SecurityService)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecurityServiceHours" class="control-label"></label>
+                <input asp-for="SecurityServiceHours" class="form-control" />
+                <span asp-validation-for="SecurityServiceHours" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Continue" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-4">
+        <h4><b>Total Price: </b>$@Model.TotalPrice</h4>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
