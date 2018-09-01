@@ -105,8 +105,13 @@ namespace HallRental.Web.Controllers
             Hall currentHall = this.halls.GetHallById(dateCheckModel.HallId);
             DayOfWeek eventDateOfWeek = eventDate.DayOfWeek;
 
+            decimal startPrice = dateCheckModel.TotalPrice;
 
-            decimal startPrice = CheckHallStartPrice(currentHall, eventDateOfWeek, dateCheckModel.RentTime);
+            if (startPrice == 0)
+            {
+                startPrice = CheckHallStartPrice(currentHall, eventDateOfWeek, dateCheckModel.RentTime);
+
+            }
             string hallName = currentHall.Name;
 
             string rentTimeDisplay = dateCheckModel.RentTime.ToString();
@@ -118,12 +123,30 @@ namespace HallRental.Web.Controllers
                 HallId = dateCheckModel.HallId,
                 HallName = hallName,
                 RentTimeDisplay = rentTimeDisplay,
-                TotalPrice = startPrice
+                Price = startPrice
+                
 
             };
 
             return View(priceCheckViewModel);
         }
+
+
+        public IActionResult UpdatePriceView (EventPriceModel model)
+        {
+
+            return PartialView("_PartialPrice", model.TotalPrice);
+        }
+
+
+
+        public IActionResult PersonalInfo(PersonalInformationViewModel personalInfo)
+        {
+
+
+            return View();
+        }
+
 
       
 
@@ -141,6 +164,10 @@ namespace HallRental.Web.Controllers
 
             return Json(eventDate);
         }
+
+
+
+
 
 
         private decimal CheckHallStartPrice(Hall currentHall, DayOfWeek eventDate, RentTimeEnum rentTime)

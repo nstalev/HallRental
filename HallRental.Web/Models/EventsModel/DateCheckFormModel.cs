@@ -17,5 +17,7 @@ namespace HallRental.Web.Models.EventsModel
 
         [Required]
         public RentTimeEnum RentTime { get; set; }
+
+        public decimal TotalPrice { get; set; } = 0;
     }
 }

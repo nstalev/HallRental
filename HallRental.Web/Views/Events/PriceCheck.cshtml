@@ -14,7 +14,7 @@
 <div class="row">
     <div class="col-md-4">
 
-        <form asp-action="PriceCheck">
+        <form asp-action="PersonalInfo">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <input asp-for="Date" class="form-control" type="hidden" />
@@ -24,6 +24,9 @@
             </div>
             <div class="form-group">
                 <input asp-for="RentTime" class="form-control" type="hidden" />
+            </div>
+            <div class="form-group">
+                <input id="PriceInput" asp-for="Price" class="form-control" type="hidden" />
             </div>
             <div class="form-group">
                 <label asp-for="EventTitle" class="control-label"></label>
@@ -42,13 +45,14 @@
             </div>
             <div class="form-group">
                 <label asp-for="NumberOfPeople" class="control-label"></label>
-                <input asp-for="NumberOfPeople" class="form-control" />
+                <input id="NumberOfPeople" asp-for="NumberOfPeople" class="form-control" />
+                <span id="NumberOfPeople-error" style="color: red"></span>
                 <span asp-validation-for="NumberOfPeople" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <div class="checkbox">
                     <label>
-                        <input asp-for="UseTablesAndChairs" /> @Html.DisplayNameFor(model => model.UseTablesAndChairs)
+                        <input id="UseTablesAndChairs" asp-for="UseTablesAndChairs" /> @Html.DisplayNameFor(model => model.UseTablesAndChairs)
                     </label>
                 </div>
             </div>
@@ -69,11 +73,11 @@
             </div>
         </form>
     </div>
-    <div class="col-md-4">
-
+    <div id="testPrice" class="col-md-4">
+        @Model.Price
     </div>
-    <div class="col-md-4">
-        <h4><b>Total Price: </b>$@Model.TotalPrice</h4>
+    <div id="refTable" class="col-md-4">
+        @Html.Partial("_PartialPrice", Model.Price)
     </div>
 </div>
 
@@ -81,4 +85,92 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+<script>
+
+
+        $(document).ready(function () {
+            console.log('ready')
+
+            let currentPrice = @Model.Price;
+            //let numberOfPeople = @Model.NumberOfPeople;
+            let chairPricePerPerson = 5;
+
+            $('#UseTablesAndChairs').change(function () {
+                if ($(this).prop('checked')) {
+
+                    let numberOfPeople = $('#NumberOfPeople').val()
+
+                    if (numberOfPeople < 1) {
+                        $('#NumberOfPeople-error').text("Please e mark the number of people")
+                    }
+                    console.log('UseTablesAndChairs checkbox  - checked')
+                        currentPrice = currentPrice + (numberOfPeople * chairPricePerPerson);
+                        UpdatePriceModelAndPartialView(currentPrice)
+                      
+                }
+                else {
+                    console.log('UseTablesAndChairs checkbox  - not checked')
+
+                    currentPrice = @Model.Price;
+                    UpdatePriceModelAndPartialView(currentPrice)
+                }
+            })
+
+            $('#NumberOfPeople').change(function () {
+                if ($('#UseTablesAndChairs').prop('checked')) {
+
+                    let numberOfPeople = $('#NumberOfPeople').val()
+                   // console.log(numberOfPeople)
+
+                    if (numberOfPeople < 1) {
+                        $('#NumberOfPeople-error').text("Please e mark the number of people")
+                    } else {
+                        $('#NumberOfPeople-error').text("")
+
+                    }
+                    //console.log('UseTablesAndChairs checkbox  - checked')
+                    currentPrice = @Model.Price + (numberOfPeople * chairPricePerPerson);
+                    UpdatePriceModelAndPartialView(currentPrice)
+
+                }
+
+            })
+
+    });
+
+
+
+        function UpdatePriceModelAndPartialView(price) {
+
+            console.log('price: ' + price)
+            $('#PriceInput').val(price)
+
+            $.ajax({
+                type: "Post",
+                url: "/Events/UpdatePriceView",
+                data: {
+                    TotalPrice: price,
+
+                },
+                success: function (data) {
+                    partialViewResult(data)
+                },
+                error: function (error) {
+                    alert('failed');
+                }
+            })
+
+        }
+
+
+        function partialViewResult(data) {
+           // $('#PriceInput').val(data.TotalPrice);
+            $("#refTable").html(data);
+
+        }
+
+
+</script>
 }
