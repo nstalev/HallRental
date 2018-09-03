@@ -95,7 +95,9 @@
 
             let currentPrice = @Model.Price;
             //let numberOfPeople = @Model.NumberOfPeople;
-            let chairPricePerPerson = 5;
+            let chairCostPerPerson = @Model.ChairTableCostPerPerson;
+
+            let hallCapacity = @Model.HallCapacity;
 
             $('#UseTablesAndChairs').change(function () {
                 if ($(this).prop('checked')) {
@@ -106,9 +108,9 @@
                         $('#NumberOfPeople-error').text("Please e mark the number of people")
                     }
                     console.log('UseTablesAndChairs checkbox  - checked')
-                        currentPrice = currentPrice + (numberOfPeople * chairPricePerPerson);
+                        currentPrice = currentPrice + (numberOfPeople * chairCostPerPerson);
                         UpdatePriceModelAndPartialView(currentPrice)
-                      
+
                 }
                 else {
                     console.log('UseTablesAndChairs checkbox  - not checked')
@@ -126,12 +128,21 @@
 
                     if (numberOfPeople < 1) {
                         $('#NumberOfPeople-error').text("Please e mark the number of people")
+                        return;
+                    } else {
+                        $('#NumberOfPeople-error').text("")
+
+                    }
+
+                    if (numberOfPeople > hallCapacity) {
+                        $('#NumberOfPeople-error').text(`The Hall capacity is ${hallCapacity} people`)
+                        return;
                     } else {
                         $('#NumberOfPeople-error').text("")
 
                     }
                     //console.log('UseTablesAndChairs checkbox  - checked')
-                    currentPrice = @Model.Price + (numberOfPeople * chairPricePerPerson);
+                    currentPrice = @Model.Price + (numberOfPeople * chairCostPerPerson);
                     UpdatePriceModelAndPartialView(currentPrice)
 
                 }

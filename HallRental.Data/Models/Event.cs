@@ -25,12 +25,23 @@ namespace HallRental.Data.Models
         public string PhoneNumber { get; set; }
 
         [Required]
+        [Range(1, int.MaxValue)]
         public int NumberOfPeople { get; set; }
 
         [Required]
+        [MaxLength(30)]
+        [MinLength(3)]
         public string EventTitle { get; set; }
 
+
         public string Description { get; set; }
+
+        public bool WithCHairsAndTable { get; set; }
+
+        [Required]
+        [Range(0, 100)]
+        public int SecurityGuards { get; set; }
+
 
         public bool IsConfirmed { get; set; }
 

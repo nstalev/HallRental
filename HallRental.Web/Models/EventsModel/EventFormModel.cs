@@ -32,5 +32,12 @@ namespace HallRental.Web.Models.EventsModel
 
         [Required]
         public decimal TotalPrice { get; set; }
+
+        [Required]
+        [Range(0, 100)]
+        public int SecurityGuards { get; set; }
+
+        public bool WithCHairsAndTable { get; set; }
+
     }
 }

@@ -16,7 +16,7 @@ namespace HallRental.Services.Implementations
             this.db = db;
         }
 
-        public void Create(string email, string phoneNumber, string description, string eventTitle, DateTime evetnDate, RentTimeEnum rentTime, int numberOfPeople, decimal totalPrice)
+        public void Create(string email, string phoneNumber, string description, string eventTitle, DateTime evetnDate, RentTimeEnum rentTime, int numberOfPeople, decimal totalPrice, int securityGuards, bool withCHairsAndTable)
         {
             var newEvent = new Event()
             {
@@ -29,7 +29,9 @@ namespace HallRental.Services.Implementations
                 NumberOfPeople = numberOfPeople,
                 TotalPrice = totalPrice,
                 IsConfirmed = false,
-                HallId = 9
+                HallId = 4,
+                SecurityGuards = securityGuards,
+                WithCHairsAndTable = withCHairsAndTable
 
             };
 

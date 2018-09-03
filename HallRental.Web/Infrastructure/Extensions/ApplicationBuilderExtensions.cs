@@ -83,7 +83,11 @@ namespace HallRental.Web.Infrastructure.Extensions
                              Saturday8amTo3pm = 1250,
                              Saturday4pmToMN = 1750,
                              Sunday8amTo3pm = 750,
-                             Sunday4pmToMN = 1750
+                             Sunday4pmToMN = 1750,
+                             ChairTablePerPersonCost =5,
+                             HallCapacity = 375,
+                             SecurityGuardCostPerHour = 20
+
                          };
 
                          Hall grandFoyerOnly = new Hall
@@ -95,7 +99,10 @@ namespace HallRental.Web.Infrastructure.Extensions
                              Saturday8amTo3pm = 500,
                              Saturday4pmToMN = 750,
                              Sunday8amTo3pm = 250,
-                             Sunday4pmToMN = 750
+                             Sunday4pmToMN = 750,
+                             ChairTablePerPersonCost = 5,
+                             HallCapacity = 100,
+                             SecurityGuardCostPerHour = 20
                          };
 
                          Hall conferenceMediaRoom = new Hall
@@ -107,7 +114,10 @@ namespace HallRental.Web.Infrastructure.Extensions
                              Saturday8amTo3pm = 500,
                              Saturday4pmToMN = 750,
                              Sunday8amTo3pm = 250,
-                             Sunday4pmToMN = 750
+                             Sunday4pmToMN = 750,
+                             ChairTablePerPersonCost = 5,
+                             HallCapacity = 60,
+                             SecurityGuardCostPerHour = 20
                          };
 
                          await db.Halls.AddAsync(grandFoyerAndBallRoom);

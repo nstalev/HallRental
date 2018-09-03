@@ -55,7 +55,9 @@ namespace HallRental.Web.Controllers
                                eventModel.EventDate,
                                eventModel.RentTime,
                                eventModel.NumberOfPeople,
-                               eventModel.TotalPrice
+                               eventModel.TotalPrice,
+                               eventModel.SecurityGuards,
+                               eventModel.WithCHairsAndTable
                                );
 
             TempData.AddSuccessMessage("Your event request has been successfully submitted");
@@ -123,9 +125,11 @@ namespace HallRental.Web.Controllers
                 HallId = dateCheckModel.HallId,
                 HallName = hallName,
                 RentTimeDisplay = rentTimeDisplay,
-                Price = startPrice
-                
-
+                Price = startPrice,
+                SecurityGuardCostPerHour = currentHall.SecurityGuardCostPerHour,
+                HallCapacity = currentHall.HallCapacity,
+                ChairTableCostPerPerson = currentHall.ChairTablePerPersonCost
+               
             };
 
             return View(priceCheckViewModel);

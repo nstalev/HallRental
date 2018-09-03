@@ -40,10 +40,16 @@
 
         public bool UseTablesAndChairs { get; set; }
 
+        public int HallCapacity { get; set; }
+
 
         public bool SecurityService { get; set; }
 
         public int SecurityServiceHours { get; set; }
+
+        public decimal SecurityGuardCostPerHour { get; set; }
+
+        public decimal ChairTableCostPerPerson { get; set; }
 
         public decimal Price { get; set; }
 

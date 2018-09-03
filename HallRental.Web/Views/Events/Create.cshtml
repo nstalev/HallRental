@@ -52,6 +52,18 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="SecurityGuards" class="control-label"></label>
+                <input asp-for="SecurityGuards" class="form-control" />
+                <span asp-validation-for="SecurityGuards" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="WithCHairsAndTable" /> @Html.DisplayNameFor(model => model.WithCHairsAndTable)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
                 <label asp-for="TotalPrice" class="control-label"></label>
                 <input asp-for="TotalPrice" class="form-control" />
                 <span asp-validation-for="TotalPrice" class="text-danger"></span>
