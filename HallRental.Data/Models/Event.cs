@@ -42,6 +42,9 @@ namespace HallRental.Data.Models
         [Range(0, 100)]
         public int SecurityGuards { get; set; }
 
+        [Range(0, 12)]
+        public double SecurityServiceHoursPerGuard { get; set; }
+
 
         public bool IsConfirmed { get; set; }
 

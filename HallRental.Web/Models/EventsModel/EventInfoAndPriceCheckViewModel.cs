@@ -43,9 +43,12 @@
         public int HallCapacity { get; set; }
 
 
-        public bool SecurityService { get; set; }
+        [Required]
+        [Range(0, 20)]
+        public int SecurityGuards { get; set; }
 
-        public int SecurityServiceHours { get; set; }
+        [Range(0, 12)]
+        public double SecurityServiceHoursPerGuard { get; set; }
 
         public decimal SecurityGuardCostPerHour { get; set; }
 

@@ -57,16 +57,16 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="SecurityService" /> @Html.DisplayNameFor(model => model.SecurityService)
-                    </label>
-                </div>
+                <label asp-for="SecurityGuards" class="control-label"></label>
+                <input id="SecurityGuards" asp-for="SecurityGuards" class="form-control" />
+                <span asp-validation-for="SecurityGuards" class="text-danger"></span>
+                <span id="SecurityGuards-error" style="color: red"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SecurityServiceHours" class="control-label"></label>
-                <input asp-for="SecurityServiceHours" class="form-control" />
-                <span asp-validation-for="SecurityServiceHours" class="text-danger"></span>
+                <label asp-for="SecurityServiceHoursPerGuard" class="control-label"></label>
+                <input id="SecServiceHoursPerGuard" asp-for="SecurityServiceHoursPerGuard" class="form-control" />
+                <span asp-validation-for="SecurityServiceHoursPerGuard" class="text-danger"></span>
+                <span id="SecServiceHours-error" style="color: red"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Continue" class="btn btn-default" />
@@ -74,7 +74,6 @@
         </form>
     </div>
     <div id="testPrice" class="col-md-4">
-        @Model.Price
     </div>
     <div id="refTable" class="col-md-4">
         @Html.Partial("_PartialPrice", Model.Price)
@@ -94,15 +93,27 @@
             console.log('ready')
 
             let currentPrice = @Model.Price;
-            //let numberOfPeople = @Model.NumberOfPeople;
             let chairCostPerPerson = @Model.ChairTableCostPerPerson;
-
             let hallCapacity = @Model.HallCapacity;
 
+            let securityGuardCostPerHour = @Model.SecurityGuardCostPerHour;
+
+
+
+            //Table and Chairs Price Calcualtion
+
             $('#UseTablesAndChairs').change(function () {
+                let numberOfPeople = $('#NumberOfPeople').val()
+
+                if (numberOfPeople > hallCapacity) {
+                    $('#NumberOfPeople-error').text(`The Hall capacity is ${hallCapacity} people`)
+                    return;
+                } else {
+                    $('#NumberOfPeople-error').text("")
+                }
+
                 if ($(this).prop('checked')) {
 
-                    let numberOfPeople = $('#NumberOfPeople').val()
 
                     if (numberOfPeople < 1) {
                         $('#NumberOfPeople-error').text("Please e mark the number of people")
@@ -121,10 +132,16 @@
             })
 
             $('#NumberOfPeople').change(function () {
-                if ($('#UseTablesAndChairs').prop('checked')) {
+                let numberOfPeople = $('#NumberOfPeople').val()
 
-                    let numberOfPeople = $('#NumberOfPeople').val()
-                   // console.log(numberOfPeople)
+                if (numberOfPeople > hallCapacity) {
+                    $('#NumberOfPeople-error').text(`The Hall capacity is ${hallCapacity} people`)
+                    return;
+                } else {
+                    $('#NumberOfPeople-error').text("")
+                }
+
+                if ($('#UseTablesAndChairs').prop('checked')) {
 
                     if (numberOfPeople < 1) {
                         $('#NumberOfPeople-error').text("Please e mark the number of people")
@@ -133,14 +150,7 @@
                         $('#NumberOfPeople-error').text("")
 
                     }
-
-                    if (numberOfPeople > hallCapacity) {
-                        $('#NumberOfPeople-error').text(`The Hall capacity is ${hallCapacity} people`)
-                        return;
-                    } else {
-                        $('#NumberOfPeople-error').text("")
-
-                    }
+                 
                     //console.log('UseTablesAndChairs checkbox  - checked')
                     currentPrice = @Model.Price + (numberOfPeople * chairCostPerPerson);
                     UpdatePriceModelAndPartialView(currentPrice)
@@ -148,6 +158,47 @@
                 }
 
             })
+
+
+            //Security Price Calcualtion
+
+
+            $('#SecurityGuards').change(() => {
+                let securityGuards = $('#SecurityGuards').val();
+                let secHoursPerGuard = $('#SecServiceHoursPerGuard').val();
+
+
+                if (securityGuards == 0 && secHoursPerGuard != 0) {
+                    $('#SecurityGuards-error').text('Please e fill the security guards Input');
+
+                } else {
+                    $('#SecurityGuards-error').text('');
+
+                }
+                               
+
+            })
+
+
+            $('#SecServiceHoursPerGuard').change(() => {
+                let securityGuards = $('#SecurityGuards').val();
+                let secHoursPerGuard = $('#SecServiceHoursPerGuard').val();
+
+                if (secHoursPerGuard < 0) {
+                   // $('#SecServiceHours-error').text('The value cannot be negative')
+                    return
+                }
+
+
+                if (securityGuards == 0 ) {
+                    $('#SecurityGuards-error').text('Please e fill the security guards Input');
+                } else {
+                    $('#SecurityGuards-error').text('');
+                }
+
+            })
+
+
 
     });
 
