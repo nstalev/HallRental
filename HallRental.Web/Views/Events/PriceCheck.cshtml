@@ -26,7 +26,7 @@
                 <input asp-for="RentTime" class="form-control" type="hidden" />
             </div>
             <div class="form-group">
-                <input id="PriceInput" asp-for="Price" class="form-control" type="hidden" />
+                <input id="PriceInput" asp-for="TotalPrice" class="form-control" type="hidden" />
             </div>
             <div class="form-group">
                 <label asp-for="EventTitle" class="control-label"></label>
@@ -76,7 +76,7 @@
     <div id="testPrice" class="col-md-4">
     </div>
     <div id="refTable" class="col-md-4">
-        @Html.Partial("_PartialPrice", Model.Price)
+        @Html.Partial("_PartialPrice", Model.TotalPrice)
     </div>
 </div>
 
@@ -92,7 +92,13 @@
         $(document).ready(function () {
             console.log('ready')
 
-            let currentPrice = @Model.Price;
+
+            let tablesAndChairsPrice = 0;
+            let securityPrice = 0;
+
+            let startPrice = @Model.TotalPrice
+
+            let totalPrice = @Model.TotalPrice;
             let chairCostPerPerson = @Model.ChairTableCostPerPerson;
             let hallCapacity = @Model.HallCapacity;
 
@@ -119,15 +125,20 @@
                         $('#NumberOfPeople-error').text("Please e mark the number of people")
                     }
                     console.log('UseTablesAndChairs checkbox  - checked')
-                        currentPrice = currentPrice + (numberOfPeople * chairCostPerPerson);
-                        UpdatePriceModelAndPartialView(currentPrice)
+                    tablesAndChairsPrice = numberOfPeople * chairCostPerPerson;
+
+                        totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
+
+                        UpdatePriceModelAndPartialView(totalPrice)
 
                 }
                 else {
                     console.log('UseTablesAndChairs checkbox  - not checked')
+                    tablesAndChairsPrice = 0;
 
-                    currentPrice = @Model.Price;
-                    UpdatePriceModelAndPartialView(currentPrice)
+                    totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
+
+                    UpdatePriceModelAndPartialView(totalPrice)
                 }
             })
 
@@ -150,10 +161,12 @@
                         $('#NumberOfPeople-error').text("")
 
                     }
-                 
+
                     //console.log('UseTablesAndChairs checkbox  - checked')
-                    currentPrice = @Model.Price + (numberOfPeople * chairCostPerPerson);
-                    UpdatePriceModelAndPartialView(currentPrice)
+                    tablesAndChairsPrice = numberOfPeople * chairCostPerPerson;
+
+                    totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
+                    UpdatePriceModelAndPartialView(totalPrice)
 
                 }
 
@@ -167,15 +180,20 @@
                 let securityGuards = $('#SecurityGuards').val();
                 let secHoursPerGuard = $('#SecServiceHoursPerGuard').val();
 
+                securityPrice = securityGuards * secHoursPerGuard * securityGuardCostPerHour
 
-                if (securityGuards == 0 && secHoursPerGuard != 0) {
-                    $('#SecurityGuards-error').text('Please e fill the security guards Input');
-
+                console.log(securityPrice)
+                if (securityGuards == 0) {
+                    securityPrice = 0;
+                    if (secHoursPerGuard != 0) {
+                        $('#SecurityGuards-error').text('Please e fill the security guards Input');
+                    }
                 } else {
                     $('#SecurityGuards-error').text('');
 
                 }
-                               
+                 totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
+                  UpdatePriceModelAndPartialView(totalPrice)
 
             })
 
@@ -185,21 +203,26 @@
                 let secHoursPerGuard = $('#SecServiceHoursPerGuard').val();
 
                 if (secHoursPerGuard < 0) {
-                   // $('#SecServiceHours-error').text('The value cannot be negative')
-                    return
+                    securityPrice = 0;
                 }
 
 
                 if (securityGuards == 0 ) {
                     $('#SecurityGuards-error').text('Please e fill the security guards Input');
+                    securityPrice = 0;
                 } else {
                     $('#SecurityGuards-error').text('');
                 }
 
+
+                securityPrice = securityGuards * secHoursPerGuard * securityGuardCostPerHour
+
+                totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
+                UpdatePriceModelAndPartialView(totalPrice)
+
             })
 
-
-
+u
     });
 
 

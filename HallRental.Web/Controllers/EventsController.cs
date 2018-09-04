@@ -125,7 +125,7 @@ namespace HallRental.Web.Controllers
                 HallId = dateCheckModel.HallId,
                 HallName = hallName,
                 RentTimeDisplay = rentTimeDisplay,
-                Price = startPrice,
+                TotalPrice = startPrice,
                 SecurityGuardCostPerHour = currentHall.SecurityGuardCostPerHour,
                 HallCapacity = currentHall.HallCapacity,
                 ChairTableCostPerPerson = currentHall.ChairTablePerPersonCost
