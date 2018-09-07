@@ -1,5 +1,24 @@
-﻿@model decimal
+﻿@model EventPriceModel
 
 
-<h4><b>Total Price: </b>$@Model</h4>
+<div>
+    <p>Hall Rent Price: $@Model.HallPrice</p>
+    @if (Model.TablesAndChairsPrice > 0)
+    {
+        <p>Using tables and chairs Price: $@Model.TablesAndChairsPrice</p>
+
+    }
+    @if (Model.SecurityPrice > 0)
+    {
+        <p>Security service Price:  $@Model.SecurityPrice</p>
+
+    }
+
+
+    <h4><b>Total Price: </b>$@Model.TotalPrice</h4>
+
+</div>
+
+
+
 

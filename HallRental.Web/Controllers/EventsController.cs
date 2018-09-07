@@ -106,17 +106,23 @@ namespace HallRental.Web.Controllers
 
             Hall currentHall = this.halls.GetHallById(dateCheckModel.HallId);
             DayOfWeek eventDateOfWeek = eventDate.DayOfWeek;
+            
+            decimal hallRentPrice = dateCheckModel.TotalPrice;
 
-            decimal startPrice = dateCheckModel.TotalPrice;
-
-            if (startPrice == 0)
+            if (hallRentPrice == 0)
             {
-                startPrice = CheckHallStartPrice(currentHall, eventDateOfWeek, dateCheckModel.RentTime);
+                hallRentPrice = CheckHallStartPrice(currentHall, eventDateOfWeek, dateCheckModel.RentTime);
 
             }
             string hallName = currentHall.Name;
 
             string rentTimeDisplay = dateCheckModel.RentTime.ToString();
+
+            var eventPriceModel = new EventPriceModel()
+            {
+                HallPrice = hallRentPrice,
+                TotalPrice = hallRentPrice,
+            };
 
             var priceCheckViewModel = new EventInfoAndPriceCheckViewModel()
             {
@@ -125,10 +131,13 @@ namespace HallRental.Web.Controllers
                 HallId = dateCheckModel.HallId,
                 HallName = hallName,
                 RentTimeDisplay = rentTimeDisplay,
-                TotalPrice = startPrice,
+                HallRentPrice = hallRentPrice,
+                TotalPrice = hallRentPrice,
                 SecurityGuardCostPerHour = currentHall.SecurityGuardCostPerHour,
                 HallCapacity = currentHall.HallCapacity,
-                ChairTableCostPerPerson = currentHall.ChairTablePerPersonCost
+                ChairTableCostPerPerson = currentHall.ChairTablePerPersonCost,
+                EventPriceModel = eventPriceModel
+                
                
             };
 
@@ -136,10 +145,10 @@ namespace HallRental.Web.Controllers
         }
 
 
-        public IActionResult UpdatePriceView (EventPriceModel model)
+        public IActionResult UpdatePriceView (EventPriceModel priceModel)
         {
 
-            return PartialView("_PartialPrice", model.TotalPrice);
+            return PartialView("_PartialPrice", priceModel);
         }
 
 

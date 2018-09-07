@@ -79,7 +79,7 @@
     <div id="testPrice" class="col-md-4">
     </div>
     <div id="refTable" class="col-md-4">
-        @Html.Partial("_PartialPrice", Model.TotalPrice)
+        @Html.Partial("_PartialPrice", Model.EventPriceModel)
     </div>
 </div>
 
@@ -132,7 +132,8 @@
 
                         totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
 
-                        UpdatePriceModelAndPartialView(totalPrice)
+                    UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice)
+
 
                 }
                 else {
@@ -141,7 +142,8 @@
 
                     totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
 
-                    UpdatePriceModelAndPartialView(totalPrice)
+                    UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice)
+
                 }
             })
 
@@ -169,7 +171,8 @@
                     tablesAndChairsPrice = numberOfPeople * chairCostPerPerson;
 
                     totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
-                    UpdatePriceModelAndPartialView(totalPrice)
+                    UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice)
+
 
                 }
 
@@ -195,8 +198,9 @@
                     $('#SecurityGuards-error').text('');
 
                 }
-                 totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
-                  UpdatePriceModelAndPartialView(totalPrice)
+                totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
+                UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice)
+
 
             })
 
@@ -226,25 +230,28 @@
                 securityPrice = securityGuards * secHoursPerGuard * securityGuardCostPerHour
 
                 totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
-                UpdatePriceModelAndPartialView(totalPrice)
+                UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice)
 
             })
 
-u
+
     });
 
 
 
-        function UpdatePriceModelAndPartialView(price) {
+    function UpdatePriceModelAndPartialView(totalPrice, securityPrice, tabAndChairsPrice) {
 
-            console.log('price: ' + price)
-            $('#PriceInput').val(price)
+        console.log('price: ' + totalPrice)
+        $('#PriceInput').val(totalPrice)
 
             $.ajax({
                 type: "Post",
                 url: "/Events/UpdatePriceView",
                 data: {
-                    TotalPrice: price,
+                    HallPrice : @Model.HallRentPrice,
+                    TotalPrice: totalPrice,
+                    SecurityPrice: securityPrice,
+                    TablesAndChairsPrice : tabAndChairsPrice
 
                 },
                 success: function (data) {

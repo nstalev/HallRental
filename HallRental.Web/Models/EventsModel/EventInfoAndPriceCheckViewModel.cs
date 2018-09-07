@@ -54,7 +54,11 @@
 
         public decimal ChairTableCostPerPerson { get; set; }
 
+        public decimal HallRentPrice { get; set; }
+
         public decimal TotalPrice { get; set; }
+
+        public EventPriceModel EventPriceModel { get; set; }
 
     }
 }
