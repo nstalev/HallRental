@@ -1,0 +1,24 @@
+﻿@model SummaryAndPerInfoVM
+
+@{
+    ViewData["Title"] = "PersonalInfo";
+}
+
+<h2>Summary</h2>
+<hr />
+
+<h4><b>Hall: </b>@Model.HallName</h4>
+<h4><b>Date: </b>@Model.Date.ToShortDateString()</h4>
+<h4><b>Time: </b>@Model.RentTimeDisplay</h4>
+
+<hr />
+
+
+<h4><b>Hall rent price: </b>$@Model.HallRentPrice</h4>
+<h4><b>Tables and chairs price: </b>$@Model.TablesAndChairsPrice</h4>
+<h4><b>Security Price: </b>$@Model.SecurityPrice</h4>
+<h4><b>Total Price: </b>$@Model.TotalPrice</h4>
+
+
+
+

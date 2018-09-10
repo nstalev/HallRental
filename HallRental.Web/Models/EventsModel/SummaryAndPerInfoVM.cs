@@ -1,11 +1,11 @@
-﻿namespace HallRental.Web.Models.EventsModel
+﻿
+namespace HallRental.Web.Models.EventsModel
 {
     using System;
     using System.ComponentModel.DataAnnotations;
     using static HallRental.Data.Enums.Enums;
 
-
-    public class EventInfoAndPriceCheckViewModel
+    public class SummaryAndPerInfoVM
     {
 
         [DataType(DataType.Date)]
@@ -15,44 +15,28 @@
 
         public string HallName { get; set; }
 
-        public string RentTimeDisplay { get; set; }
-
-        [Required]
         public RentTimeEnum RentTime { get; set; }
 
-        [Required]
-        [Display(Name ="Event Title")]
+        public string RentTimeDisplay { get; set; }
+
         public string EventTitle { get; set; }
 
         [DataType(DataType.Time)]
-        [Display(Name = "Event Start")]
         public DateTime? EventStart { get; set; }
 
         [DataType(DataType.Time)]
-        [Display(Name = "Event End")]
         public DateTime? EventEnd { get; set; }
 
-
-        [Required]
-        [Range(1, int.MaxValue, ErrorMessage = "Please mark a number of people")]
-        [Display(Name = "Number of People")]
         public int NumberOfPeople { get; set; }
 
         public bool UseTablesAndChairs { get; set; }
 
-        public int HallCapacity { get; set; }
 
-
-        [Required]
-        [Range(0, 20)]
         public int SecurityGuards { get; set; }
 
-        [Range(0, 12)]
         public double SecurityServiceHoursPerGuard { get; set; }
 
         public decimal SecurityGuardCostPerHour { get; set; }
-
-        public decimal ChairTableCostPerPerson { get; set; }
 
         public decimal HallRentPrice { get; set; }
 
@@ -60,10 +44,7 @@
 
         public decimal SecurityPrice { get; set; }
 
+
         public decimal TotalPrice { get; set; }
-
-        public EventPriceModel EventPriceModel { get; set; }
-
-
     }
 }

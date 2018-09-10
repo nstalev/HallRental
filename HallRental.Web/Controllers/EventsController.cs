@@ -86,7 +86,7 @@ namespace HallRental.Web.Controllers
             return View(vm);
         }
 
-
+        [Authorize]
         public IActionResult PriceCheck(DateCheckFormModel dateCheckModel)
         {
 
@@ -106,7 +106,7 @@ namespace HallRental.Web.Controllers
 
             Hall currentHall = this.halls.GetHallById(dateCheckModel.HallId);
             DayOfWeek eventDateOfWeek = eventDate.DayOfWeek;
-            
+
             decimal hallRentPrice = dateCheckModel.TotalPrice;
 
             if (hallRentPrice == 0)
@@ -137,30 +137,58 @@ namespace HallRental.Web.Controllers
                 HallCapacity = currentHall.HallCapacity,
                 ChairTableCostPerPerson = currentHall.ChairTablePerPersonCost,
                 EventPriceModel = eventPriceModel
-                
-               
+
             };
 
             return View(priceCheckViewModel);
         }
 
-        public IActionResult UpdatePriceView (EventPriceModel priceModel)
+
+        [Authorize]
+        public IActionResult UpdatePriceView(EventPriceModel priceModel)
         {
 
             return PartialView("_PartialPrice", priceModel);
         }
 
 
-
-        public IActionResult PersonalInfo(PersonalInformationViewModel personalInfo)
+        [Authorize]
+        public IActionResult Summary(SummaryAndPersonalInfoModel summaryModel)
         {
 
+            if (summaryModel.HallId == 0 || summaryModel.Date == null)
+            {
+                return NotFound();
+            }
 
-            return View();
+            Hall currentHall = this.halls.GetHallById(summaryModel.HallId);
+            string rentTimeDisplay = summaryModel.RentTime.ToString();
+
+
+            var summaryVM = new SummaryAndPerInfoVM()
+            {
+                HallId = summaryModel.HallId,
+                HallName = currentHall.Name,
+                Date = summaryModel.Date,
+                RentTime = summaryModel.RentTime,
+                RentTimeDisplay = rentTimeDisplay,
+                EventEnd = summaryModel.EventEnd,
+                EventStart = summaryModel.EventStart,
+                EventTitle = summaryModel.EventTitle,
+                NumberOfPeople= summaryModel.NumberOfPeople,
+
+                HallRentPrice = summaryModel.HallRentPrice,
+                TablesAndChairsPrice = summaryModel.TablesAndChairsPrice,
+                SecurityPrice = summaryModel.SecurityPrice,
+                TotalPrice = summaryModel.TotalPrice
+            };
+
+
+            return View(summaryVM);
         }
 
 
-      
+
 
         public JsonResult CheckCurrentDate(DateCheckJsonModel dateModel)
         {
@@ -187,7 +215,7 @@ namespace HallRental.Web.Controllers
 
             if (rentTime == RentTimeEnum.EightAMtoThreePM)
             {
-                if (eventDate == DayOfWeek.Monday 
+                if (eventDate == DayOfWeek.Monday
                    || eventDate == DayOfWeek.Tuesday
                    || eventDate == DayOfWeek.Wednesday
                    || eventDate == DayOfWeek.Thursday

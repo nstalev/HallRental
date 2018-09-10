@@ -6,7 +6,7 @@ namespace HallRental.Web.Models.EventsModel
     using System.ComponentModel.DataAnnotations;
     using static HallRental.Data.Enums.Enums;
 
-    public class PersonalInformationViewModel
+    public class SummaryAndPersonalInfoModel
     {
 
         [DataType(DataType.Date)]
@@ -34,13 +34,19 @@ namespace HallRental.Web.Models.EventsModel
 
         public bool UseTablesAndChairs { get; set; }
 
-        
 
         public int SecurityGuards { get; set; }
 
         public double SecurityServiceHoursPerGuard { get; set; }
 
         public decimal SecurityGuardCostPerHour { get; set; }
+
+        public decimal HallRentPrice { get; set; }
+
+
+        public decimal TablesAndChairsPrice { get; set; }
+
+        public decimal SecurityPrice { get; set; }
 
 
         public decimal TotalPrice { get; set; }

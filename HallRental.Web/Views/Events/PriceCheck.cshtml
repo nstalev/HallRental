@@ -14,7 +14,7 @@
 <div class="row">
     <div class="col-md-4">
 
-        <form asp-action="PersonalInfo">
+        <form asp-action="Summary" id="submitForm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <input asp-for="Date" class="form-control" type="hidden" />
@@ -26,7 +26,16 @@
                 <input asp-for="RentTime" class="form-control" type="hidden" />
             </div>
             <div class="form-group">
-                <input  asp-for="SecurityGuardCostPerHour" class="form-control" type="hidden" />
+                <input asp-for="SecurityGuardCostPerHour" class="form-control" type="hidden" />
+            </div>
+            <div class="form-group">
+                <input id="HallRentPriceInput" asp-for="HallRentPrice" class="form-control" type="hidden" />
+            </div>
+            <div class="form-group">
+                <input id="TablesAndChairsPriceInput" asp-for="TablesAndChairsPrice" class="form-control" type="hidden" />
+            </div>
+            <div class="form-group">
+                <input id="SecurityPriceInput" asp-for="SecurityPrice" class="form-control" type="hidden" />
             </div>
             <div class="form-group">
                 <input id="PriceInput" asp-for="TotalPrice" class="form-control" type="hidden" />
@@ -107,7 +116,8 @@
 
             let securityGuardCostPerHour = @Model.SecurityGuardCostPerHour;
 
-
+            let correctDataTabAndCh = true;
+            let correctDataSecurity = true;
 
             //Table and Chairs Price Calcualtion
 
@@ -116,9 +126,12 @@
 
                 if (numberOfPeople > hallCapacity) {
                     $('#NumberOfPeople-error').text(`The Hall capacity is ${hallCapacity} people`)
+                    correctDataTabAndCh = false;
                     return;
                 } else {
                     $('#NumberOfPeople-error').text("")
+                    correctDataTabAndCh = true;
+
                 }
 
                 if ($(this).prop('checked')) {
@@ -152,9 +165,12 @@
 
                 if (numberOfPeople > hallCapacity) {
                     $('#NumberOfPeople-error').text(`The Hall capacity is ${hallCapacity} people`)
+                    tablesAndChairsPrice = 0;
+                    correctDataTabAndCh = false;
                     return;
                 } else {
                     $('#NumberOfPeople-error').text("")
+                    correctDataTabAndCh = true;
                 }
 
                 if ($('#UseTablesAndChairs').prop('checked')) {
@@ -193,9 +209,12 @@
                     securityPrice = 0;
                     if (secHoursPerGuard != 0) {
                         $('#SecurityGuards-error').text('Please e fill the security guards Input');
+                        correctDataSecurity = false;
+                        return;
                     }
                 } else {
                     $('#SecurityGuards-error').text('');
+                    correctDataSecurity = true;
 
                 }
                 totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
@@ -216,9 +235,12 @@
 
                 if (securityGuards == 0 ) {
                     $('#SecurityGuards-error').text('Please e fill the security guards Input');
+                    correctDataSecurity = false;
                     securityPrice = 0;
+                    return;
                 } else {
                     $('#SecurityGuards-error').text('');
+                    correctDataSecurity = true
                 }
 
                 if (securityGuards == 0 && secHoursPerGuard ==0) {
@@ -235,14 +257,28 @@
             })
 
 
+
+            //submit button
+
+            $("#submitForm").submit(function (e) { 
+                if (correctDataSecurity == false || correctDataTabAndCh == false) 
+                {
+                    e.preventDefault(); 
+                }
+            })
+
+
+
     });
 
 
 
-    function UpdatePriceModelAndPartialView(totalPrice, securityPrice, tabAndChairsPrice) {
+    function UpdatePriceModelAndPartialView(totalPrice, secuPrice, tabAndChairsPrice) {
 
-        console.log('price: ' + totalPrice)
         $('#PriceInput').val(totalPrice)
+        $('#TablesAndChairsPriceInput').val(tabAndChairsPrice)
+        $('#SecurityPriceInput').val(secuPrice)
+
 
             $.ajax({
                 type: "Post",
@@ -250,7 +286,7 @@
                 data: {
                     HallPrice : @Model.HallRentPrice,
                     TotalPrice: totalPrice,
-                    SecurityPrice: securityPrice,
+                    SecurityPrice: secuPrice,
                     TablesAndChairsPrice : tabAndChairsPrice
 
                 },

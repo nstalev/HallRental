@@ -35,13 +35,30 @@
                 </select>
             </div>
             <input type="button" onclick="CheckDateAndTime()" value="Check" class="btn btn-default" />
-            <input type="submit" id="dateCheck-submit-btn" class="btn btn-primary" value="Continue" style="display: none" />
+            @if (User.Identity.IsAuthenticated)
+            {
+                <input type="submit" id="dateCheck-submit-btn" class="btn btn-primary" value="Continue" style="display: none" />
+            }
         </form>
 
     </div>
 
     <div class="col-md-6">
+        <div>
+
+        </div>
         <h2 id="eventDateResult"></h2>
+        <hr />
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <span>
+                To Continue with Price Check and Reservevation, please <a asp-controller="Account"
+                                                    asp-action="Login"
+                                                    asp-route-returnUrl="@Context.Request.Path">login</a> in your account
+            </span>
+        }
+        
+
     </div>
 </div>
 
