@@ -12,6 +12,7 @@ namespace HallRental.Web.Controllers
     using HallRental.Data.Models;
     using HallRental.Data.Enums;
     using static HallRental.Data.Enums.Enums;
+    using Microsoft.AspNetCore.Authorization;
 
     public class EventsController : Controller
     {
@@ -86,7 +87,6 @@ namespace HallRental.Web.Controllers
         }
 
 
-
         public IActionResult PriceCheck(DateCheckFormModel dateCheckModel)
         {
 
@@ -143,7 +143,6 @@ namespace HallRental.Web.Controllers
 
             return View(priceCheckViewModel);
         }
-
 
         public IActionResult UpdatePriceView (EventPriceModel priceModel)
         {
