@@ -23,10 +23,10 @@ namespace HallRental.Web.Models.EventsModel
 
 
         [DataType(DataType.Time)]
-        public DateTime? EventStart { get; set; }
+        public DateTime EventStart { get; set; }
 
         [DataType(DataType.Time)]
-        public DateTime? EventEnd { get; set; }
+        public DateTime EventEnd { get; set; }
 
 
         [Required]

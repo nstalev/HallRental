@@ -1,6 +1,7 @@
 ﻿
 namespace HallRental.Services
 {
+    using HallRental.Data.Models;
     using System;
     using static HallRental.Data.Enums.Enums;
 
@@ -20,5 +21,14 @@ namespace HallRental.Services
 
         bool EventExists(DateTime date, RentTimeEnum rentTime, int hallId);
 
+        decimal CheckHallStartPrice(Hall currentHall, DayOfWeek eventDate, RentTimeEnum rentTime);
+
+        string GetRentTimeDisplay(RentTimeEnum rentTime);
+
+        DateTime GetStartTimeDefault(RentTimeEnum rentTime, DateTime eventDate);
+
+        DateTime GetEndTimeDefault(RentTimeEnum rentTime, DateTime eventDate);
+
     }
+
 }

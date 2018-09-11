@@ -202,9 +202,14 @@
                 let securityGuards = $('#SecurityGuards').val();
                 let secHoursPerGuard = $('#SecServiceHoursPerGuard').val();
 
-                securityPrice = securityGuards * secHoursPerGuard * securityGuardCostPerHour
+                if (securityGuards == 0 && secHoursPerGuard == 0) {
+                    securityPrice = 0;
+                    $('#SecurityGuards-error').text('');
+                    $('#SecServiceHours-error').text('');
+                }
+               
+                //console.log(securityPrice)
 
-                console.log(securityPrice)
                 if (securityGuards == 0) {
                     securityPrice = 0;
                     if (secHoursPerGuard != 0) {
@@ -214,10 +219,21 @@
                     }
                 } else {
                     $('#SecurityGuards-error').text('');
+                    if (secHoursPerGuard == 0) {
+                        securityPrice = 0
+                       // console.log('here')
+                        $('#SecServiceHours-error').text('Please e fill the security hours per guard Input');
+                        correctDataSecurity = false;
+                        return;
+                    } 
                     correctDataSecurity = true;
 
                 }
+
+                securityPrice = securityGuards * secHoursPerGuard * securityGuardCostPerHour
+
                 totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
+
                 UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice)
 
 
@@ -228,34 +244,43 @@
                 let securityGuards = $('#SecurityGuards').val();
                 let secHoursPerGuard = $('#SecServiceHoursPerGuard').val();
 
-                if (secHoursPerGuard < 0) {
+                if (securityGuards == 0 && secHoursPerGuard == 0) {
                     securityPrice = 0;
+                    $('#SecurityGuards-error').text('');
+                    $('#SecServiceHours-error').text('');
                 }
 
 
-                if (securityGuards == 0 ) {
-                    $('#SecurityGuards-error').text('Please e fill the security guards Input');
-                    correctDataSecurity = false;
+                if (secHoursPerGuard == 0) {
                     securityPrice = 0;
-                    return;
+                    if (securityGuards != 0) {
+                        $('#SecServiceHours-error').text('Please e fill the security hours per guard Input');
+                        correctDataSecurity = false;
+                        securityPrice = 0;
+                        return;
+                    } 
+
                 } else {
-                    $('#SecurityGuards-error').text('');
+                    console.log('anothe here')
+                    $('#SecServiceHours-error').text('');
+                    if (securityGuards <= 0) {
+                        securityPrice = 0
+                        $('#SecurityGuards-error').text('Please e fill the security guards Input');
+                        correctDataSecurity = false;
+                        return;
+                    }
                     correctDataSecurity = true
                 }
 
-                if (securityGuards == 0 && secHoursPerGuard ==0) {
-                    securityPrice = 0;
-                    $('#SecurityGuards-error').text('');
-                }
 
 
                 securityPrice = securityGuards * secHoursPerGuard * securityGuardCostPerHour
 
                 totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
+
                 UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice)
 
             })
-
 
 
             //submit button

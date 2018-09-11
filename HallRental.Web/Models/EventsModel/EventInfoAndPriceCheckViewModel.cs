@@ -26,11 +26,11 @@
 
         [DataType(DataType.Time)]
         [Display(Name = "Event Start")]
-        public DateTime? EventStart { get; set; }
+        public DateTime EventStart { get; set; }
 
         [DataType(DataType.Time)]
         [Display(Name = "Event End")]
-        public DateTime? EventEnd { get; set; }
+        public DateTime EventEnd { get; set; }
 
 
         [Required]

@@ -4,7 +4,7 @@
     ViewData["Title"] = "PersonalInfo";
 }
 
-<h2>Summary</h2>
+<h2>Summary and Personal information</h2>
 <hr />
 
 <h4><b>Hall: </b>@Model.HallName</h4>
@@ -12,7 +12,13 @@
 <h4><b>Time: </b>@Model.RentTimeDisplay</h4>
 
 <hr />
+<h4><b>Event title: </b>@Model.EventTitle</h4>
+<h4><b>Event Start: </b>@Model.EventStart</h4>
+<h4><b>Event End: </b>@Model.EventEnd</h4>
+<h4><b>Number of people </b>@Model.NumberOfPeople</h4>
 
+
+<hr />
 
 <h4><b>Hall rent price: </b>$@Model.HallRentPrice</h4>
 <h4><b>Tables and chairs price: </b>$@Model.TablesAndChairsPrice</h4>

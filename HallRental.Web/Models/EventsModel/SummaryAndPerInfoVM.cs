@@ -21,11 +21,9 @@ namespace HallRental.Web.Models.EventsModel
 
         public string EventTitle { get; set; }
 
-        [DataType(DataType.Time)]
-        public DateTime? EventStart { get; set; }
+        public string EventStart { get; set; }
 
-        [DataType(DataType.Time)]
-        public DateTime? EventEnd { get; set; }
+        public string EventEnd { get; set; }
 
         public int NumberOfPeople { get; set; }
 
