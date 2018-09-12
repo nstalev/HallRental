@@ -218,7 +218,11 @@ namespace HallRental.Web.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = model.UserName, Email = model.Email, PhoneNumber = model.PhoneNumber };
+                var user = new User { UserName = model.UserName,
+                                    Email = model.Email,
+                                    PhoneNumber = model.PhoneNumber,
+                                    FirstName = model.FirstName,
+                                    LastName = model.LastName };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

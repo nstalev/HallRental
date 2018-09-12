@@ -14,6 +14,8 @@ namespace HallRental.Web.Infrastructure.Extensions
         private const string adminEmail = "admin@abv.bg";
         private const string adminUsername = "admin";
         private const string adminPassword = "admin123";
+        private const string adminFirstName = "admin";
+        private const string adminLastName = "admin";
 
         public static IApplicationBuilder UseDatabaseMigration(this IApplicationBuilder app)
         {
@@ -59,6 +61,8 @@ namespace HallRental.Web.Infrastructure.Extensions
                          {
                              UserName = adminUsername,
                              Email = adminEmail,
+                             FirstName = adminFirstName,
+                             LastName = adminLastName
                          };
 
                          var result = await userManager.CreateAsync(adminUser, adminPassword);
