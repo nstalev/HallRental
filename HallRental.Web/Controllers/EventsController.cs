@@ -10,17 +10,22 @@ namespace HallRental.Web.Controllers
     using System.Linq;
     using HallRental.Data.Models;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
+    using System.Threading.Tasks;
 
     public class EventsController : Controller
     {
         private readonly IEventsService eventsServices;
         private readonly IHallsService halls;
+        private readonly UserManager<User> userManager;
 
         public EventsController(IEventsService eventsServices,
-                                IHallsService halls)
+                                IHallsService halls,
+                                UserManager<User> userManager)
         {
             this.eventsServices = eventsServices;
             this.halls = halls;
+            this.userManager = userManager;
         }
 
 
@@ -154,7 +159,7 @@ namespace HallRental.Web.Controllers
 
 
         [Authorize]
-        public IActionResult Summary(SummaryAndPersonalInfoModel summaryModel)
+        public async Task<IActionResult> Summary(SummaryAndPersonalInfoModel summaryModel)
         {
 
             if (summaryModel.HallId == 0 || summaryModel.Date == null)
@@ -165,7 +170,9 @@ namespace HallRental.Web.Controllers
             Hall currentHall = this.halls.GetHallById(summaryModel.HallId);
             string rentTimeDisplay = eventsServices.GetRentTimeDisplay(summaryModel.RentTime);
 
+            User currentUser = await this.userManager.GetUserAsync(User);
 
+            var userName = currentUser.UserName;
 
 
             var summaryVM = new SummaryAndPerInfoVM()
@@ -179,15 +186,32 @@ namespace HallRental.Web.Controllers
                 EventStart = summaryModel.EventStart.ToString("t"),
                 EventTitle = summaryModel.EventTitle,
                 NumberOfPeople = summaryModel.NumberOfPeople,
+                SecurityGuardCostPerHour = summaryModel.SecurityGuardCostPerHour,
+                SecurityGuards = summaryModel.SecurityGuards,
+                RequestedSecurityHoursPerGuard = summaryModel.SecurityServiceHoursPerGuard,
 
                 HallRentPrice = summaryModel.HallRentPrice,
                 TablesAndChairsPrice = summaryModel.TablesAndChairsPrice,
                 SecurityPrice = summaryModel.SecurityPrice,
                 TotalPrice = summaryModel.TotalPrice
+
             };
 
 
             return View(summaryVM);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult CreateEvent(CreateEventFormModel eventModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(eventModel);
+            }
+
+
+            return RedirectToAction("Index", "Calendar");
         }
 
 

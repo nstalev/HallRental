@@ -4,27 +4,76 @@
     ViewData["Title"] = "PersonalInfo";
 }
 
-<h2>Summary and Personal information</h2>
-<hr />
+<div class="row">
+    <div class="col-md-6">
 
-<h4><b>Hall: </b>@Model.HallName</h4>
-<h4><b>Date: </b>@Model.Date.ToShortDateString()</h4>
-<h4><b>Time: </b>@Model.RentTimeDisplay</h4>
+        <h2>Event summary</h2>
+        <hr />
 
-<hr />
-<h4><b>Event title: </b>@Model.EventTitle</h4>
-<h4><b>Event Start: </b>@Model.EventStart</h4>
-<h4><b>Event End: </b>@Model.EventEnd</h4>
-<h4><b>Number of people </b>@Model.NumberOfPeople</h4>
+        <h3><b>Hall: </b>@Model.HallName</h3>
+        <h3><b>Date: </b>@Model.Date.ToShortDateString()</h3>
+        <h3><b>Time: </b>@Model.RentTimeDisplay</h3>
+
+        <hr />
+        <h4><b>Event title: </b>@Model.EventTitle</h4>
+        <h4><b>Event Start: </b>@Model.EventStart</h4>
+        <h4><b>Event End: </b>@Model.EventEnd</h4>
+        <h4><b>Number of people </b>@Model.NumberOfPeople</h4>
+
+        <hr />
+
+        <h4><b>Hall rent price: </b>$@Model.HallRentPrice.ToString("F")</h4>
+        <h4><b>Tables and chairs price: </b>$@Model.TablesAndChairsPrice.ToString("F")</h4>
+        <h4><b>Security Price: </b>$@Model.SecurityPrice.ToString("F")</h4>
+        @if (Model.SecurityPrice > 0)
+        {
+            <p>Security guard service cost per hour: $@Model.SecurityGuardCostPerHour.ToString("F")</p>
+            <p>Security Guards: @Model.SecurityGuards</p>
+            <p>Requested security hours per guard: @Model.RequestedSecurityHoursPerGuard</p>
+        }
+
+        <hr />
+        <div id="total-price">
+            <h3><b>Total Price: </b>$@Model.TotalPrice.ToString("F")</h3>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h2>Personal information</h2>
+        <form asp-action="CreateEvent">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FullName" class="control-label"></label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <p>If you are using a caterer, please provide the name and contact information of the company:</p>
+                <textarea asp-for="Caterer" class="form-control"></textarea>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-lg btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
 
 
-<hr />
-
-<h4><b>Hall rent price: </b>$@Model.HallRentPrice</h4>
-<h4><b>Tables and chairs price: </b>$@Model.TablesAndChairsPrice</h4>
-<h4><b>Security Price: </b>$@Model.SecurityPrice</h4>
-<h4><b>Total Price: </b>$@Model.TotalPrice</h4>
-
-
-
-
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

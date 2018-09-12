@@ -58,7 +58,7 @@
             <div class="form-group">
                 <label asp-for="NumberOfPeople" class="control-label"></label>
                 <input id="NumberOfPeople" asp-for="NumberOfPeople" class="form-control" />
-                <span id="NumberOfPeople-error" style="color: red"></span>
+                <span id="NumberOfPeople-error" style="color: #a94442"></span>
                 <span asp-validation-for="NumberOfPeople" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -72,13 +72,13 @@
                 <label asp-for="SecurityGuards" class="control-label"></label>
                 <input id="SecurityGuards" asp-for="SecurityGuards" class="form-control" />
                 <span asp-validation-for="SecurityGuards" class="text-danger"></span>
-                <span id="SecurityGuards-error" style="color: red"></span>
+                <span id="SecurityGuards-error" style="color: #a94442"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SecurityServiceHoursPerGuard" class="control-label"></label>
                 <input id="SecServiceHoursPerGuard" asp-for="SecurityServiceHoursPerGuard" class="form-control" />
                 <span asp-validation-for="SecurityServiceHoursPerGuard" class="text-danger"></span>
-                <span id="SecServiceHours-error" style="color: red"></span>
+                <span id="SecServiceHours-error" style="color: #a94442"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Continue" class="btn btn-default" />
@@ -206,6 +206,7 @@
                     securityPrice = 0;
                     $('#SecurityGuards-error').text('');
                     $('#SecServiceHours-error').text('');
+                    correctDataSecurity = true;
                 }
                
                 //console.log(securityPrice)
@@ -227,7 +228,6 @@
                         return;
                     } 
                     correctDataSecurity = true;
-
                 }
 
                 securityPrice = securityGuards * secHoursPerGuard * securityGuardCostPerHour
@@ -248,6 +248,7 @@
                     securityPrice = 0;
                     $('#SecurityGuards-error').text('');
                     $('#SecServiceHours-error').text('');
+                    correctDataSecurity = true;
                 }
 
 
@@ -286,6 +287,8 @@
             //submit button
 
             $("#submitForm").submit(function (e) { 
+                console.log('correctSecData: ' + correctDataSecurity)
+                console.log('correctTabData: ' + correctDataTabAndCh) 
                 if (correctDataSecurity == false || correctDataTabAndCh == false) 
                 {
                     e.preventDefault(); 
