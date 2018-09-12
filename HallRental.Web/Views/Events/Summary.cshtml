@@ -22,7 +22,7 @@
 
         <hr />
 
-        <h4><b>Hall rent price: </b>$@Model.HallRentPrice.ToString("F")</h4>
+        <h4><b>Hall rent price: </b>$@Model.HallRentalPrice.ToString("F")</h4>
         <h4><b>Tables and chairs price: </b>$@Model.TablesAndChairsPrice.ToString("F")</h4>
         <h4><b>Security Price: </b>$@Model.SecurityPrice.ToString("F")</h4>
         @if (Model.SecurityPrice > 0)
@@ -60,6 +60,10 @@
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <p>Tell us more about the event:</p>
+                <textarea asp-for="EventDescription" class="form-control"></textarea>
             </div>
             <div class="form-group">
                 <p>If you are using a caterer, please provide the name and contact information of the company:</p>

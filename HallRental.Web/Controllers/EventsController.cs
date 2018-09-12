@@ -109,11 +109,11 @@ namespace HallRental.Web.Controllers
             Hall currentHall = this.halls.GetHallById(dateCheckModel.HallId);
             DayOfWeek eventDateOfWeek = eventDate.DayOfWeek;
 
-            decimal hallRentPrice = dateCheckModel.TotalPrice;
+            decimal hallRentalPrice = dateCheckModel.TotalPrice;
 
-            if (hallRentPrice == 0)
+            if (hallRentalPrice == 0)
             {
-                hallRentPrice = eventsServices.CheckHallStartPrice(currentHall, eventDateOfWeek, dateCheckModel.RentTime);
+                hallRentalPrice = eventsServices.CheckHallStartPrice(currentHall, eventDateOfWeek, dateCheckModel.RentTime);
 
             }
             string hallName = currentHall.Name;
@@ -124,8 +124,8 @@ namespace HallRental.Web.Controllers
 
             var eventPriceModel = new EventPriceModel()
             {
-                HallPrice = hallRentPrice,
-                TotalPrice = hallRentPrice,
+                HallPrice = hallRentalPrice,
+                TotalPrice = hallRentalPrice,
             };
 
             var priceCheckViewModel = new EventInfoAndPriceCheckViewModel()
@@ -135,8 +135,8 @@ namespace HallRental.Web.Controllers
                 HallId = dateCheckModel.HallId,
                 HallName = hallName,
                 RentTimeDisplay = rentTimeDisplay,
-                HallRentPrice = hallRentPrice,
-                TotalPrice = hallRentPrice,
+                HallRentalPrice = hallRentalPrice,
+                TotalPrice = hallRentalPrice,
                 SecurityGuardCostPerHour = currentHall.SecurityGuardCostPerHour,
                 HallCapacity = currentHall.HallCapacity,
                 ChairTableCostPerPerson = currentHall.ChairTablePerPersonCost,
@@ -190,7 +190,7 @@ namespace HallRental.Web.Controllers
                 SecurityGuards = summaryModel.SecurityGuards,
                 RequestedSecurityHoursPerGuard = summaryModel.SecurityServiceHoursPerGuard,
 
-                HallRentPrice = summaryModel.HallRentPrice,
+                HallRentalPrice = summaryModel.HallRentalPrice,
                 TablesAndChairsPrice = summaryModel.TablesAndChairsPrice,
                 SecurityPrice = summaryModel.SecurityPrice,
                 TotalPrice = summaryModel.TotalPrice

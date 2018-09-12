@@ -29,7 +29,7 @@
                 <input asp-for="SecurityGuardCostPerHour" class="form-control" type="hidden" />
             </div>
             <div class="form-group">
-                <input id="HallRentPriceInput" asp-for="HallRentPrice" class="form-control" type="hidden" />
+                <input id="HallRentPriceInput" asp-for="HallRentalPrice" class="form-control" type="hidden" />
             </div>
             <div class="form-group">
                 <input id="TablesAndChairsPriceInput" asp-for="TablesAndChairsPrice" class="form-control" type="hidden" />
@@ -312,7 +312,7 @@
                 type: "Post",
                 url: "/Events/UpdatePriceView",
                 data: {
-                    HallPrice : @Model.HallRentPrice,
+                    HallPrice : @Model.HallRentalPrice,
                     TotalPrice: totalPrice,
                     SecurityPrice: secuPrice,
                     TablesAndChairsPrice : tabAndChairsPrice

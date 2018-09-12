@@ -41,7 +41,7 @@ namespace HallRental.Web.Models.EventsModel
 
         public decimal SecurityGuardCostPerHour { get; set; }
 
-        public decimal HallRentPrice { get; set; }
+        public decimal HallRentalPrice { get; set; }
 
 
         public decimal TablesAndChairsPrice { get; set; }

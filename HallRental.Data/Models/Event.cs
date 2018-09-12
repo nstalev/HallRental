@@ -13,7 +13,7 @@ namespace HallRental.Data.Models
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
-        public  string Email { get; set; }
+        public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
@@ -45,8 +45,14 @@ namespace HallRental.Data.Models
         [Range(0, 12)]
         public double SecurityServiceHoursPerGuard { get; set; }
 
+        public decimal SecurityGuardCostPerHour { get; set; }
 
-        public bool IsConfirmed { get; set; }
+        [Required]
+        public decimal HallRentalPrice { get; set; }
+
+        public decimal TablesAndChairsPrice { get; set; }
+
+        public decimal SecurityPrice { get; set; }
 
         [Required]
         public decimal TotalPrice { get; set; }
@@ -54,6 +60,8 @@ namespace HallRental.Data.Models
         public int HallId { get; set; }
 
         public Hall Hall { get; set; }
+
+        public bool IsConfirmed { get; set; }
 
     }
 }
