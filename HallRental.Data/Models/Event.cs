@@ -33,10 +33,10 @@ namespace HallRental.Data.Models
         [MinLength(3)]
         public string EventTitle { get; set; }
 
-
+        [MaxLength(500)]
         public string Description { get; set; }
 
-        public bool WithCHairsAndTable { get; set; }
+        public bool UsingTablesAndChairs { get; set; }
 
         [Required]
         [Range(0, 100)]
@@ -45,23 +45,27 @@ namespace HallRental.Data.Models
         [Range(0, 12)]
         public double SecurityServiceHoursPerGuard { get; set; }
 
+
         public decimal SecurityGuardCostPerHour { get; set; }
 
         [Required]
         public decimal HallRentalPrice { get; set; }
 
+        [Range(0, double.MaxValue)]
         public decimal TablesAndChairsPrice { get; set; }
 
+        [Range(0, double.MaxValue)]
         public decimal SecurityPrice { get; set; }
 
         [Required]
+        [Range(0, double.MaxValue)]
         public decimal TotalPrice { get; set; }
 
         public int HallId { get; set; }
 
         public Hall Hall { get; set; }
 
-        public bool IsConfirmed { get; set; }
+        public bool IsReservationConfirmed { get; set; }
 
     }
 }

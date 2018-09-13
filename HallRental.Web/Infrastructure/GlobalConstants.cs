@@ -8,5 +8,9 @@ namespace HallRental.Web.Infrastructure
         public const string TempDataSuccessMessageKey = "SuccessMessage";
 
         public const string TempDataErrorMessageKey = "ErrorMessage";
+
+        public const int MaxSecurityCuards = 20;
+
+        public const int MaxSecurityServiceHoursPerGuard = 12;
     }
 }

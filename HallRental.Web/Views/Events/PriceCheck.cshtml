@@ -64,7 +64,7 @@
             <div class="form-group">
                 <div class="checkbox">
                     <label>
-                        <input id="UseTablesAndChairs" asp-for="UseTablesAndChairs" /> @Html.DisplayNameFor(model => model.UseTablesAndChairs)
+                        <input id="UseTablesAndChairs" asp-for="UsingTablesAndChairs" /> @Html.DisplayNameFor(model => model.UsingTablesAndChairs)
                     </label>
                 </div>
             </div>
@@ -75,9 +75,9 @@
                 <span id="SecurityGuards-error" style="color: #a94442"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SecurityServiceHoursPerGuard" class="control-label"></label>
-                <input id="SecServiceHoursPerGuard" asp-for="SecurityServiceHoursPerGuard" class="form-control" />
-                <span asp-validation-for="SecurityServiceHoursPerGuard" class="text-danger"></span>
+                <label asp-for="RequestedSecurityHoursPerGuard" class="control-label"></label>
+                <input id="SecServiceHoursPerGuard" asp-for="RequestedSecurityHoursPerGuard" class="form-control" />
+                <span asp-validation-for="RequestedSecurityHoursPerGuard" class="text-danger"></span>
                 <span id="SecServiceHours-error" style="color: #a94442"></span>
             </div>
             <div class="form-group">
@@ -208,7 +208,13 @@
                     $('#SecServiceHours-error').text('');
                     correctDataSecurity = true;
                 }
-               
+
+                if (securityGuards > @GlobalConstants.MaxSecurityCuards ) {
+                    securityPrice = 0;
+                    return;
+
+                }
+
                 //console.log(securityPrice)
 
                 if (securityGuards == 0) {
@@ -249,6 +255,11 @@
                     $('#SecurityGuards-error').text('');
                     $('#SecServiceHours-error').text('');
                     correctDataSecurity = true;
+                }
+
+                if ( secHoursPerGuard > @GlobalConstants.MaxSecurityServiceHoursPerGuard) {
+                    securityPrice = 0;
+                    return;
                 }
 
 

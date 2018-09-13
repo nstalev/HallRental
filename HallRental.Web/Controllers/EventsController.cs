@@ -185,9 +185,11 @@ namespace HallRental.Web.Controllers
                 EventStart = summaryModel.EventStart.ToString("t"),
                 EventTitle = summaryModel.EventTitle,
                 NumberOfPeople = summaryModel.NumberOfPeople,
+                UsingTablesAndChairs = summaryModel.UsingTablesAndChairs,
+
                 SecurityGuardCostPerHour = summaryModel.SecurityGuardCostPerHour,
                 SecurityGuards = summaryModel.SecurityGuards,
-                RequestedSecurityHoursPerGuard = summaryModel.SecurityServiceHoursPerGuard,
+                RequestedSecurityHoursPerGuard = summaryModel.RequestedSecurityHoursPerGuard,
 
                 HallRentalPrice = summaryModel.HallRentalPrice,
                 TablesAndChairsPrice = summaryModel.TablesAndChairsPrice,

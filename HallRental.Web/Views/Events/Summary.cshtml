@@ -24,13 +24,13 @@
 
         <h4><b>Hall rent price: </b>$@Model.HallRentalPrice.ToString("F")</h4>
         <h4><b>Tables and chairs price: </b>$@Model.TablesAndChairsPrice.ToString("F")</h4>
-        <h4><b>Security Price: </b>$@Model.SecurityPrice.ToString("F")</h4>
         @if (Model.SecurityPrice > 0)
         {
-            <p>Security guard service cost per hour: $@Model.SecurityGuardCostPerHour.ToString("F")</p>
-            <p>Security Guards: @Model.SecurityGuards</p>
+            <p>Requested Security Guards: @Model.SecurityGuards</p>
             <p>Requested security hours per guard: @Model.RequestedSecurityHoursPerGuard</p>
+            <p>Security guard service cost per hour: $@Model.SecurityGuardCostPerHour.ToString("F")</p>
         }
+        <h4><b>Security Price: </b>$@Model.SecurityPrice.ToString("F")</h4>
 
         <hr />
         <div id="total-price">
@@ -39,8 +39,41 @@
     </div>
     <div class="col-md-6">
         <h2>Personal information</h2>
+        <hr />
         <form asp-action="CreateEvent">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="Date" class="form-control" type="hidden" />
+            </div>
+            <div class="form-group">
+                <input asp-for="HallId" class="form-control" type="hidden" />
+            </div>
+            <div class="form-group">
+                <input asp-for="RentTime" class="form-control" type="hidden" />
+            </div>
+            <div class="form-group">
+                <input asp-for="EventStart" class="form-control" type="hidden" />
+            </div>
+            <div class="form-group">
+                <input asp-for="EventEnd" class="form-control" type="hidden" />
+            </div>
+            <div class="form-group">
+                <input asp-for="NumberOfPeople" class="form-control" type="hidden" />
+            </div>
+            <div class="form-group">
+                <input asp-for="UsingTablesAndChairs" class="form-control" type="hidden" />
+            </div>
+
+            <div class="form-group">
+                <input asp-for="SecurityGuardCostPerHour" class="form-control" type="hidden" />
+            </div>
+            <div class="form-group">
+                <input asp-for="SecurityGuards" class="form-control" type="hidden" />
+            </div>
+            <div class="form-group">
+                <input asp-for="RequestedSecurityHoursPerGuard" class="form-control" type="hidden" />
+            </div>
+
             <div class="form-group">
                 <label asp-for="FullName" class="control-label"></label>
                 <input asp-for="FullName" class="form-control" />

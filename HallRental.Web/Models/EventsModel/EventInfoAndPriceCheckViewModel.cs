@@ -1,5 +1,6 @@
 ﻿namespace HallRental.Web.Models.EventsModel
 {
+    using HallRental.Web.Infrastructure;
     using System;
     using System.ComponentModel.DataAnnotations;
     using static HallRental.Data.Enums.Enums;
@@ -38,17 +39,18 @@
         [Display(Name = "Number of People")]
         public int NumberOfPeople { get; set; }
 
-        public bool UseTablesAndChairs { get; set; }
+        public bool UsingTablesAndChairs { get; set; }
+
 
         public int HallCapacity { get; set; }
 
 
         [Required]
-        [Range(0, 20)]
+        [Range(0, GlobalConstants.MaxSecurityCuards)]
         public int SecurityGuards { get; set; }
 
-        [Range(0, 12)]
-        public double SecurityServiceHoursPerGuard { get; set; }
+        [Range(0, GlobalConstants.MaxSecurityServiceHoursPerGuard)]
+        public double RequestedSecurityHoursPerGuard { get; set; }
 
         public decimal SecurityGuardCostPerHour { get; set; }
 

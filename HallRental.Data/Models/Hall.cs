@@ -14,24 +14,30 @@ namespace HallRental.Data.Models
         public string Name { get; set; }
 
         [Required]
+        [Range(0, double.MaxValue)]
         public decimal MondayFriday8amTo3pm { get; set; }
 
         [Required]
+        [Range(0, double.MaxValue)]
         public decimal MondayThursday4pmToMN { get; set; }
 
         [Required]
+        [Range(0, double.MaxValue)]
         public decimal Friday4pmToMN { get; set; }
 
         [Required]
+        [Range(0, double.MaxValue)]
         public decimal Saturday8amTo3pm { get; set; }
 
         [Required]
         public decimal Saturday4pmToMN { get; set; }
 
         [Required]
+        [Range(0, double.MaxValue)]
         public decimal Sunday8amTo3pm { get; set; }
 
         [Required]
+        [Range(0, double.MaxValue)]
         public decimal Sunday4pmToMN { get; set; }
 
         [Required]

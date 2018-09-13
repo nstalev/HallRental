@@ -31,10 +31,10 @@ namespace HallRental.Services.Implementations
                 PhoneNumber = phoneNumber,
                 NumberOfPeople = numberOfPeople,
                 TotalPrice = totalPrice,
-                IsConfirmed = false,
+                IsReservationConfirmed = false,
                 HallId = 4,
                 SecurityGuards = securityGuards,
-                WithCHairsAndTable = withCHairsAndTable
+                UsingTablesAndChairs = withCHairsAndTable
 
             };
 

@@ -27,13 +27,12 @@ namespace HallRental.Web.Models.EventsModel
 
         public int NumberOfPeople { get; set; }
 
-        public bool UseTablesAndChairs { get; set; }
+        public bool UsingTablesAndChairs { get; set; }
 
 
         public int SecurityGuards { get; set; }
 
         public double RequestedSecurityHoursPerGuard { get; set; }
-
 
         public decimal SecurityGuardCostPerHour { get; set; }
 
