@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using static HallRental.Data.Enums.Enums;
+﻿
 
 namespace HallRental.Web.Models.EventsModel
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+    using static HallRental.Data.Enums.Enums;
+
     public class CreateEventFormModel
     {
         [DataType(DataType.Date)]
@@ -52,7 +51,15 @@ namespace HallRental.Web.Models.EventsModel
 
 
         //Price
+        public decimal HallRentalPrice { get; set; }
+
+        public decimal TablesAndChairsPrice { get; set; }
+
         public decimal SecurityPrice { get; set; }
+
+        public decimal TotalPrice { get; set; }
+
+
 
 
         public string EventDescription { get; set; }

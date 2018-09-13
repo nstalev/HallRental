@@ -17,30 +17,12 @@ namespace HallRental.Services.Implementations
             this.db = db;
         }
 
-      
 
-        public void Create(string email, string phoneNumber, string description, string eventTitle, DateTime evetnDate, RentTimeEnum rentTime, int numberOfPeople, decimal totalPrice, int securityGuards, bool withCHairsAndTable)
+        public void Create(int hallId, DateTime eventDate, RentTimeEnum rentTime, string fullName, string email, string phoneNumber, string eventStart, string eventEnd, int numberOfPeople, bool usingTablesAndChairs, decimal securityGuardCostPerHour, int securityGuards, double requestedSecurityHoursPerGuard, decimal hallRentalPrice, decimal tablesAndChairsPrice, decimal securityPrice, decimal totalPrice, string description, string eventTitle)
         {
-            var newEvent = new Event()
-            {
-                Email = email,
-                Description = description,
-                EventDate = rentTime == RentTimeEnum.EightAMtoThreePM ? evetnDate + new TimeSpan(8,00,00) : evetnDate + new TimeSpan(16, 00, 00),
-                RentTime = rentTime,
-                EventTitle = eventTitle,
-                PhoneNumber = phoneNumber,
-                NumberOfPeople = numberOfPeople,
-                TotalPrice = totalPrice,
-                IsReservationConfirmed = false,
-                HallId = 4,
-                SecurityGuards = securityGuards,
-                UsingTablesAndChairs = withCHairsAndTable
-
-            };
-
-            this.db.Events.Add(newEvent);
-            this.db.SaveChanges();
+            throw new NotImplementedException();
         }
+
 
 
 
@@ -194,5 +176,7 @@ namespace HallRental.Services.Implementations
 
             return result;
         }
+
+      
     }
 }

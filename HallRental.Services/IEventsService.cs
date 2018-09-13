@@ -8,16 +8,25 @@ namespace HallRental.Services
     public interface IEventsService
     {
 
-        void Create(string email,
-                    string phoneNumber,
-                    string description,
-                    string eventTitle,
+        void Create(int hallId,
                     DateTime eventDate,
-                    RentTimeEnum timeRent,
+                    RentTimeEnum rentTime,
+                    string fullName,
+                    string email,
+                    string phoneNumber,
+                    string eventStart,
+                    string eventEnd,
                     int numberOfPeople,
-                    decimal totalPrice,
+                    bool usingTablesAndChairs,
+                    decimal securityGuardCostPerHour,
                     int securityGuards,
-                    bool withCHairsAndTable);
+                    double requestedSecurityHoursPerGuard,
+                    decimal hallRentalPrice,
+                    decimal tablesAndChairsPrice,
+                    decimal securityPrice,
+                    decimal totalPrice,
+                    string description,
+                    string eventTitle);
 
         bool EventExists(DateTime date, RentTimeEnum rentTime, int hallId);
 

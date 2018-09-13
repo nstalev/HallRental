@@ -22,6 +22,14 @@ namespace HallRental.Data.Models
         [Required]
         public RentTimeEnum RentTime { get; set; }
 
+        [MaxLength(20)]
+        public string EventStart { get; set; }
+
+        [MaxLength(20)]
+        public string EventEnd { get; set; }
+
+        [MaxLength(20)]
+        [MinLength(3)]
         public string PhoneNumber { get; set; }
 
         [Required]
@@ -43,7 +51,7 @@ namespace HallRental.Data.Models
         public int SecurityGuards { get; set; }
 
         [Range(0, 12)]
-        public double SecurityServiceHoursPerGuard { get; set; }
+        public double RequestedSecurityHoursPerGuard { get; set; }
 
 
         public decimal SecurityGuardCostPerHour { get; set; }

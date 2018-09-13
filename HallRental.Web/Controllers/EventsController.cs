@@ -29,44 +29,44 @@ namespace HallRental.Web.Controllers
         }
 
 
-        public IActionResult Create()
-        {
-            return View();
-        }
+        //public IActionResult Create()
+        //{
+        //    return View();
+        //}
 
-        [HttpPost]
-        public IActionResult Create(EventFormModel eventModel)
-        {
+        //[HttpPost]
+        //public IActionResult Create(EventFormModel eventModel)
+        //{
 
-            if (eventModel.EventDate < DateTime.Now)
-            {
-                ModelState.AddModelError("EventStart", "Event Start Date cannot be before DateTime Now");
-                return View(eventModel);
-            }
-
-
-            if (!ModelState.IsValid)
-            {
-                return View(eventModel);
-            }
+        //    if (eventModel.EventDate < DateTime.Now)
+        //    {
+        //        ModelState.AddModelError("EventStart", "Event Start Date cannot be before DateTime Now");
+        //        return View(eventModel);
+        //    }
 
 
-            this.eventsServices.Create(eventModel.Email,
-                               eventModel.PhoneNumber,
-                               eventModel.Description,
-                               eventModel.EventTitle,
-                               eventModel.EventDate,
-                               eventModel.RentTime,
-                               eventModel.NumberOfPeople,
-                               eventModel.TotalPrice,
-                               eventModel.SecurityGuards,
-                               eventModel.WithCHairsAndTable
-                               );
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(eventModel);
+        //    }
 
-            TempData.AddSuccessMessage("Your event request has been successfully submitted");
 
-            return RedirectToAction("Index", "Calendar");
-        }
+        //    this.eventsServices.Create(eventModel.Email,
+        //                       eventModel.PhoneNumber,
+        //                       eventModel.Description,
+        //                       eventModel.EventTitle,
+        //                       eventModel.EventDate,
+        //                       eventModel.RentTime,
+        //                       eventModel.NumberOfPeople,
+        //                       eventModel.TotalPrice,
+        //                       eventModel.SecurityGuards,
+        //                       eventModel.WithCHairsAndTable
+        //                       );
+
+        //    TempData.AddSuccessMessage("Your event request has been successfully submitted");
+
+        //    return RedirectToAction("Index", "Calendar");
+        //}
 
 
         public IActionResult DateCheck()
@@ -210,10 +210,14 @@ namespace HallRental.Web.Controllers
         [Authorize]
         public IActionResult CreateEvent(CreateEventFormModel eventModel)
         {
+
+
             if (!ModelState.IsValid)
             {
                 return View(eventModel);
             }
+
+
 
 
             return RedirectToAction("Index", "Calendar");
