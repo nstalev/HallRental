@@ -79,6 +79,8 @@ namespace HallRental.Web.Controllers
             {
                 UserName = userModel.UserName,
                 Email = userModel.Email,
+                FirstName = userModel.FirstName,
+                LastName =userModel.LastName,
                 PhoneNumber = userModel.PhoneNumber
             };
 

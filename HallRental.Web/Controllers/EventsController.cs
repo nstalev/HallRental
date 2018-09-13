@@ -172,7 +172,6 @@ namespace HallRental.Web.Controllers
 
             User currentUser = await this.userManager.GetUserAsync(User);
 
-            var userName = currentUser.UserName;
 
 
             var summaryVM = new SummaryAndPerInfoVM()
@@ -193,7 +192,11 @@ namespace HallRental.Web.Controllers
                 HallRentalPrice = summaryModel.HallRentalPrice,
                 TablesAndChairsPrice = summaryModel.TablesAndChairsPrice,
                 SecurityPrice = summaryModel.SecurityPrice,
-                TotalPrice = summaryModel.TotalPrice
+                TotalPrice = summaryModel.TotalPrice,
+
+                FullName = currentUser.FirstName + " " + currentUser.LastName,
+                PhoneNumber= currentUser.PhoneNumber,
+                Email= currentUser.Email
 
             };
 
