@@ -40,6 +40,8 @@ namespace HallRental.Web.Models.EventsModel
 
         //TablesAndChairs
         public bool UsingTablesAndChairs { get; set; }
+       
+        public decimal TablesAndChairsCostPerPerson { get; set; }
 
 
         //Security
@@ -58,7 +60,6 @@ namespace HallRental.Web.Models.EventsModel
         public decimal SecurityPrice { get; set; }
 
         public decimal TotalPrice { get; set; }
-
 
 
 

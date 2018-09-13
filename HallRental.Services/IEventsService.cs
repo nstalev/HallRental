@@ -18,6 +18,7 @@ namespace HallRental.Services
                     string eventEnd,
                     int numberOfPeople,
                     bool usingTablesAndChairs,
+                    decimal tablesAndChairsCostPerPerson,
                     decimal securityGuardCostPerHour,
                     int securityGuards,
                     double requestedSecurityHoursPerGuard,
@@ -26,6 +27,7 @@ namespace HallRental.Services
                     decimal securityPrice,
                     decimal totalPrice,
                     string description,
+                    string caterer,
                     string eventTitle);
 
         bool EventExists(DateTime date, RentTimeEnum rentTime, int hallId);

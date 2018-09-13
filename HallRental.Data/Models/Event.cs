@@ -33,6 +33,11 @@ namespace HallRental.Data.Models
         public string PhoneNumber { get; set; }
 
         [Required]
+        [MaxLength(40)]
+        [MinLength(5)]
+        public string FullName { get; set; }
+
+        [Required]
         [Range(1, int.MaxValue)]
         public int NumberOfPeople { get; set; }
 
@@ -44,7 +49,15 @@ namespace HallRental.Data.Models
         [MaxLength(500)]
         public string Description { get; set; }
 
+        [MaxLength(400)]
+        public string Caterer { get; set; }
+
+
         public bool UsingTablesAndChairs { get; set; }
+
+        [Required]
+        [Range(0, double.MaxValue)]
+        public decimal TablesAndChairsCostPerPerson { get; set; }
 
         [Required]
         [Range(0, 100)]

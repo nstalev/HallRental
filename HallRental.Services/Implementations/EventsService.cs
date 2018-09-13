@@ -18,9 +18,39 @@ namespace HallRental.Services.Implementations
         }
 
 
-        public void Create(int hallId, DateTime eventDate, RentTimeEnum rentTime, string fullName, string email, string phoneNumber, string eventStart, string eventEnd, int numberOfPeople, bool usingTablesAndChairs, decimal securityGuardCostPerHour, int securityGuards, double requestedSecurityHoursPerGuard, decimal hallRentalPrice, decimal tablesAndChairsPrice, decimal securityPrice, decimal totalPrice, string description, string eventTitle)
+        public void Create(int hallId, DateTime eventDate, RentTimeEnum rentTime, string fullName, string email, string phoneNumber, string eventStart, string eventEnd, int numberOfPeople, bool usingTablesAndChairs, decimal tablesAndChairsCostPerPerson, decimal securityGuardCostPerHour, int securityGuards, double requestedSecurityHoursPerGuard, decimal hallRentalPrice, decimal tablesAndChairsPrice, decimal securityPrice, decimal totalPrice, string description, string caterer, string eventTitle)
         {
-            throw new NotImplementedException();
+            Event newEvent = new Event
+            {
+                 HallId = hallId,
+                 EventDate = eventDate,
+                 RentTime = rentTime,
+                 Email = email,
+                 FullName = fullName,
+                 PhoneNumber = phoneNumber,
+                 EventStart = eventStart,
+                 EventEnd = eventEnd,
+                 NumberOfPeople = numberOfPeople,
+
+                 UsingTablesAndChairs= usingTablesAndChairs,
+                 TablesAndChairsCostPerPerson = tablesAndChairsCostPerPerson,
+                 SecurityGuardCostPerHour = securityGuardCostPerHour,
+                 SecurityGuards = securityGuards,
+                 RequestedSecurityHoursPerGuard = requestedSecurityHoursPerGuard,
+
+                 EventTitle = eventTitle,
+                 Description = description,
+                 Caterer = caterer,
+
+                 HallRentalPrice = hallRentalPrice,
+                 TablesAndChairsPrice = tablesAndChairsPrice,
+                 SecurityPrice= securityPrice,
+                 TotalPrice = totalPrice
+
+            };
+
+            this.db.Events.Add(newEvent);
+            this.db.SaveChanges();
         }
 
 

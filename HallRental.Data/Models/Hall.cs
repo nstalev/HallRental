@@ -46,7 +46,7 @@ namespace HallRental.Data.Models
 
         [Required]
         [Range(0, double.MaxValue)]
-        public decimal ChairTablePerPersonCost { get; set; }
+        public decimal TablesAndChairsCostPerPerson { get; set; }
 
         [Required]
         [Range(0, double.MaxValue)]

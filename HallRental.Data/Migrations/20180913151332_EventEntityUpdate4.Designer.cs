@@ -4,14 +4,16 @@ using HallRental.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HallRental.Data.Migrations
 {
     [DbContext(typeof(HallRentalDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180913151332_EventEntityUpdate4")]
+    partial class EventEntityUpdate4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,9 +26,6 @@ namespace HallRental.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Caterer")
-                        .HasMaxLength(400);
 
                     b.Property<string>("Description")
                         .HasMaxLength(500);
@@ -71,8 +70,6 @@ namespace HallRental.Data.Migrations
 
                     b.Property<decimal>("SecurityPrice");
 
-                    b.Property<decimal>("TablesAndChairsCostPerPerson");
-
                     b.Property<decimal>("TablesAndChairsPrice");
 
                     b.Property<decimal>("TotalPrice");
@@ -91,6 +88,8 @@ namespace HallRental.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("ChairTablePerPersonCost");
 
                     b.Property<decimal>("Friday4pmToMN");
 
@@ -113,8 +112,6 @@ namespace HallRental.Data.Migrations
                     b.Property<decimal>("Sunday4pmToMN");
 
                     b.Property<decimal>("Sunday8amTo3pm");
-
-                    b.Property<decimal>("TablesAndChairsCostPerPerson");
 
                     b.HasKey("Id");
 

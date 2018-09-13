@@ -29,6 +29,8 @@ namespace HallRental.Web.Models.EventsModel
 
         public bool UsingTablesAndChairs { get; set; }
 
+        public decimal TablesAndChairsCostPerPerson { get; set; }
+
 
         public int SecurityGuards { get; set; }
 

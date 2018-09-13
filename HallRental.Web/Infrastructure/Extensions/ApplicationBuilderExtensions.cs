@@ -88,7 +88,7 @@ namespace HallRental.Web.Infrastructure.Extensions
                              Saturday4pmToMN = 1750,
                              Sunday8amTo3pm = 750,
                              Sunday4pmToMN = 1750,
-                             ChairTablePerPersonCost =5,
+                             TablesAndChairsCostPerPerson =5,
                              HallCapacity = 375,
                              SecurityGuardCostPerHour = 20
 
@@ -104,7 +104,7 @@ namespace HallRental.Web.Infrastructure.Extensions
                              Saturday4pmToMN = 750,
                              Sunday8amTo3pm = 250,
                              Sunday4pmToMN = 750,
-                             ChairTablePerPersonCost = 5,
+                             TablesAndChairsCostPerPerson = 5,
                              HallCapacity = 100,
                              SecurityGuardCostPerHour = 20
                          };
@@ -119,7 +119,7 @@ namespace HallRental.Web.Infrastructure.Extensions
                              Saturday4pmToMN = 750,
                              Sunday8amTo3pm = 250,
                              Sunday4pmToMN = 750,
-                             ChairTablePerPersonCost = 5,
+                             TablesAndChairsCostPerPerson = 5,
                              HallCapacity = 60,
                              SecurityGuardCostPerHour = 20
                          };
