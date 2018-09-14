@@ -22,13 +22,13 @@ namespace HallRental.Web.Models.EventsModel
         public string FullName { get; set; }
 
         [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
+        [StringLength(20, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 8)]
+        [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
 
         [Required]
-        [StringLength(20, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 8)]
-        [Display(Name = "Phone Number")]
+        [EmailAddress]
+        [Display(Name = "Email")]
         public string Email { get; set; }
 
 
@@ -37,6 +37,8 @@ namespace HallRental.Web.Models.EventsModel
         public string EventEnd { get; set; }
 
         public int NumberOfPeople { get; set; }
+
+        public string EventTitle { get; set; }
 
         //TablesAndChairs
         public bool UsingTablesAndChairs { get; set; }

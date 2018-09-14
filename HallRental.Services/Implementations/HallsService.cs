@@ -33,5 +33,10 @@ namespace HallRental.Services.Implementations
             return this.db.Halls.Find(hallId);
                 
         }
+
+        public bool HallExists(int hallId)
+        {
+            return this.db.Halls.Any(h => h.Id == hallId);
+        }
     }
 }

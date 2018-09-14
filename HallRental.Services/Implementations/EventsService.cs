@@ -23,7 +23,7 @@ namespace HallRental.Services.Implementations
             Event newEvent = new Event
             {
                  HallId = hallId,
-                 EventDate = eventDate,
+                 EventDate = rentTime == RentTimeEnum.EightAMtoThreePM ? eventDate + new TimeSpan(8, 00, 00) : eventDate + new TimeSpan(16, 00, 00),
                  RentTime = rentTime,
                  Email = email,
                  FullName = fullName,
@@ -45,7 +45,9 @@ namespace HallRental.Services.Implementations
                  HallRentalPrice = hallRentalPrice,
                  TablesAndChairsPrice = tablesAndChairsPrice,
                  SecurityPrice= securityPrice,
-                 TotalPrice = totalPrice
+                 TotalPrice = totalPrice,
+
+                 IsReservationConfirmed = false
 
             };
 
