@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>My Profile</h2>
+<hr />
+<div class="row">
+    <div class="col-md-5">
+        <ul class="nav nav-pills nav-stacked">
+            <li>
+                <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage" class="btn btn-default">Manage your profile</a>
+            </li>
+            <li>
+                <a asp-area="" asp-controller="Profile" asp-action="MyReservations" title="MyReservations" class="btn btn-default">My Reservations</a>
+            </li>
+        </ul>
+    </div>
+</div>
