@@ -10,10 +10,14 @@ namespace HallRental.Web.Models.ProfileViewModels
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
 
-        public int HallId { get; set; }
-
         public string HallName { get; set; }
 
+        public string RentTimeDisplay { get; set; }
+
+        public int NumberOfPeople { get; set; }
+
         public bool IsConfirmed { get; set; }
+
+        public decimal Totalprice { get; set; }
     }
 }

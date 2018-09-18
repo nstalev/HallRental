@@ -1,7 +1,21 @@
-﻿
+﻿@model IEnumerable<MyEventsViewModel>
+
 @{
     ViewData["Title"] = "MyReservations";
 }
 
-<h2>MyReservations</h2>
+<h2>My Reservations</h2>
+<hr />
+<div class="panel-group">
+    @foreach (var item in Model)
+    {
+        <div class="panel @(item.IsConfirmed == false ? "panel-success": "panel-warning" )">
+            <div class="panel-heading">
+                Event Date: @item.Date.ToShortDateString()
+                <p style="text-align: right">Hall: @item.HallName</p>
+            </div>
+            <div class="panel-body">Total Price: @item.Totalprice</div>
+        </div>
 
+    }
+</div>

@@ -14,12 +14,15 @@ namespace HallRental.Web.Controllers
     {
         private readonly UserManager<User> userManager;
         private readonly IProfileService profileService;
+        private readonly IEventsService eventService;
 
         public ProfileController(UserManager<User> userManager,
-                                IProfileService profileService)
+                                IProfileService profileService,
+                                IEventsService eventService)
         {
             this.userManager = userManager;
             this.profileService = profileService;
+            this.eventService = eventService;
         }
 
 
@@ -37,7 +40,19 @@ namespace HallRental.Web.Controllers
 
             var myEvents = this.profileService.MyEvents(currentUserId);
 
-            return View();
+            var myEventsVM = myEvents.Select(e => new MyEventsViewModel
+            {
+                 Date = e.Date,
+                 NumberOfPeople =e.NumberOfPeople,
+                 RentTimeDisplay = this.eventService.GetRentTimeDisplay(e.RentTime),
+                 HallName = e.HallName,
+                 IsConfirmed = e.IsReservationConfirmed,
+                 Totalprice = e.Totalprice
+                 
+            })
+            .ToList();
+
+            return View(myEventsVM);
         }
     }
 }

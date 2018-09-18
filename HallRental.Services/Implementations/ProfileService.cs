@@ -20,12 +20,16 @@ namespace HallRental.Services.Implementations
         {
             return this.db.Events
                     .Where(e => e.TenantId == userId)
-                    .OrderByDescending(e => e.EventDate)
+                    .OrderBy(e => e.EventDate)
                     .Select(e => new MyEventsServiceModel
                     {
-                         HallId = e.HallId,
-                         Date = e.EventDate,
-                        IsReservationConfirmed = e.IsReservationConfirmed
+                        HallId = e.HallId,
+                        Date = e.EventDate,
+                        IsReservationConfirmed = e.IsReservationConfirmed,
+                        NumberOfPeople = e.NumberOfPeople,
+                        RentTime = e.RentTime,
+                        Totalprice = e.TotalPrice,
+                        HallName = e.Hall.Name
                     })
                     .ToList();
         }
