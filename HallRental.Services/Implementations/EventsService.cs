@@ -18,11 +18,12 @@ namespace HallRental.Services.Implementations
         }
 
 
-        public void Create(int hallId, DateTime eventDate, RentTimeEnum rentTime, string fullName, string email, string phoneNumber, string eventStart, string eventEnd, int numberOfPeople, bool usingTablesAndChairs, decimal tablesAndChairsCostPerPerson, decimal securityGuardCostPerHour, int securityGuards, double requestedSecurityHoursPerGuard, decimal hallRentalPrice, decimal tablesAndChairsPrice, decimal securityPrice, decimal totalPrice, string description, string caterer, string eventTitle)
+        public void Create(int hallId, string tenantId, DateTime eventDate, RentTimeEnum rentTime, string fullName, string email, string phoneNumber, string eventStart, string eventEnd, int numberOfPeople, bool usingTablesAndChairs, decimal tablesAndChairsCostPerPerson, decimal securityGuardCostPerHour, int securityGuards, double requestedSecurityHoursPerGuard, decimal hallRentalPrice, decimal tablesAndChairsPrice, decimal securityPrice, decimal totalPrice, string description, string caterer, string eventTitle)
         {
             Event newEvent = new Event
             {
                  HallId = hallId,
+                 TenantId = tenantId,
                  EventDate = rentTime == RentTimeEnum.EightAMtoThreePM ? eventDate + new TimeSpan(8, 00, 00) : eventDate + new TimeSpan(16, 00, 00),
                  RentTime = rentTime,
                  Email = email,

@@ -170,13 +170,12 @@ namespace HallRental.Web.Controllers
 
         //[HttpPost]
         [Authorize]
-        public IActionResult CreateEvent(CreateEventFormModel eventModel)
+        public async Task<IActionResult> CreateEvent(CreateEventFormModel eventModel)
         {
             var hallExists = hallsServices.HallExists(eventModel.HallId);
 
             if (!hallExists)
             {
-
 
                 return NotFound();
             }
@@ -199,20 +198,24 @@ namespace HallRental.Web.Controllers
                     SecurityPrice = eventModel.SecurityPrice,
                     TablesAndChairsPrice = eventModel.TablesAndChairsPrice,
                     TotalPrice = eventModel.TotalPrice,
-                     FullName=  eventModel.FullName,
-                      Email = eventModel.Email,
-                        PhoneNumber = eventModel.PhoneNumber,
-                         TablesAndChairsCostPerPerson = eventModel.TablesAndChairsCostPerPerson,
-                          Caterer = eventModel.Caterer,
-                           EventDescription = eventModel.EventDescription
+                    FullName=  eventModel.FullName,
+                    Email = eventModel.Email,
+                    PhoneNumber = eventModel.PhoneNumber,
+                    TablesAndChairsCostPerPerson = eventModel.TablesAndChairsCostPerPerson,
+                    Caterer = eventModel.Caterer,
+                    EventDescription = eventModel.EventDescription
                             
                 };
 
                 return View("Summary", summaryModel);
             }
 
+
+            User currentUser = await this.userManager.GetUserAsync(User);
+
             this.eventsServices.Create(
                 eventModel.HallId,
+                currentUser.Id,
                 eventModel.Date,
                 eventModel.RentTime,
                 eventModel.FullName,

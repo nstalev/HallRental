@@ -25,6 +25,11 @@ namespace HallRental.Data
                 .WithMany(h => h.Events)
                 .HasForeignKey(e => e.HallId);
 
+            builder.Entity<Event>()
+                .HasOne(e => e.Tenant)
+                .WithMany(t => t.Events)
+                .HasForeignKey(e => e.TenantId);
+
             base.OnModelCreating(builder);
            
 

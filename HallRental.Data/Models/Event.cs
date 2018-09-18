@@ -86,6 +86,10 @@ namespace HallRental.Data.Models
 
         public Hall Hall { get; set; }
 
+        public string TenantId { get; set; }
+
+        public User Tenant { get; set; }
+
         public bool IsReservationConfirmed { get; set; }
 
     }

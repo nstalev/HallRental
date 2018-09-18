@@ -9,6 +9,7 @@ namespace HallRental.Services
     {
 
         void Create(int hallId,
+                    string tenantId,
                     DateTime eventDate,
                     RentTimeEnum rentTime,
                     string fullName,
