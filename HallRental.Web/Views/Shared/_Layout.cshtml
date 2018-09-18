@@ -38,7 +38,17 @@
 
                     @if (User.IsInRole(GlobalConstants.AdminRole))
                     {
-                        <li><a asp-area="" asp-controller="Identity" asp-action="All">Identity</a></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                Administration Area
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a asp-area="Admin" asp-controller="Identity" asp-action="All">Identity</a></li>
+                                <li><a asp-area="Admin" asp-controller="Identity" asp-action="All">Identity2</a></li>
+                            </ul>
+                        </li>
+                        
 
                     }
                 </ul>

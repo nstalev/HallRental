@@ -1,5 +1,5 @@
 ﻿
-namespace HallRental.Web.Models.IdentityViewModels
+namespace HallRental.Web.Areas.Admin.Models.IdentityViewModels
 {
     public class DeleteUserViewModel
     {

@@ -1,17 +1,19 @@
 ﻿
-namespace HallRental.Web.Controllers
+
+namespace HallRental.Web.Areas.Admin.Controllers
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using HallRental.Web.Infrastructure;
-    using HallRental.Services;
-    using HallRental.Web.Models.IdentityViewModels;
+    using HallRental.Web.Areas.Admin.Models.IdentityViewModels;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Identity;
     using HallRental.Data.Models;
     using System.Linq;
     using Microsoft.AspNetCore.Mvc.Rendering;
+    using HallRental.Services.Admin;
 
+    [Area("Admin")]
     [Authorize(Roles = GlobalConstants.AdminRole)]
     public class IdentityController : Controller
     {
@@ -28,7 +30,6 @@ namespace HallRental.Web.Controllers
             this.userManager = userManager;
             this.roleManager = roleManager;
         }
-
 
         public IActionResult All()
         {
@@ -51,9 +52,9 @@ namespace HallRental.Web.Controllers
 
             var userWithRolew = new UserWithRolesViewModel()
             {
-                 Id = user.Id,
-                 UserName = user.UserName,
-                 Roles = userRoles
+                Id = user.Id,
+                UserName = user.UserName,
+                Roles = userRoles
             };
 
             return View(userWithRolew);
@@ -80,7 +81,7 @@ namespace HallRental.Web.Controllers
                 UserName = userModel.UserName,
                 Email = userModel.Email,
                 FirstName = userModel.FirstName,
-                LastName =userModel.LastName,
+                LastName = userModel.LastName,
                 PhoneNumber = userModel.PhoneNumber
             };
 
@@ -99,7 +100,7 @@ namespace HallRental.Web.Controllers
         }
 
 
-        public async Task<IActionResult> Delete (string id)
+        public async Task<IActionResult> Delete(string id)
         {
 
             var user = await this.userManager.FindByIdAsync(id);
@@ -128,7 +129,7 @@ namespace HallRental.Web.Controllers
                 return NotFound();
             }
 
-             await this.userManager.DeleteAsync(user);
+            await this.userManager.DeleteAsync(user);
 
             return RedirectToAction(nameof(All));
 
@@ -141,8 +142,8 @@ namespace HallRental.Web.Controllers
             var rowSelectListItem = this.roleManager.Roles
                 .Select(r => new SelectListItem
                 {
-                     Text = r.Name,
-                     Value = r.Name
+                    Text = r.Name,
+                    Value = r.Name
                 })
                 .ToList();
 
@@ -169,7 +170,7 @@ namespace HallRental.Web.Controllers
 
             await this.userManager.AddToRoleAsync(user, role);
 
-            return RedirectToAction(nameof(Roles), new {id });
+            return RedirectToAction(nameof(Roles), new { id });
         }
 
 

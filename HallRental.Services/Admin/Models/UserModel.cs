@@ -1,5 +1,5 @@
 ﻿
-namespace HallRental.Services.Models
+namespace HallRental.Services.Admin.Models
 {
     public class UserModel
     {

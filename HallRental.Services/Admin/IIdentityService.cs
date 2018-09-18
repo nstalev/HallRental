@@ -1,7 +1,7 @@
 ﻿
-namespace HallRental.Services
+namespace HallRental.Services.Admin
 {
-    using HallRental.Services.Models;
+    using HallRental.Services.Admin.Models;
     using System.Collections.Generic;
 
     public interface IIdentityService

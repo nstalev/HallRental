@@ -1,10 +1,10 @@
 ﻿
-namespace HallRental.Services.Implementations
+namespace HallRental.Services.Admin.Implementations
 {
     using System.Collections.Generic;
     using System.Linq;
     using HallRental.Data;
-    using HallRental.Services.Models;
+    using HallRental.Services.Admin.Models;
 
     public class IdentityService : IIdentityService
     {

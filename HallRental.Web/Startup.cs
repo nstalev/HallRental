@@ -11,6 +11,8 @@ using HallRental.Web.Services;
 using HallRental.Web.Infrastructure.Extensions;
 using HallRental.Services;
 using HallRental.Services.Implementations;
+using HallRental.Services.Admin;
+using HallRental.Services.Admin.Implementations;
 
 namespace HallRental.Web
 {
@@ -72,6 +74,11 @@ namespace HallRental.Web
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                   name: "areas",
+                   template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+            );
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
