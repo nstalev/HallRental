@@ -25,6 +25,7 @@ namespace HallRental.Services.Implementations
                     .Take(pageSize)
                     .Select(e => new MyEventsServiceModel
                     {
+                        EventId = e.Id,
                         HallId = e.HallId,
                         Date = e.EventDate,
                         IsReservationConfirmed = e.IsReservationConfirmed,

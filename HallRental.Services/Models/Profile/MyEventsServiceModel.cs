@@ -7,6 +7,8 @@ namespace HallRental.Services.Models.Profile
 
     public class MyEventsServiceModel
     {
+        public int EventId { get; set; }
+
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
 

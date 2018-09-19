@@ -27,46 +27,52 @@
 </ul>
 
 
+
+
+
 <div class="panel-group">
     @foreach (var item in Model.Events)
     {
-        <div class="panel @(item.IsConfirmed == false ? "panel-warning": "panel-success")" id="event-panel">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-md-6">
-                        Event Date: <b>@item.Date.ToShortDateString()</b>
-                    </div>
-                    <div class="col-md-6">
-                        <p style="text-align: right">
-                            Hall: @item.HallName
-                        </p>
-                    </div>
+    <div class="panel @(item.IsConfirmed == false ? "panel-warning": "panel-success")" id="event-panel">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-md-6">
+                    Event Date: <b>@item.Date.ToShortDateString()</b>
                 </div>
-            </div>
-            <div class="panel-body">
-                <p>
-                    Event Title: @item.EventTitle
-                </p>
-                <p>
-                    Rent Time: @item.RentTimeDisplay
-                </p>
-                <p>
-                    Number of people: @item.NumberOfPeople
-                </p>
-            </div>
-            <div class="panel-footer">
-                <div class="row">
-                    <div class="col-md-6">
-                        <button class="btn btn-primary">Details</button>
-                    </div>
-                    <div class="col-md-6">
-                        <p style="text-align: right">
-                            Total Price: <b>$@item.Totalprice</b>
-                        </p>
-                    </div>
+                <div class="col-md-6">
+                    <p style="text-align: right">
+                        Hall: @item.HallName
+                    </p>
                 </div>
             </div>
         </div>
+        <div class="panel-body">
+            <p>
+                Event Title: @item.EventTitle
+            </p>
+            <p>
+                Rent Time: @item.RentTimeDisplay
+            </p>
+            <p>
+                Number of people: @item.NumberOfPeople
+            </p>
+        </div>
+        @{
+            var routeValue = new Dictionary<string, string> { ["id"] = item.EventId.ToString() };
+        }
+        <div class="panel-footer">
+            <div class="row">
+                <div class="col-md-6">
+                    <a asp-controller="Profile" asp-action="EventDetails" asp-all-route-data="routeValue" class="btn btn-primary">Details</a>
+                </div>
+                <div class="col-md-6">
+                    <p style="text-align: right">
+                        Total Price: <b>$@item.Totalprice</b>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     }
 </div>

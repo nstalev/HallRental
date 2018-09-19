@@ -6,6 +6,7 @@ namespace HallRental.Web.Models.ProfileViewModels
 
     public class MyEventsListModel
     {
+        public int EventId { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }

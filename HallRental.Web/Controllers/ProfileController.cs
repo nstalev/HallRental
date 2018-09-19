@@ -51,6 +51,7 @@ namespace HallRental.Web.Controllers
 
             IEnumerable<MyEventsListModel> myEvents = myEventsList.Select(e => new MyEventsListModel
             {
+                EventId = e.EventId,
                  Date = e.Date,
                  NumberOfPeople =e.NumberOfPeople,
                  EventTitle = e.EventTitle,
@@ -70,6 +71,13 @@ namespace HallRental.Web.Controllers
             };
 
             return View(vm);
+        }
+
+
+        public IActionResult EventDetails(int id)
+        {
+
+            return View();
         }
     }
 }
