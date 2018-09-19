@@ -6,6 +6,8 @@ namespace HallRental.Services
 
     public interface IProfileService
     {
-        IEnumerable<MyEventsServiceModel> MyEvents(string userId);
+        IEnumerable<MyEventsServiceModel> MyEvents(string userId, int page, int pageSize);
+
+        int Total(string userId);
     }
 }

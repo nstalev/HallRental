@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HallRental.Data.Models;
 using HallRental.Services;
+using HallRental.Web.Infrastructure;
 using HallRental.Web.Models.ProfileViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,8 @@ namespace HallRental.Web.Controllers
         private readonly UserManager<User> userManager;
         private readonly IProfileService profileService;
         private readonly IEventsService eventService;
+
+        private const int pageSize = GlobalConstants.MyEventsMaxPageSize;
 
         public ProfileController(UserManager<User> userManager,
                                 IProfileService profileService,
@@ -33,17 +36,24 @@ namespace HallRental.Web.Controllers
         }
 
 
-        public IActionResult MyReservations()
+        public IActionResult MyReservations(int page = 1)
         {
+            if (page <= 0)
+            {
+                page = 1;
+            }
 
             string currentUserId =  this.userManager.GetUserId(User);
 
-            var myEvents = this.profileService.MyEvents(currentUserId);
+            var myEventsList = this.profileService.MyEvents(currentUserId, page, pageSize);
 
-            var myEventsVM = myEvents.Select(e => new MyEventsViewModel
+            int myEventsCount = this.profileService.Total(currentUserId);
+
+            IEnumerable<MyEventsListModel> myEvents = myEventsList.Select(e => new MyEventsListModel
             {
                  Date = e.Date,
                  NumberOfPeople =e.NumberOfPeople,
+                 EventTitle = e.EventTitle,
                  RentTimeDisplay = this.eventService.GetRentTimeDisplay(e.RentTime),
                  HallName = e.HallName,
                  IsConfirmed = e.IsReservationConfirmed,
@@ -52,7 +62,14 @@ namespace HallRental.Web.Controllers
             })
             .ToList();
 
-            return View(myEventsVM);
+            var vm = new MyEventsViewModel
+            {
+                Events = myEvents,
+                CurrentPage= page,
+                TotalPages = (int)Math.Ceiling(myEventsCount / (double)pageSize)
+            };
+
+            return View(vm);
         }
     }
 }

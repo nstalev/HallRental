@@ -14,6 +14,8 @@ namespace HallRental.Services.Models.Profile
 
         public string HallName { get; set; }
 
+        public string EventTitle { get; set; }
+
         public bool IsReservationConfirmed { get; set; }
 
         public RentTimeEnum RentTime { get; set; }

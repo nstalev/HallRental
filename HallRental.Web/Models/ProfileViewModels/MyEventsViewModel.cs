@@ -1,23 +1,18 @@
 ﻿
 namespace HallRental.Web.Models.ProfileViewModels
 {
-    using System;
-    using System.ComponentModel.DataAnnotations;
+    using System.Collections.Generic;
 
     public class MyEventsViewModel
     {
+        public IEnumerable<MyEventsListModel> Events { get; set; }
 
-        [DataType(DataType.Date)]
-        public DateTime Date { get; set; }
+        public int CurrentPage { get; set; }
 
-        public string HallName { get; set; }
+        public int TotalPages { get; set; }
 
-        public string RentTimeDisplay { get; set; }
+        public int PreviousPage => this.CurrentPage == 1 ? 1 : this.CurrentPage - 1;
 
-        public int NumberOfPeople { get; set; }
-
-        public bool IsConfirmed { get; set; }
-
-        public decimal Totalprice { get; set; }
+        public int NextPage => this.CurrentPage == this.TotalPages ? this.TotalPages : this.CurrentPage + 1;
     }
 }

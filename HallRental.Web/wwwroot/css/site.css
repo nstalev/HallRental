@@ -33,3 +33,11 @@
         display: none;
     }
 }
+
+#event-panel {
+    margin-bottom: 25px;
+}
+
+.pagination li.disabled a {
+    pointer-events: none;
+}

@@ -16,11 +16,13 @@ namespace HallRental.Services.Implementations
             this.db = db;
         }
 
-        public IEnumerable<MyEventsServiceModel> MyEvents(string userId)
+        public IEnumerable<MyEventsServiceModel> MyEvents(string userId, int page, int pageSize)
         {
             return this.db.Events
                     .Where(e => e.TenantId == userId)
                     .OrderBy(e => e.EventDate)
+                    .Skip((page-1) * pageSize)
+                    .Take(pageSize)
                     .Select(e => new MyEventsServiceModel
                     {
                         HallId = e.HallId,
@@ -29,9 +31,17 @@ namespace HallRental.Services.Implementations
                         NumberOfPeople = e.NumberOfPeople,
                         RentTime = e.RentTime,
                         Totalprice = e.TotalPrice,
-                        HallName = e.Hall.Name
+                        HallName = e.Hall.Name,
+                        EventTitle = e.EventTitle
                     })
                     .ToList();
+        }
+
+        public int Total(string userId)
+        {
+            return this.db.Events
+                    .Where(e => e.TenantId == userId)
+                    .Count();
         }
     }
 }

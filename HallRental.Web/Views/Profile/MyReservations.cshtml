@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MyEventsViewModel>
+﻿@model MyEventsViewModel
 
 @{
     ViewData["Title"] = "MyReservations";
@@ -6,15 +6,66 @@
 
 <h2>My Reservations</h2>
 <hr />
-<div class="panel-group">
-    @foreach (var item in Model)
+@{
+    var peviousPageDisable = Model.CurrentPage == 1 ? "disabled" : String.Empty;
+    var nextPageDisable = Model.CurrentPage == Model.TotalPages ? "disabled" : String.Empty;
+}
+
+<ul class="pagination">
+    <li class="page-item @peviousPageDisable">
+        <a class="page-link  @peviousPageDisable" href="MyReservations?page=@Model.PreviousPage" tabindex="-1">Previous</a>
+    </li>
+    @for (int i = 1; i <= Model.TotalPages; i++)
     {
-        <div class="panel @(item.IsConfirmed == false ? "panel-success": "panel-warning" )">
+        <li class="page-item @(Model.CurrentPage == i ? "active": String.Empty)"><a class="page-link" href="MyReservations?page=@i">@i</a></li>
+
+
+    }
+    <li class="page-item @nextPageDisable">
+        <a class="page-link @nextPageDisable" href="MyReservations?page=@Model.NextPage">Next</a>
+    </li>
+</ul>
+
+
+<div class="panel-group">
+    @foreach (var item in Model.Events)
+    {
+        <div class="panel @(item.IsConfirmed == false ? "panel-warning": "panel-success")" id="event-panel">
             <div class="panel-heading">
-                Event Date: @item.Date.ToShortDateString()
-                <p style="text-align: right">Hall: @item.HallName</p>
+                <div class="row">
+                    <div class="col-md-6">
+                        Event Date: <b>@item.Date.ToShortDateString()</b>
+                    </div>
+                    <div class="col-md-6">
+                        <p style="text-align: right">
+                            Hall: @item.HallName
+                        </p>
+                    </div>
+                </div>
             </div>
-            <div class="panel-body">Total Price: @item.Totalprice</div>
+            <div class="panel-body">
+                <p>
+                    Event Title: @item.EventTitle
+                </p>
+                <p>
+                    Rent Time: @item.RentTimeDisplay
+                </p>
+                <p>
+                    Number of people: @item.NumberOfPeople
+                </p>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button class="btn btn-primary">Details</button>
+                    </div>
+                    <div class="col-md-6">
+                        <p style="text-align: right">
+                            Total Price: <b>$@item.Totalprice</b>
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
 
     }
