@@ -13,6 +13,8 @@ using HallRental.Services;
 using HallRental.Services.Implementations;
 using HallRental.Services.Admin;
 using HallRental.Services.Admin.Implementations;
+using AutoMapper;
+using HallRental.Web.Infrastructure.Mapping;
 
 namespace HallRental.Web
 {
@@ -21,6 +23,10 @@ namespace HallRental.Web
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            Mapper.Initialize(cfg =>
+            {
+                cfg.AddProfile<AutoMapperProfile>();
+            });
         }
 
         public IConfiguration Configuration { get; }
@@ -48,6 +54,9 @@ namespace HallRental.Web
             services.AddTransient<ICalendarService, CalendarService>();
             services.AddTransient<IHallsService, HallsService>();
             services.AddTransient<IProfileService, ProfileService>();
+
+            services.AddAutoMapper();
+
 
             services.AddMvc();
         }

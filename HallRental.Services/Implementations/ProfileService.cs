@@ -4,6 +4,7 @@ namespace HallRental.Services.Implementations
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using AutoMapper.QueryableExtensions;
     using HallRental.Data;
     using HallRental.Services.Models.Profile;
 
@@ -23,18 +24,7 @@ namespace HallRental.Services.Implementations
                     .OrderBy(e => e.EventDate)
                     .Skip((page-1) * pageSize)
                     .Take(pageSize)
-                    .Select(e => new MyEventsServiceModel
-                    {
-                        EventId = e.Id,
-                        HallId = e.HallId,
-                        Date = e.EventDate,
-                        IsReservationConfirmed = e.IsReservationConfirmed,
-                        NumberOfPeople = e.NumberOfPeople,
-                        RentTime = e.RentTime,
-                        Totalprice = e.TotalPrice,
-                        HallName = e.Hall.Name,
-                        EventTitle = e.EventTitle
-                    })
+                    .ProjectTo<MyEventsServiceModel>()
                     .ToList();
         }
 
