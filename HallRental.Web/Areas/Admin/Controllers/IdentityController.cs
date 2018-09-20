@@ -129,6 +129,8 @@ namespace HallRental.Web.Areas.Admin.Controllers
                 return NotFound();
             }
 
+            this.identityService.DeleteEvents(user.Id);
+
             await this.userManager.DeleteAsync(user);
 
             return RedirectToAction(nameof(All));

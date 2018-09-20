@@ -28,5 +28,15 @@ namespace HallRental.Services.Admin.Implementations
                 }).ToList();
                 
         }
+
+        public void DeleteEvents(string id)
+        {
+            var eventsForDelete = this.db.Events
+                .Where(e => e.TenantId == id)
+                .ToList();
+
+            this.db.Events.RemoveRange(eventsForDelete);
+            this.db.SaveChanges();
+        }
     }
 }

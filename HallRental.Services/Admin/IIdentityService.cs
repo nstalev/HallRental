@@ -7,5 +7,7 @@ namespace HallRental.Services.Admin
     public interface IIdentityService
     {
         IEnumerable<UserModel> AllUsers();
+
+        void DeleteEvents(string id);
     }
 }
