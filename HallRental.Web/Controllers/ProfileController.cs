@@ -45,9 +45,11 @@ namespace HallRental.Web.Controllers
 
             string currentUserId =  this.userManager.GetUserId(User);
 
-            var myEventsList = this.profileService.MyEvents(currentUserId, page, pageSize);
+            DateTime markDate = DateTime.Now.Date;
 
-            int myEventsCount = this.profileService.Total(currentUserId);
+            var myEventsList = this.profileService.MyFutureEvents(currentUserId, page, pageSize, markDate);
+
+            int myEventsCount = this.profileService.TotalFutureEvents(currentUserId, markDate);
 
             IEnumerable<MyEventsListModel> myEvents = myEventsList.Select(e => new MyEventsListModel
             {
@@ -72,6 +74,48 @@ namespace HallRental.Web.Controllers
 
             return View(vm);
         }
+
+
+        public IActionResult PassedEvents(int page = 1)
+        {
+            if (page <= 0)
+            {
+                page = 1;
+            }
+
+            DateTime markDate = DateTime.Now.Date;
+
+            string currentUserId = this.userManager.GetUserId(User);
+
+            var myEventsList = this.profileService.MyPassedEvents(currentUserId, page, pageSize, markDate);
+
+            int myEventsCount = this.profileService.TotalPassedEvents(currentUserId, markDate);
+
+            IEnumerable<MyEventsListModel> myEvents = myEventsList.Select(e => new MyEventsListModel
+            {
+                EventId = e.Id,
+                EventDate = e.EventDate,
+                NumberOfPeople = e.NumberOfPeople,
+                EventTitle = e.EventTitle,
+                RentTimeDisplay = this.eventService.GetRentTimeDisplay(e.RentTime),
+                HallName = e.HallName,
+                IsConfirmed = e.IsReservationConfirmed,
+                Totalprice = e.Totalprice
+
+            })
+            .ToList();
+
+            var vm = new MyEventsViewModel
+            {
+                Events = myEvents,
+                CurrentPage = page,
+                TotalPages = (int)Math.Ceiling(myEventsCount / (double)pageSize)
+            };
+
+            return View(vm);
+        }
+
+
 
 
         public IActionResult EventDetails(int id)

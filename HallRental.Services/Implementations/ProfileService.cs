@@ -17,10 +17,11 @@ namespace HallRental.Services.Implementations
             this.db = db;
         }
 
-        public IEnumerable<MyEventsServiceModel> MyEvents(string userId, int page, int pageSize)
+        public IEnumerable<MyEventsServiceModel> MyFutureEvents(string userId, int page, int pageSize, DateTime markDate)
         {
             return this.db.Events
-                    .Where(e => e.TenantId == userId)
+                    .Where(e => e.TenantId == userId
+                    && e.EventDate.Date >= markDate.Date)
                     .OrderBy(e => e.EventDate)
                     .Skip((page-1) * pageSize)
                     .Take(pageSize)
@@ -28,10 +29,31 @@ namespace HallRental.Services.Implementations
                     .ToList();
         }
 
-        public int Total(string userId)
+        public int TotalFutureEvents(string userId, DateTime markDate)
         {
             return this.db.Events
-                    .Where(e => e.TenantId == userId)
+                    .Where(e => e.TenantId == userId
+                    && e.EventDate.Date >= markDate.Date)
+                    .Count();
+        }
+
+        public IEnumerable<MyEventsServiceModel> MyPassedEvents(string userId, int page, int pageSize, DateTime markDate)
+        {
+            return this.db.Events
+                    .Where(e => e.TenantId == userId
+                    && e.EventDate.Date < markDate.Date)
+                    .OrderByDescending(e => e.EventDate)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ProjectTo<MyEventsServiceModel>()
+                    .ToList();
+        }
+
+        public int TotalPassedEvents(string userId, DateTime markDate)
+        {
+            return this.db.Events
+                    .Where(e => e.TenantId == userId
+                    && e.EventDate.Date < markDate.Date)
                     .Count();
         }
     }
