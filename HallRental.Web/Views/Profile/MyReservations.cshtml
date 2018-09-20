@@ -36,10 +36,20 @@
     <div class="panel @(item.IsConfirmed == false ? "panel-warning": "panel-success")" id="event-panel">
         <div class="panel-heading">
             <div class="row">
-                <div class="col-md-6">
-                    Event Date: <b>@item.Date.ToShortDateString()</b>
+                <div class="col-md-4">
+                    Event Date: <b>@item.EventDate.ToShortDateString()</b>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
+                    @if (item.IsConfirmed)
+                    {
+                        <p>The Reservation is confirmed</p>
+                    }
+                    else
+                    {
+                        <p style="color:red"><b>The Reservation is not confirmed</b></p>
+                    }
+                </div>
+                <div class="col-md-4">
                     <p style="text-align: right">
                         Hall: @item.HallName
                     </p>

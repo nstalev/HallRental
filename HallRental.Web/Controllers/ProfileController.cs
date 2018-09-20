@@ -52,7 +52,7 @@ namespace HallRental.Web.Controllers
             IEnumerable<MyEventsListModel> myEvents = myEventsList.Select(e => new MyEventsListModel
             {
                  EventId = e.Id,
-                 Date = e.Date,
+                 EventDate = e.EventDate,
                  NumberOfPeople =e.NumberOfPeople,
                  EventTitle = e.EventTitle,
                  RentTimeDisplay = this.eventService.GetRentTimeDisplay(e.RentTime),

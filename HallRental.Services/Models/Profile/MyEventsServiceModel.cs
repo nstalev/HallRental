@@ -10,7 +10,7 @@ namespace HallRental.Services.Models.Profile
         public int Id { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime Date { get; set; }
+        public DateTime EventDate { get; set; }
 
         public int HallId { get; set; }
 
