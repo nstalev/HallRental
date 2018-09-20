@@ -56,5 +56,14 @@ namespace HallRental.Services.Implementations
                     && e.EventDate.Date < markDate.Date)
                     .Count();
         }
+
+        public EventDetailsServiceModel EventById(int id)
+        {
+            return this.db.Events
+                .Where(e => e.Id == id)
+                .ProjectTo<EventDetailsServiceModel>()
+                .FirstOrDefault();
+                
+        }
     }
 }

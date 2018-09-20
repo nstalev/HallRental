@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using HallRental.Data.Models;
 using HallRental.Services;
+using HallRental.Services.Models.Profile;
 using HallRental.Web.Infrastructure;
 using HallRental.Web.Models.ProfileViewModels;
 using Microsoft.AspNetCore.Identity;
@@ -117,11 +117,14 @@ namespace HallRental.Web.Controllers
 
 
 
-
         public IActionResult EventDetails(int id)
         {
 
-            return View();
+            EventDetailsServiceModel currentEvent = this.profileService.EventById(id);
+
+            currentEvent.RentTimeDisplay = this.eventService.GetRentTimeDisplay(currentEvent.RentTime);
+
+            return View(currentEvent);
         }
     }
 }

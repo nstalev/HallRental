@@ -231,7 +231,7 @@ namespace HallRental.Web.Controllers
                 eventModel.RequestedSecurityHoursPerGuard,
                 eventModel.HallRentalPrice,
                 eventModel.TablesAndChairsPrice,
-                eventModel.SecurityGuards,
+                eventModel.SecurityPrice,
                 eventModel.TotalPrice,
                 eventModel.EventDescription,
                 eventModel.Caterer,

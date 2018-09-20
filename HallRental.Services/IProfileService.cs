@@ -14,5 +14,7 @@ namespace HallRental.Services
         IEnumerable<MyEventsServiceModel> MyPassedEvents(string userId, int page, int pageSize, DateTime markDate);
 
         int TotalPassedEvents(string userId, DateTime markDate);
+
+        EventDetailsServiceModel EventById(int id);
     }
 }
