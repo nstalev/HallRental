@@ -1,6 +1,10 @@
-﻿body {
+﻿html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
     padding-top: 50px;
-    padding-bottom: 20px;
 }
 
 /* Wrapping element */
@@ -8,6 +12,7 @@
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    margin-bottom: 125px;
 }
 
 /* Carousel */
@@ -41,3 +46,27 @@
 .pagination li.disabled a {
     pointer-events: none;
 }
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color: #e7e7e7;
+    height: 100px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    margin-top: 20px;
+}
+
+.footer-grid {
+    margin-left: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.copyright{
+    margin-top: 10px;
+}
+   
