@@ -24,5 +24,13 @@ namespace HallRental.Services.Admin.Implementations
                 .ProjectTo<HallsListServiceModel>()
                 .ToList();
         }
+
+        public HallDetailsServiceModel GetHallById(int id)
+        {
+            return this.db.Halls
+                    .Where(h => h.Id == id)
+                    .ProjectTo<HallDetailsServiceModel>()
+                    .FirstOrDefault();
+        }   
     }
 }

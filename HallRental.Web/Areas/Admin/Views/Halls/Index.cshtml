@@ -12,7 +12,10 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-6">
-                    <a class="btn btn-sm btn-success">Details</a>
+                    @{ 
+                        var routeValue = new Dictionary<string, string> { ["id"] = item.Id.ToString() };
+                    }
+                    <a asp-area="Admin" asp-controller="Halls" asp-action="Details" asp-all-route-data=" routeValue" class="btn btn-sm btn-success">Details</a>
                     <a class="btn btn-sm btn-warning">Edit</a>
                 </div>
                 <div class="col-md-6" style="text-align: right">

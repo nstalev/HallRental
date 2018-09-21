@@ -30,5 +30,18 @@ namespace HallRental.Web.Areas.Admin.Controllers
 
             return View(allActiveHallS);
         }
+
+
+        public IActionResult Details(int id)
+        {
+            var currentHall = this.hallsAdminService.GetHallById(id);
+
+            if (currentHall == null)
+            {
+                return NotFound();
+            }
+
+            return View(currentHall);
+        }
     }
 }

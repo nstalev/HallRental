@@ -1,0 +1,57 @@
+﻿@model HallDetailsServiceModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <hr />
+    <h3 style="text-align: center;"><b>@Model.Name</b></h3>
+
+    <br />
+
+    <h4><b>Hall Capacity: </b>@Model.HallCapacity people</h4>
+    <br />
+    <h4>Prices:</h4>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-md-4" style="text-align: right;">
+            <p><b>Monday to Friday</b> 8:00 am to 3:00 pm:</p>
+            <p><b>Monday to Thursday</b> 4:00 pm to Midnight:</p>
+            <p><b>Friday</b> 4:00 pm to Midnight:</p>
+            <p><b>Saturday</b> 8:00 am to 3:00 pm:</p>
+            <p><b>Saturday</b> 4:00 pm to Midnight:</p>
+            <p><b>Sunday</b> 8:00 am to 3:00 pm:</p>
+            <p><b>Sunday</b> 4:00 pm to Midnight:</p>
+            <hr />
+            <p><b>Tables and chairs cost by person</b> </p>
+            <p><b>Security Guard service cost per hour</b> </p>
+
+        </div>
+        <div class="col-md-4">
+            <p>$@Model.MondayFriday8amTo3pm</p>
+            <p>$@Model.MondayThursday4pmToMN</p>
+            <p>$@Model.Friday4pmToMN</p>
+            <p>$@Model.Saturday8amTo3pm</p>
+            <p>$@Model.Saturday4pmToMN</p>
+            <p>$@Model.Sunday8amTo3pm</p>
+            <p>$@Model.Sunday4pmToMN</p>
+            <hr />
+            <p>$@Model.TablesAndChairsCostPerPerson</p>
+            <p>$@Model.SecurityGuardCostPerHour</p>
+
+
+        </div>
+    </div>
+
+
+</div>
+<hr />
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

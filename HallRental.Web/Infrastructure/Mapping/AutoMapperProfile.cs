@@ -19,6 +19,8 @@ namespace HallRental.Web.Infrastructure.Mapping
              .ForMember(e => e.HallName, cfg => cfg.MapFrom(h => h.Hall.Name));
 
             this.CreateMap<Hall, HallsListServiceModel>();
+
+            this.CreateMap<Hall, HallDetailsServiceModel>();
         }
     }
 }
