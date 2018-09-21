@@ -1,7 +1,25 @@
-﻿
+﻿@model IEnumerable<HallsListServiceModel>
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>Halls</h2>
+
+@foreach (var item in Model)
+{
+    <div class="panel panel-primary">
+        <div class="panel-heading"><b>@item.Name</b></div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <a class="btn btn-sm btn-success">Details</a>
+                    <a class="btn btn-sm btn-warning">Edit</a>
+                </div>
+                <div class="col-md-6" style="text-align: right">
+                    Hall Capacity: @item.HallCapacity
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
