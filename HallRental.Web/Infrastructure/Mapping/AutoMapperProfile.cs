@@ -20,7 +20,9 @@ namespace HallRental.Web.Infrastructure.Mapping
 
             this.CreateMap<Hall, HallsListServiceModel>();
 
-            this.CreateMap<Hall, HallDetailsServiceModel>();
+            this.CreateMap<Hall, HallServiceModel>();
+
+            this.CreateMap<Hall, HallsFormServiceModel>();
         }
     }
 }

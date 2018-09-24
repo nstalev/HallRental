@@ -1,4 +1,4 @@
-﻿@model HallDetailsServiceModel
+﻿@model HallServiceModel
 
 @{
     ViewData["Title"] = "Details";
@@ -52,6 +52,9 @@
 </div>
 <hr />
 <div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @{
+        var routeValue = new Dictionary<string, string> { ["id"] = Model.Id.ToString() };
+    }
+    <a asp-area="Admin" asp-controller="Halls" asp-action="Edit" asp-all-route-data=" routeValue" >Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

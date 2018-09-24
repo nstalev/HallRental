@@ -1,7 +1,7 @@
 ﻿
 namespace HallRental.Services.Admin.Models.Halls
 {
-    public class HallDetailsServiceModel
+    public class HallServiceModel
     {
         public int Id { get; set; }
 
