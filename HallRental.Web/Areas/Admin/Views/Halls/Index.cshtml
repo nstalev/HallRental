@@ -2,7 +2,11 @@
 @{
     ViewData["Title"] = "Index";
 }
+<hr />
 
+<a asp-area="Admin" asp-controller="Halls" asp-action="Create" class="btn btn-lg btn-default">Create New Hall</a>
+
+<hr />
 <h2>Halls</h2>
 
 @foreach (var item in Model)

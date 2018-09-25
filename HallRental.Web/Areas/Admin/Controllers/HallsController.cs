@@ -33,6 +33,35 @@ namespace HallRental.Web.Areas.Admin.Controllers
         }
 
 
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(HallsFormServiceModel hallsFormModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(hallsFormModel);
+            }
+
+            this.hallsAdminService.Create(hallsFormModel.Name,
+                        hallsFormModel.HallCapacity,
+                        hallsFormModel.MondayFriday8amTo3pm,
+                        hallsFormModel.MondayThursday4pmToMN,
+                        hallsFormModel.Friday4pmToMN,
+                        hallsFormModel.Saturday8amTo3pm,
+                        hallsFormModel.Saturday4pmToMN,
+                        hallsFormModel.Sunday8amTo3pm,
+                        hallsFormModel.Sunday4pmToMN,
+                        hallsFormModel.TablesAndChairsCostPerPerson,
+                        hallsFormModel.SecurityGuardCostPerHour);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+
         public IActionResult Details(int id)
         {
             var currentHall = this.hallsAdminService.ById(id);
@@ -81,7 +110,9 @@ namespace HallRental.Web.Areas.Admin.Controllers
                         hallsFormModel.Saturday8amTo3pm,
                         hallsFormModel.Saturday4pmToMN,
                         hallsFormModel.Sunday8amTo3pm,
-                        hallsFormModel.Sunday4pmToMN);
+                        hallsFormModel.Sunday4pmToMN,
+                        hallsFormModel.TablesAndChairsCostPerPerson,
+                        hallsFormModel.SecurityGuardCostPerHour);
 
             return RedirectToAction(nameof(Index));
         }

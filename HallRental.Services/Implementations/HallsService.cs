@@ -19,6 +19,7 @@ namespace HallRental.Services.Implementations
         public IEnumerable<HallEventCheckModel> AllHalls()
         {
             return this.db.Halls
+                .Where(h => h.IsHallActive == true)
                 .Select(h => new HallEventCheckModel
                 {
                     Id = h.Id,

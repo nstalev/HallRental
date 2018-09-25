@@ -52,6 +52,9 @@ namespace HallRental.Data.Models
         [Range(0, double.MaxValue)]
         public decimal SecurityGuardCostPerHour { get; set; }
 
+        [Required]
+        public bool IsHallActive { get; set; }
+
         public List<Event> Events { get; set; } = new List<Event>();
 
     }

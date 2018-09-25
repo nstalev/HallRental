@@ -1,5 +1,4 @@
 ﻿
-
 namespace HallRental.Services.Admin.Implementations
 {
     using AutoMapper.QueryableExtensions;
@@ -22,10 +21,10 @@ namespace HallRental.Services.Admin.Implementations
         public IEnumerable<HallsListServiceModel> AllActiveHalls()
         {
             return this.db.Halls
+                .Where(h => h.IsHallActive ==true)
                 .ProjectTo<HallsListServiceModel>()
                 .ToList();
         }
-
        
 
         public HallServiceModel ById(int id)
@@ -34,6 +33,39 @@ namespace HallRental.Services.Admin.Implementations
                     .Where(h => h.Id == id)
                     .ProjectTo<HallServiceModel>()
                     .FirstOrDefault();
+        }
+
+        public void Create(string name,
+                           int hallCapacity,
+                           decimal mondayFriday8amTo3pm,
+                           decimal mondayThursday4pmToMN,
+                           decimal friday4pmToMN,
+                           decimal saturday8amTo3pm,
+                           decimal saturday4pmToMN,
+                           decimal sunday8amTo3pm,
+                           decimal sunday4pmToMN,
+                           decimal tablesAndChairsCostPerPerson,
+                           decimal securityGuardCostPerHour)
+        {
+            Hall newHall = new Hall
+            {
+                Name = name,
+                HallCapacity = hallCapacity,
+                MondayFriday8amTo3pm = mondayFriday8amTo3pm,
+                MondayThursday4pmToMN = mondayThursday4pmToMN,
+                Friday4pmToMN = friday4pmToMN,
+                Saturday8amTo3pm = saturday8amTo3pm,
+                Saturday4pmToMN = saturday4pmToMN,
+                Sunday8amTo3pm = sunday8amTo3pm,
+                Sunday4pmToMN = sunday4pmToMN,
+                TablesAndChairsCostPerPerson = tablesAndChairsCostPerPerson,
+                SecurityGuardCostPerHour = securityGuardCostPerHour,
+                IsHallActive = true
+            };
+
+            this.db.Halls.Add(newHall);
+            this.db.SaveChanges();
+
         }
 
         public void Edit(int id,
@@ -45,7 +77,9 @@ namespace HallRental.Services.Admin.Implementations
                          decimal saturday8amTo3pm,
                          decimal saturday4pmToMN,
                          decimal sunday8amTo3pm,
-                         decimal sunday4pmToMN)
+                         decimal sunday4pmToMN,
+                         decimal tablesAndChairsCostPerPerson,
+                         decimal securityGuardCostPerHour)
         {
             Hall currentHall = this.db.Halls.Find(id);
 
@@ -63,6 +97,8 @@ namespace HallRental.Services.Admin.Implementations
             currentHall.Saturday4pmToMN = saturday4pmToMN;
             currentHall.Sunday8amTo3pm = sunday8amTo3pm;
             currentHall.Sunday4pmToMN = sunday4pmToMN;
+            currentHall.TablesAndChairsCostPerPerson = tablesAndChairsCostPerPerson;
+            currentHall.SecurityGuardCostPerHour = securityGuardCostPerHour;
 
             this.db.SaveChanges();
 

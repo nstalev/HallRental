@@ -90,7 +90,8 @@ namespace HallRental.Web.Infrastructure.Extensions
                              Sunday4pmToMN = 1750,
                              TablesAndChairsCostPerPerson =5,
                              HallCapacity = 375,
-                             SecurityGuardCostPerHour = 20
+                             SecurityGuardCostPerHour = 20,
+                             IsHallActive = true
 
                          };
 
@@ -106,7 +107,8 @@ namespace HallRental.Web.Infrastructure.Extensions
                              Sunday4pmToMN = 750,
                              TablesAndChairsCostPerPerson = 5,
                              HallCapacity = 100,
-                             SecurityGuardCostPerHour = 20
+                             SecurityGuardCostPerHour = 20,
+                             IsHallActive = true
                          };
 
                          Hall conferenceMediaRoom = new Hall
@@ -121,7 +123,8 @@ namespace HallRental.Web.Infrastructure.Extensions
                              Sunday4pmToMN = 750,
                              TablesAndChairsCostPerPerson = 5,
                              HallCapacity = 60,
-                             SecurityGuardCostPerHour = 20
+                             SecurityGuardCostPerHour = 20,
+                             IsHallActive = true
                          };
 
                          await db.Halls.AddAsync(grandFoyerAndBallRoom);
