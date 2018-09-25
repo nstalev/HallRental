@@ -75,7 +75,14 @@
     </div>
     <div class="col-md-4">
         <div style="text-align:right">
-            <button class="btn btn-default"  data-toggle="confirmation" onclick="DeleteFunc(@Model.Id)">Disable @Model.Name</button>
+            @if (Model.IsHallActive)
+            {
+                <button class="btn btn-default" data-toggle="confirmation" onclick="DisableHall(@Model.Id)">Disable @Model.Name</button>
+            }
+            else
+            {
+                <button class="btn btn-primary" data-toggle="confirmation" onclick="EnableHall(@Model.Id)">Enable @Model.Name</button>
+            }
 
         </div>
     </div>
@@ -87,11 +94,18 @@
 
 
 <script>
-    function DeleteFunc(id) {
+    function DisableHall(id) {
         var result = confirm("Are you sure you want to disable hall: @Model.Name")
         if (result) {
-            console.log(`Item with id ${id}`);
             window.location.href = `/admin/halls/disable/${id}`;
+        }
+    }
+
+
+    function EnableHall(id) {
+        var result = confirm("Are you sure you want to enable hall: @Model.Name")
+        if (result) {
+            window.location.href = `/admin/halls/enable/${id}`;
         }
     }
 </script>

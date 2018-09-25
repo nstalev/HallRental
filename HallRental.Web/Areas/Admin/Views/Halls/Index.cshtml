@@ -3,8 +3,14 @@
     ViewData["Title"] = "Index";
 }
 <hr />
-
-<a asp-area="Admin" asp-controller="Halls" asp-action="Create" class="btn btn-lg btn-default">Create New Hall</a>
+<div class="row">
+    <div class="col-md-6">
+        <a asp-area="Admin" asp-controller="Halls" asp-action="Create" class="btn btn-lg btn-default">Create New Hall</a>
+    </div>
+    <div class="col-md-6" style="text-align:right">
+        <a asp-area="Admin" asp-controller="Halls" asp-action="DisabledHalls" class="btn btn-lg btn-default">Disabled Halls</a>
+    </div>
+</div>
 
 <hr />
 <h2>Halls</h2>

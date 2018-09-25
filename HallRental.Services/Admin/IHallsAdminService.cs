@@ -8,6 +8,8 @@ namespace HallRental.Services.Admin
     {
         IEnumerable<HallsListServiceModel> AllActiveHalls();
 
+        IEnumerable<HallsListServiceModel> AllDisabledHalls();
+
         HallServiceModel ById (int id);
 
         HallsFormServiceModel GetFormModelById(int id);
@@ -19,5 +21,6 @@ namespace HallRental.Services.Admin
         void Create(string name, int hallCapacity, decimal mondayFriday8amTo3pm, decimal mondayThursday4pmToMN, decimal friday4pmToMN, decimal saturday8amTo3pm, decimal saturday4pmToMN, decimal sunday8amTo3pm, decimal sunday4pmToMN, decimal tablesAndChairsCostPerPerson, decimal securityGuardCostPerHour);
 
         void DisableHall(int id);
+        void EnableHall(int id);
     }
 }

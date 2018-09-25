@@ -60,5 +60,7 @@ namespace HallRental.Services.Admin.Models.Halls
         [Display(Name = "Security Guard service cost per hour")]
         [Range(0, double.MaxValue)]
         public decimal SecurityGuardCostPerHour { get; set; }
+
+        public bool IsHallActive { get; set; }
     }
 }

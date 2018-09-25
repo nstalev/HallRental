@@ -25,7 +25,14 @@ namespace HallRental.Services.Admin.Implementations
                 .ProjectTo<HallsListServiceModel>()
                 .ToList();
         }
-       
+
+        public IEnumerable<HallsListServiceModel> AllDisabledHalls()
+        {
+            return this.db.Halls
+               .Where(h => h.IsHallActive == false)
+               .ProjectTo<HallsListServiceModel>()
+               .ToList();
+        }
 
         public HallServiceModel ById(int id)
         {
@@ -68,13 +75,7 @@ namespace HallRental.Services.Admin.Implementations
 
         }
 
-        public void DisableHall(int id)
-        {
-            Hall currentHall = this.db.Halls.Find(id);
-
-            currentHall.IsHallActive = false;
-            this.db.SaveChanges();
-        }
+    
 
         public void Edit(int id,
                          string name,
@@ -110,6 +111,22 @@ namespace HallRental.Services.Admin.Implementations
 
             this.db.SaveChanges();
 
+        }
+
+        public void DisableHall(int id)
+        {
+            Hall currentHall = this.db.Halls.Find(id);
+
+            currentHall.IsHallActive = false;
+            this.db.SaveChanges();
+        }
+
+        public void EnableHall(int id)
+        {
+            Hall currentHall = this.db.Halls.Find(id);
+
+            currentHall.IsHallActive = true;
+            this.db.SaveChanges();
         }
 
         public bool Exists(int id)

@@ -131,5 +131,28 @@ namespace HallRental.Web.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        public IActionResult Enable(int id)
+        {
+            bool hallExists = this.hallsAdminService.Exists(id);
+
+            if (!hallExists)
+            {
+                return NotFound();
+            }
+
+            this.hallsAdminService.EnableHall(id);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        public IActionResult DisabledHalls()
+        {
+
+            var disabledHalls = this.hallsAdminService.AllDisabledHalls();
+
+            return View(disabledHalls);
+        }
     }
 }

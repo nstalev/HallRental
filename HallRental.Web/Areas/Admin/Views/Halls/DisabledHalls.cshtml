@@ -1,0 +1,43 @@
+﻿@model IEnumerable<HallsListServiceModel>
+
+@{
+    ViewData["Title"] = "DisabledHalls";
+}
+
+<h2>Disabled Halls</h2>
+<hr />
+<a asp-area="Admin" asp-controller="Halls" asp-action="Index">Back to List</a>
+<hr />
+@if (Model.Count() < 1)
+{
+    <h3>No Halls in this section</h3>
+}
+else
+{
+    @foreach (var item in Model)
+    {
+        <div class="panel panel-danger">
+            <div class="panel-heading"><b>@item.Name</b></div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        @{
+                            var routeValue = new Dictionary<string, string> { ["id"] = item.Id.ToString() };
+                        }
+                        <a asp-area="Admin" asp-controller="Halls" asp-action="Details" asp-all-route-data=" routeValue" class="btn btn-sm btn-success">Details</a>
+                        <a asp-area="Admin" asp-controller="Halls" asp-action="Edit" asp-all-route-data=" routeValue" class="btn btn-sm btn-warning">Edit</a>
+                    </div>
+                    <div class="col-md-6" style="text-align: right">
+                        Hall Capacity: @item.HallCapacity
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+
+<hr />
+<a asp-area="Admin" asp-controller="Halls" asp-action="Index">Back to List</a>
+
+
