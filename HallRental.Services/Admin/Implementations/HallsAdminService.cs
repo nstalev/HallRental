@@ -68,6 +68,14 @@ namespace HallRental.Services.Admin.Implementations
 
         }
 
+        public void DisableHall(int id)
+        {
+            Hall currentHall = this.db.Halls.Find(id);
+
+            currentHall.IsHallActive = false;
+            this.db.SaveChanges();
+        }
+
         public void Edit(int id,
                          string name,
                          int hallCapacity,

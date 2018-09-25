@@ -73,9 +73,26 @@
             </div>
         </form>
     </div>
+    <div class="col-md-4">
+        <div style="text-align:right">
+            <button class="btn btn-default"  data-toggle="confirmation" onclick="DeleteFunc(@Model.Id)">Disable @Model.Name</button>
+
+        </div>
+    </div>
 </div>
 
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+
+<script>
+    function DeleteFunc(id) {
+        var result = confirm("Are you sure you want to disable hall: @Model.Name")
+        if (result) {
+            console.log(`Item with id ${id}`);
+            window.location.href = `/admin/halls/disable/${id}`;
+        }
+    }
+</script>
 

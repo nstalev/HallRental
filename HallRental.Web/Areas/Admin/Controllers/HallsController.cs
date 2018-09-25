@@ -1,16 +1,10 @@
 ﻿
 namespace HallRental.Web.Areas.Admin.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Linq;
-    using System.Threading.Tasks;
     using HallRental.Services.Admin;
     using HallRental.Web.Infrastructure;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using AutoMapper.QueryableExtensions;
     using HallRental.Services.Admin.Models.Halls;
 
     [Area("Admin")]
@@ -39,6 +33,7 @@ namespace HallRental.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(HallsFormServiceModel hallsFormModel)
         {
             if (!ModelState.IsValid)
@@ -57,6 +52,9 @@ namespace HallRental.Web.Areas.Admin.Controllers
                         hallsFormModel.Sunday4pmToMN,
                         hallsFormModel.TablesAndChairsCostPerPerson,
                         hallsFormModel.SecurityGuardCostPerHour);
+
+
+            TempData.AddSuccessMessage($"Hall {hallsFormModel.Name} has been created");
 
             return RedirectToAction(nameof(Index));
         }
@@ -88,6 +86,7 @@ namespace HallRental.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, HallsFormServiceModel hallsFormModel)
         {
             bool hallExists = this.hallsAdminService.Exists(id);
@@ -113,6 +112,22 @@ namespace HallRental.Web.Areas.Admin.Controllers
                         hallsFormModel.Sunday4pmToMN,
                         hallsFormModel.TablesAndChairsCostPerPerson,
                         hallsFormModel.SecurityGuardCostPerHour);
+
+            TempData.AddSuccessMessage($"Hall {hallsFormModel.Name} has been edited");
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Disable (int id)
+        {
+            bool hallExists = this.hallsAdminService.Exists(id);
+
+            if (!hallExists)
+            {
+                return NotFound();
+            }
+
+            this.hallsAdminService.DisableHall(id);
 
             return RedirectToAction(nameof(Index));
         }
