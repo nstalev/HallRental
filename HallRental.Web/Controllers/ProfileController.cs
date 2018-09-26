@@ -72,6 +72,9 @@ namespace HallRental.Web.Controllers
                 TotalPages = (int)Math.Ceiling(myEventsCount / (double)pageSize)
             };
 
+            vm.TotalPages = vm.TotalPages == 0 ? 1 : vm.TotalPages;
+
+
             return View(vm);
         }
 
@@ -111,6 +114,8 @@ namespace HallRental.Web.Controllers
                 CurrentPage = page,
                 TotalPages = (int)Math.Ceiling(myEventsCount / (double)pageSize)
             };
+
+            vm.TotalPages = vm.TotalPages == 0 ? 1 : vm.TotalPages;
 
             return View(vm);
         }

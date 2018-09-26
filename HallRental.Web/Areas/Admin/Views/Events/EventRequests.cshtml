@@ -9,7 +9,8 @@
 <hr />
 @{
     var searchQuery = string.IsNullOrEmpty(Model.Search) ? string.Empty : ("search=" + Model.Search + "&");
-
+    var peviousPageDisable = Model.CurrentPage == 1 ? "disabled" : String.Empty;
+    var nextPageDisable = Model.CurrentPage == Model.TotalPages ? "disabled" : String.Empty;
 }
 
 <form>
@@ -25,6 +26,21 @@
 </form>
 <hr />
 
+<ul class="pagination">
+    <li class="page-item @peviousPageDisable">
+        <a class="page-link  @peviousPageDisable" href="EventRequests?@(searchQuery)page=@Model.PreviousPage" tabindex="-1">Previous</a>
+    </li>
+    @for (int i = 1; i <= Model.TotalPages; i++)
+    {
+        <li class="page-item @(Model.CurrentPage == i ? "active": String.Empty)"><a class="page-link" href="EventRequests?@(searchQuery)page=@i">@i</a></li>
+
+
+    }
+    <li class="page-item @nextPageDisable">
+        <a class="page-link @nextPageDisable" href="EventRequests?@(searchQuery)page=@Model.NextPage">Next</a>
+    </li>
+</ul>
+
 
 @if (Model.Events.Count() < 1)
 {
@@ -35,29 +51,6 @@
 
 else
 {
-    {
-        var peviousPageDisable = Model.CurrentPage == 1 ? "disabled" : String.Empty;
-        var nextPageDisable = Model.CurrentPage == Model.TotalPages ? "disabled" : String.Empty;
-
-    }
-
-
-    <ul class="pagination">
-        <li class="page-item peviousPageDisable">
-            <a class="page-link  peviousPageDisable" href="EventRequests?@(searchQuery)page=@Model.PreviousPage" tabindex="-1">Previous</a>
-        </li>
-        @for (int i = 1; i <= Model.TotalPages; i++)
-        {
-            <li class="page-item @(Model.CurrentPage == i ? "active": String.Empty)"><a class="page-link" href="EventRequests?@(searchQuery)page=@i">@i</a></li>
-
-
-        }
-        <li class="page-item nextPageDisable">
-            <a class="page-link nextPageDisable" href="EventRequests?@(searchQuery)page=@Model.NextPage">Next</a>
-        </li>
-    </ul>
-
-
 
 
 
@@ -132,9 +125,13 @@ else
         }
     </div>
 
+
+}
+
+
     <ul class="pagination">
-        <li class="page-item peviousPageDisable">
-            <a class="page-link  peviousPageDisable" href="EventRequests?@(searchQuery)page=@Model.PreviousPage" tabindex="-1">Previous</a>
+        <li class="page-item @peviousPageDisable">
+            <a class="page-link  @peviousPageDisable" href="EventRequests?@(searchQuery)page=@Model.PreviousPage" tabindex="-1">Previous</a>
         </li>
         @for (int i = 1; i <= Model.TotalPages; i++)
         {
@@ -142,9 +139,7 @@ else
 
 
         }
-        <li class="page-item nextPageDisable">
-            <a class="page-link nextPageDisable" href="EventRequests?@(searchQuery)page=@Model.NextPage">Next</a>
+        <li class="page-item @nextPageDisable">
+            <a class="page-link @nextPageDisable" href="EventRequests?@(searchQuery)page=@Model.NextPage">Next</a>
         </li>
     </ul>
-
-}

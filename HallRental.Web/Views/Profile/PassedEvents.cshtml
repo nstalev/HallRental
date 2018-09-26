@@ -9,6 +9,27 @@
 <hr />
 <a asp-area="" asp-controller="Profile" asp-action="MyReservations">Back to My Reservation</a>
 <hr />
+  @{
+        var peviousPageDisable = Model.CurrentPage == 1 ? "disabled" : String.Empty;
+        var nextPageDisable = Model.CurrentPage == Model.TotalPages ? "disabled" : String.Empty;
+    }
+
+
+<ul class="pagination">
+    <li class="page-item @peviousPageDisable">
+        <a class="page-link  @peviousPageDisable" href="PassedEvents?page=@Model.PreviousPage" tabindex="-1">Previous</a>
+    </li>
+    @for (int i = 1; i <= Model.TotalPages; i++)
+    {
+        <li class="page-item @(Model.CurrentPage == i ? "active": String.Empty)"><a class="page-link" href="PassedEvents?page=@i">@i</a></li>
+
+
+    }
+    <li class="page-item @nextPageDisable">
+        <a class="page-link @nextPageDisable" href="PassedEvents?page=@Model.NextPage">Next</a>
+    </li>
+</ul>
+
 
 @if (Model.Events.Count() < 1)
 {
@@ -16,29 +37,6 @@
 }
 else
 {
-    {
-        var peviousPageDisable = Model.CurrentPage == 1 ? "disabled" : String.Empty;
-        var nextPageDisable = Model.CurrentPage == Model.TotalPages ? "disabled" : String.Empty;
-    }
-
-    <ul class="pagination">
-        <li class="page-item peviousPageDisable">
-            <a class="page-link  peviousPageDisable" href="MyReservations?page=@Model.PreviousPage" tabindex="-1">Previous</a>
-        </li>
-        @for (int i = 1; i <= Model.TotalPages; i++)
-        {
-            <li class="page-item @(Model.CurrentPage == i ? "active": String.Empty)"><a class="page-link" href="MyReservations?page=@i">@i</a></li>
-
-
-        }
-        <li class="page-item nextPageDisable">
-            <a class="page-link nextPageDisable" href="MyReservations?page=@Model.NextPage">Next</a>
-        </li>
-    </ul>
-
-
-
-
 
     <div class="panel-group">
         @foreach (var item in Model.Events)
@@ -93,12 +91,23 @@ else
                     </div>
                 </div>
             </div>
-
         }
     </div>
-
-
 }
 
+    <ul class="pagination">
+        <li class="page-item @peviousPageDisable">
+            <a class="page-link  @peviousPageDisable" href="PassedEvents?page=@Model.PreviousPage" tabindex="-1">Previous</a>
+        </li>
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            <li class="page-item @(Model.CurrentPage == i ? "active": String.Empty)"><a class="page-link" href="PassedEvents?page=@i">@i</a></li>
+
+
+        }
+        <li class="page-item @nextPageDisable">
+            <a class="page-link @nextPageDisable" href="PassedEvents?page=@Model.NextPage">Next</a>
+        </li>
+    </ul>
 
 
