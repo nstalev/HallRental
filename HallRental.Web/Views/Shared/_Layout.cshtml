@@ -17,6 +17,9 @@
     </environment>
 </head>
 <body>
+
+
+
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -70,7 +73,47 @@
                 @TempData[GlobalConstants.TempDataErrorMessageKey]
             </div>
         }
-        @RenderBody()
+
+        @if (User.IsInRole(GlobalConstants.AdminRole))
+        {
+            <div id="wrapper">
+                <!-- Sidebar -->
+                <div id="sidebar-wrapper">
+                    <ul class="sidebar-nav">
+                        <li class="sidebar-brand">
+                            
+                                Administration Area
+                           
+                        </li>
+                        <li>
+                            <a href="#">Dashboard</a>
+                        </li>
+                        <li><a asp-area="Admin" asp-controller="Identity" asp-action="All">Users Management</a></li>
+                        <li><a asp-area="Admin" asp-controller="Halls" asp-action="Index">Halls Management</a></li>
+                    </ul>
+                </div>
+                <!-- /#sidebar-wrapper -->
+                <!-- Page Content -->
+                <div id="page-content-wrapper">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <!-- ------------ -->
+                                @RenderBody()
+
+                                <!-- ------------ -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /#page-content-wrapper -->
+
+            </div>
+        }
+        else
+        {
+            @RenderBody()
+        }
 
 
     </div>
