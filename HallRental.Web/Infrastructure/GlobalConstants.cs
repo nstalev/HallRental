@@ -14,5 +14,7 @@ namespace HallRental.Web.Infrastructure
         public const int MaxSecurityServiceHoursPerGuard = 12;
 
         public const int MyEventsMaxPageSize = 5;
+
+        public const int AdminEventsMaxPageSize = 5;
     }
 }
