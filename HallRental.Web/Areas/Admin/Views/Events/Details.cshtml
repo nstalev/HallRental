@@ -1,0 +1,88 @@
+﻿@model EventDetailsServiceModel
+
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<button class="btn btn-primary" data-toggle="confirmation" onclick="ConfirmEvent(@Model.Id)">Confirm Event</button>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+
+        <h2>Event summary</h2>
+        <hr />
+
+        <h4><b>Event date: </b>@Model.EventDate.ToShortDateString()</h4>
+        <h4><b>Hall: </b>@Model.HallName</h4>
+        <h4><b>Time: </b>@Model.RentTimeDisplay</h4>
+
+        <hr />
+        <h4><b>Event title: </b>@Model.EventTitle</h4>
+        <h4><b>Event Start: </b>@Model.EventStart</h4>
+        <h4><b>Event End: </b>@Model.EventEnd</h4>
+        <h4><b>Number of people </b>@Model.NumberOfPeople</h4>
+
+        <hr />
+
+        <h4>
+            <b>Description:</b>
+            @if (Model.Description == null)
+            {
+                <p>No description</p>
+            }
+            <p>@Model.Description</p>
+        </h4>
+
+        <h4>
+            <b>Cateret:</b>
+            @if (Model.Caterer == null)
+            {
+                <p>No information about caterer</p>
+            }
+            <p>@Model.Caterer</p>
+        </h4>
+
+    </div>
+    <div class="col-md-6">
+        <h2>Personal information and Price</h2>
+        <hr />
+        <h4><b>Name: </b>@Model.FullName</h4>
+        <h4><b>Email: </b>@Model.Email</h4>
+        <h4><b>Phone Number: </b>@Model.PhoneNumber</h4>
+        <hr />
+        <h4><b>Hall rent price: </b>$@Model.HallRentalPrice.ToString("F")</h4>
+        @if (Model.TablesAndChairsPrice > 0)
+        {
+            <p>Tables and chairs cost per person: $@Model.TablesAndChairsCostPerPerson</p>
+            <p>Number of people: @Model.NumberOfPeople</p>
+        }
+        <h4><b>Tables and chairs price: </b>$@Model.TablesAndChairsPrice.ToString("F")</h4>
+        @if (Model.SecurityPrice > 0)
+        {
+            <p>Requested Security Guards: @Model.SecurityGuards</p>
+            <p>Requested security hours per guard: @Model.RequestedSecurityHoursPerGuard</p>
+            <p>Security guard service cost per hour: $@Model.SecurityGuardCostPerHour.ToString("F")</p>
+        }
+        <h4><b>Security Price: </b>$@Model.SecurityPrice.ToString("F")</h4>
+
+        <hr />
+        <div id="total-price">
+            <h3><b>Total Price: </b>$@Model.TotalPrice.ToString("F")</h3>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+    function ConfirmEvent(id) {
+         var result = confirm("Are you sure you want to confirm reservation: @Model.Id")
+        if (result) {
+            window.location.href = `/admin/events/ConfirmEvent/${id}`;
+        }
+    }
+
+</script>

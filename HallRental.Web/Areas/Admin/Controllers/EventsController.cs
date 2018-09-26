@@ -8,6 +8,7 @@ namespace HallRental.Web.Areas.Admin.Controllers
     using HallRental.Services;
     using HallRental.Services.Admin;
     using HallRental.Services.Admin.Models.Events;
+    using HallRental.Services.Models.Profile;
     using HallRental.Web.Areas.Admin.Models.Events;
     using HallRental.Web.Infrastructure;
     using Microsoft.AspNetCore.Authorization;
@@ -53,7 +54,9 @@ namespace HallRental.Web.Areas.Admin.Controllers
                 EventId = e.Id,
                 EventDate = e.EventDate,
                 NumberOfPeople = e.NumberOfPeople,
-                EventTitle = e.EventTitle,
+                FullName = e.FullName,
+                Email= e.Email,
+                PhoneNumber = e.PhoneNumber,
                 RentTimeDisplay = this.eventService.GetRentTimeDisplay(e.RentTime),
                 HallName = e.HallName,
                 IsReservationConfirmed = e.IsReservationConfirmed,
@@ -91,7 +94,37 @@ namespace HallRental.Web.Areas.Admin.Controllers
             DateTime currentDate = DateTime.Now.Date;
 
 
-            return View();
+            int confirmedUpcomingEventsCount = this.eventAdminService.TotalConfirmedUpcomingEvents(search, currentDate);
+
+            IEnumerable<EventsListServiceModel> confirmedUpcomingEventsSM = this.eventAdminService.GetConfirmedUpcomingEvents(search, page, pageSize, currentDate);
+
+            IEnumerable<EventsListModel> confirmedUpcomingEvents = confirmedUpcomingEventsSM.Select(e => new EventsListModel
+            {
+                EventId = e.Id,
+                EventDate = e.EventDate,
+                NumberOfPeople = e.NumberOfPeople,
+                FullName = e.FullName,
+                Email = e.Email,
+                PhoneNumber = e.PhoneNumber,
+                RentTimeDisplay = this.eventService.GetRentTimeDisplay(e.RentTime),
+                HallName = e.HallName,
+                IsReservationConfirmed = e.IsReservationConfirmed,
+                Totalprice = e.Totalprice
+
+            })
+           .ToList();
+
+
+            EventsViewModel vm = new EventsViewModel
+            {
+                Events = confirmedUpcomingEvents,
+                Search = search,
+                CurrentPage = page,
+                TotalPages = (int)Math.Ceiling(confirmedUpcomingEventsCount / (double)pageSize)
+            };
+
+
+            return View(vm);
         }
 
         public IActionResult PassedEvents(string search, int page = 1)
@@ -111,6 +144,34 @@ namespace HallRental.Web.Areas.Admin.Controllers
 
 
             return View();
+        }
+
+
+        public IActionResult Details (int id)
+        {
+
+            EventDetailsServiceModel currentEvent = this.eventAdminService.EventById(id);
+
+            currentEvent.RentTimeDisplay = this.eventService.GetRentTimeDisplay(currentEvent.RentTime);
+
+            return View(currentEvent);
+        }
+
+
+        public IActionResult ConfirmEvent(int id)
+        {
+
+            bool eventExists = this.eventAdminService.EventExists(id);
+
+            if (!eventExists)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            this.eventAdminService.ConfirmEvent(id);
+
+
+            return RedirectToAction(nameof(ConfirmedEvents));
         }
     }
 }

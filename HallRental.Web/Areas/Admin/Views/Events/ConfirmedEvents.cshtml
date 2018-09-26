@@ -1,7 +1,150 @@
-﻿
+﻿@model EventsViewModel
+
 @{
     ViewData["Title"] = "ConfirmedEvents";
 }
 
-<h2>ConfirmedEvents</h2>
+<h2>Confirmed upcoming events</h2>
 
+<hr />
+@{
+    var searchQuery = string.IsNullOrEmpty(Model.Search) ? string.Empty : ("search=" + Model.Search + "&");
+
+}
+<form>
+    <div class="row">
+        <div class="col-md-4">
+            <input id="searchEvent" name="Search" type="text" class="form-control" placeholder="Search by tenant name" value="@Model.Search" />
+        </div>
+        <div class="col-md-4">
+            <input type="submit" value="Search" class="btn btn-default" />
+        </div>
+
+    </div>
+</form>
+
+<hr />
+
+
+@if (Model.Events.Count() < 1)
+{
+    <h3> No reservation</h3>
+}
+
+
+
+else
+{
+    {
+        var peviousPageDisable = Model.CurrentPage == 1 ? "disabled" : String.Empty;
+        var nextPageDisable = Model.CurrentPage == Model.TotalPages ? "disabled" : String.Empty;
+
+    }
+
+
+    <ul class="pagination">
+        <li class="page-item peviousPageDisable">
+            <a class="page-link  peviousPageDisable" href="EventRequests?@(searchQuery)page=@Model.PreviousPage" tabindex="-1">Previous</a>
+        </li>
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            <li class="page-item @(Model.CurrentPage == i ? "active": String.Empty)"><a class="page-link" href="EventRequests?@(searchQuery)page=@i">@i</a></li>
+
+
+        }
+        <li class="page-item nextPageDisable">
+            <a class="page-link nextPageDisable" href="EventRequests?@(searchQuery)page=@Model.NextPage">Next</a>
+        </li>
+    </ul>
+
+
+
+
+
+    <div class="panel-group">
+        @foreach (var item in Model.Events)
+        {
+            <div class="panel @(item.IsReservationConfirmed == false ? "panel-warning": "panel-success")" id="event-panel">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-4">
+                            Event Date: <b>@item.EventDate.ToShortDateString()</b>
+                        </div>
+                        <div class="col-md-4">
+                            @if (item.IsReservationConfirmed)
+                            {
+                                <p>The Reservation is confirmed</p>
+                            }
+                            else
+                            {
+                                <p style="color:red"><b>The Reservation is not confirmed</b></p>
+                            }
+                        </div>
+                        <div class="col-md-4">
+                            <p style="text-align: right">
+                                Hall: <b>@item.HallName</b>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>
+                                Tenant: <b>@item.FullName</b>
+                            </p>
+                            <p>
+                                Phone number: <b>@item.PhoneNumber</b>
+                            </p>
+                            <p>
+                                Email: <b>@item.Email</b>
+                            </p>
+                        </div>
+                        <div class="col-md-6" style="text-align:right">
+                            <p>
+                                Rent Time: @item.RentTimeDisplay
+                            </p>
+                            <p>
+                                Number of people: @item.NumberOfPeople
+                            </p>
+                        </div>
+                    </div>
+
+
+                </div>
+                @{
+                    var routeValue = new Dictionary<string, string> { ["id"] = item.EventId.ToString() };
+                }
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a asp-area="Admin" asp-controller="Events" asp-action="Details" asp-all-route-data="routeValue" class="btn btn-primary">Details</a>
+                        </div>
+                        <div class="col-md-6">
+                            <p style="text-align: right">
+                                Total Price: <b>$@item.Totalprice</b>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+
+    <ul class="pagination">
+        <li class="page-item peviousPageDisable">
+            <a class="page-link  peviousPageDisable" href="EventRequests?@(searchQuery)page=@Model.PreviousPage" tabindex="-1">Previous</a>
+        </li>
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            <li class="page-item @(Model.CurrentPage == i ? "active": String.Empty)"><a class="page-link" href="EventRequests?@(searchQuery)page=@i">@i</a></li>
+
+
+        }
+        <li class="page-item nextPageDisable">
+            <a class="page-link nextPageDisable" href="EventRequests?@(searchQuery)page=@Model.NextPage">Next</a>
+        </li>
+    </ul>
+
+}

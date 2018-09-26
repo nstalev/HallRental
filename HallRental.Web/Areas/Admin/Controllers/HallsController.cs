@@ -75,6 +75,13 @@ namespace HallRental.Web.Areas.Admin.Controllers
 
         public IActionResult Edit(int id)
         {
+            bool hallExists = this.hallsAdminService.Exists(id);
+
+            if (!hallExists)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
             HallsFormServiceModel currentHall = this.hallsAdminService.GetFormModelById(id);
 
             if (currentHall == null)
@@ -93,7 +100,7 @@ namespace HallRental.Web.Areas.Admin.Controllers
 
             if (!hallExists)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));
             }
 
             if (!ModelState.IsValid)
@@ -124,7 +131,7 @@ namespace HallRental.Web.Areas.Admin.Controllers
 
             if (!hallExists)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));
             }
 
             this.hallsAdminService.DisableHall(id);
@@ -138,7 +145,7 @@ namespace HallRental.Web.Areas.Admin.Controllers
 
             if (!hallExists)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));
             }
 
             this.hallsAdminService.EnableHall(id);
