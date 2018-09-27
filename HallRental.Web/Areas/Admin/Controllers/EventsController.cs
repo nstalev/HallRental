@@ -204,5 +204,21 @@ namespace HallRental.Web.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(ConfirmedEvents));
         }
+
+        public IActionResult DisconfirmEvent(int id)
+        {
+            bool eventExists = this.eventAdminService.EventExists(id);
+
+            if (!eventExists)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            this.eventAdminService.DisConfirmEvent(id);
+
+
+            return RedirectToAction(nameof(EventRequests));
+
+        }
     }
 }

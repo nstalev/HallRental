@@ -109,6 +109,12 @@ namespace HallRental.Services.Admin.Implementations
             this.db.SaveChanges();
         }
 
-       
+        public void DisConfirmEvent(int id)
+        {
+            var currentEvent = this.db.Events.Find(id);
+
+            currentEvent.IsReservationConfirmed = false;
+            this.db.SaveChanges();
+        }
     }
 }

@@ -26,6 +26,6 @@ namespace HallRental.Services.Admin
         bool EventExists(int id);
 
         void ConfirmEvent(int id);
-
+        void DisConfirmEvent(int id);
     }
 }
