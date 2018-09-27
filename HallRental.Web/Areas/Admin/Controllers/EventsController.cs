@@ -143,9 +143,38 @@ namespace HallRental.Web.Areas.Admin.Controllers
 
             DateTime currentDate = DateTime.Now.Date;
 
+            int passedEventsCount = this.eventAdminService.TotalPassedEvents(search, currentDate);
+
+            IEnumerable<EventsListServiceModel> passedEventsSM = this.eventAdminService.GetPassedEvents(search, page, pageSize, currentDate);
+
+            IEnumerable<EventsListModel> passedEvents = passedEventsSM.Select(e => new EventsListModel
+            {
+                EventId = e.Id,
+                EventDate = e.EventDate,
+                NumberOfPeople = e.NumberOfPeople,
+                FullName = e.FullName,
+                Email = e.Email,
+                PhoneNumber = e.PhoneNumber,
+                RentTimeDisplay = this.eventService.GetRentTimeDisplay(e.RentTime),
+                HallName = e.HallName,
+                IsReservationConfirmed = e.IsReservationConfirmed,
+                Totalprice = e.Totalprice
+
+            })
+           .ToList();
 
 
-            return View();
+            EventsViewModel vm = new EventsViewModel
+            {
+                Events = passedEvents,
+                Search = search,
+                CurrentPage = page,
+                TotalPages = (int)Math.Ceiling(passedEventsCount / (double)pageSize)
+            };
+
+            vm.TotalPages = vm.TotalPages == 0 ? 1 : vm.TotalPages;
+
+            return View(vm);
         }
 
 

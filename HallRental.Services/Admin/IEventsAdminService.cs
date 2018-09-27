@@ -17,10 +17,15 @@ namespace HallRental.Services.Admin
 
         int TotalConfirmedUpcomingEvents(string search, DateTime currentDate);
 
+        IEnumerable<EventsListServiceModel> GetPassedEvents(string search, int page, int pageSize, DateTime currentDate);
+
+        int TotalPassedEvents(string search, DateTime currentDate);
+
         EventDetailsServiceModel EventById(int id);
 
         bool EventExists(int id);
 
         void ConfirmEvent(int id);
+
     }
 }

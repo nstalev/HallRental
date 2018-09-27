@@ -46,6 +46,21 @@ namespace HallRental.Services.Admin.Implementations
                     .ToList();
         }
 
+        public IEnumerable<EventsListServiceModel> GetPassedEvents(string search, int page, int pageSize, DateTime currentDate)
+        {
+            return this.db.Events
+                   .Where(e => e.FullName.ToLower().Contains(search.ToLower())
+                   && e.IsReservationConfirmed == true
+                   && e.EventDate < currentDate)
+                   .OrderByDescending(e => e.EventDate)
+                   .Skip((page - 1) * pageSize)
+                   .Take(pageSize)
+                   .ProjectTo<EventsListServiceModel>()
+                   .ToList();
+        }
+
+       
+
 
         public int TotalEvetRequests(string search)
         {
@@ -62,6 +77,15 @@ namespace HallRental.Services.Admin.Implementations
                     && e.EventDate >= currentDate
                     && e.IsReservationConfirmed == true)
                     .Count();
+        }
+
+        public int TotalPassedEvents(string search, DateTime currentDate)
+        {
+            return this.db.Events
+                   .Where(e => e.FullName.ToLower().Contains(search.ToLower())
+                   && e.EventDate < currentDate
+                   && e.IsReservationConfirmed == true)
+                   .Count();
         }
 
         public EventDetailsServiceModel EventById(int id)
@@ -84,5 +108,7 @@ namespace HallRental.Services.Admin.Implementations
             currentEvent.IsReservationConfirmed = true;
             this.db.SaveChanges();
         }
+
+       
     }
 }
