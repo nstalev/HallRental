@@ -55,11 +55,12 @@ body {
     left: 0;
     right: 0;
     width: 100%;
-    background-color: #e7e7e7;
+    background-color: #f8f8f8;
     height: 100px;
     padding-bottom: 5px;
     padding-top: 5px;
     margin-top: 20px;
+    border-color: #e7e7e7
 }
 
 .footer-grid {
@@ -93,7 +94,7 @@ body {
     height: 100%;
     margin-left: -250px;
     overflow-y: auto;
-    background: #b3b3b3;
+    background: #e6e6e6;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -139,12 +140,12 @@ body {
 
             .sidebar-nav li a:hover {
                 text-decoration: none;
-                color: #fff;
+                color: #808080;
                 background: rgba(255,255,255,0.2);
             }
 
-            .sidebar-nav li a:active,
-            .sidebar-nav li a:focus {
+            .sidebar-nav li a:active {
+                color: red;
                 text-decoration: none;
             }
 

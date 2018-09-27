@@ -33,7 +33,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-area="" asp-controller="Home"  asp-action="Index">Home</a></li>
 
                     <li><a asp-area="" asp-controller="Calendar" asp-action="Index">Calendar</a></li>
                     <li><a asp-area="" asp-controller="Events" asp-action="DateCheck">Date Check</a></li>
@@ -87,12 +87,11 @@
                             Administration Area
 
                         </li>
-
-                        <li><a asp-area="Admin" asp-controller="Events" class="btn" asp-action="EventRequests">Event Requests</a></li>
-                        <li><a asp-area="Admin" asp-controller="Events"  class="btn"  asp-action="ConfirmedEvents">Confirmed Events</a></li>
-                        <li><a asp-area="Admin" asp-controller="Events" class="btn active" asp-action="PassedEvents">Passed Events</a></li>
-                        <li><a asp-area="Admin" asp-controller="Halls" class="btn" asp-action="Index">Halls Management</a></li>
-                        <li><a asp-area="Admin" asp-controller="Identity" class="btn" asp-action="All">Users Management</a></li>
+                        <li><a asp-area="Admin" asp-controller="Events" class="btn btn-default @Url.IsLinkActive("Events", "EventRequests")" asp-action="EventRequests">Event Requests</a></li>
+                        <li><a asp-area="Admin" asp-controller="Events"  class="btn btn-default @Url.IsLinkActive("Events", "ConfirmedEvents")"  asp-action="ConfirmedEvents">Confirmed Events</a></li>
+                        <li><a asp-area="Admin" asp-controller="Events" class="btn btn-default @Url.IsLinkActive("Events", "PassedEvents")" asp-action="PassedEvents">Passed Events</a></li>
+                        <li><a asp-area="Admin" asp-controller="Halls" class="btn btn-default @Url.IsLinkActive("Halls", "Index")" asp-action="Index">Halls Management</a></li>
+                        <li><a asp-area="Admin" asp-controller="Identity" class= "btn btn-default @Url.IsLinkActive("Identity", "All")" asp-action="All">Users Management</a></li>
 
                     </ul>
                 </div>
