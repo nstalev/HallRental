@@ -29,5 +29,7 @@ namespace HallRental.Services.Admin
         void DisConfirmEvent(int id);
 
         List<EvenAlertNotificationSM> GetAllEventsOnTheSameDay(int id, DateTime checkDate);
+
+        void DeleteEvent(int id);
     }
 }

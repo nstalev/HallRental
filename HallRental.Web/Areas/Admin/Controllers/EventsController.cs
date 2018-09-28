@@ -207,6 +207,7 @@ namespace HallRental.Web.Areas.Admin.Controllers
 
             this.eventAdminService.ConfirmEvent(id);
 
+            TempData.AddSuccessMessage($"Event ID {id} has been confirmed");
 
             return RedirectToAction(nameof(ConfirmedEvents));
         }
@@ -222,6 +223,25 @@ namespace HallRental.Web.Areas.Admin.Controllers
 
             this.eventAdminService.DisConfirmEvent(id);
 
+            TempData.AddErrorMessage($"Event ID {id} has been disconfirmed");
+
+            return RedirectToAction(nameof(EventRequests));
+
+        }
+
+
+        public IActionResult DeleteEvent(int id)
+        {
+            bool eventExists = this.eventAdminService.EventExists(id);
+
+            if (!eventExists)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            this.eventAdminService.DeleteEvent(id);
+
+            TempData.AddErrorMessage($"Event ID {id} has been Deleted");
 
             return RedirectToAction(nameof(EventRequests));
 

@@ -50,6 +50,28 @@
                     </div>
                 </div>
             </div>
+            <hr />
+
+                <button type="button" class="btn btn-warning">Edit Event</button>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal2">Delete Event</button>
+                <div class="modal fade" id="myModal2" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Event &numero; @Model.Id</h4>
+                            </div>
+
+                            <div class="modal-body">
+                                <p>Are you sure you want to Delete this reservation?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" onclick="DeleteEvent(@Model.Id)">Delete</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         }
     </div>
     <div class="col-md-8">
@@ -59,8 +81,19 @@
             {
         <div class="alert alert-danger">
             <strong>Reservation on the same day: </strong>
-            Hall: @notification.HallName  | Time: @notification.RentTime | Event &numero; @notification.Id
-        </div>
+            Hall: @notification.HallName  | Time: @notification.RentTime | 
+            <a href="@notification.Id" class="alert-link">Event &numero; @notification.Id</a>
+             | Name: @notification.FullName
+    |  @if (notification.IsReservationConfirmed)
+    {
+        <b>Confirmed</b>
+    }
+    else
+    {
+        <b>Not Confirmed</b>
+
+    }
+</div>
             }
         }
 
@@ -155,14 +188,16 @@ else
 <script>
 
     function ConfirmEvent(id) {
-         @*var result = confirm("Are you sure you want to confirm reservation: @Model.Id")
-        if (result) {*@
             window.location.href = `/admin/events/ConfirmEvent/${id}`;
     }
 
     function DisconfirmEvent(id) {
         window.location.href = `/admin/events/DisconfirmEvent/${id}`;
 
+    }
+
+    function DeleteEvent(id) {
+        window.location.href = `/admin/events/DeleteEvent/${id}`;
     }
 
 </script>

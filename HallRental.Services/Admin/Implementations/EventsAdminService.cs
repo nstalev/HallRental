@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using AutoMapper.QueryableExtensions;
-using HallRental.Data;
-using HallRental.Services.Admin.Models.Events;
-using HallRental.Services.Models.Profile;
-
+﻿
 namespace HallRental.Services.Admin.Implementations
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using AutoMapper.QueryableExtensions;
+    using HallRental.Data;
+    using HallRental.Data.Models;
+    using HallRental.Services.Admin.Models.Events;
+
     public class EventsAdminService : IEventsAdminService
     {
 
@@ -18,7 +18,6 @@ namespace HallRental.Services.Admin.Implementations
         {
             this.db = db;
         }
-
        
 
         public IEnumerable<EventsListServiceModel> GetEventRequests(string search, int page, int pageSize)
@@ -127,6 +126,14 @@ namespace HallRental.Services.Admin.Implementations
                 && e.Id != id)
                 .ProjectTo<EvenAlertNotificationSM>()
                 .ToList();
+        }
+
+        public void DeleteEvent(int id)
+        {
+            Event currentEvent = this.db.Events.Find(id);
+
+            this.db.Events.Remove(currentEvent);
+            this.db.SaveChanges();
         }
     }
 }
