@@ -24,7 +24,8 @@ namespace HallRental.Services.Admin.Implementations
         public IEnumerable<EventsListServiceModel> GetEventRequests(string search, int page, int pageSize)
         {
             return this.db.Events
-                    .Where(e => e.FullName.ToLower().Contains(search.ToLower())
+                    .Where(e => (e.FullName.ToLower().Contains(search.ToLower())
+                    || e.Id.ToString() == search)
                     && e.IsReservationConfirmed == false)
                     .OrderBy(e => e.EventDate)
                     .Skip((page - 1) * pageSize)
@@ -36,7 +37,8 @@ namespace HallRental.Services.Admin.Implementations
         public IEnumerable<EventsListServiceModel> GetConfirmedUpcomingEvents(string search, int page, int pageSize, DateTime currentDate)
         {
             return this.db.Events
-                    .Where(e => e.FullName.ToLower().Contains(search.ToLower())
+                    .Where(e => (e.FullName.ToLower().Contains(search.ToLower())
+                    || e.Id.ToString() == search)
                     && e.IsReservationConfirmed == true
                     && e.EventDate >= currentDate)
                     .OrderBy(e => e.EventDate)
@@ -49,7 +51,8 @@ namespace HallRental.Services.Admin.Implementations
         public IEnumerable<EventsListServiceModel> GetPassedEvents(string search, int page, int pageSize, DateTime currentDate)
         {
             return this.db.Events
-                   .Where(e => e.FullName.ToLower().Contains(search.ToLower())
+                   .Where(e => (e.FullName.ToLower().Contains(search.ToLower())
+                    || e.Id.ToString() == search)
                    && e.IsReservationConfirmed == true
                    && e.EventDate < currentDate)
                    .OrderByDescending(e => e.EventDate)
@@ -88,11 +91,11 @@ namespace HallRental.Services.Admin.Implementations
                    .Count();
         }
 
-        public EventDetailsServiceModel EventById(int id)
+        public EventDetailsAdminSM EventById(int id)
         {
             return this.db.Events
               .Where(e => e.Id == id)
-              .ProjectTo<EventDetailsServiceModel>()
+              .ProjectTo<EventDetailsAdminSM>()
               .FirstOrDefault();
         }
 
@@ -115,6 +118,15 @@ namespace HallRental.Services.Admin.Implementations
 
             currentEvent.IsReservationConfirmed = false;
             this.db.SaveChanges();
+        }
+
+        public List<EvenAlertNotificationSM> GetAllEventsOnTheSameDay(int id, DateTime checkDate)
+        {
+            return  this.db.Events
+                .Where(e => e.EventDate.Date == checkDate.Date
+                && e.Id != id)
+                .ProjectTo<EvenAlertNotificationSM>()
+                .ToList();
         }
     }
 }

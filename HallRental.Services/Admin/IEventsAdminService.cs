@@ -21,11 +21,13 @@ namespace HallRental.Services.Admin
 
         int TotalPassedEvents(string search, DateTime currentDate);
 
-        EventDetailsServiceModel EventById(int id);
+        EventDetailsAdminSM EventById(int id);
 
         bool EventExists(int id);
 
         void ConfirmEvent(int id);
         void DisConfirmEvent(int id);
+
+        List<EvenAlertNotificationSM> GetAllEventsOnTheSameDay(int id, DateTime checkDate);
     }
 }

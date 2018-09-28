@@ -181,9 +181,15 @@ namespace HallRental.Web.Areas.Admin.Controllers
         public IActionResult Details (int id)
         {
 
-            EventDetailsServiceModel currentEvent = this.eventAdminService.EventById(id);
+            EventDetailsAdminSM currentEvent = this.eventAdminService.EventById(id);
 
             currentEvent.RentTimeDisplay = this.eventService.GetRentTimeDisplay(currentEvent.RentTime);
+
+            DateTime checkDate = currentEvent.EventDate;
+
+            List<EvenAlertNotificationSM> notifications = this.eventAdminService.GetAllEventsOnTheSameDay(id, checkDate);
+
+            currentEvent.EventNotifications = notifications;
 
             return View(currentEvent);
         }
