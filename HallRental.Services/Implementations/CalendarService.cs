@@ -21,7 +21,8 @@ namespace HallRental.Services.Implementations
         public IEnumerable<EventCalendarServiceModel> AllEvents(int hallId)
         {
             return this.db.Events
-                .Where(e => e.HallId == hallId)
+                .Where(e => e.HallId == hallId
+                && e.IsReservationConfirmed == true)
                 .Select(e => new EventCalendarServiceModel
                 {
                     Title = e.EventTitle,

@@ -39,7 +39,7 @@ namespace HallRental.Services.Admin.Implementations
                     .Where(e => (e.FullName.ToLower().Contains(search.ToLower())
                     || e.Id.ToString() == search)
                     && e.IsReservationConfirmed == true
-                    && e.EventDate >= currentDate)
+                    && e.EventDate.Date >= currentDate.Date)
                     .OrderBy(e => e.EventDate)
                     .Skip((page - 1) * pageSize)
                     .Take(pageSize)
@@ -53,7 +53,7 @@ namespace HallRental.Services.Admin.Implementations
                    .Where(e => (e.FullName.ToLower().Contains(search.ToLower())
                     || e.Id.ToString() == search)
                    && e.IsReservationConfirmed == true
-                   && e.EventDate < currentDate)
+                   && e.EventDate.Date < currentDate.Date)
                    .OrderByDescending(e => e.EventDate)
                    .Skip((page - 1) * pageSize)
                    .Take(pageSize)

@@ -66,14 +66,16 @@ namespace HallRental.Services.Implementations
             {
                 return this.db.Events
                     .Any(e => e.EventDate.Date == date.Date
-                    && e.HallId == hallId);
+                    && e.HallId == hallId 
+                    && e.IsReservationConfirmed == true);
             }
             else
             {
                 var AllDayEvent = this.db.Events
                  .Any(e => e.EventDate.Date == date.Date
                  && e.RentTime == RentTimeEnum.AllDay
-                  && e.HallId == hallId);
+                  && e.HallId == hallId
+                  && e.IsReservationConfirmed == true);
 
                 if (AllDayEvent)
                 {
@@ -85,7 +87,8 @@ namespace HallRental.Services.Implementations
                   .Any(e => e.EventDate.Date == date.Date
                    && e.HallId == hallId
                   && e.RentTime == rentTime
-                  && e.RentTime != RentTimeEnum.AllDay);
+                  && e.RentTime != RentTimeEnum.AllDay
+                  && e.IsReservationConfirmed ==true);
                 }
 
             }
