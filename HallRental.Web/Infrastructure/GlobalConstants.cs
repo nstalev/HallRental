@@ -16,5 +16,7 @@ namespace HallRental.Web.Infrastructure
         public const int MyEventsMaxPageSize = 5;
 
         public const int AdminEventsMaxPageSize = 5;
+
+        public const int UsersListMaxPageSize = 5;
     }
 }

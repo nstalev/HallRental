@@ -3,6 +3,7 @@ namespace HallRental.Services.Admin.Implementations
 {
     using System.Collections.Generic;
     using System.Linq;
+    using AutoMapper.QueryableExtensions;
     using HallRental.Data;
     using HallRental.Services.Admin.Models;
 
@@ -16,17 +17,28 @@ namespace HallRental.Services.Admin.Implementations
             this.db = db;
         }
 
-        public IEnumerable<UserModel> AllUsers()
+        public IEnumerable<UserModel> GetUsers(string search, int page, int pageSize)
         {
             return this.db.Users
-                .Select(u => new UserModel
-                {
-                    Id = u.Id,
-                    Email = u.Email,
-                    UserName = u.UserName,
-                    PhoneNumber = u.PhoneNumber
-                }).ToList();
-                
+                .Where(e => (e.UserName.ToLower().Contains(search.ToLower())
+                || e.FirstName.ToLower().Contains(search.ToLower())
+                || e.LastName.ToLower().Contains(search.ToLower())))
+                .OrderBy(a => a.UserName)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ProjectTo<UserModel>()
+                .ToList();
+
+        }
+
+
+        public int AllUsersCount(string search)
+        {
+            return this.db.Users
+                .Where(e => (e.UserName.ToLower().Contains(search.ToLower())
+                || e.FirstName.ToLower().Contains(search.ToLower())
+                || e.LastName.ToLower().Contains(search.ToLower())))
+                .Count();
         }
 
         public void DeleteEvents(string id)
@@ -38,5 +50,7 @@ namespace HallRental.Services.Admin.Implementations
             this.db.Events.RemoveRange(eventsForDelete);
             this.db.SaveChanges();
         }
+
+        
     }
 }

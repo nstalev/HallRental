@@ -6,8 +6,10 @@ namespace HallRental.Services.Admin
 
     public interface IIdentityService
     {
-        IEnumerable<UserModel> AllUsers();
-
         void DeleteEvents(string id);
+
+        int AllUsersCount(string search);
+
+        IEnumerable<UserModel> GetUsers(string search, int page, int pageSize);
     }
 }

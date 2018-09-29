@@ -1,51 +1,95 @@
-﻿@model IEnumerable<UserModel>
+﻿@model AllUsersViewModel
 
 @{
     ViewData["Title"] = "All";
 }
 
-<h2>All</h2>
+<h2>All Users</h2>
+<hr />
 
 <p>
     <a asp-action="Register" class="btn btn-primary btn-sm">Register New User</a>
 </p>
+
+<hr />
+@{
+    var searchQuery = string.IsNullOrEmpty(Model.Search) ? string.Empty : ("search=" + Model.Search + "&");
+    var peviousPageDisable = Model.CurrentPage == 1 ? "disabled" : String.Empty;
+    var nextPageDisable = Model.CurrentPage == Model.TotalPages ? "disabled" : String.Empty;
+
+}
+<form>
+    <div class="row">
+        <div class="col-md-4">
+            <input id="searchEvent" name="Search" type="text" class="form-control" placeholder="Search by Name or Username;" value="@Model.Search" />
+        </div>
+        <div class="col-md-4">
+            <input type="submit" value="Search" class="btn btn-default" />
+        </div>
+
+    </div>
+</form>
+
+<hr />
+
+<ul class="pagination">
+    <li class="page-item @peviousPageDisable">
+        <a class="page-link  @peviousPageDisable" href="All?@(searchQuery)page=@Model.PreviousPage" tabindex="-1">Previous</a>
+    </li>
+    @for (int i = 1; i <= Model.TotalPages; i++)
+    {
+        <li class="page-item @(Model.CurrentPage == i ? "active": String.Empty)"><a class="page-link" href="All?@(searchQuery)page=@i">@i</a></li>
+
+
+    }
+    <li class="page-item @nextPageDisable">
+        <a class="page-link @nextPageDisable" href="All?@(searchQuery)page=@Model.NextPage">Next</a>
+    </li>
+</ul>
+
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.UserName)
+                UserName
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                Email
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PhoneNumber)
+                Phone number
             </th>
-            <th></th>
+            <th>
+                Full Name
+            </th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.AllUsers)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PhoneNumber)
-                </td>
-                @{
-                    var routeValue = new Dictionary<string, string> { ["id"] = item.Id.ToString() };
-                }
-                <td>
-                    <a asp-controller="Identity" asp-action="Roles" asp-all-route-data="routeValue" class="btn btn-sm btn-default">Roles</a>
-                    <a asp-controller="Identity" asp-action="Delete" asp-all-route-data="routeValue" class="btn btn-sm btn-danger">Delete</a>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @item.FirstName @item.LastName
+            </td>
+            @{
+                var routeValue = new Dictionary<string, string> { ["id"] = item.Id.ToString() };
+            }
+            <td>
+                <a asp-controller="Identity" asp-action="Roles" asp-all-route-data="routeValue" class="btn btn-sm btn-default">Roles</a>
+                <a asp-controller="Identity" asp-action="Delete" asp-all-route-data="routeValue" class="btn btn-sm btn-danger">Delete</a>
 
-                </td>
-            </tr>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

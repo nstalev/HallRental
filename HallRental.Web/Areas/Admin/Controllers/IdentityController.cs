@@ -12,6 +12,7 @@ namespace HallRental.Web.Areas.Admin.Controllers
     using System.Linq;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using HallRental.Services.Admin;
+    using System;
 
     [Area("Admin")]
     [Authorize(Roles = GlobalConstants.AdminRole)]
@@ -21,6 +22,8 @@ namespace HallRental.Web.Areas.Admin.Controllers
         private readonly IIdentityService identityService;
         private readonly UserManager<User> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
+        private const int pageSize = GlobalConstants.UsersListMaxPageSize;
+
 
         public IdentityController(IIdentityService identityService,
                                     UserManager<User> userManager,
@@ -31,11 +34,31 @@ namespace HallRental.Web.Areas.Admin.Controllers
             this.roleManager = roleManager;
         }
 
-        public IActionResult All()
+        public IActionResult All(string search, int page = 1)
         {
-            var users = this.identityService.AllUsers();
+            if (string.IsNullOrEmpty(search))
+            {
+                search = "";
+            }
 
-            return View(users);
+            if (page <= 0)
+            {
+                page = 1;
+            }
+
+            int allUsersCount = this.identityService.AllUsersCount(search);
+
+            var users = this.identityService.GetUsers(search, page, pageSize);
+
+            AllUsersViewModel vm = new AllUsersViewModel
+            {
+                AllUsers = users,
+                Search = search,
+                CurrentPage = page,
+                TotalPages = (int)Math.Ceiling(allUsersCount / (double)pageSize)
+            };
+
+            return View(vm);
         }
 
         public async Task<IActionResult> Roles(string id)
