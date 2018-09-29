@@ -5,14 +5,41 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using HallRental.Web.Models;
+using HallRental.Services.Admin;
+using HallRental.Web.Models.HomeViewModels;
+using Microsoft.AspNetCore.Identity;
+using HallRental.Data.Models;
+using HallRental.Web.Infrastructure;
 
 namespace HallRental.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IEventsAdminService eventAdminService;
+        private readonly UserManager<User> userManager;
+
+        public HomeController(IEventsAdminService eventAdminService,
+                               UserManager<User> userManager)
+        {
+            this.eventAdminService = eventAdminService;
+            this.userManager = userManager;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            HomeIndexVM vm = new HomeIndexVM();
+
+            bool isAdminAuthenticated = User.IsInRole(GlobalConstants.AdminRole);
+
+            if (isAdminAuthenticated)
+            {
+                int allEventRequestsCount = this.eventAdminService.AllEventRequestsCount();
+                vm.AllEventRequestsCount = allEventRequestsCount;
+
+            }
+
+
+            return View(vm);
         }
 
         public IActionResult About()

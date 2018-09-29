@@ -82,9 +82,9 @@
                 <!-- Sidebar -->
                 <div id="sidebar-wrapper">
                     <ul class="sidebar-nav">
-                        <li class="sidebar-brand">
-
-                            Administration Area
+                        <li class="sidebar-brand" >
+                            <a asp-area=""asp-controller="Home" asp-action="Index" style="text-align:center" >Administration Area</a>
+                            
 
                         </li>
                         <li><a asp-area="Admin" asp-controller="Events" class="btn btn-default @Url.IsLinkActive("Events", "EventRequests")" asp-action="EventRequests">Event Requests</a></li>

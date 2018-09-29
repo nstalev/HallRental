@@ -1,13 +1,18 @@
-﻿@{
+﻿@model HomeIndexVM
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 @if (User.IsInRole(GlobalConstants.AdminRole))
 {
-<div class="jumbotron">
-    <h2 style="text-align:center">Administration Area</h2>
+    <div class="jumbotron">
+        <h2 style="text-align:center">Administration Area</h2>
 
-</div>
+    </div>
+    <hr />
+
+    <a asp-area="Admin" asp-controller="Events" asp-action="EventRequests" class="btn btn-default">Requests for reservations <span class="badge">@Model.AllEventRequestsCount</span></a>
 
 }
 else

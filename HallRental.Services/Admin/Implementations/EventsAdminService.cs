@@ -135,5 +135,12 @@ namespace HallRental.Services.Admin.Implementations
             this.db.Events.Remove(currentEvent);
             this.db.SaveChanges();
         }
+
+        public int AllEventRequestsCount()
+        {
+            return this.db.Events
+                .Where(e => e.IsReservationConfirmed == false)
+                .Count();
+        }
     }
 }

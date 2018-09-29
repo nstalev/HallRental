@@ -8,6 +8,7 @@ namespace HallRental.Services.Admin
 
     public interface IEventsAdminService
     {
+
         IEnumerable<EventsListServiceModel> GetEventRequests(string search, int page, int pageSize);
 
         int TotalEvetRequests(string search);
@@ -31,5 +32,7 @@ namespace HallRental.Services.Admin
         List<EvenAlertNotificationSM> GetAllEventsOnTheSameDay(int id, DateTime checkDate);
 
         void DeleteEvent(int id);
+
+        int AllEventRequestsCount();
     }
 }
