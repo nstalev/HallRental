@@ -58,7 +58,7 @@
             <div class="form-group">
                 <label asp-for="NumberOfPeople" class="control-label"></label>
                 <input id="NumberOfPeople" asp-for="NumberOfPeople" class="form-control" />
-                <span id="NumberOfPeople-error" style="color: #a94442"></span>
+                <span id="NumberOfPeople-error" class="price-check-error"></span>
                 <span asp-validation-for="NumberOfPeople" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -72,13 +72,13 @@
                 <label asp-for="SecurityGuards" class="control-label"></label>
                 <input id="SecurityGuards" asp-for="SecurityGuards" class="form-control" />
                 <span asp-validation-for="SecurityGuards" class="text-danger"></span>
-                <span id="SecurityGuards-error" style="color: #a94442"></span>
+                <span id="SecurityGuards-error" class="price-check-error"></span>
             </div>
             <div class="form-group">
                 <label asp-for="RequestedSecurityHoursPerGuard" class="control-label"></label>
                 <input id="SecServiceHoursPerGuard" asp-for="RequestedSecurityHoursPerGuard" class="form-control" />
                 <span asp-validation-for="RequestedSecurityHoursPerGuard" class="text-danger"></span>
-                <span id="SecServiceHours-error" style="color: #a94442"></span>
+                <span id="SecServiceHours-error" class="price-check-error" ></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Continue" class="btn btn-default" />

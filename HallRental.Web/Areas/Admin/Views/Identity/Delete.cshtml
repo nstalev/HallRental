@@ -5,7 +5,7 @@
 }
 
 <h2>Are you sure you want to delete user: @Model.UserName</h2>
-<h3 style="color:red"><b>Be aware that all his / her reservations will be deleted</b></h3>
+<h3 class="error-note"><b>Please note that all his / her reservations will be deleted</b></h3>
 
 @{
     var routeValue = new Dictionary<string, string> { ["id"] = Model.Id.ToString() };
