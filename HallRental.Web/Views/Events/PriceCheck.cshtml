@@ -4,15 +4,15 @@
     ViewData["Title"] = "PriceCheck";
 }
 
-<h2>Event Info and Price Check</h2>
+@*<h2>Event Info and Price Check</h2>
 
 <hr />
 <h4><b>Hall: </b>@Model.HallName</h4>
 <h4><b>Date: </b>@Model.Date.ToShortDateString()</h4>
-<h4><b>Time: </b>@Model.RentTimeDisplay</h4>
+<h4><b>Time: </b>@Model.RentTimeDisplay</h4>*@
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
 
         <form asp-action="Summary" id="submitForm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -85,9 +85,8 @@
             </div>
         </form>
     </div>
-    <div id="testPrice" class="col-md-4">
-    </div>
-    <div id="refTable" class="col-md-4">
+    
+    <div id="refTable" class="col-md-6">
         @Html.Partial("_PartialPrice", Model.EventPriceModel)
     </div>
 </div>
