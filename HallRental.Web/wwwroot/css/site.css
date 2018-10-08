@@ -13,6 +13,7 @@ body {
     padding-left: 15px;
     padding-right: 15px;
     margin-bottom: 125px;
+    height:100%;
 }
 
 /* Carousel */
@@ -112,7 +113,7 @@ body {
 }
 
 #wrapper.toggled #page-content-wrapper {
-    position: absolute;
+    position: relative;
     margin-right: -250px;
 }
 
