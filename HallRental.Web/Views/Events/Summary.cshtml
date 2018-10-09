@@ -5,149 +5,88 @@
 }
 
 <div class="row">
-    @*<div class="col-md-6">
 
-            <h2>Event summary</h2>
-            <hr />
-
-            <h3><b>Hall: </b>@Model.HallName</h3>
-            <h3><b>Date: </b>@Model.Date.ToShortDateString()</h3>
-            <h3><b>Time: </b>@Model.RentTimeDisplay</h3>
-
-            <hr />
-            <h4><b>Event title: </b>@Model.EventTitle</h4>
-            <h4><b>Event Start: </b>@Model.EventStart</h4>
-            <h4><b>Event End: </b>@Model.EventEnd</h4>
-            <h4><b>Number of people </b>@Model.NumberOfPeople</h4>
-
-            <hr />
-
-            <h4><b>Hall rent price: </b>$@Model.HallRentalPrice.ToString("F")</h4>
-            <h4><b>Tables and chairs price: </b>$@Model.TablesAndChairsPrice.ToString("F")</h4>
-            @if (Model.SecurityPrice > 0)
-            {
-                <p>Requested Security Guards: @Model.SecurityGuards</p>
-                <p>Requested security hours per guard: @Model.RequestedSecurityHoursPerGuard</p>
-                <p>Security guard service cost per hour: $@Model.SecurityGuardCostPerHour.ToString("F")</p>
-            }
-            <h4><b>Security Price: </b>$@Model.SecurityPrice.ToString("F")</h4>
-
-            <hr />
-            <div id="total-price">
-                <h3><b>Total Price: </b>$@Model.TotalPrice.ToString("F")</h3>
-            </div>
-        </div>*@
     <div class="col-md-6">
-        <h2>Personal information</h2>
-        <hr />
-        <form asp-action="CreateEvent">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <input asp-for="Date" class="form-control" type="hidden" />
-            </div>
-            <div class="form-group">
-                <input asp-for="HallId" class="form-control" type="hidden" />
-            </div>
-            <div class="form-group">
-                <input asp-for="RentTime" class="form-control" type="hidden" />
-            </div>
-            <div class="form-group">
-                <input asp-for="EventStart" class="form-control" type="hidden" />
-            </div>
-            <div class="form-group">
-                <input asp-for="EventEnd" class="form-control" type="hidden" />
-            </div>
-            <div class="form-group">
-                <input asp-for="EventTitle" class="form-control" type="hidden" />
-            </div>
-            <div class="form-group">
-                <input asp-for="NumberOfPeople" class="form-control" type="hidden" />
-            </div>
-            <div class="form-group">
-                <input asp-for="UsingTablesAndChairs" class="form-control" type="hidden" />
-            </div>
-            <div class="form-group">
-                <input asp-for="TablesAndChairsCostPerPerson" class="form-control" type="hidden" />
-            </div>
-            <div class="form-group">
-                <input asp-for="SecurityGuardCostPerHour" class="form-control" type="hidden" />
-            </div>
-            <div class="form-group">
-                <input asp-for="SecurityGuards" class="form-control" type="hidden" />
-            </div>
-            <div class="form-group">
-                <input asp-for="RequestedSecurityHoursPerGuard" class="form-control" type="hidden" />
-            </div>
-            <div class="form-group">
-                <input asp-for="HallRentalPrice" class="form-control" type="hidden" />
-            </div>
-            <div class="form-group">
-                <input asp-for="TablesAndChairsPrice" class="form-control" type="hidden" />
-            </div>
-            <div class="form-group">
-                <input asp-for="SecurityPrice" class="form-control" type="hidden" />
-            </div>
-            <div class="form-group">
-                <input asp-for="TotalPrice" class="form-control" type="hidden" />
-            </div>
-
-            <div class="form-group">
-                <label asp-for="FullName" class="control-label"></label>
-                <input asp-for="FullName" class="form-control" />
-                <span asp-validation-for="FullName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <p>Tell us more about the event:</p>
-                <textarea asp-for="EventDescription" class="form-control"></textarea>
-            </div>
-            <div class="form-group">
-                <p>If you are using a caterer, please provide the name and contact information of the company:</p>
-                <textarea asp-for="Caterer" class="form-control"></textarea>
-            </div>
-            <br />
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-lg btn-primary" />
-            </div>
-        </form>
-    </div>
-    <div class="col-md-6 event-side-info">
-        <p>Hall: <b>@Model.HallName</b></p>
-        <p>Date: <b>@Model.Date.ToShortDateString()</b></p>
-        <p>Time: <b>@Model.RentTimeDisplay</b></p>
-
-        <div class="event-side-title-info">
-            <p>Event title: @Model.EventTitle</p>
-            <p>Event Start: @Model.EventStart</p>
-            <p>Event End: @Model.EventEnd</p>
-            <p>Number of people: @Model.NumberOfPeople</p>
-        </div>
-
-        <div class="price-side-info">
-            <p><b>Hall rent price: </b>$@Model.HallRentalPrice.ToString("F")</p>
-            <p><b>Tables and chairs price: </b>$@Model.TablesAndChairsPrice.ToString("F")</p>
-            @*@if (Model.SecurityPrice > 0)
-            {
-                <p>Requested Security Guards: @Model.SecurityGuards</p>
-                <p>Requested security hours per guard: @Model.RequestedSecurityHoursPerGuard</p>
-                <p>Security guard service cost per hour: $@Model.SecurityGuardCostPerHour.ToString("F")</p>
-            }*@
-            <p><b>Security Price: </b>$@Model.SecurityPrice.ToString("F")</p>
-
+        <div class="w3-container w3-card-4 w3-light-grey">
+            <h2>Personal information</h2>
             <hr />
-                <h4><b>Total Price: </b>$@Model.TotalPrice.ToString("F")</h4>
+            <form asp-action="CreateEvent">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="Date" type="hidden" />
+                <input asp-for="HallId" type="hidden" />
+                <input asp-for="RentTime" type="hidden" />
+                <input asp-for="EventStart" type="hidden" />
+                <input asp-for="EventEnd" type="hidden" />
+                <input asp-for="EventTitle" type="hidden" />
+                <input asp-for="NumberOfPeople" type="hidden" />
+                <input asp-for="UsingTablesAndChairs" type="hidden" />
+                <input asp-for="TablesAndChairsCostPerPerson" type="hidden" />
+                <input asp-for="SecurityGuardCostPerHour" type="hidden" />
+                <input asp-for="SecurityGuards" type="hidden" />
+                <input asp-for="RequestedSecurityHoursPerGuard" class="w3-input" type="hidden" />
+                <input asp-for="HallRentalPrice" class="w3-input" type="hidden" />
+                <input asp-for="TablesAndChairsPrice" class="w3-input" type="hidden" />
+                <input asp-for="SecurityPrice" class="w3-input" type="hidden" />
+                <input asp-for="TotalPrice" class="w3-input" type="hidden" />
+
+                <div class="form-group">
+                    <label asp-for="FullName"></label>
+                    <input asp-for="FullName" class="w3-input" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PhoneNumber"></label>
+                    <input asp-for="PhoneNumber" class="w3-input" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="w3-input" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <p>Tell us more about the event:</p>
+                    <textarea asp-for="EventDescription" class="w3-input"></textarea>
+                </div>
+                <div class="form-group">
+                    <p>If you are using a caterer, please provide the name and contact information of the company:</p>
+                    <textarea asp-for="Caterer" class="w3-input"></textarea>
+                </div>
+                <br />
+                <div class="form-group">
+                    <input type="submit" value="Create" class="w3-button w3-grey" />
+                </div>
+            </form>
         </div>
     </div>
-</div>
+        <div class="col-md-6 event-side-info">
+            <p>Hall: <b>@Model.HallName</b></p>
+            <p>Date: <b>@Model.Date.ToShortDateString()</b></p>
+            <p>Time: <b>@Model.RentTimeDisplay</b></p>
+
+            <div class="event-side-title-info">
+                <p>Event title: @Model.EventTitle</p>
+                <p>Event Start: @Model.EventStart</p>
+                <p>Event End: @Model.EventEnd</p>
+                <p>Number of people: @Model.NumberOfPeople</p>
+            </div>
+
+            <div class="price-side-info">
+                <p><b>Hall rent price: </b>$@Model.HallRentalPrice.ToString("F")</p>
+                <p><b>Tables and chairs price: </b>$@Model.TablesAndChairsPrice.ToString("F")</p>
+                @*@if (Model.SecurityPrice > 0)
+                {
+                    <p>Requested Security Guards: @Model.SecurityGuards</p>
+                    <p>Requested security hours per guard: @Model.RequestedSecurityHoursPerGuard</p>
+                    <p>Security guard service cost per hour: $@Model.SecurityGuardCostPerHour.ToString("F")</p>
+                }*@
+                <p><b>Security Price: </b>$@Model.SecurityPrice.ToString("F")</p>
+
+                <hr />
+                <h4><b>Total Price: </b>$@Model.TotalPrice.ToString("F")</h4>
+            </div>
+        </div>
+    </div>
 
 
     @section Scripts {

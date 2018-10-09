@@ -4,88 +4,68 @@
     ViewData["Title"] = "PriceCheck";
 }
 
-@*<h2>Event Info and Price Check</h2>
 
-<hr />
-<h4><b>Hall: </b>@Model.HallName</h4>
-<h4><b>Date: </b>@Model.Date.ToShortDateString()</h4>
-<h4><b>Time: </b>@Model.RentTimeDisplay</h4>*@
 
 <div class="row">
     <div class="col-md-6">
-
-        <form asp-action="Summary" id="submitForm">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <input asp-for="Date" class="form-control" type="hidden" />
-            </div>
-            <div class="form-group">
-                <input asp-for="HallId" class="form-control" type="hidden" />
-            </div>
-            <div class="form-group">
-                <input asp-for="RentTime" class="form-control" type="hidden" />
-            </div>
-            <div class="form-group">
-                <input asp-for="SecurityGuardCostPerHour" class="form-control" type="hidden" />
-            </div>
-            <div class="form-group">
-                <input id="HallRentPriceInput" asp-for="HallRentalPrice" class="form-control" type="hidden" />
-            </div>
-            <div class="form-group">
-                <input id="TablesAndChairsPriceInput" asp-for="TablesAndChairsPrice" class="form-control" type="hidden" />
-            </div>
-            <div class="form-group">
-                <input id="SecurityPriceInput" asp-for="SecurityPrice" class="form-control" type="hidden" />
-            </div>
-            <div class="form-group">
-                <input id="PriceInput" asp-for="TotalPrice" class="form-control" type="hidden" />
-            </div>
-            <div class="form-group">
-                <label asp-for="EventTitle" class="control-label"></label>
-                <input asp-for="EventTitle" class="form-control" />
-                <span asp-validation-for="EventTitle" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EventStart" class="control-label"></label>
-                <input asp-for="EventStart" class="form-control" />
-                <span asp-validation-for="EventStart" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EventEnd" class="control-label"></label>
-                <input asp-for="EventEnd" class="form-control" />
-                <span asp-validation-for="EventEnd" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NumberOfPeople" class="control-label"></label>
-                <input id="NumberOfPeople" asp-for="NumberOfPeople" class="form-control" />
-                <span id="NumberOfPeople-error" class="price-check-error"></span>
-                <span asp-validation-for="NumberOfPeople" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
+        <div class="w3-container w3-card-4 w3-light-grey">
+            <h2>Event Information</h2>
+            <form asp-action="Summary" id="submitForm">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="Date" type="hidden" />
+                <input asp-for="HallId" type="hidden" />
+                <input asp-for="RentTime" type="hidden" />
+                <input asp-for="SecurityGuardCostPerHour" type="hidden" />
+                <input id="HallRentPriceInput" asp-for="HallRentalPrice" type="hidden" />
+                <input id="TablesAndChairsPriceInput" asp-for="TablesAndChairsPrice" type="hidden" />
+                <input id="SecurityPriceInput" asp-for="SecurityPrice" type="hidden" />
+                <input id="PriceInput" asp-for="TotalPrice" type="hidden" />
+                <div class="form-group">
+                    <label asp-for="EventTitle" class="control-label"></label>
+                    <input asp-for="EventTitle" class="w3-input" />
+                    <span asp-validation-for="EventTitle" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="EventStart" class="control-label"></label>
+                    <input asp-for="EventStart" class="w3-input" />
+                    <span asp-validation-for="EventStart" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="EventEnd" class="control-label"></label>
+                    <input asp-for="EventEnd" class="w3-input" />
+                    <span asp-validation-for="EventEnd" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NumberOfPeople" class="control-label"></label>
+                    <input id="NumberOfPeople" asp-for="NumberOfPeople" class="w3-input" />
+                    <span id="NumberOfPeople-error" class="price-check-error"></span>
+                    <span asp-validation-for="NumberOfPeople" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input id="UseTablesAndChairs" class="w3-check" asp-for="UsingTablesAndChairs" />
                     <label>
-                        <input id="UseTablesAndChairs" asp-for="UsingTablesAndChairs" /> @Html.DisplayNameFor(model => model.UsingTablesAndChairs)
+                        @Html.DisplayNameFor(model => model.UsingTablesAndChairs)
                     </label>
                 </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="SecurityGuards" class="control-label"></label>
-                <input id="SecurityGuards" asp-for="SecurityGuards" class="form-control" />
-                <span asp-validation-for="SecurityGuards" class="text-danger"></span>
-                <span id="SecurityGuards-error" class="price-check-error"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RequestedSecurityHoursPerGuard" class="control-label"></label>
-                <input id="SecServiceHoursPerGuard" asp-for="RequestedSecurityHoursPerGuard" class="form-control" />
-                <span asp-validation-for="RequestedSecurityHoursPerGuard" class="text-danger"></span>
-                <span id="SecServiceHours-error" class="price-check-error" ></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Continue" class="btn btn-default" />
-            </div>
-        </form>
+                <div class="form-group">
+                    <label asp-for="SecurityGuards" class="control-label"></label>
+                    <input id="SecurityGuards" asp-for="SecurityGuards" class="w3-input" />
+                    <span asp-validation-for="SecurityGuards" class="text-danger"></span>
+                    <span id="SecurityGuards-error" class="price-check-error"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RequestedSecurityHoursPerGuard" class="control-label"></label>
+                    <input id="SecServiceHoursPerGuard" asp-for="RequestedSecurityHoursPerGuard" class="w3-input" />
+                    <span asp-validation-for="RequestedSecurityHoursPerGuard" class="text-danger"></span>
+                    <span id="SecServiceHours-error" class="price-check-error"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Continue" class="w3-button w3-grey" />
+                </div>
+            </form>
+        </div>
     </div>
-    
+
     <div class="col-md-6 event-side-info">
         <p>Hall: <b>@Model.HallName</b></p>
         <p>Date: <b>@Model.Date.ToShortDateString()</b></p>
@@ -103,7 +83,7 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
 
-<script>
+    <script>
 
 
         $(document).ready(function () {
@@ -237,7 +217,7 @@
                         $('#SecServiceHours-error').text('Please e fill the security hours per guard Input');
                         correctDataSecurity = false;
                         return;
-                    } 
+                    }
                     correctDataSecurity = true;
                 }
 
@@ -275,7 +255,7 @@
                         correctDataSecurity = false;
                         securityPrice = 0;
                         return;
-                    } 
+                    }
 
                 } else {
                     console.log('anothe here')
@@ -302,12 +282,12 @@
 
             //submit button
 
-            $("#submitForm").submit(function (e) { 
+            $("#submitForm").submit(function (e) {
                 console.log('correctSecData: ' + correctDataSecurity)
-                console.log('correctTabData: ' + correctDataTabAndCh) 
-                if (correctDataSecurity == false || correctDataTabAndCh == false) 
+                console.log('correctTabData: ' + correctDataTabAndCh)
+                if (correctDataSecurity == false || correctDataTabAndCh == false)
                 {
-                    e.preventDefault(); 
+                    e.preventDefault();
                 }
             })
 
@@ -352,5 +332,5 @@
         }
 
 
-</script>
+    </script>
 }
