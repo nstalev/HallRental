@@ -19,6 +19,8 @@ namespace HallRental.Web.Models.EventsModel
         public RentTimeEnum RentTime { get; set; }
 
         [Required]
+        [MaxLength(30)]
+        [MinLength(3)]
         public string EventTitle { get; set; }
 
 
