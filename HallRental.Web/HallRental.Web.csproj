@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\Halls\" />
+    <Folder Include="wwwroot\lib\w3css\" />
   </ItemGroup>
 
 </Project>

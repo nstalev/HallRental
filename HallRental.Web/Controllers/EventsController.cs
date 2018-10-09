@@ -124,6 +124,20 @@ namespace HallRental.Web.Controllers
         public async Task<IActionResult> Summary(SummaryAndPersonalInfoModel summaryModel)
         {
 
+            if (!ModelState.IsValid)
+            {
+                DateCheckFormModel dateCheckModel = new DateCheckFormModel
+                {
+                    Date = summaryModel.Date,
+                    HallId = summaryModel.HallId,
+                    RentTime = summaryModel.RentTime,
+                    TotalPrice = summaryModel.HallRentalPrice
+
+                };
+
+                return RedirectToAction("PriceCheck", dateCheckModel);
+            }
+
             if (summaryModel.HallId == 0 || summaryModel.Date == null)
             {
                 return NotFound();
