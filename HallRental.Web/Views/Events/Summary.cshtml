@@ -5,38 +5,38 @@
 }
 
 <div class="row">
-    <div class="col-md-6">
+    @*<div class="col-md-6">
 
-        <h2>Event summary</h2>
-        <hr />
+            <h2>Event summary</h2>
+            <hr />
 
-        <h3><b>Hall: </b>@Model.HallName</h3>
-        <h3><b>Date: </b>@Model.Date.ToShortDateString()</h3>
-        <h3><b>Time: </b>@Model.RentTimeDisplay</h3>
+            <h3><b>Hall: </b>@Model.HallName</h3>
+            <h3><b>Date: </b>@Model.Date.ToShortDateString()</h3>
+            <h3><b>Time: </b>@Model.RentTimeDisplay</h3>
 
-        <hr />
-        <h4><b>Event title: </b>@Model.EventTitle</h4>
-        <h4><b>Event Start: </b>@Model.EventStart</h4>
-        <h4><b>Event End: </b>@Model.EventEnd</h4>
-        <h4><b>Number of people </b>@Model.NumberOfPeople</h4>
+            <hr />
+            <h4><b>Event title: </b>@Model.EventTitle</h4>
+            <h4><b>Event Start: </b>@Model.EventStart</h4>
+            <h4><b>Event End: </b>@Model.EventEnd</h4>
+            <h4><b>Number of people </b>@Model.NumberOfPeople</h4>
 
-        <hr />
+            <hr />
 
-        <h4><b>Hall rent price: </b>$@Model.HallRentalPrice.ToString("F")</h4>
-        <h4><b>Tables and chairs price: </b>$@Model.TablesAndChairsPrice.ToString("F")</h4>
-        @if (Model.SecurityPrice > 0)
-        {
-            <p>Requested Security Guards: @Model.SecurityGuards</p>
-            <p>Requested security hours per guard: @Model.RequestedSecurityHoursPerGuard</p>
-            <p>Security guard service cost per hour: $@Model.SecurityGuardCostPerHour.ToString("F")</p>
-        }
-        <h4><b>Security Price: </b>$@Model.SecurityPrice.ToString("F")</h4>
+            <h4><b>Hall rent price: </b>$@Model.HallRentalPrice.ToString("F")</h4>
+            <h4><b>Tables and chairs price: </b>$@Model.TablesAndChairsPrice.ToString("F")</h4>
+            @if (Model.SecurityPrice > 0)
+            {
+                <p>Requested Security Guards: @Model.SecurityGuards</p>
+                <p>Requested security hours per guard: @Model.RequestedSecurityHoursPerGuard</p>
+                <p>Security guard service cost per hour: $@Model.SecurityGuardCostPerHour.ToString("F")</p>
+            }
+            <h4><b>Security Price: </b>$@Model.SecurityPrice.ToString("F")</h4>
 
-        <hr />
-        <div id="total-price">
-            <h3><b>Total Price: </b>$@Model.TotalPrice.ToString("F")</h3>
-        </div>
-    </div>
+            <hr />
+            <div id="total-price">
+                <h3><b>Total Price: </b>$@Model.TotalPrice.ToString("F")</h3>
+            </div>
+        </div>*@
     <div class="col-md-6">
         <h2>Personal information</h2>
         <hr />
@@ -120,9 +120,36 @@
             </div>
         </form>
     </div>
+    <div class="col-md-6 event-side-info">
+        <p>Hall: <b>@Model.HallName</b></p>
+        <p>Date: <b>@Model.Date.ToShortDateString()</b></p>
+        <p>Time: <b>@Model.RentTimeDisplay</b></p>
+
+        <div class="event-side-title-info">
+            <p>Event title: @Model.EventTitle</p>
+            <p>Event Start: @Model.EventStart</p>
+            <p>Event End: @Model.EventEnd</p>
+            <p>Number of people: @Model.NumberOfPeople</p>
+        </div>
+
+        <div class="price-side-info">
+            <p><b>Hall rent price: </b>$@Model.HallRentalPrice.ToString("F")</p>
+            <p><b>Tables and chairs price: </b>$@Model.TablesAndChairsPrice.ToString("F")</p>
+            @*@if (Model.SecurityPrice > 0)
+            {
+                <p>Requested Security Guards: @Model.SecurityGuards</p>
+                <p>Requested security hours per guard: @Model.RequestedSecurityHoursPerGuard</p>
+                <p>Security guard service cost per hour: $@Model.SecurityGuardCostPerHour.ToString("F")</p>
+            }*@
+            <p><b>Security Price: </b>$@Model.SecurityPrice.ToString("F")</p>
+
+            <hr />
+                <h4><b>Total Price: </b>$@Model.TotalPrice.ToString("F")</h4>
+        </div>
+    </div>
 </div>
 
 
-@section Scripts {
-    @await Html.PartialAsync("_ValidationScriptsPartial")
-}
+    @section Scripts {
+        @await Html.PartialAsync("_ValidationScriptsPartial")
+    }

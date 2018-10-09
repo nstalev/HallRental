@@ -203,13 +203,25 @@ body {
 
 @media(min-width:990px) {
 
-#refTable {
-    background-color: #e6e6e6;
-    height: 100%;
-    position: absolute;
-    right: 0;
-    width: 300px;
-    border: 1px solid black;
-    padding-top: 20px;
-}
+    .event-side-info {
+        background-color: #e6e6e6;
+        height: 100%;
+        position: absolute;
+        right: 0;
+        width: 300px;
+        border: 1px solid black;
+        padding-top: 20px;
+        text-align:center;
+    }
+
+    .event-side-title-info {
+        border-top: 2px solid black;
+        padding-top: 10px;
+    }
+
+    .price-side-info {
+        border-top: 2px solid black;
+        padding-top: 10px;
+        margin-top: 10px;
+    }
 }

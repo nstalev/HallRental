@@ -86,14 +86,20 @@
         </form>
     </div>
     
-    <div id="refTable" class="col-md-6">
-        @Html.Partial("_PartialPrice", Model.EventPriceModel)
+    <div class="col-md-6 event-side-info">
+        <p>Hall: <b>@Model.HallName</b></p>
+        <p>Date: <b>@Model.Date.ToShortDateString()</b></p>
+        <p>Time: <b>@Model.RentTimeDisplay</b></p>
+        <div id="refTable" class="price-side-info">
+            @Html.Partial("_PartialPrice", Model.EventPriceModel)
+        </div>
     </div>
 </div>
 
 
 
 @section Scripts {
+
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
 
