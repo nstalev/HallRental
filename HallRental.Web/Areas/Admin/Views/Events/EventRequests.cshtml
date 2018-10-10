@@ -57,7 +57,7 @@ else
     <div class="panel-group">
         @foreach (var item in Model.Events)
         {
-            <div class="panel @(item.IsReservationConfirmed == false ? "panel-warning": "panel-success")" id="event-panel">
+            <div class="panel @(item.IsReservationConfirmed == false ? "panel-warning": "panel-success") event-panel-card" >
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-md-4">

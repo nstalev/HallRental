@@ -13,7 +13,7 @@
             if (url.ActionContext.RouteData.Values["controller"].ToString() == controller &&
                 url.ActionContext.RouteData.Values["action"].ToString() == action)
             {
-                return "active";
+                return "w3-grey";
             }
 
             return "";

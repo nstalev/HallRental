@@ -7,7 +7,7 @@
 <div class="row">
 
     <div class="col-md-6">
-        <div class="w3-container w3-card-4 w3-light-grey">
+        <div class="w3-container w3-card-4 w3-round w3-light-grey input-card-panel">
             <h2>Personal information</h2>
             <hr />
             <form asp-action="CreateEvent">
@@ -31,30 +31,30 @@
 
                 <div class="form-group">
                     <label asp-for="FullName"></label>
-                    <input asp-for="FullName" class="w3-input" />
+                    <input asp-for="FullName" class="form-control" />
                     <span asp-validation-for="FullName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="PhoneNumber"></label>
-                    <input asp-for="PhoneNumber" class="w3-input" />
+                    <input asp-for="PhoneNumber" class="form-control" />
                     <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Email" class="control-label"></label>
-                    <input asp-for="Email" class="w3-input" />
+                    <input asp-for="Email" class="form-control" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <p>Tell us more about the event:</p>
-                    <textarea asp-for="EventDescription" class="w3-input"></textarea>
+                    <textarea asp-for="EventDescription" class="form-control"></textarea>
                 </div>
                 <div class="form-group">
                     <p>If you are using a caterer, please provide the name and contact information of the company:</p>
-                    <textarea asp-for="Caterer" class="w3-input"></textarea>
+                    <textarea asp-for="Caterer" class="form-control"></textarea>
                 </div>
                 <br />
                 <div class="form-group">
-                    <input type="submit" value="Create" class="w3-button w3-grey" />
+                    <input type="submit" value="Create" class="w3-button w3-border w3-border-blue w3-round" />
                 </div>
             </form>
         </div>

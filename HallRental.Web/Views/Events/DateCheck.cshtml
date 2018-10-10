@@ -7,8 +7,8 @@
 
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="PriceCheck" class="w3-container w3-card-4 w3-light-grey">
+    <div class="col-md-6">
+        <form asp-action="PriceCheck" class="w3-container w3-card-4 w3-round w3-light-grey">
             <h2>Check if the Hall is free</h2>
 
             <div class="form-group">
@@ -35,10 +35,10 @@
                 </select>
             </div>
             <div class="form-group">
-                <input type="button" onclick="CheckDateAndTime()" value="Check" class="w3-button w3-grey" />
+                <input type="button" onclick="CheckDateAndTime()" value="Check" class="w3-button w3-round w3-grey" />
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <input type="submit" id="dateCheck-submit-btn" class="w3-button w3-blue" value="Continue" style="display: none" />
+                    <input type="submit" id="dateCheck-submit-btn" class="w3-button w3-round w3-blue" value="Continue" style="display: none" />
                 }
             </div>
 

@@ -50,7 +50,7 @@ else
     <div class="panel-group">
         @foreach (var item in Model.Events)
         {
-            <div class="panel @(item.IsConfirmed == false ? "panel-warning": "panel-success")" id="event-panel">
+            <div class="panel @(item.IsConfirmed == false ? "panel-warning": "panel-success") event-panel-card">
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-md-4">
@@ -106,17 +106,17 @@ else
 
 }
 
-    <ul class="pagination">
-        <li class="page-item @peviousPageDisable">
-            <a class="page-link  @peviousPageDisable" href="MyReservations?page=@Model.PreviousPage" tabindex="-1">Previous</a>
-        </li>
-        @for (int i = 1; i <= Model.TotalPages; i++)
-        {
-            <li class="page-item @(Model.CurrentPage == i ? "active": String.Empty)"><a class="page-link" href="MyReservations?page=@i">@i</a></li>
+<ul class="pagination">
+    <li class="page-item @peviousPageDisable">
+        <a class="page-link  @peviousPageDisable" href="MyReservations?page=@Model.PreviousPage" tabindex="-1">Previous</a>
+    </li>
+    @for (int i = 1; i <= Model.TotalPages; i++)
+    {
+        <li class="page-item @(Model.CurrentPage == i ? "active": String.Empty)"><a class="page-link" href="MyReservations?page=@i">@i</a></li>
 
 
-        }
-        <li class="page-item @nextPageDisable">
-            <a class="page-link @nextPageDisable" href="MyReservations?page=@Model.NextPage">Next</a>
-        </li>
-    </ul>
+    }
+    <li class="page-item @nextPageDisable">
+        <a class="page-link @nextPageDisable" href="MyReservations?page=@Model.NextPage">Next</a>
+    </li>
+</ul>
