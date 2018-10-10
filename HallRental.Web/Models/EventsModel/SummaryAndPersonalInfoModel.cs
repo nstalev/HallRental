@@ -43,6 +43,14 @@ namespace HallRental.Web.Models.EventsModel
 
         public double RequestedSecurityHoursPerGuard { get; set; }
 
+        [DataType(DataType.Time)]
+        [Display(Name = "Security Start Time")]
+        public DateTime ParkingLotSecStart { get; set; }
+
+        [DataType(DataType.Time)]
+        [Display(Name = "Security End Time")]
+        public DateTime ParkingLotSecEnd { get; set; }
+
         public decimal HallRentalPrice { get; set; }
 
 

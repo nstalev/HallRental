@@ -48,17 +48,35 @@
                     </label>
                 </div>
                 <div class="form-group">
-                    <label asp-for="SecurityGuards" class="control-label"></label>
-                    <input id="SecurityGuards" asp-for="SecurityGuards" class="form-control" />
-                    <span asp-validation-for="SecurityGuards" class="text-danger"></span>
-                    <span id="SecurityGuards-error" class="price-check-error"></span>
+                    <input id="ParkingLotSecurity" class="w3-check" type="checkbox" />
+                    <label>
+                        Parking Lot Security
+                    </label>
                 </div>
-                <div class="form-group">
-                    <label asp-for="RequestedSecurityHoursPerGuard" class="control-label"></label>
-                    <input id="SecServiceHoursPerGuard" asp-for="RequestedSecurityHoursPerGuard" class="form-control" />
-                    <span asp-validation-for="RequestedSecurityHoursPerGuard" class="text-danger"></span>
-                    <span id="SecServiceHours-error" class="price-check-error"></span>
+                <div id="SecurityLot-inputs" style="display:none">
+                    <div class="form-group">
+                        <label class="control-label" asp-for="ParkingLotSecStart"></label>
+                        <input id="SecurityLotStart" asp-for="ParkingLotSecStart" class="form-control secLot-input" />
+                        <span id="SecurityLotStart-error" class="price-check-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" asp-for="ParkingLotSecEnd">Security End</label>
+                        <input id="SecurityLotEnd" asp-for="ParkingLotSecEnd" class="form-control secLot-input"  />
+                        <span id="SecurityLotEnd-error" class="price-check-error"></span>
+                    </div>
                 </div>
+                @*<div class="form-group">
+            <label asp-for="SecurityGuards" class="control-label"></label>
+            <input id="SecurityGuards" asp-for="SecurityGuards" class="form-control" />
+            <span asp-validation-for="SecurityGuards" class="text-danger"></span>
+            <span id="SecurityGuards-error" class="price-check-error"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="RequestedSecurityHoursPerGuard" class="control-label"></label>
+            <input id="SecServiceHoursPerGuard" asp-for="RequestedSecurityHoursPerGuard" class="form-control" />
+            <span asp-validation-for="RequestedSecurityHoursPerGuard" class="text-danger"></span>
+            <span id="SecServiceHours-error" class="price-check-error"></span>
+        </div>*@
                 <div class="form-group">
                     <input type="submit" value="Continue" class="w3-button w3-border w3-border-grey w3-round" />
                 </div>
@@ -174,6 +192,26 @@
                     totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
                     UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice)
 
+
+                }
+
+            })
+
+            //ParkingLotSecurity
+
+
+
+            $('#ParkingLotSecurity').change(() => {
+
+                if ($('#ParkingLotSecurity').prop('checked')) {
+
+                    $('#SecurityLot-inputs').show();
+                    console.log('ParkingLotSecurity - checked')
+
+                }else {
+                    console.log('ParkingLotSecurity - NOT checked')
+
+                    $('#SecurityLot-inputs').hide();
 
                 }
 

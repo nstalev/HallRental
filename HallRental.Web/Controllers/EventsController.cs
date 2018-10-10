@@ -90,6 +90,9 @@ namespace HallRental.Web.Controllers
                 TotalPrice = hallRentalPrice,
             };
 
+            var startTime = eventsServices.GetStartTimeDefault(dateCheckModel.RentTime, eventDate);
+            var endTime = eventsServices.GetEndTimeDefault(dateCheckModel.RentTime, eventDate);
+
             var priceCheckViewModel = new EventInfoAndPriceCheckViewModel()
             {
                 Date = eventDate,
@@ -103,8 +106,10 @@ namespace HallRental.Web.Controllers
                 HallCapacity = currentHall.HallCapacity,
                 ChairTableCostPerPerson = currentHall.TablesAndChairsCostPerPerson,
                 EventPriceModel = eventPriceModel,
-                EventStart = eventsServices.GetStartTimeDefault(dateCheckModel.RentTime, eventDate),
-                EventEnd = eventsServices.GetEndTimeDefault(dateCheckModel.RentTime, eventDate)
+                EventStart = startTime,
+                EventEnd = endTime,
+                ParkingLotSecStart = startTime,
+                ParkingLotSecEnd = endTime
 
             };
 
