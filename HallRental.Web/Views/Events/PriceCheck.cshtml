@@ -55,29 +55,30 @@
                 </div>
                 <div id="SecurityLot-inputs" style="display:none">
                     <div class="form-group">
-                        <label class="control-label" asp-for="ParkingLotSecStart"></label>
-                        <input id="ParkLotSecStart" asp-for="ParkingLotSecStart" class="form-control secLot-input" />
+                        <label class="control-label" asp-for="SecurityStartTime"></label>
+                        <input id="ParkLotSecStart" asp-for="SecurityStartTime" class="form-control secLot-input" />
                         <span id="ParkLotSecStart-error" class="price-check-error"></span>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label" asp-for="ParkingLotSecEnd">Security End</label>
-                        <input id="ParkLotSecEnd" asp-for="ParkingLotSecEnd" class="form-control secLot-input" />
+                        <label class="control-label" asp-for="SecurityEndTime">Security End</label>
+                        <input id="ParkLotSecEnd" asp-for="SecurityEndTime" class="form-control secLot-input" />
                         <span id="ParkLotSecEnd-error" class="price-check-error"></span>
                     </div>
                 </div>
+                <input id="parkingLotSecurityHours" asp-for="ParkingLotSecurityHours" type="hidden" />
                 @*<div class="form-group">
-                        <label asp-for="SecurityGuards" class="control-label"></label>
-                        <input id="SecurityGuards" asp-for="SecurityGuards" class="form-control" />
-                        <span asp-validation-for="SecurityGuards" class="text-danger"></span>
-                        <span id="SecurityGuards-error" class="price-check-error"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="RequestedSecurityHoursPerGuard" class="control-label"></label>
-                        <input id="SecServiceHoursPerGuard" asp-for="RequestedSecurityHoursPerGuard" class="form-control" />
-                        <span asp-validation-for="RequestedSecurityHoursPerGuard" class="text-danger"></span>
-                        <span id="SecServiceHours-error" class="price-check-error"></span>
-                    </div>*@
+            <label asp-for="SecurityGuards" class="control-label"></label>
+            <input id="SecurityGuards" asp-for="SecurityGuards" class="form-control" />
+            <span asp-validation-for="SecurityGuards" class="text-danger"></span>
+            <span id="SecurityGuards-error" class="price-check-error"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="RequestedSecurityHoursPerGuard" class="control-label"></label>
+            <input id="SecServiceHoursPerGuard" asp-for="RequestedSecurityHoursPerGuard" class="form-control" />
+            <span asp-validation-for="RequestedSecurityHoursPerGuard" class="text-danger"></span>
+            <span id="SecServiceHours-error" class="price-check-error"></span>
+        </div>*@
                 <div class="form-group">
                     <input type="submit" value="Continue" class="w3-button w3-border w3-border-grey w3-round" />
                 </div>
@@ -373,6 +374,8 @@
                     correctDataSecurity = true;
                 }
 
+                $('#parkingLotSecurityHours').val(hoursDiff);
+
                 totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
                 UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice)
             }
@@ -387,7 +390,7 @@
 
             /////////////////////////////////////////////////////Security Price Calcualtion
 
-            $('#SecurityGuards').change(() => {
+            @*$('#SecurityGuards').change(() => {
                 let securityGuards = $('#SecurityGuards').val();
                 let secHoursPerGuard = $('#SecServiceHoursPerGuard').val();
 
@@ -467,7 +470,7 @@
                 securityPrice = securityGuards * secHoursPerGuard * securityGuardCostPerHour
                 totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
                 UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice)
-            })
+            })*@
             /////////////////////////////////////////////////////Security Price Calcualtion
 
 

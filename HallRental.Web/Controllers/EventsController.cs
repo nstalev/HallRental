@@ -108,8 +108,8 @@ namespace HallRental.Web.Controllers
                 EventPriceModel = eventPriceModel,
                 EventStart = startTime,
                 EventEnd = endTime,
-                ParkingLotSecStart = startTime,
-                ParkingLotSecEnd = endTime,
+                SecurityStartTime = startTime,
+                SecurityEndTime = endTime,
                 EventStartDateTimeInMs = (long)startTime.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds,
                 EventEndDateTimeInMs = (long)endTime.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds
 
@@ -122,7 +122,6 @@ namespace HallRental.Web.Controllers
         [Authorize]
         public IActionResult UpdatePriceView(EventPriceModel priceModel)
         {
-
             return PartialView("_PartialPrice", priceModel);
         }
 
@@ -171,8 +170,9 @@ namespace HallRental.Web.Controllers
                 UsingTablesAndChairs = summaryModel.UsingTablesAndChairs,
                 TablesAndChairsCostPerPerson = currentHall.TablesAndChairsCostPerPerson,
                 SecurityGuardCostPerHour = summaryModel.SecurityGuardCostPerHour,
-                SecurityGuards = summaryModel.SecurityGuards,
-                RequestedSecurityHoursPerGuard = summaryModel.RequestedSecurityHoursPerGuard,
+                ParkingLotSecurityHours = summaryModel.ParkingLotSecurityHours,
+                SecurityStartTime = summaryModel.SecurityStartTime,
+                SecurityEndTime = summaryModel.SecurityEndTime,
 
                 HallRentalPrice = summaryModel.HallRentalPrice,
                 TablesAndChairsPrice = summaryModel.TablesAndChairsPrice,
@@ -214,8 +214,9 @@ namespace HallRental.Web.Controllers
                     EventTitle = eventModel.EventTitle,
                     HallRentalPrice = eventModel.HallRentalPrice,
                     SecurityGuardCostPerHour = eventModel.SecurityGuardCostPerHour,
-                    SecurityGuards = eventModel.SecurityGuards,
-                    RequestedSecurityHoursPerGuard = eventModel.RequestedSecurityHoursPerGuard,
+                    ParkingLotSecurityHours = eventModel.ParkingLotSecurityHours,
+                    SecurityStartTime = eventModel.SecurityStartTime,
+                    SecurityEndTime = eventModel.SecurityEndTime,
                     SecurityPrice = eventModel.SecurityPrice,
                     TablesAndChairsPrice = eventModel.TablesAndChairsPrice,
                     TotalPrice = eventModel.TotalPrice,
@@ -248,8 +249,9 @@ namespace HallRental.Web.Controllers
                 eventModel.UsingTablesAndChairs,
                 eventModel.TablesAndChairsCostPerPerson,
                 eventModel.SecurityGuardCostPerHour,
-                eventModel.SecurityGuards,
-                eventModel.RequestedSecurityHoursPerGuard,
+                eventModel.ParkingLotSecurityHours,
+                eventModel.SecurityStartTime,
+                eventModel.SecurityEndTime,
                 eventModel.HallRentalPrice,
                 eventModel.TablesAndChairsPrice,
                 eventModel.SecurityPrice,

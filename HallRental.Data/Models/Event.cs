@@ -59,13 +59,12 @@ namespace HallRental.Data.Models
         [Range(0, double.MaxValue)]
         public decimal TablesAndChairsCostPerPerson { get; set; }
 
-        [Required]
-        [Range(0, 100)]
-        public int SecurityGuards { get; set; }
+        [Range(0, 16)]
+        public int ParkingLotSecurityHours { get; set; }
 
-        [Range(0, 12)]
-        public double RequestedSecurityHoursPerGuard { get; set; }
+        public DateTime SecurityStartTime { get; set; }
 
+        public DateTime SecurityEndTime { get; set; }
 
         public decimal SecurityGuardCostPerHour { get; set; }
 

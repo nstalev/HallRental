@@ -48,20 +48,16 @@
         public int HallCapacity { get; set; }
 
 
-        [Required]
-        [Range(0, GlobalConstants.MaxSecurityCuards)]
-        public int SecurityGuards { get; set; }
-
-        [Range(0, GlobalConstants.MaxSecurityServiceHoursPerGuard)]
-        public double RequestedSecurityHoursPerGuard { get; set; }
+        public int ParkingLotSecurityHours { get; set; }
 
         [Display(Name = "Security Start Time")]
-        public DateTime ParkingLotSecStart { get; set; }
+        public DateTime SecurityStartTime { get; set; }
 
         [Display(Name = "Security End Time")]
-        public DateTime ParkingLotSecEnd { get; set; }
+        public DateTime SecurityEndTime { get; set; }
 
         public decimal SecurityGuardCostPerHour { get; set; }
+
 
         public decimal ChairTableCostPerPerson { get; set; }
 

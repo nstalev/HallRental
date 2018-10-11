@@ -39,17 +39,13 @@ namespace HallRental.Web.Models.EventsModel
 
         public decimal SecurityGuardCostPerHour { get; set; }
 
-        public int SecurityGuards { get; set; }
+        public int ParkingLotSecurityHours { get; set; }
 
-        public double RequestedSecurityHoursPerGuard { get; set; }
-
-        [DataType(DataType.Time)]
         [Display(Name = "Security Start Time")]
-        public DateTime ParkingLotSecStart { get; set; }
+        public DateTime SecurityStartTime { get; set; }
 
-        [DataType(DataType.Time)]
         [Display(Name = "Security End Time")]
-        public DateTime ParkingLotSecEnd { get; set; }
+        public DateTime SecurityEndTime { get; set; }
 
         public decimal HallRentalPrice { get; set; }
 

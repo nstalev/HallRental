@@ -22,12 +22,13 @@
                 <input asp-for="UsingTablesAndChairs" type="hidden" />
                 <input asp-for="TablesAndChairsCostPerPerson" type="hidden" />
                 <input asp-for="SecurityGuardCostPerHour" type="hidden" />
-                <input asp-for="SecurityGuards" type="hidden" />
-                <input asp-for="RequestedSecurityHoursPerGuard" class="w3-input" type="hidden" />
-                <input asp-for="HallRentalPrice" class="w3-input" type="hidden" />
-                <input asp-for="TablesAndChairsPrice" class="w3-input" type="hidden" />
-                <input asp-for="SecurityPrice" class="w3-input" type="hidden" />
-                <input asp-for="TotalPrice" class="w3-input" type="hidden" />
+                <input asp-for="ParkingLotSecurityHours" type="hidden" />
+                <input asp-for="HallRentalPrice" type="hidden" />
+                <input asp-for="TablesAndChairsPrice" type="hidden" />
+                <input asp-for="SecurityPrice" type="hidden" />
+                <input asp-for="TotalPrice" type="hidden" />
+                <input asp-for="SecurityStartTime" type="hidden" />
+                <input asp-for="SecurityEndTime" type="hidden" />
 
                 <div class="form-group">
                     <label asp-for="FullName"></label>
@@ -74,12 +75,10 @@
             <div class="price-side-info">
                 <p><b>Hall rent price: </b>$@Model.HallRentalPrice.ToString("F")</p>
                 <p><b>Tables and chairs price: </b>$@Model.TablesAndChairsPrice.ToString("F")</p>
-                @*@if (Model.SecurityPrice > 0)
+                @if (Model.SecurityPrice > 0)
                 {
-                    <p>Requested Security Guards: @Model.SecurityGuards</p>
-                    <p>Requested security hours per guard: @Model.RequestedSecurityHoursPerGuard</p>
-                    <p>Security guard service cost per hour: $@Model.SecurityGuardCostPerHour.ToString("F")</p>
-                }*@
+                    <p>Parking Lot Security Hours: @Model.ParkingLotSecurityHours</p>
+                }
                 <p><b>Security Price: </b>$@Model.SecurityPrice.ToString("F")</p>
 
                 <hr />
