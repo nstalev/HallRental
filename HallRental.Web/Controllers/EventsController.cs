@@ -60,7 +60,7 @@ namespace HallRental.Web.Controllers
                 return RedirectToAction(nameof(DateCheck), dateCheckModel);
             }
 
-            DateTime eventDate = dateCheckModel.Date ?? DateTime.Now;
+            DateTime eventDate = dateCheckModel.Date ?? DateTime.UtcNow;
 
             if (eventsServices.EventExists(eventDate, dateCheckModel.RentTime, dateCheckModel.HallId))
             {
@@ -109,7 +109,9 @@ namespace HallRental.Web.Controllers
                 EventStart = startTime,
                 EventEnd = endTime,
                 ParkingLotSecStart = startTime,
-                ParkingLotSecEnd = endTime
+                ParkingLotSecEnd = endTime,
+                EventStartDateTimeInMs = (long)startTime.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds,
+                EventEndDateTimeInMs = (long)endTime.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds
 
             };
 

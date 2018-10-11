@@ -207,7 +207,7 @@ namespace HallRental.Services.Implementations
             }
             if (rentTime == RentTimeEnum.FourPMtoMidNight || rentTime == RentTimeEnum.AllDay)
             {
-                result = result.Add(new TimeSpan(23, 50, 0));
+                result = result.Add(new TimeSpan(00, 00, 0)).AddDays(1);
             }
 
             return result;

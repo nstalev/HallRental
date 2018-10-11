@@ -48,7 +48,7 @@
                     </label>
                 </div>
                 <div class="form-group">
-                    <input id="ParkingLotSecurity" class="w3-check" type="checkbox" />
+                    <input id="ParkingLotSecurity-checkbox" class="w3-check" type="checkbox" />
                     <label>
                         Parking Lot Security
                     </label>
@@ -56,27 +56,28 @@
                 <div id="SecurityLot-inputs" style="display:none">
                     <div class="form-group">
                         <label class="control-label" asp-for="ParkingLotSecStart"></label>
-                        <input id="SecurityLotStart" asp-for="ParkingLotSecStart" class="form-control secLot-input" />
-                        <span id="SecurityLotStart-error" class="price-check-error"></span>
+                        <input id="ParkLotSecStart" asp-for="ParkingLotSecStart" class="form-control secLot-input" />
+                        <span id="ParkLotSecStart-error" class="price-check-error"></span>
                     </div>
+
                     <div class="form-group">
                         <label class="control-label" asp-for="ParkingLotSecEnd">Security End</label>
-                        <input id="SecurityLotEnd" asp-for="ParkingLotSecEnd" class="form-control secLot-input"  />
-                        <span id="SecurityLotEnd-error" class="price-check-error"></span>
+                        <input id="ParkLotSecEnd" asp-for="ParkingLotSecEnd" class="form-control secLot-input" />
+                        <span id="ParkLotSecEnd-error" class="price-check-error"></span>
                     </div>
                 </div>
                 @*<div class="form-group">
-            <label asp-for="SecurityGuards" class="control-label"></label>
-            <input id="SecurityGuards" asp-for="SecurityGuards" class="form-control" />
-            <span asp-validation-for="SecurityGuards" class="text-danger"></span>
-            <span id="SecurityGuards-error" class="price-check-error"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="RequestedSecurityHoursPerGuard" class="control-label"></label>
-            <input id="SecServiceHoursPerGuard" asp-for="RequestedSecurityHoursPerGuard" class="form-control" />
-            <span asp-validation-for="RequestedSecurityHoursPerGuard" class="text-danger"></span>
-            <span id="SecServiceHours-error" class="price-check-error"></span>
-        </div>*@
+                        <label asp-for="SecurityGuards" class="control-label"></label>
+                        <input id="SecurityGuards" asp-for="SecurityGuards" class="form-control" />
+                        <span asp-validation-for="SecurityGuards" class="text-danger"></span>
+                        <span id="SecurityGuards-error" class="price-check-error"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="RequestedSecurityHoursPerGuard" class="control-label"></label>
+                        <input id="SecServiceHoursPerGuard" asp-for="RequestedSecurityHoursPerGuard" class="form-control" />
+                        <span asp-validation-for="RequestedSecurityHoursPerGuard" class="text-danger"></span>
+                        <span id="SecServiceHours-error" class="price-check-error"></span>
+                    </div>*@
                 <div class="form-group">
                     <input type="submit" value="Continue" class="w3-button w3-border w3-border-grey w3-round" />
                 </div>
@@ -197,29 +198,194 @@
 
             })
 
+
+
             //ParkingLotSecurity
 
+                let utcSecondsStart = @Model.EventStartDateTimeInMs;
+                let utcSecondsEnd = @Model.EventEndDateTimeInMs;
 
+             
+                //const eventStartDate = new Date(utcSecondsStart);
+                //const eventEndDate = new Date(utcSecondsEnd);
+                //console.log('Event Start Date - ' + eventStartDate);
+                //console.log('Event End Date - ' + eventEndDate);
 
-            $('#ParkingLotSecurity').change(() => {
+            $('#ParkingLotSecurity-checkbox').change(() => {
 
-                if ($('#ParkingLotSecurity').prop('checked')) {
+                if ($('#ParkingLotSecurity-checkbox').prop('checked')) {
 
                     $('#SecurityLot-inputs').show();
                     console.log('ParkingLotSecurity - checked')
 
-                }else {
+                } else {
                     console.log('ParkingLotSecurity - NOT checked')
-
                     $('#SecurityLot-inputs').hide();
-
+                    correctDataSecurity = true;
+                    UpdateSecurityPrice(0)
+                    return;
                 }
+
+
+                let isDateCorrect = CheckIfSecurityDataIsCorrect();
+
+                console.log(isDateCorrect);
+
+                if (isDateCorrect == false) {
+                    correctDataSecurity = false;
+                    return;
+                }
+
+                correctDataSecurity = true;
+                let hoursDiff = checkDifference();
+
+
+                UpdateSecurityPrice(hoursDiff);
 
             })
 
 
-            //Security Price Calcualtion
+            $("#ParkLotSecStart").change(() => {
 
+
+                let isDateCorrect = CheckIfSecurityDataIsCorrect();
+                console.log(isDateCorrect);
+
+                if (isDateCorrect == false) {
+                    correctDataSecurity = false;
+                    return;
+                }
+
+                correctDataSecurity = true;
+
+                let hoursDiff = checkDifference();
+
+                UpdateSecurityPrice(hoursDiff);
+
+            });
+
+            $("#ParkLotSecEnd").change(() => {
+
+
+                let isDateCorrect = CheckIfSecurityDataIsCorrect();
+
+                console.log(isDateCorrect);
+                if (isDateCorrect == false) {
+                    correctDataSecurity = false;
+                    return;
+                }
+
+                correctDataSecurity = true;
+                let hoursDiff = checkDifference();
+
+
+                UpdateSecurityPrice(hoursDiff);
+            });
+
+
+            function CheckIfSecurityDataIsCorrect() {
+                let parkLotSecStartTimeValue = $("#ParkLotSecStart").val();
+                let parkLotSecEndTimeValue = $("#ParkLotSecEnd").val();
+
+                let parkLotSecStartTime = new Date(parkLotSecStartTimeValue)
+                let parkLotSecEndTime = new Date(parkLotSecEndTimeValue)
+
+                //Models
+                let utcSecondsStart = @Model.EventStartDateTimeInMs;
+                let eventStartDate = new Date(utcSecondsStart);
+
+                let utcSecondsEnd = @Model.EventEndDateTimeInMs;
+                let eventEndDate = new Date(utcSecondsEnd)
+
+
+                if (parkLotSecEndTime <= eventStartDate) {
+                    $('#ParkLotSecEnd-error').text('Security End DateTime cannot be before Event Start DateTime');
+                    return false;
+                } else {
+                    $('#ParkLotSecEnd-error').text('');
+                }
+
+                if (parkLotSecEndTime <= parkLotSecStartTime) {
+                    if (parkLotSecStartTime > eventStartDate) {
+                        $('#ParkLotSecStart-error').text('Security Start DateTime cannot be after Event Start DateTime');
+                    } else {
+                        $('#ParkLotSecStart-error').text('');
+                    }
+                    
+                    $('#ParkLotSecEnd-error').text('Security End Time cannot be before Security Start Time');
+                    return false;
+                } else {
+                    $('#ParkLotSecEnd-error').text('');
+                }
+
+                if (parkLotSecEndTime > eventEndDate) {
+                    $('#ParkLotSecEnd-error').text('Security End Time cannot be after Event End Time');
+                    return false;
+                } else {
+                    $('#ParkLotSecEnd-error').text('');
+                }
+
+                if (parkLotSecStartTime < eventStartDate) {
+                    $('#ParkLotSecStart-error').text('Security Start DateTime cannot be before Event Start DateTime');
+                    return false;
+                } else {
+                    $('#ParkLotSecStart-error').text('');
+                }
+
+                if (parkLotSecStartTime.setHours(0, 0, 0, 0) != eventStartDate.setHours(0, 0, 0, 0)) {
+                    $('#ParkLotSecStart-error').text('Parking Lot Security Date cannot be different from Event Date');
+                    return false;
+                } else {
+                    $('#ParkLotSecStart-error').text('');
+                }
+
+                return true;
+            }
+
+
+            function checkDifference() {
+                let parkLotSecStartTimeValue = $("#ParkLotSecStart").val();
+                let parkLotSecEndTimeValue = $("#ParkLotSecEnd").val();
+
+                let parkLotSecStartTime = new Date(parkLotSecStartTimeValue)
+                let parkLotSecEndTime = new Date(parkLotSecEndTimeValue)
+
+                let hoursDiff = Math.abs(parkLotSecEndTime - parkLotSecStartTime) / 36e5;
+
+                hoursDiff = Math.ceil(hoursDiff);
+
+                console.log(`Sec start - ${parkLotSecStartTime}`);
+                console.log(`Sec end - ${parkLotSecEndTime}`);
+                console.log(`Sec diff - ${hoursDiff}`);
+
+                return hoursDiff;
+            }
+
+
+            function UpdateSecurityPrice(hoursDiff) {
+
+                if ($('#ParkingLotSecurity-checkbox').prop('checked')) {
+
+                    securityPrice = hoursDiff * securityGuardCostPerHour;
+
+                }else {
+                    securityPrice = 0;
+                    correctDataSecurity = true;
+                }
+
+                totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
+                UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice)
+            }
+
+
+
+
+
+
+
+
+
+            /////////////////////////////////////////////////////Security Price Calcualtion
 
             $('#SecurityGuards').change(() => {
                 let securityGuards = $('#SecurityGuards').val();
@@ -235,10 +401,7 @@
                 if (securityGuards > @GlobalConstants.MaxSecurityCuards ) {
                     securityPrice = 0;
                     return;
-
                 }
-
-                //console.log(securityPrice)
 
                 if (securityGuards == 0) {
                     securityPrice = 0;
@@ -260,14 +423,9 @@
                 }
 
                 securityPrice = securityGuards * secHoursPerGuard * securityGuardCostPerHour
-
                 totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
-
                 UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice)
-
-
             })
-
 
             $('#SecServiceHoursPerGuard').change(() => {
                 let securityGuards = $('#SecurityGuards').val();
@@ -284,7 +442,6 @@
                     securityPrice = 0;
                     return;
                 }
-
 
                 if (secHoursPerGuard == 0) {
                     securityPrice = 0;
@@ -307,15 +464,12 @@
                     correctDataSecurity = true
                 }
 
-
-
                 securityPrice = securityGuards * secHoursPerGuard * securityGuardCostPerHour
-
                 totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
-
                 UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice)
-
             })
+            /////////////////////////////////////////////////////Security Price Calcualtion
+
 
 
             //submit button

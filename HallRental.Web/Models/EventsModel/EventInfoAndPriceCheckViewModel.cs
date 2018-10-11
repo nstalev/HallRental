@@ -12,6 +12,9 @@
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
 
+        public long EventStartDateTimeInMs { get; set; }
+        public long EventEndDateTimeInMs { get; set; }
+
         public int HallId { get; set; }
 
         public string HallName { get; set; }
@@ -52,11 +55,9 @@
         [Range(0, GlobalConstants.MaxSecurityServiceHoursPerGuard)]
         public double RequestedSecurityHoursPerGuard { get; set; }
 
-        [DataType(DataType.Time)]
         [Display(Name = "Security Start Time")]
         public DateTime ParkingLotSecStart { get; set; }
 
-        [DataType(DataType.Time)]
         [Display(Name = "Security End Time")]
         public DateTime ParkingLotSecEnd { get; set; }
 
