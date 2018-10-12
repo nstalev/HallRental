@@ -5,7 +5,6 @@
 }
 
 
-
 <div class="row">
     <div class="col-md-6">
         <div class="w3-container w3-card-4 w3-round w3-light-grey input-card-panel">
@@ -67,18 +66,6 @@
                     </div>
                 </div>
                 <input id="parkingLotSecurityHours" asp-for="ParkingLotSecurityHours" type="hidden" />
-                @*<div class="form-group">
-            <label asp-for="SecurityGuards" class="control-label"></label>
-            <input id="SecurityGuards" asp-for="SecurityGuards" class="form-control" />
-            <span asp-validation-for="SecurityGuards" class="text-danger"></span>
-            <span id="SecurityGuards-error" class="price-check-error"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="RequestedSecurityHoursPerGuard" class="control-label"></label>
-            <input id="SecServiceHoursPerGuard" asp-for="RequestedSecurityHoursPerGuard" class="form-control" />
-            <span asp-validation-for="RequestedSecurityHoursPerGuard" class="text-danger"></span>
-            <span id="SecServiceHours-error" class="price-check-error"></span>
-        </div>*@
                 <div class="form-group">
                     <input type="submit" value="Continue" class="w3-button w3-border w3-border-grey w3-round" />
                 </div>
@@ -97,18 +84,15 @@
 </div>
 
 
-
 @section Scripts {
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
 
     <script>
 
 
         $(document).ready(function () {
             console.log('ready')
-
 
             let tablesAndChairsPrice = 0;
             let securityPrice = 0;
@@ -152,7 +136,6 @@
 
                     UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice)
 
-
                 }
                 else {
                     console.log('UseTablesAndChairs checkbox  - not checked')
@@ -161,7 +144,6 @@
                     totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
 
                     UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice)
-
                 }
             })
 
@@ -188,12 +170,10 @@
 
                     }
 
-                    //console.log('UseTablesAndChairs checkbox  - checked')
                     tablesAndChairsPrice = numberOfPeople * chairCostPerPerson;
 
                     totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
                     UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice)
-
 
                 }
 
@@ -206,11 +186,6 @@
                 let utcSecondsStart = @Model.EventStartDateTimeInMs;
                 let utcSecondsEnd = @Model.EventEndDateTimeInMs;
 
-             
-                //const eventStartDate = new Date(utcSecondsStart);
-                //const eventEndDate = new Date(utcSecondsEnd);
-                //console.log('Event Start Date - ' + eventStartDate);
-                //console.log('Event End Date - ' + eventEndDate);
 
             $('#ParkingLotSecurity-checkbox').change(() => {
 
@@ -240,7 +215,6 @@
                 correctDataSecurity = true;
                 let hoursDiff = checkDifference();
 
-
                 UpdateSecurityPrice(hoursDiff);
 
             })
@@ -248,7 +222,6 @@
 
             $("#ParkLotSecStart").change(() => {
 
-
                 let isDateCorrect = CheckIfSecurityDataIsCorrect();
                 console.log(isDateCorrect);
 
@@ -262,11 +235,9 @@
                 let hoursDiff = checkDifference();
 
                 UpdateSecurityPrice(hoursDiff);
-
             });
 
             $("#ParkLotSecEnd").change(() => {
-
 
                 let isDateCorrect = CheckIfSecurityDataIsCorrect();
 
@@ -278,7 +249,6 @@
 
                 correctDataSecurity = true;
                 let hoursDiff = checkDifference();
-
 
                 UpdateSecurityPrice(hoursDiff);
             });
@@ -298,6 +268,16 @@
                 let utcSecondsEnd = @Model.EventEndDateTimeInMs;
                 let eventEndDate = new Date(utcSecondsEnd)
 
+                if (isValidDate(parkLotSecStartTime) == false) {
+                    $('#ParkLotSecStart-error').text('Invalid Date');
+                    return false;
+                }
+
+                if (isValidDate(parkLotSecEndTime) == false) {
+                    $('#ParkLotSecEnd-error').text('Invalid Date');
+                    return false;
+                }
+               
 
                 if (parkLotSecEndTime <= eventStartDate) {
                     $('#ParkLotSecEnd-error').text('Security End DateTime cannot be before Event Start DateTime');
@@ -343,6 +323,9 @@
                 return true;
             }
 
+            function isValidDate(date) {
+                return date && Object.prototype.toString.call(date) === "[object Date]" && !isNaN(date);
+            }
 
             function checkDifference() {
                 let parkLotSecStartTimeValue = $("#ParkLotSecStart").val();
@@ -357,13 +340,16 @@
 
                 console.log(`Sec start - ${parkLotSecStartTime}`);
                 console.log(`Sec end - ${parkLotSecEndTime}`);
-                console.log(`Sec diff - ${hoursDiff}`);
+                console.log(`Parking Lot Security hours - ${hoursDiff}`);
 
                 return hoursDiff;
             }
 
 
             function UpdateSecurityPrice(hoursDiff) {
+                if (isNaN(hoursDiff)) {
+                    hoursDiff = 0;
+                }
 
                 if ($('#ParkingLotSecurity-checkbox').prop('checked')) {
 
@@ -380,100 +366,7 @@
                 UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice)
             }
 
-
-
-
-
-
-
-
-
-            /////////////////////////////////////////////////////Security Price Calcualtion
-
-            @*$('#SecurityGuards').change(() => {
-                let securityGuards = $('#SecurityGuards').val();
-                let secHoursPerGuard = $('#SecServiceHoursPerGuard').val();
-
-                if (securityGuards == 0 && secHoursPerGuard == 0) {
-                    securityPrice = 0;
-                    $('#SecurityGuards-error').text('');
-                    $('#SecServiceHours-error').text('');
-                    correctDataSecurity = true;
-                }
-
-                if (securityGuards > @GlobalConstants.MaxSecurityCuards ) {
-                    securityPrice = 0;
-                    return;
-                }
-
-                if (securityGuards == 0) {
-                    securityPrice = 0;
-                    if (secHoursPerGuard != 0) {
-                        $('#SecurityGuards-error').text('Please e fill the security guards Input');
-                        correctDataSecurity = false;
-                        return;
-                    }
-                } else {
-                    $('#SecurityGuards-error').text('');
-                    if (secHoursPerGuard == 0) {
-                        securityPrice = 0
-                       // console.log('here')
-                        $('#SecServiceHours-error').text('Please e fill the security hours per guard Input');
-                        correctDataSecurity = false;
-                        return;
-                    }
-                    correctDataSecurity = true;
-                }
-
-                securityPrice = securityGuards * secHoursPerGuard * securityGuardCostPerHour
-                totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
-                UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice)
-            })
-
-            $('#SecServiceHoursPerGuard').change(() => {
-                let securityGuards = $('#SecurityGuards').val();
-                let secHoursPerGuard = $('#SecServiceHoursPerGuard').val();
-
-                if (securityGuards == 0 && secHoursPerGuard == 0) {
-                    securityPrice = 0;
-                    $('#SecurityGuards-error').text('');
-                    $('#SecServiceHours-error').text('');
-                    correctDataSecurity = true;
-                }
-
-                if ( secHoursPerGuard > @GlobalConstants.MaxSecurityServiceHoursPerGuard) {
-                    securityPrice = 0;
-                    return;
-                }
-
-                if (secHoursPerGuard == 0) {
-                    securityPrice = 0;
-                    if (securityGuards != 0) {
-                        $('#SecServiceHours-error').text('Please e fill the security hours per guard Input');
-                        correctDataSecurity = false;
-                        securityPrice = 0;
-                        return;
-                    }
-
-                } else {
-                    console.log('anothe here')
-                    $('#SecServiceHours-error').text('');
-                    if (securityGuards <= 0) {
-                        securityPrice = 0
-                        $('#SecurityGuards-error').text('Please e fill the security guards Input');
-                        correctDataSecurity = false;
-                        return;
-                    }
-                    correctDataSecurity = true
-                }
-
-                securityPrice = securityGuards * secHoursPerGuard * securityGuardCostPerHour
-                totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
-                UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice)
-            })*@
-            /////////////////////////////////////////////////////Security Price Calcualtion
-
-
+        
 
             //submit button
 
@@ -485,11 +378,7 @@
                     e.preventDefault();
                 }
             })
-
-
-
     });
-
 
 
     function UpdatePriceModelAndPartialView(totalPrice, secuPrice, tabAndChairsPrice) {
@@ -516,7 +405,6 @@
                     alert('failed');
                 }
             })
-
         }
 
 
