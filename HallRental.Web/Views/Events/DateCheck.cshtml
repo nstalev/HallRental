@@ -8,7 +8,7 @@
 <hr />
 <div class="row">
     <div class="col-md-6">
-        <form asp-action="PriceCheck" class="w3-container w3-card-4 w3-round w3-light-grey">
+        <form asp-action="PriceCheck" class="w3-container w3-card-4 w3-round w3-light-grey" id="submitForm">
             <h2>Check if the Hall is free</h2>
 
             <div class="form-group">
@@ -35,7 +35,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <input type="button" onclick="CheckDateAndTime()" value="Check" class="w3-button w3-round w3-grey" />
+                <input it="checkBtn" type="button" onclick="CheckDateAndTime()" value="Check" class="w3-button w3-round w3-grey" />
                 @if (User.Identity.IsAuthenticated)
                 {
                     <input type="submit" id="dateCheck-submit-btn" class="w3-button w3-round w3-blue" value="Continue" style="display: none" />
@@ -69,37 +69,94 @@
 @section Scripts{
 
     <script>
+
+        let correctDate = true;
+
+        $('#EventDate').change(() => {
+            @*let utcSecondsCurrentDate = @Model.CurrentDateTimeInMs;
+            let currentDate = new Date(utcSecondsCurrentDate);
+
+
+            let reservationDateVal = $("#EventDate").val();
+            let reservationDate = new Date(reservationDateVal);
+
+            if (currentDate.setHours(0, 0, 0, 0) > reservationDate) {
+                $('#date-error').text('You cannot make a reservation for a past date')
+                console.log('current Date - ' + currentDate);
+                console.log('Reserv Date - ' + reservationDate);
+
+                correctDate = false;
+                return;
+            } else {
+                $('#date-error').text('')
+                correctDate = true;
+            }*@
+            
+            
+
+        })
+
+
+        function checkIfSelectedDateIsCorrect() {
+            let utcSecondsCurrentDate = @Model.CurrentDateTimeInMs;
+            let currentDate = new Date(utcSecondsCurrentDate);
+
+
+            let reservationDateVal = $("#EventDate").val();
+            let reservationDate = new Date(reservationDateVal);
+
+            if (currentDate.setHours(0, 0, 0, 0) > reservationDate) {
+                $('#date-error').text('You cannot make a reservation for a past date')
+                console.log('current Date - ' + currentDate);
+                console.log('Reserv Date - ' + reservationDate);
+
+               return false;
+            } else {
+                $('#date-error').text('')
+                return true;
+            }
+
+        }
+
+
+       
+
+
         function CheckDateAndTime() {
 
             let eventDate = $('#EventDate').val();
             let rentTime = $('#RentTime').val();
 
             let hallSelected = $('.halls-dropDown option:selected').val();
-                        
-           // console.log(hallSelected)
 
-            if (!eventDate || !hallSelected) {
+        
+
+            if (!eventDate || !hallSelected ) {
 
                 if (!eventDate) {
                     $('#date-error').text('Please specify date')
-                }
-                else {
+                }else {
                     $('#date-error').text('')
                 }
 
                 if (!hallSelected) {
                     $('#hall-error').text('Please select Hall')
-                }
-                else {
+                }else {
                     $('#hall-error').text('')
                 }
-            }
-         
-            else {
+               
+            } else {
                 $('#date-error').text('')
                 $('#hall-error').text('')
-                //console.log(eventDate)
-                //console.log(rentTime)
+
+
+                let correctDate = checkIfSelectedDateIsCorrect();
+
+                if (!correctDate) {
+                    $('#dateCheck-submit-btn').hide();
+                    $('#eventDateResult').text('')
+                    return;
+                }
 
                 console.log(hallSelected)
                 $.ajax({
@@ -145,6 +202,12 @@
         }
 
 
+        $("#submitForm").submit(function (e) {
+          
+            if (correctDate == false) {
+                e.preventDefault();
+            }
+        })
 
     </script>
 

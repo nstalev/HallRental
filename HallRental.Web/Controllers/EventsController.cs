@@ -30,9 +30,9 @@ namespace HallRental.Web.Controllers
 
 
 
-
         public IActionResult DateCheck()
         {
+            DateTime today = DateTime.UtcNow;
 
             var vm = new DateCheckViewModel
             {
@@ -43,7 +43,9 @@ namespace HallRental.Web.Controllers
                     Value = h.Id.ToString(),
                     Selected = false
                 }).ToList(),
-                Date = null
+                Date = null,
+                CurrentDateTimeInMs = (long)today.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds,
+
             };
 
 

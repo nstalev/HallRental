@@ -17,5 +17,7 @@ namespace HallRental.Web.Models.EventsModel
 
         [Required]
         public RentTimeEnum RentTime { get; set; }
+
+        public long CurrentDateTimeInMs { get; set; }
     }
 }
