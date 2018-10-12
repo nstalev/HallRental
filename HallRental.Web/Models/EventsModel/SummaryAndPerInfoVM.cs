@@ -31,6 +31,7 @@ namespace HallRental.Web.Models.EventsModel
 
         public decimal TablesAndChairsCostPerPerson { get; set; }
 
+        public bool ParkingLotSecurityService { get; set; }
 
         public int ParkingLotSecurityHours { get; set; }
 

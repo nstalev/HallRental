@@ -47,6 +47,8 @@
 
         public int HallCapacity { get; set; }
 
+        public bool ParkingLotSecurityService { get; set; }
+
 
         public int ParkingLotSecurityHours { get; set; }
 

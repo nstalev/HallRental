@@ -59,6 +59,8 @@ namespace HallRental.Data.Models
         [Range(0, double.MaxValue)]
         public decimal TablesAndChairsCostPerPerson { get; set; }
 
+        public bool ParkingLotSecurityService { get; set; }
+
         [Range(0, 16)]
         public int ParkingLotSecurityHours { get; set; }
 

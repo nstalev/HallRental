@@ -21,6 +21,7 @@ namespace HallRental.Services
                     bool usingTablesAndChairs,
                     decimal tablesAndChairsCostPerPerson,
                     decimal securityGuardCostPerHour,
+                    bool parkingLotSecurityService,
                     int parkingLotSecurityHours,
                     DateTime securityStartTime,
                     DateTime securityEndTime,
