@@ -5,11 +5,12 @@
     <p>Hall Rental Price: $@Model.HallPrice.ToString("F")</p>
     @if (Model.TablesAndChairsPrice > 0)
     {
-        <p>Using tables and chairs Price: $@Model.TablesAndChairsPrice.ToString("F")</p>
+        <p>Tables and chairs Price: $@Model.TablesAndChairsPrice.ToString("F")</p>
 
     }
     @if (Model.SecurityPrice > 0)
     {
+        <p>Security hours:  @Model.ParkingLotSecurityHours</p>
         <p>Security service Price:  $@Model.SecurityPrice.ToString("F")</p>
 
     }

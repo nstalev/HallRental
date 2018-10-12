@@ -18,7 +18,6 @@
                 </select>
                 <span id="hall-error" class="error-note"></span>
             </div>
-
             <div class="form-group">
                 <label asp-for="Date" class="control-label"></label>
                 <input id="EventDate" asp-for="Date" class="form-control" required />
@@ -70,32 +69,7 @@
 
     <script>
 
-        let correctDate = true;
-
-        $('#EventDate').change(() => {
-            @*let utcSecondsCurrentDate = @Model.CurrentDateTimeInMs;
-            let currentDate = new Date(utcSecondsCurrentDate);
-
-
-            let reservationDateVal = $("#EventDate").val();
-            let reservationDate = new Date(reservationDateVal);
-
-            if (currentDate.setHours(0, 0, 0, 0) > reservationDate) {
-                $('#date-error').text('You cannot make a reservation for a past date')
-                console.log('current Date - ' + currentDate);
-                console.log('Reserv Date - ' + reservationDate);
-
-                correctDate = false;
-                return;
-            } else {
-                $('#date-error').text('')
-                correctDate = true;
-            }*@
-            
-            
-
-        })
-
+        
 
         function checkIfSelectedDateIsCorrect() {
             let utcSecondsCurrentDate = @Model.CurrentDateTimeInMs;
@@ -149,6 +123,7 @@
                 $('#date-error').text('')
                 $('#hall-error').text('')
 
+                
 
                 let correctDate = checkIfSelectedDateIsCorrect();
 
@@ -201,13 +176,6 @@
 
         }
 
-
-        $("#submitForm").submit(function (e) {
-          
-            if (correctDate == false) {
-                e.preventDefault();
-            }
-        })
 
     </script>
 

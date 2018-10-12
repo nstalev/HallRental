@@ -55,6 +55,7 @@ namespace HallRental.Web.Controllers
         [Authorize]
         public IActionResult PriceCheck(DateCheckFormModel dateCheckModel)
         {
+            DateTime today = DateTime.UtcNow;
 
             if (dateCheckModel.Date == null || dateCheckModel.HallId == 0)
             {
@@ -70,12 +71,18 @@ namespace HallRental.Web.Controllers
                 return RedirectToAction(nameof(DateCheck), dateCheckModel);
             }
 
+            if (eventDate.Date < today.Date)
+            {
+                TempData.AddErrorMessage("You cannot make a reservation for a past date");
+                return RedirectToAction(nameof(DateCheck), dateCheckModel);
+            }
+
             Hall currentHall = this.hallsServices.GetHallById(dateCheckModel.HallId);
             DayOfWeek eventDateOfWeek = eventDate.DayOfWeek;
 
             decimal hallRentalPrice = dateCheckModel.TotalPrice;
 
-            if (hallRentalPrice == 0)
+            if (hallRentalPrice <= 0)
             {
                 hallRentalPrice = eventsServices.CheckHallStartPrice(currentHall, eventDateOfWeek, dateCheckModel.RentTime);
 

@@ -11,5 +11,8 @@ namespace HallRental.Web.Models.EventsModel
 
         public decimal TotalPrice { get; set; }
 
+        public int ParkingLotSecurityHours { get; set; }
+
+
     }
 }

@@ -88,7 +88,7 @@
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-    <script>
+<script>
 
 
         $(document).ready(function () {
@@ -134,7 +134,7 @@
 
                         totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
 
-                    UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice)
+                   // UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice)
 
                 }
                 else {
@@ -143,8 +143,10 @@
 
                     totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
 
-                    UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice)
                 }
+                let parkLotSecHours = checkDifference();
+                UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice, parkLotSecHours)
+
             })
 
             $('#NumberOfPeople').change(function () {
@@ -173,7 +175,8 @@
                     tablesAndChairsPrice = numberOfPeople * chairCostPerPerson;
 
                     totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
-                    UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice)
+                    let parkLotSecHours = checkDifference();
+                    UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice, parkLotSecHours)
 
                 }
 
@@ -183,8 +186,8 @@
 
             //ParkingLotSecurity
 
-                let utcSecondsStart = @Model.EventStartDateTimeInMs;
-                let utcSecondsEnd = @Model.EventEndDateTimeInMs;
+                @*let utcSecondsStart = @Model.EventStartDateTimeInMs;
+                let utcSecondsEnd = @Model.EventEndDateTimeInMs;*@
 
 
             $('#ParkingLotSecurity-checkbox').change(() => {
@@ -277,7 +280,7 @@
                     $('#ParkLotSecEnd-error').text('Invalid Date');
                     return false;
                 }
-               
+
 
                 if (parkLotSecEndTime <= eventStartDate) {
                     $('#ParkLotSecEnd-error').text('Security End DateTime cannot be before Event Start DateTime');
@@ -292,7 +295,7 @@
                     } else {
                         $('#ParkLotSecStart-error').text('');
                     }
-                    
+
                     $('#ParkLotSecEnd-error').text('Security End Time cannot be before Security Start Time');
                     return false;
                 } else {
@@ -363,10 +366,10 @@
                 $('#parkingLotSecurityHours').val(hoursDiff);
 
                 totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
-                UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice)
+                UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice, hoursDiff)
             }
 
-        
+
 
             //submit button
 
@@ -381,12 +384,13 @@
     });
 
 
-    function UpdatePriceModelAndPartialView(totalPrice, secuPrice, tabAndChairsPrice) {
+    function UpdatePriceModelAndPartialView(totalPrice, secuPrice, tabAndChairsPrice, parkLotSecHours) {
 
         $('#PriceInput').val(totalPrice)
         $('#TablesAndChairsPriceInput').val(tabAndChairsPrice)
         $('#SecurityPriceInput').val(secuPrice)
 
+        console.log(@Model.ParkingLotSecurityHours);
 
             $.ajax({
                 type: "Post",
@@ -395,7 +399,8 @@
                     HallPrice : @Model.HallRentalPrice,
                     TotalPrice: totalPrice,
                     SecurityPrice: secuPrice,
-                    TablesAndChairsPrice : tabAndChairsPrice
+                    TablesAndChairsPrice: tabAndChairsPrice,
+                    ParkingLotSecurityHours: parkLotSecHours
 
                 },
                 success: function (data) {
@@ -415,5 +420,5 @@
         }
 
 
-    </script>
+</script>
 }
