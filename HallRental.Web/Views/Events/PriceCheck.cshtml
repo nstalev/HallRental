@@ -26,12 +26,14 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="EventStart" class="control-label"></label>
-                    <input asp-for="EventStart" class="form-control" />
+                    <input id="EventStartTime" asp-for="EventStart" class="form-control" />
+                    <span id="EventStartTime-error" class="price-check-error"></span>
                     <span asp-validation-for="EventStart" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="EventEnd" class="control-label"></label>
-                    <input asp-for="EventEnd" class="form-control" />
+                    <input id="EventEndTime" asp-for="EventEnd" class="form-control" />
+                    <span id="EventEndTime-error" class="price-check-error"></span>
                     <span asp-validation-for="EventEnd" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -60,7 +62,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label" asp-for="SecurityEndTime">Security End</label>
+                        <label class="control-label" asp-for="SecurityEndTime"></label>
                         <input id="ParkLotSecEnd" asp-for="SecurityEndTime" class="form-control secLot-input" />
                         <span id="ParkLotSecEnd-error" class="price-check-error"></span>
                     </div>
@@ -76,7 +78,7 @@
     <div class="col-md-6 event-side-info">
         <p>Hall: <b>@Model.HallName</b></p>
         <p>Date: <b>@Model.Date.ToShortDateString()</b></p>
-        <p>Time: <b>@Model.RentTimeDisplay</b></p>
+        <p>Rent Time: <b>@Model.RentTimeDisplay</b></p>
         <div id="refTable" class="price-side-info">
             @Html.Partial("_PartialPrice", Model.EventPriceModel)
         </div>
@@ -107,6 +109,94 @@
 
             let correctDataTabAndCh = true;
             let correctDataSecurity = true;
+            let correctDataEventTime = true;
+
+
+            //Event Start-End Time
+
+            $('#EventStartTime').change(() => {
+
+                let utcSecondsStart = @Model.EventStartDateTimeInMs;
+                let rentStartDateTime = new Date(utcSecondsStart);
+                console.log('Rent Start Time - ' + rentStartDateTime)
+             
+                let utcSecondsEnd = @Model.EventEndDateTimeInMs;
+                let rentEndDateTime = new Date(utcSecondsEnd)
+
+                let inputEventStartTime = $('#EventStartTime').val();
+                inputEventStartTime = ConvertToDateTime(rentStartDateTime, inputEventStartTime);
+                console.log('input Start Date- ' + inputEventStartTime);
+                
+
+                if (inputEventStartTime < rentStartDateTime) {
+                    $('#EventStartTime-error').text('Event Start Time cannot be before Rent Start Time');
+                    correctDataEventTime = false;
+                    return;
+                } 
+                if (inputEventStartTime > rentEndDateTime) {
+                    $('#EventStartTime-error').text('Event Start Time cannot be after Rent End Time');
+                    correctDataEventTime = false;
+                    return;
+                }
+
+                    correctDataEventTime = true;
+                    $('#EventStartTime-error').text('');
+
+
+            });
+
+
+            $('#EventEndTime').change(() => {
+                let utcSecondsStart = @Model.EventStartDateTimeInMs;
+                let rentStartDateTime = new Date(utcSecondsStart);
+                console.log('Rent Start Time - ' + rentStartDateTime)
+
+             
+                let utcSecondsEnd = @Model.EventEndDateTimeInMs;
+                let rentEndDateTime = new Date(utcSecondsEnd)
+                console.log('Rent End Time - ' + rentEndDateTime)
+
+                let inputEventEndTime = $('#EventEndTime').val();
+                inputEventEndTime = ConvertToDateTime(rentEndDateTime, inputEventEndTime);
+                console.log('input End DateTime- ' + inputEventEndTime);
+
+
+                if (rentEndDateTime.getHours() == 0) {
+                    console.log('Rent End time = 0')
+
+                } else {
+                    if (inputEventEndTime > rentEndDateTime) {
+                        $('#EventEndTime-error').text('Event End Time cannot be after Rent End Time');
+                        correctDataEventTime = false;
+                        return;
+                    }
+
+
+                    if (inputEventEndTime < rentStartDateTime) {
+                        $('#EventEndTime-error').text('Event End Time cannot be before Rent Start Time');
+                        correctDataEventTime = false;
+                        return;
+                    }
+                }
+
+                correctDataEventTime = true;
+                $('#EventEndTime-error').text('');
+
+            });
+
+
+
+
+
+            function ConvertToDateTime(currentDate, inputTime) {
+                let timeArr = inputTime.split(':');
+                let hours = parseInt(timeArr[0])
+                let minutes = parseInt(timeArr[1])
+
+                return new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), hours, minutes)
+            }
+
+
 
             //Table and Chairs Price Calcualtion
 
@@ -376,7 +466,10 @@
             $("#submitForm").submit(function (e) {
                 console.log('correctSecData: ' + correctDataSecurity)
                 console.log('correctTabData: ' + correctDataTabAndCh)
-                if (correctDataSecurity == false || correctDataTabAndCh == false)
+                console.log('correctEventTimeData: ' + correctDataEventTime)
+                if (correctDataSecurity == false
+                    || correctDataTabAndCh == false
+                    || correctDataEventTime ==false)
                 {
                     e.preventDefault();
                 }

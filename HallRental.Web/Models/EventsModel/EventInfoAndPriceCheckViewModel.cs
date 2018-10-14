@@ -15,6 +15,9 @@
         public long EventStartDateTimeInMs { get; set; }
         public long EventEndDateTimeInMs { get; set; }
 
+        public long TestTimeInMs { get; set; }
+
+
         public int HallId { get; set; }
 
         public string HallName { get; set; }
