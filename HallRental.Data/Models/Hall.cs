@@ -55,6 +55,12 @@ namespace HallRental.Data.Models
         [Required]
         public bool IsHallActive { get; set; }
 
+        [Required]
+        public decimal SecurityDepositBefore10pm { get; set; }
+
+        [Required]
+        public decimal SecurityDepositAfter10pm { get; set; }
+
         public List<Event> Events { get; set; } = new List<Event>();
 
     }

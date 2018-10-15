@@ -18,12 +18,9 @@
                 <input id="HallRentPriceInput" asp-for="HallRentalPrice" type="hidden" />
                 <input id="TablesAndChairsPriceInput" asp-for="TablesAndChairsPrice" type="hidden" />
                 <input id="SecurityPriceInput" asp-for="SecurityPrice" type="hidden" />
+                <input id="SecurityDeposit" asp-for="SecurityDeposit" type="hidden" />
                 <input id="PriceInput" asp-for="TotalPrice" type="hidden" />
-                <div class="form-group">
-                    <label asp-for="EventTitle" class="control-label"></label>
-                    <input asp-for="EventTitle" class="form-control" />
-                    <span asp-validation-for="EventTitle" class="text-danger"></span>
-                </div>
+
                 <div class="form-group">
                     <label asp-for="EventStart" class="control-label"></label>
                     <input id="EventStartTime" asp-for="EventStart" class="form-control" />
@@ -98,6 +95,7 @@
 
             let tablesAndChairsPrice = 0;
             let securityPrice = 0;
+            let securityDeposit = @Model.SecurityDeposit;
 
             let startPrice = @Model.TotalPrice
 
@@ -112,6 +110,12 @@
             let correctDataEventTime = true;
 
 
+            //Security Deposit Check Time
+            let utcSecondsStartTime = @Model.EventStartDateTimeInMs;
+
+            let secDepositCheckTime = new Date(utcSecondsStartTime);
+            secDepositCheckTime.setHours(22)
+
             //Event Start-End Time
 
             $('#EventStartTime').change(() => {
@@ -124,6 +128,18 @@
             $('#EventEndTime').change(() => {
 
                 correctDataEventTime = CheckIfEventDataIsCorrect();
+
+
+                let inputEventEndTimeVal = $("#EventEndTime").val();
+                let inputEventEndTime = new Date(inputEventEndTimeVal)
+
+
+                @*if (inputEventEndTime < secDepositCheckTime) {
+                    securityDeposit = @Model.SecurityDepositBefore10pm;
+                }
+                console.log('secDepositCheckTime ' + secDepositCheckTime)
+                console.log('inputEventEndTime ' + inputEventEndTime)
+                console.log('securityDeposit ' + securityDeposit)*@
 
             })
 
@@ -210,7 +226,7 @@
 
                         totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
 
-                   // UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice)
+           
 
                 }
                 else {
@@ -221,7 +237,7 @@
 
                 }
                 let parkLotSecHours = checkDifference();
-                UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice, parkLotSecHours)
+                UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice, parkLotSecHours, securityDeposit)
 
             })
 
@@ -252,7 +268,7 @@
 
                     totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
                     let parkLotSecHours = checkDifference();
-                    UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice, parkLotSecHours)
+                    UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice, parkLotSecHours, securityDeposit)
 
                 }
 
@@ -436,7 +452,7 @@
                 $('#parkingLotSecurityHours').val(hoursDiff);
 
                 totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
-                UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice, hoursDiff)
+                UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice, hoursDiff, securityDeposit)
             }
 
 
@@ -461,11 +477,12 @@
     });
 
 
-    function UpdatePriceModelAndPartialView(totalPrice, secuPrice, tabAndChairsPrice, parkLotSecHours) {
+    function UpdatePriceModelAndPartialView(totalPrice, securityPrice, tabAndChairsPrice, parkLotSecHours, securityDeposit) {
 
         $('#PriceInput').val(totalPrice)
         $('#TablesAndChairsPriceInput').val(tabAndChairsPrice)
-        $('#SecurityPriceInput').val(secuPrice)
+        $('#SecurityPriceInput').val(securityPrice)
+        $('#SecurityDeposit').val(securityDeposit)
 
         console.log(@Model.ParkingLotSecurityHours);
 
@@ -475,10 +492,10 @@
                 data: {
                     HallPrice : @Model.HallRentalPrice,
                     TotalPrice: totalPrice,
-                    SecurityPrice: secuPrice,
+                    SecurityPrice: securityPrice,
                     TablesAndChairsPrice: tabAndChairsPrice,
-                    ParkingLotSecurityHours: parkLotSecHours
-
+                    ParkingLotSecurityHours: parkLotSecHours,
+                    SecurityDeposit : securityDeposit
                 },
                 success: function (data) {
                     partialViewResult(data)

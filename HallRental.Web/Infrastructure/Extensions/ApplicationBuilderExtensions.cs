@@ -88,10 +88,12 @@ namespace HallRental.Web.Infrastructure.Extensions
                              Saturday4pmToMN = 1750,
                              Sunday8amTo3pm = 750,
                              Sunday4pmToMN = 1750,
-                             TablesAndChairsCostPerPerson =5,
+                             TablesAndChairsCostPerPerson =3.5m,
                              HallCapacity = 375,
-                             SecurityGuardCostPerHour = 20,
-                             IsHallActive = true
+                             SecurityGuardCostPerHour = 35,
+                             IsHallActive = true,
+                             SecurityDepositBefore10pm = 1000,
+                             SecurityDepositAfter10pm = 1500
 
                          };
 
@@ -105,10 +107,12 @@ namespace HallRental.Web.Infrastructure.Extensions
                              Saturday4pmToMN = 750,
                              Sunday8amTo3pm = 250,
                              Sunday4pmToMN = 750,
-                             TablesAndChairsCostPerPerson = 5,
+                             TablesAndChairsCostPerPerson = 3.5m,
                              HallCapacity = 100,
-                             SecurityGuardCostPerHour = 20,
-                             IsHallActive = true
+                             SecurityGuardCostPerHour = 35,
+                             IsHallActive = true,
+                             SecurityDepositBefore10pm = 1000,
+                             SecurityDepositAfter10pm = 1500
                          };
 
                          Hall conferenceMediaRoom = new Hall
@@ -121,10 +125,12 @@ namespace HallRental.Web.Infrastructure.Extensions
                              Saturday4pmToMN = 750,
                              Sunday8amTo3pm = 250,
                              Sunday4pmToMN = 750,
-                             TablesAndChairsCostPerPerson = 5,
+                             TablesAndChairsCostPerPerson = 3.5m,
                              HallCapacity = 60,
-                             SecurityGuardCostPerHour = 20,
-                             IsHallActive = true
+                             SecurityGuardCostPerHour = 35,
+                             IsHallActive = true,
+                             SecurityDepositBefore10pm = 1000,
+                             SecurityDepositAfter10pm = 1500
                          };
 
                          await db.Halls.AddAsync(grandFoyerAndBallRoom);

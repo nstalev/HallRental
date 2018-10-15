@@ -39,6 +39,9 @@ namespace HallRental.Web.Models.EventsModel
 
         public int NumberOfPeople { get; set; }
 
+        [Required]
+        [MaxLength(30)]
+        [MinLength(3)]
         public string EventTitle { get; set; }
 
         //TablesAndChairs

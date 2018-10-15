@@ -27,9 +27,7 @@
         [Required]
         public RentTimeEnum RentTime { get; set; }
 
-        [Required]
-        [Display(Name ="Event Title")]
-        public string EventTitle { get; set; }
+        
 
         [Display(Name = "Event Start")]
         public DateTime EventStart { get; set; }
@@ -61,6 +59,10 @@
 
         public decimal SecurityGuardCostPerHour { get; set; }
 
+        public decimal SecurityDepositBefore10pm { get; set; }
+
+        public decimal SecurityDepositAfter10pm { get; set; }
+
 
         public decimal ChairTableCostPerPerson { get; set; }
 
@@ -69,6 +71,8 @@
         public decimal TablesAndChairsPrice { get; set; }
 
         public decimal SecurityPrice { get; set; }
+
+        public decimal SecurityDeposit { get; set; }
 
         public decimal TotalPrice { get; set; }
 

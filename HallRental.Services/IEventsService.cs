@@ -1,6 +1,7 @@
 ﻿
 namespace HallRental.Services
 {
+    using HallRental.Data.Enums;
     using HallRental.Data.Models;
     using System;
     using static HallRental.Data.Enums.Enums;
@@ -43,6 +44,7 @@ namespace HallRental.Services
 
         DateTime GetEndTimeDefault(RentTimeEnum rentTime, DateTime eventDate);
 
+        decimal CalculateSecurityDeposit(RentTimeEnum rentTime, decimal securityDepositBefore10pm, decimal securityDepositAfter10pm);
     }
 
 }

@@ -92,15 +92,17 @@ namespace HallRental.Web.Controllers
             string rentTimeDisplay = eventsServices.GetRentTimeDisplay(dateCheckModel.RentTime);
 
 
+            var startTime = eventsServices.GetStartTimeDefault(dateCheckModel.RentTime, eventDate);
+            var endTime = eventsServices.GetEndTimeDefault(dateCheckModel.RentTime, eventDate);
+
+            decimal securityDeposit = eventsServices.CalculateSecurityDeposit(dateCheckModel.RentTime, currentHall.SecurityDepositBefore10pm, currentHall.SecurityDepositAfter10pm);
 
             var eventPriceModel = new EventPriceModel()
             {
                 HallPrice = hallRentalPrice,
-                TotalPrice = hallRentalPrice,
+                SecurityDeposit = securityDeposit,
+                TotalPrice = hallRentalPrice + securityDeposit
             };
-
-            var startTime = eventsServices.GetStartTimeDefault(dateCheckModel.RentTime, eventDate);
-            var endTime = eventsServices.GetEndTimeDefault(dateCheckModel.RentTime, eventDate);
 
             var priceCheckViewModel = new EventInfoAndPriceCheckViewModel()
             {
@@ -110,8 +112,10 @@ namespace HallRental.Web.Controllers
                 HallName = hallName,
                 RentTimeDisplay = rentTimeDisplay,
                 HallRentalPrice = hallRentalPrice,
-                TotalPrice = hallRentalPrice,
+                TotalPrice = hallRentalPrice + securityDeposit,
                 SecurityGuardCostPerHour = currentHall.SecurityGuardCostPerHour,
+                SecurityDepositBefore10pm = currentHall.SecurityDepositBefore10pm,
+                SecurityDepositAfter10pm = currentHall.SecurityDepositAfter10pm,
                 HallCapacity = currentHall.HallCapacity,
                 ChairTableCostPerPerson = currentHall.TablesAndChairsCostPerPerson,
                 EventPriceModel = eventPriceModel,
@@ -120,8 +124,8 @@ namespace HallRental.Web.Controllers
                 SecurityStartTime = startTime,
                 SecurityEndTime = endTime,
                 EventStartDateTimeInMs = (long)startTime.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds,
-                EventEndDateTimeInMs = (long)endTime.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds
-
+                EventEndDateTimeInMs = (long)endTime.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds,
+                SecurityDeposit = securityDeposit
             };
 
             return View(priceCheckViewModel);
@@ -174,7 +178,6 @@ namespace HallRental.Web.Controllers
                 RentTimeDisplay = rentTimeDisplay,
                 EventEnd = summaryModel.EventEnd,
                 EventStart = summaryModel.EventStart,
-                EventTitle = summaryModel.EventTitle,
                 NumberOfPeople = summaryModel.NumberOfPeople,
                 UsingTablesAndChairs = summaryModel.UsingTablesAndChairs,
                 TablesAndChairsCostPerPerson = currentHall.TablesAndChairsCostPerPerson,

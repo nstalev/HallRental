@@ -215,6 +215,17 @@ namespace HallRental.Services.Implementations
             return result;
         }
 
-      
+
+        public decimal CalculateSecurityDeposit(RentTimeEnum rentTime, decimal securityDepositBefore10pm, decimal securityDepositAfter10pm)
+        {
+            if (rentTime == RentTimeEnum.EightAMtoThreePM)
+            {
+                return securityDepositBefore10pm;
+            }
+            else
+            {
+                return securityDepositAfter10pm;
+            }
+        }
     }
 }
