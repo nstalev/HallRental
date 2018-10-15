@@ -21,9 +21,9 @@ namespace HallRental.Web.Models.EventsModel
 
         public string EventTitle { get; set; }
 
-        public string EventStart { get; set; }
+        public DateTime EventStart { get; set; }
 
-        public string EventEnd { get; set; }
+        public DateTime EventEnd { get; set; }
 
         public int NumberOfPeople { get; set; }
 

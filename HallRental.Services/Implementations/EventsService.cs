@@ -18,7 +18,7 @@ namespace HallRental.Services.Implementations
         }
 
 
-        public void Create(int hallId, string tenantId, DateTime eventDate, RentTimeEnum rentTime, string fullName, string email, string phoneNumber, string eventStart, string eventEnd, int numberOfPeople, bool usingTablesAndChairs, decimal tablesAndChairsCostPerPerson, decimal securityGuardCostPerHour, bool parkingLotSecurityService, int parkingLotSecurityHours, DateTime securityStartTime, DateTime securityEndTime, decimal hallRentalPrice, decimal tablesAndChairsPrice, decimal securityPrice, decimal totalPrice, string description, string caterer, string eventTitle)
+        public void Create(int hallId, string tenantId, DateTime eventDate, RentTimeEnum rentTime, string fullName, string email, string phoneNumber, DateTime eventStart, DateTime eventEnd, int numberOfPeople, bool usingTablesAndChairs, decimal tablesAndChairsCostPerPerson, decimal securityGuardCostPerHour, bool parkingLotSecurityService, int parkingLotSecurityHours, DateTime securityStartTime, DateTime securityEndTime, decimal hallRentalPrice, decimal tablesAndChairsPrice, decimal securityPrice, decimal totalPrice, string description, string caterer, string eventTitle)
         {
             Event newEvent = new Event
             {

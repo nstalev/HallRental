@@ -23,11 +23,10 @@ namespace HallRental.Web.Models.EventsModel
         [MinLength(3)]
         public string EventTitle { get; set; }
 
-
-        [DataType(DataType.Time)]
+        [Required]
         public DateTime EventStart { get; set; }
 
-        [DataType(DataType.Time)]
+        [Required]
         public DateTime EventEnd { get; set; }
 
 

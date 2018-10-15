@@ -31,11 +31,9 @@
         [Display(Name ="Event Title")]
         public string EventTitle { get; set; }
 
-        [DataType(DataType.Time)]
         [Display(Name = "Event Start")]
         public DateTime EventStart { get; set; }
 
-        [DataType(DataType.Time)]
         [Display(Name = "Event End")]
         public DateTime EventEnd { get; set; }
 

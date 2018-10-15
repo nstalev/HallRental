@@ -116,84 +116,70 @@
 
             $('#EventStartTime').change(() => {
 
-                let utcSecondsStart = @Model.EventStartDateTimeInMs;
-                let rentStartDateTime = new Date(utcSecondsStart);
-                console.log('Rent Start Time - ' + rentStartDateTime)
-             
-                let utcSecondsEnd = @Model.EventEndDateTimeInMs;
-                let rentEndDateTime = new Date(utcSecondsEnd)
+                correctDataEventTime = CheckIfEventDataIsCorrect();
 
-                let inputEventStartTime = $('#EventStartTime').val();
-                inputEventStartTime = ConvertToDateTime(rentStartDateTime, inputEventStartTime);
-                console.log('input Start Date- ' + inputEventStartTime);
-                
-
-                if (inputEventStartTime < rentStartDateTime) {
-                    $('#EventStartTime-error').text('Event Start Time cannot be before Rent Start Time');
-                    correctDataEventTime = false;
-                    return;
-                } 
-                if (inputEventStartTime > rentEndDateTime) {
-                    $('#EventStartTime-error').text('Event Start Time cannot be after Rent End Time');
-                    correctDataEventTime = false;
-                    return;
-                }
-
-                    correctDataEventTime = true;
-                    $('#EventStartTime-error').text('');
-
-
-            });
+            })
 
 
             $('#EventEndTime').change(() => {
+
+                correctDataEventTime = CheckIfEventDataIsCorrect();
+
+            })
+
+
+            function CheckIfEventDataIsCorrect() {
+                let inputEventStartTimeVal = $('#EventStartTime').val();
+                let inputEventEndTimeVal = $("#EventEndTime").val();
+
+                let inputEventStartTime = new Date(inputEventStartTimeVal)
+                let inputEventEndTime = new Date(inputEventEndTimeVal)
+
                 let utcSecondsStart = @Model.EventStartDateTimeInMs;
                 let rentStartDateTime = new Date(utcSecondsStart);
-                console.log('Rent Start Time - ' + rentStartDateTime)
 
-             
                 let utcSecondsEnd = @Model.EventEndDateTimeInMs;
                 let rentEndDateTime = new Date(utcSecondsEnd)
-                console.log('Rent End Time - ' + rentEndDateTime)
 
-                let inputEventEndTime = $('#EventEndTime').val();
-                inputEventEndTime = ConvertToDateTime(rentEndDateTime, inputEventEndTime);
-                console.log('input End DateTime- ' + inputEventEndTime);
-
-
-                if (rentEndDateTime.getHours() == 0) {
-                    console.log('Rent End time = 0')
-
-                } else {
-                    if (inputEventEndTime > rentEndDateTime) {
-                        $('#EventEndTime-error').text('Event End Time cannot be after Rent End Time');
-                        correctDataEventTime = false;
-                        return;
-                    }
-
-
-                    if (inputEventEndTime < rentStartDateTime) {
-                        $('#EventEndTime-error').text('Event End Time cannot be before Rent Start Time');
-                        correctDataEventTime = false;
-                        return;
-                    }
+                if (isValidDate(inputEventStartTime) == false) {
+                    $('#EventStartTime-error').text('Invalid Date');
+                    return false;
                 }
 
-                correctDataEventTime = true;
-                $('#EventEndTime-error').text('');
+                if (isValidDate(inputEventEndTime) == false) {
+                    $('#EventEndTime-error').text('Invalid Date');
+                    return false;
+                }
 
-            });
+                if (inputEventEndTime < rentStartDateTime) {
+                    $('#EventEndTime-error').text('Event End Time cannot be before Rent Start Time');
+                    return false;
+                } else {
+                    $('#EventEndTime-error').text('');
+                }
 
+                if (inputEventEndTime > rentEndDateTime) {
+                    $('#EventEndTime-error').text('Event End Time cannot be after Rent End Time');
+                    return false;
+                } else {
+                    $('#EventEndTime-error').text('');
+                }
 
+                if (inputEventStartTime < rentStartDateTime) {
+                    $('#EventStartTime-error').text('Event Start Time cannot be before Rent Start Time');
+                    return false;
+                } else {
+                    $('#EventStartTime-error').text('');
+                }
 
+                if (inputEventStartTime.setHours(0, 0, 0, 0) != rentStartDateTime.setHours(0, 0, 0, 0)) {
+                    $('#EventStartTime-error').text('Event Date cannot be different from Rent Date');
+                    return false;
+                } else {
+                    $('#EventStartTime-error').text('');
+                }
 
-
-            function ConvertToDateTime(currentDate, inputTime) {
-                let timeArr = inputTime.split(':');
-                let hours = parseInt(timeArr[0])
-                let minutes = parseInt(timeArr[1])
-
-                return new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), hours, minutes)
+                return true;
             }
 
 
@@ -276,8 +262,6 @@
 
             //ParkingLotSecurity
 
-                @*let utcSecondsStart = @Model.EventStartDateTimeInMs;
-                let utcSecondsEnd = @Model.EventEndDateTimeInMs;*@
 
 
             $('#ParkingLotSecurity-checkbox').change(() => {
@@ -373,7 +357,7 @@
 
 
                 if (parkLotSecEndTime <= eventStartDate) {
-                    $('#ParkLotSecEnd-error').text('Security End DateTime cannot be before Event Start DateTime');
+                    $('#ParkLotSecEnd-error').text('Security End DateTime cannot be before Rent Start DateTime');
                     return false;
                 } else {
                     $('#ParkLotSecEnd-error').text('');
@@ -381,7 +365,7 @@
 
                 if (parkLotSecEndTime <= parkLotSecStartTime) {
                     if (parkLotSecStartTime > eventStartDate) {
-                        $('#ParkLotSecStart-error').text('Security Start DateTime cannot be after Event Start DateTime');
+                        $('#ParkLotSecStart-error').text('Security Start DateTime cannot be after Rent Start DateTime');
                     } else {
                         $('#ParkLotSecStart-error').text('');
                     }
@@ -393,14 +377,14 @@
                 }
 
                 if (parkLotSecEndTime > eventEndDate) {
-                    $('#ParkLotSecEnd-error').text('Security End Time cannot be after Event End Time');
+                    $('#ParkLotSecEnd-error').text('Security End Time cannot be after Rent End Time');
                     return false;
                 } else {
                     $('#ParkLotSecEnd-error').text('');
                 }
 
                 if (parkLotSecStartTime < eventStartDate) {
-                    $('#ParkLotSecStart-error').text('Security Start DateTime cannot be before Event Start DateTime');
+                    $('#ParkLotSecStart-error').text('Security Start DateTime cannot be before Rent Start DateTime');
                     return false;
                 } else {
                     $('#ParkLotSecStart-error').text('');
@@ -416,9 +400,6 @@
                 return true;
             }
 
-            function isValidDate(date) {
-                return date && Object.prototype.toString.call(date) === "[object Date]" && !isNaN(date);
-            }
 
             function checkDifference() {
                 let parkLotSecStartTimeValue = $("#ParkLotSecStart").val();
@@ -437,7 +418,6 @@
 
                 return hoursDiff;
             }
-
 
             function UpdateSecurityPrice(hoursDiff) {
                 if (isNaN(hoursDiff)) {
@@ -459,6 +439,10 @@
                 UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice, hoursDiff)
             }
 
+
+            function isValidDate(date) {
+                return date && Object.prototype.toString.call(date) === "[object Date]" && !isNaN(date);
+            }
 
 
             //submit button
@@ -507,7 +491,6 @@
 
 
         function partialViewResult(data) {
-           // $('#PriceInput').val(data.TotalPrice);
             $("#refTable").html(data);
 
         }

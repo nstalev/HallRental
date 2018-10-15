@@ -31,10 +31,11 @@ namespace HallRental.Web.Models.EventsModel
         [Display(Name = "Email")]
         public string Email { get; set; }
 
+        [Required]
+        public DateTime EventStart { get; set; }
 
-        public string EventStart { get; set; }
-
-        public string EventEnd { get; set; }
+        [Required]
+        public DateTime EventEnd { get; set; }
 
         public int NumberOfPeople { get; set; }
 

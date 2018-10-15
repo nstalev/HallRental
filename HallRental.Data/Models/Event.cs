@@ -22,11 +22,11 @@ namespace HallRental.Data.Models
         [Required]
         public RentTimeEnum RentTime { get; set; }
 
-        [MaxLength(20)]
-        public string EventStart { get; set; }
+        [Required]
+        public DateTime EventStart { get; set; }
 
-        [MaxLength(20)]
-        public string EventEnd { get; set; }
+        [Required]
+        public DateTime EventEnd { get; set; }
 
         [MaxLength(20)]
         [MinLength(3)]
