@@ -70,7 +70,7 @@
 
         public decimal TablesAndChairsPrice { get; set; }
 
-        public decimal SecurityPrice { get; set; }
+        public decimal ParkingLotSecurityPrice { get; set; }
 
         public decimal SecurityDeposit { get; set; }
 

@@ -24,7 +24,8 @@
                 <input asp-for="ParkingLotSecurityHours" type="hidden" />
                 <input asp-for="HallRentalPrice" type="hidden" />
                 <input asp-for="TablesAndChairsPrice" type="hidden" />
-                <input asp-for="SecurityPrice" type="hidden" />
+                <input asp-for="ParkingLotSecurityPrice" type="hidden" />
+                <input asp-for="SecurityDeposit" type="hidden" />
                 <input asp-for="TotalPrice" type="hidden" />
                 <input asp-for="SecurityStartTime" type="hidden" />
                 <input asp-for="SecurityEndTime" type="hidden" />
@@ -74,20 +75,21 @@
             <p>Rent Time: <b>@Model.RentTimeDisplay</b></p>
 
             <div class="event-side-title-info">
-                <p>Event title: @Model.EventTitle</p>
-                <p>Event Start: @Model.EventStart</p>
-                <p>Event End: @Model.EventEnd</p>
+                <div>Event Start: @Model.EventStart</div>
+                <div>Event End: @Model.EventEnd</div>
                 <p>Number of people: @Model.NumberOfPeople</p>
             </div>
 
             <div class="price-side-info">
                 <p><b>Hall rent price: </b>$@Model.HallRentalPrice.ToString("F")</p>
                 <p><b>Tables and chairs price: </b>$@Model.TablesAndChairsPrice.ToString("F")</p>
-                @if (Model.SecurityPrice > 0)
+                @if (Model.ParkingLotSecurityPrice > 0)
                 {
                     <p>Parking Lot Security Hours: @Model.ParkingLotSecurityHours</p>
                 }
-                <p><b>Security Price: </b>$@Model.SecurityPrice.ToString("F")</p>
+                <p><b>Security Price: </b>$@Model.ParkingLotSecurityPrice.ToString("F")</p>
+
+                <p><b>Security Deposit: </b>$@Model.SecurityDeposit.ToString("F")</p>
 
                 <hr />
                 <h4><b>Total Price: </b>$@Model.TotalPrice.ToString("F")</h4>

@@ -189,7 +189,8 @@ namespace HallRental.Web.Controllers
 
                 HallRentalPrice = summaryModel.HallRentalPrice,
                 TablesAndChairsPrice = summaryModel.TablesAndChairsPrice,
-                SecurityPrice = summaryModel.SecurityPrice,
+                ParkingLotSecurityPrice = summaryModel.ParkingLotSecurityPrice,
+                SecurityDeposit = summaryModel.SecurityDeposit,
                 TotalPrice = summaryModel.TotalPrice,
 
                 FullName = currentUser.FirstName + " " + currentUser.LastName,
@@ -216,12 +217,14 @@ namespace HallRental.Web.Controllers
 
             if (!ModelState.IsValid)
             {
+                string rentTimeDisplay = eventsServices.GetRentTimeDisplay(eventModel.RentTime);
+
                 var summaryModel = new SummaryAndPerInfoVM
                 {
                     Date = eventModel.Date,
                     HallId = eventModel.HallId,
                     RentTime = eventModel.RentTime,
-
+                    RentTimeDisplay = rentTimeDisplay,
                     NumberOfPeople = eventModel.NumberOfPeople,
                     UsingTablesAndChairs = eventModel.UsingTablesAndChairs,
                     EventTitle = eventModel.EventTitle,
@@ -231,8 +234,9 @@ namespace HallRental.Web.Controllers
                     ParkingLotSecurityHours = eventModel.ParkingLotSecurityHours,
                     SecurityStartTime = eventModel.SecurityStartTime,
                     SecurityEndTime = eventModel.SecurityEndTime,
-                    SecurityPrice = eventModel.SecurityPrice,
+                    ParkingLotSecurityPrice = eventModel.ParkingLotSecurityPrice,
                     TablesAndChairsPrice = eventModel.TablesAndChairsPrice,
+                    SecurityDeposit = eventModel.SecurityDeposit,
                     TotalPrice = eventModel.TotalPrice,
                     FullName=  eventModel.FullName,
                     Email = eventModel.Email,
@@ -269,7 +273,8 @@ namespace HallRental.Web.Controllers
                 eventModel.SecurityEndTime,
                 eventModel.HallRentalPrice,
                 eventModel.TablesAndChairsPrice,
-                eventModel.SecurityPrice,
+                eventModel.ParkingLotSecurityPrice,
+                eventModel.SecurityDeposit,
                 eventModel.TotalPrice,
                 eventModel.EventDescription,
                 eventModel.Caterer,

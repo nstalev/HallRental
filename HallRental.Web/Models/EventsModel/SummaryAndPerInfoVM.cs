@@ -19,6 +19,10 @@ namespace HallRental.Web.Models.EventsModel
 
         public string RentTimeDisplay { get; set; }
 
+        [Required]
+        [MaxLength(30)]
+        [MinLength(3)]
+        [Display(Name = "Event Title")]
         public string EventTitle { get; set; }
 
         public DateTime EventStart { get; set; }
@@ -47,7 +51,9 @@ namespace HallRental.Web.Models.EventsModel
 
         public decimal TablesAndChairsPrice { get; set; }
 
-        public decimal SecurityPrice { get; set; }
+        public decimal ParkingLotSecurityPrice { get; set; }
+
+        public decimal SecurityDeposit { get; set; }
 
         public decimal TotalPrice { get; set; }
 

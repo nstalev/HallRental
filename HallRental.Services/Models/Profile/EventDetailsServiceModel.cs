@@ -41,8 +41,6 @@ namespace HallRental.Services.Models.Profile
 
         public decimal TablesAndChairsCostPerPerson { get; set; }
 
-        public int SecurityGuards { get; set; }
-
         public double RequestedSecurityHoursPerGuard { get; set; }
 
         public decimal SecurityGuardCostPerHour { get; set; }
@@ -51,7 +49,9 @@ namespace HallRental.Services.Models.Profile
 
         public decimal TablesAndChairsPrice { get; set; }
 
-        public decimal SecurityPrice { get; set; }
+        public decimal ParkingLotSecurityPrice { get; set; }
+
+        public decimal SecurityDeposit { get; set; }
 
         public decimal TotalPrice { get; set; }
 

@@ -14,11 +14,8 @@ namespace HallRental.Web.Models.EventsModel
 
         public int HallId { get; set; }
 
-
         [Required]
         public RentTimeEnum RentTime { get; set; }
-
-       
 
         [Required]
         public DateTime EventStart { get; set; }
@@ -31,7 +28,6 @@ namespace HallRental.Web.Models.EventsModel
         public int NumberOfPeople { get; set; }
 
         public bool UsingTablesAndChairs { get; set; }
-
 
         public decimal SecurityGuardCostPerHour { get; set; }
 
@@ -51,8 +47,9 @@ namespace HallRental.Web.Models.EventsModel
 
         public decimal TablesAndChairsPrice { get; set; }
 
-        public decimal SecurityPrice { get; set; }
+        public decimal ParkingLotSecurityPrice { get; set; }
 
+        public decimal SecurityDeposit { get; set; }
 
         public decimal TotalPrice { get; set; }
     }

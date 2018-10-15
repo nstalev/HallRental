@@ -18,7 +18,7 @@ namespace HallRental.Services.Implementations
         }
 
 
-        public void Create(int hallId, string tenantId, DateTime eventDate, RentTimeEnum rentTime, string fullName, string email, string phoneNumber, DateTime eventStart, DateTime eventEnd, int numberOfPeople, bool usingTablesAndChairs, decimal tablesAndChairsCostPerPerson, decimal securityGuardCostPerHour, bool parkingLotSecurityService, int parkingLotSecurityHours, DateTime securityStartTime, DateTime securityEndTime, decimal hallRentalPrice, decimal tablesAndChairsPrice, decimal securityPrice, decimal totalPrice, string description, string caterer, string eventTitle)
+        public void Create(int hallId, string tenantId, DateTime eventDate, RentTimeEnum rentTime, string fullName, string email, string phoneNumber, DateTime eventStart, DateTime eventEnd, int numberOfPeople, bool usingTablesAndChairs, decimal tablesAndChairsCostPerPerson, decimal securityGuardCostPerHour, bool parkingLotSecurityService, int parkingLotSecurityHours, DateTime securityStartTime, DateTime securityEndTime, decimal hallRentalPrice, decimal tablesAndChairsPrice, decimal parkingLotSecurityPrice, decimal securityDeposit, decimal totalPrice, string description, string caterer, string eventTitle)
         {
             Event newEvent = new Event
             {
@@ -41,13 +41,14 @@ namespace HallRental.Services.Implementations
                  SecurityStartTime = securityStartTime,
                  SecurityEndTime = securityEndTime,
 
-                EventTitle = eventTitle,
+                 EventTitle = eventTitle,
                  Description = description,
                  Caterer = caterer,
 
                  HallRentalPrice = hallRentalPrice,
                  TablesAndChairsPrice = tablesAndChairsPrice,
-                 SecurityPrice= securityPrice,
+                 ParkingLotSecurityPrice = parkingLotSecurityPrice,
+                 SecurityDeposit = securityDeposit,
                  TotalPrice = totalPrice,
 
                  IsReservationConfirmed = false

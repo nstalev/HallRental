@@ -8,7 +8,7 @@
 <div class="row">
     <div class="col-md-6">
         <div class="w3-container w3-card-4 w3-round w3-light-grey input-card-panel">
-            <h2>Event Information</h2>
+            <h2>Price Calculation</h2>
             <form asp-action="Summary" id="submitForm">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input asp-for="Date" type="hidden" />
@@ -17,7 +17,7 @@
                 <input asp-for="SecurityGuardCostPerHour" type="hidden" />
                 <input id="HallRentPriceInput" asp-for="HallRentalPrice" type="hidden" />
                 <input id="TablesAndChairsPriceInput" asp-for="TablesAndChairsPrice" type="hidden" />
-                <input id="SecurityPriceInput" asp-for="SecurityPrice" type="hidden" />
+                <input id="SecurityPriceInput" asp-for="ParkingLotSecurityPrice" type="hidden" />
                 <input id="SecurityDeposit" asp-for="SecurityDeposit" type="hidden" />
                 <input id="PriceInput" asp-for="TotalPrice" type="hidden" />
 
@@ -97,7 +97,7 @@
             let securityPrice = 0;
             let securityDeposit = @Model.SecurityDeposit;
 
-            let startPrice = @Model.TotalPrice
+            let startPrice = @Model.HallRentalPrice;
 
             let totalPrice = @Model.TotalPrice;
             let chairCostPerPerson = @Model.ChairTableCostPerPerson;
@@ -109,10 +109,12 @@
             let correctDataSecurity = true;
             let correctDataEventTime = true;
 
-
-            //Security Deposit Check Time
+            //Models
             let utcSecondsStartTime = @Model.EventStartDateTimeInMs;
+            let utcSecondsEndTime = @Model.EventEndDateTimeInMs;
 
+            
+            //Security Deposit Check Time
             let secDepositCheckTime = new Date(utcSecondsStartTime);
             secDepositCheckTime.setHours(22)
 
@@ -129,17 +131,26 @@
 
                 correctDataEventTime = CheckIfEventDataIsCorrect();
 
+                let rentEndDateTime = new Date(utcSecondsEndTime)
 
-                let inputEventEndTimeVal = $("#EventEndTime").val();
-                let inputEventEndTime = new Date(inputEventEndTimeVal)
+                if (correctDataEventTime
+                    && rentEndDateTime > secDepositCheckTime) {
+                    let inputEventEndDateTimeVal = $("#EventEndTime").val();
+                    let inputEventEndDateTime = new Date(inputEventEndDateTimeVal)
 
+                    if (inputEventEndDateTime <= secDepositCheckTime) {
+                        securityDeposit = @Model.SecurityDepositBefore10pm;
+                    } else {
+                        securityDeposit = @Model.SecurityDepositAfter10pm;
+                    }
+                    console.log(securityDeposit)
+                    console.log('Start price ' + startPrice)
+                    let parkLotSecHours = checkDifference();
 
-                @*if (inputEventEndTime < secDepositCheckTime) {
-                    securityDeposit = @Model.SecurityDepositBefore10pm;
-                }
-                console.log('secDepositCheckTime ' + secDepositCheckTime)
-                console.log('inputEventEndTime ' + inputEventEndTime)
-                console.log('securityDeposit ' + securityDeposit)*@
+                    totalPrice = startPrice + tablesAndChairsPrice + securityPrice + securityDeposit;
+                    UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice, parkLotSecHours, securityDeposit)
+                
+                }           
 
             })
 
@@ -151,11 +162,8 @@
                 let inputEventStartTime = new Date(inputEventStartTimeVal)
                 let inputEventEndTime = new Date(inputEventEndTimeVal)
 
-                let utcSecondsStart = @Model.EventStartDateTimeInMs;
-                let rentStartDateTime = new Date(utcSecondsStart);
-
-                let utcSecondsEnd = @Model.EventEndDateTimeInMs;
-                let rentEndDateTime = new Date(utcSecondsEnd)
+                let rentStartDateTime = new Date(utcSecondsStartTime);
+                let rentEndDateTime = new Date(utcSecondsEndTime)
 
                 if (isValidDate(inputEventStartTime) == false) {
                     $('#EventStartTime-error').text('Invalid Date');
@@ -183,6 +191,12 @@
 
                 if (inputEventStartTime < rentStartDateTime) {
                     $('#EventStartTime-error').text('Event Start Time cannot be before Rent Start Time');
+                    return false;
+                } else {
+                    $('#EventStartTime-error').text('');
+                }
+                if (inputEventStartTime > rentEndDateTime) {
+                    $('#EventStartTime-error').text('Event Start Time cannot be after Rent End Time');
                     return false;
                 } else {
                     $('#EventStartTime-error').text('');
@@ -224,16 +238,16 @@
                     console.log('checkbox  - checked ')
                     tablesAndChairsPrice = numberOfPeople * chairCostPerPerson;
 
-                        totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
+                    totalPrice = startPrice + tablesAndChairsPrice + securityPrice + securityDeposit;
 
-           
 
                 }
                 else {
                     console.log('UseTablesAndChairs checkbox  - not checked')
                     tablesAndChairsPrice = 0;
 
-                    totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
+                    totalPrice = startPrice + tablesAndChairsPrice + securityPrice + securityDeposit;
+
 
                 }
                 let parkLotSecHours = checkDifference();
@@ -266,7 +280,7 @@
 
                     tablesAndChairsPrice = numberOfPeople * chairCostPerPerson;
 
-                    totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
+                    totalPrice = startPrice + tablesAndChairsPrice + securityPrice + securityDeposit;
                     let parkLotSecHours = checkDifference();
                     UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice, parkLotSecHours, securityDeposit)
 
@@ -354,12 +368,10 @@
                 let parkLotSecStartTime = new Date(parkLotSecStartTimeValue)
                 let parkLotSecEndTime = new Date(parkLotSecEndTimeValue)
 
-                //Models
-                let utcSecondsStart = @Model.EventStartDateTimeInMs;
-                let eventStartDate = new Date(utcSecondsStart);
+                //Models Date
+                let eventStartDate = new Date(utcSecondsStartTime);
+                let eventEndDate = new Date(utcSecondsEndTime)
 
-                let utcSecondsEnd = @Model.EventEndDateTimeInMs;
-                let eventEndDate = new Date(utcSecondsEnd)
 
                 if (isValidDate(parkLotSecStartTime) == false) {
                     $('#ParkLotSecStart-error').text('Invalid Date');
@@ -451,7 +463,8 @@
 
                 $('#parkingLotSecurityHours').val(hoursDiff);
 
-                totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
+                totalPrice = startPrice + tablesAndChairsPrice + securityPrice + securityDeposit;
+
                 UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice, hoursDiff, securityDeposit)
             }
 
@@ -484,7 +497,6 @@
         $('#SecurityPriceInput').val(securityPrice)
         $('#SecurityDeposit').val(securityDeposit)
 
-        console.log(@Model.ParkingLotSecurityHours);
 
             $.ajax({
                 type: "Post",

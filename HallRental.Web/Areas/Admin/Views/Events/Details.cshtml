@@ -168,13 +168,13 @@ else
             <p>Number of people: @Model.NumberOfPeople</p>
         }
         <h4><b>Tables and chairs price: </b>$@Model.TablesAndChairsPrice.ToString("F")</h4>
-        @if (Model.SecurityPrice > 0)
+        @if (Model.ParkingLotSecurityPrice > 0)
         {
-            <p>Requested Security Guards: @Model.SecurityGuards</p>
             <p>Requested security hours per guard: @Model.RequestedSecurityHoursPerGuard</p>
             <p>Security guard service cost per hour: $@Model.SecurityGuardCostPerHour.ToString("F")</p>
         }
-        <h4><b>Security Price: </b>$@Model.SecurityPrice.ToString("F")</h4>
+        <h4><b>Parking Lot Security Price: </b>$@Model.ParkingLotSecurityPrice.ToString("F")</h4>
+        <h4><b>Security Deposit: </b>$@Model.SecurityDeposit.ToString("F")</h4>
 
         <hr />
         <div id="total-price">

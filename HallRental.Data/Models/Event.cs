@@ -76,8 +76,13 @@ namespace HallRental.Data.Models
         [Range(0, double.MaxValue)]
         public decimal TablesAndChairsPrice { get; set; }
 
+
         [Range(0, double.MaxValue)]
-        public decimal SecurityPrice { get; set; }
+        public decimal ParkingLotSecurityPrice { get; set; }
+
+        [Required]
+        [Range(0, double.MaxValue)]
+        public decimal SecurityDeposit { get; set; }
 
         [Required]
         [Range(0, double.MaxValue)]
