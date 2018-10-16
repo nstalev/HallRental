@@ -14,16 +14,15 @@
 
         <h4><b>Event date: </b>@Model.EventDate.ToShortDateString()</h4>
         <h4><b>Hall: </b>@Model.HallName</h4>
-        <h4><b>Time: </b>@Model.RentTimeDisplay</h4>
+        <h4><b>Rent Time: </b>@Model.RentTimeDisplay</h4>
+
+        <hr />
+        <h4><b>Event Start: </b>@Model.EventStart</h4>
+        <h4><b>Event End: </b>@Model.EventEnd</h4>
+        <h4><b>Number of people: </b>@Model.NumberOfPeople</h4>
 
         <hr />
         <h4><b>Event title: </b>@Model.EventTitle</h4>
-        <h4><b>Event Start: </b>@Model.EventStart</h4>
-        <h4><b>Event End: </b>@Model.EventEnd</h4>
-        <h4><b>Number of people </b>@Model.NumberOfPeople</h4>
-
-        <hr />
-
         <h4>
             <b>Description:</b>
             @if (Model.Description == null)
@@ -50,7 +49,7 @@
         <h4><b>Email: </b>@Model.Email</h4>
         <h4><b>Phone Number: </b>@Model.PhoneNumber</h4>
         <hr />
-        <h4><b>Hall rent price: </b>$@Model.HallRentalPrice.ToString("F")</h4>
+        <h4><b>Hall Rental price: </b>$@Model.HallRentalPrice.ToString("F")</h4>
         @if (Model.TablesAndChairsPrice > 0)
         {
             <p>Tables and chairs cost per person: $@Model.TablesAndChairsCostPerPerson</p>
@@ -59,10 +58,13 @@
         <h4><b>Tables and chairs price: </b>$@Model.TablesAndChairsPrice.ToString("F")</h4>
         @if (Model.ParkingLotSecurityPrice > 0)
         {
-            <p>Requested security hours per guard: @Model.RequestedSecurityHoursPerGuard</p>
-            <p>Security guard service cost per hour: $@Model.SecurityGuardCostPerHour.ToString("F")</p>
+            <p>Parking Lot Security Hours: @Model.ParkingLotSecurityHours</p>
+            <p>Security service cost per hour: $@Model.SecurityGuardCostPerHour.ToString("F")</p>
+            <p>Security Start Time: @Model.SecurityStartTime</p>
+            <p>Security End Time: @Model.SecurityEndTime</p>
         }
         <h4><b>Parking Lot Security Price </b>$@Model.ParkingLotSecurityPrice.ToString("F")</h4>
+        <h4><b> Security Deposit </b>$@Model.SecurityDeposit.ToString("F")</h4>
 
         <hr />
         <div id="total-price">
