@@ -21,9 +21,9 @@ namespace HallRental.Services.Admin.Models.Events
 
         public string RentTimeDisplay { get; set; }
 
-        public string EventStart { get; set; }
+        public DateTime EventStart { get; set; }
 
-        public string EventEnd { get; set; }
+        public DateTime EventEnd { get; set; }
 
         public string PhoneNumber { get; set; }
 
@@ -41,9 +41,13 @@ namespace HallRental.Services.Admin.Models.Events
 
         public decimal TablesAndChairsCostPerPerson { get; set; }
 
-        public int SecurityGuards { get; set; }
+        public bool ParkingLotSecurityService { get; set; }
 
-        public double RequestedSecurityHoursPerGuard { get; set; }
+        public int ParkingLotSecurityHours { get; set; }
+
+        public DateTime SecurityStartTime { get; set; }
+
+        public DateTime SecurityEndTime { get; set; }
 
         public decimal SecurityGuardCostPerHour { get; set; }
 

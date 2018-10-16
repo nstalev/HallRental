@@ -5,52 +5,62 @@
     ViewData["Title"] = "Details";
 }
 
-<div class="row">
-    <div class="col-md-4">
-        @if (Model.IsReservationConfirmed)
-        {
-            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">Disconfirm Event</button>
-            <div class="modal fade" id="myModal" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Event &numero; @Model.Id</h4>
-                        </div>
 
-                        <div class="modal-body">
-                            <p>Are you sure you want to disconfirm this reservation?</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" onclick="DisconfirmEvent(@Model.Id)">Disonfirm</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+@if (Model.IsReservationConfirmed)
+{
+    <p class="bg-success text-center"><b>Reservation &numero; @Model.Id is confirmed</b></p>
+}
+else
+{
+    <p class="bg-warning text-center" style="color:red"><b>Reservation &numero; @Model.Id is NOT Confirmed</b></p>
+}
+
+    <div class="row">
+        <div class="col-md-4">
+            @if (Model.IsReservationConfirmed)
+            {
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">Disconfirm Event</button>
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Event &numero; @Model.Id</h4>
+                            </div>
+
+                            <div class="modal-body">
+                                <p>Are you sure you want to disconfirm this reservation?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" onclick="DisconfirmEvent(@Model.Id)">Disonfirm</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        }
-        else
-        {
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Confirm Event</button>
-            <div class="modal fade" id="myModal" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Event &numero; @Model.Id</h4>
-                        </div>
+            }
+            else
+            {
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Confirm Event</button>
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Event &numero; @Model.Id</h4>
+                            </div>
 
-                        <div class="modal-body">
-                            <p>Are you sure you want to confirm this reservation?</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-success" onclick="ConfirmEvent(@Model.Id)">Confirm</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <div class="modal-body">
+                                <p>Are you sure you want to confirm this reservation?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success" onclick="ConfirmEvent(@Model.Id)">Confirm</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <hr />
+                <hr />
 
                 <button type="button" class="btn btn-sm btn-warning">Edit Event</button>
                 <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#myModal2">Delete Event</button>
@@ -72,123 +82,130 @@
                         </div>
                     </div>
                 </div>
-        }
-    </div>
-    <div class="col-md-8">
-        @if (Model.IsReservationConfirmed == false)
-        {
-            foreach (var notification in Model.EventNotifications)
-            {
-        <div class="alert alert-danger">
-            <strong>Reservation on the same day: </strong>
-            Hall: @notification.HallName  | Time: @notification.RentTime | 
-            <a href="@notification.Id" class="alert-link">Event &numero; @notification.Id</a>
-             | Name: @notification.FullName
-    |  @if (notification.IsReservationConfirmed)
-    {
-        <b>Confirmed</b>
-    }
-    else
-    {
-        <b>Not Confirmed</b>
-
-    }
-</div>
             }
-        }
-
-    </div>
-
-
-</div>
-
-
-
-<hr />
-
-@if (Model.IsReservationConfirmed)
-{
-    <p class="bg-success text-center"><b>Reservation &numero; @Model.Id is confirmed</b></p>
-}
-else
-{
-    <p class="bg-warning text-center" style="color:red"><b>Reservation &numero; @Model.Id is NOT Confirmed</b></p>
-}
-
-<hr />
-
-<div class="row">
-    <div class="col-md-6">
-
-        <h2>Event summary</h2>
-        <hr />
-
-        <h4><b>Event date: </b>@Model.EventDate.ToShortDateString()</h4>
-        <h4><b>Time: </b>@Model.RentTimeDisplay</h4>
-        <h4><b>Hall: </b>@Model.HallName</h4>
-
-        <hr />
-        <h4><b>Event title: </b>@Model.EventTitle</h4>
-        <h4><b>Event Start: </b>@Model.EventStart</h4>
-        <h4><b>Event End: </b>@Model.EventEnd</h4>
-        <h4><b>Number of people </b>@Model.NumberOfPeople</h4>
-
-        <hr />
-
-        <h4>
-            <b>Description:</b>
-            @if (Model.Description == null)
+        </div>
+        <div class="col-md-8">
+            @if (Model.IsReservationConfirmed == false)
             {
-                <p>No description</p>
-            }
-            <p>@Model.Description</p>
-        </h4>
+                foreach (var notification in Model.EventNotifications)
+                {
+                    <div class="alert alert-danger">
+                        <strong>Reservation on the same day: </strong>
+                        Hall: @notification.HallName  | Time: @notification.RentTime |
+                        <a href="@notification.Id" class="alert-link">Event &numero; @notification.Id</a>
+                        | Name: @notification.FullName
+                        |  @if (notification.IsReservationConfirmed)
+                        {
+                            <b>Confirmed</b>
+                        }
+                        else
+                        {
+                            <b>Not Confirmed</b>
 
-        <h4>
-            <b>Cateret:</b>
-            @if (Model.Caterer == null)
-            {
-                <p>No information about caterer</p>
+                        }
+                    </div>
+                }
             }
-            <p>@Model.Caterer</p>
-        </h4>
+
+        </div>
+
 
     </div>
-    <div class="col-md-6">
-        <h2>Personal info and Price</h2>
-        <hr />
-        <h4><b>Name: </b>@Model.FullName</h4>
-        <h4><b>Email: </b>@Model.Email</h4>
-        <h4><b>Phone Number: </b>@Model.PhoneNumber</h4>
-        <hr />
-        <h4><b>Hall rent price: </b>$@Model.HallRentalPrice.ToString("F")</h4>
-        @if (Model.TablesAndChairsPrice > 0)
-        {
-            <p>Tables and chairs cost per person: $@Model.TablesAndChairsCostPerPerson</p>
-            <p>Number of people: @Model.NumberOfPeople</p>
-        }
-        <h4><b>Tables and chairs price: </b>$@Model.TablesAndChairsPrice.ToString("F")</h4>
-        @if (Model.ParkingLotSecurityPrice > 0)
-        {
-            <p>Requested security hours per guard: @Model.RequestedSecurityHoursPerGuard</p>
-            <p>Security guard service cost per hour: $@Model.SecurityGuardCostPerHour.ToString("F")</p>
-        }
-        <h4><b>Parking Lot Security Price: </b>$@Model.ParkingLotSecurityPrice.ToString("F")</h4>
-        <h4><b>Security Deposit: </b>$@Model.SecurityDeposit.ToString("F")</h4>
 
-        <hr />
-        <div id="total-price">
-            <h3><b>Total Price: </b>$@Model.TotalPrice.ToString("F")</h3>
+<div class="panel event-panel-card eventDetails">
+    <div class="panel-body">
+        <div class="event-details-personal-info">
+            <div class="event-details-personal-info-title">
+                Personal information
+            </div>
+            <hr />
+            <div class="event-details-personal-info-content">
+                <p><b>Name: </b>@Model.FullName</p>
+                <p><b>Email: </b>@Model.Email</p>
+                <p><b>Phone Number: </b>@Model.PhoneNumber</p>
+            </div>
+        </div>
+        <div class="row event-details-row">
+            <div class="col-md-6 event-details-box">
+                <div class="event-details-box-title">
+                    Event information
+                </div>
+                <hr />
+                <div class="event-details-box-content">
+                    <p><b>Event date: </b> @Model.EventDate</p>
+                    <p><b>Hall: </b> @Model.HallName</p>
+                    <p><b>Rent Time: </b> @Model.RentTimeDisplay</p>
+                    <p><b>Number of people: </b> @Model.NumberOfPeople</p>
+                    <hr />
+                    <p><b>Event Start: </b> @Model.EventStart</p>
+                    <p><b>Event End: </b> @Model.EventEnd</p>
+                    <hr />
+                    <p><b>Evetn Title:</b></p>
+                    <p>@Model.EventTitle</p>
+                    <p><b>Description:</b></p>
+                    @if (Model.Description == null)
+                    {
+                        <p>No description</p>
+                    }
+                    else
+                    {
+                        <p>@Model.Description</p>
+                    }
+                    <p><b>Caterer:</b></p>
+                    @if (Model.Caterer == null)
+                    {
+                        <p>No caterer</p>
+                    }
+                    else
+                    {
+                        <p>@Model.Caterer</p>
+                    }
+                </div>
+            </div>
+            <div class="col-md-6 event-details-box">
+                <div class="event-details-box-title">
+                    Price information
+                </div>
+                <hr />
+                <div class="event-details-box-content">
+                    <p><b>Hall Rental price: </b>$@Model.HallRentalPrice.ToString("F")</p>
+                    <p><b>Tables and chairs price: </b>$@Model.TablesAndChairsPrice.ToString("F")</p>
+                    @if (Model.UsingTablesAndChairs)
+                    {
+                        <div class="event-details-box-content-details">
+                            <div>Tables and chairs cost per person: $@Model.TablesAndChairsCostPerPerson</div>
+                            <div>Number of people: @Model.NumberOfPeople</div>
+                        </div>
+
+                    }
+                    <p><b>Parking Lot Security Price </b>$@Model.ParkingLotSecurityPrice.ToString("F")</p>
+                    @if (Model.ParkingLotSecurityService)
+                    {
+
+                        <div class="event-details-box-content-details">
+                            <div>Parking Lot Security Hours: @Model.ParkingLotSecurityHours</div>
+                            <div>Security service cost per hour: $@Model.SecurityGuardCostPerHour.ToString("F")</div>
+                            <div>Security Start Time: @Model.SecurityStartTime</div>
+                            <div>Security End Time: @Model.SecurityEndTime</div>
+                        </div>
+                    }
+                    <p><b> Security Deposit </b>$@Model.SecurityDeposit.ToString("F")</p>
+                    <hr />
+                    <div class="event-details-box-content-totalPrice">
+                        <h4><b>Total Price: </b>$@Model.TotalPrice.ToString("F")</h4>
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
 
-
 <script>
 
     function ConfirmEvent(id) {
-            window.location.href = `/admin/events/ConfirmEvent/${id}`;
+        window.location.href = `/admin/events/ConfirmEvent/${id}`;
     }
 
     function DisconfirmEvent(id) {

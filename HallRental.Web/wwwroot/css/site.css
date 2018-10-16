@@ -246,14 +246,21 @@ body {
 
 .eventDetails{
     margin-top: 25px;
+    padding: 15px;
+}
+
+.event-details-row {
+    display: flex
 }
 
 .event-details-box {
+    flex: 1;
     border: 1px solid #cecece;
     border-radius: 4px;
     padding: 15px;
-    height: inherit;
+    margin: 10px;
 }
+
 
 .event-details-box-title {
     text-align: center;
@@ -272,4 +279,17 @@ body {
 
 .event-details-box-content-totalPrice{
     text-align:right;
+}
+
+.event-details-personal-info {
+    border: 1px solid #cecece;
+    border-radius: 4px;
+    padding: 15px;
+}
+.event-details-personal-info-title {
+    font-weight: bold;
+}
+
+.event-details-personal-info-content {
+    font-size: 13px;
 }

@@ -4,95 +4,88 @@
     ViewData["Title"] = "EventDetails";
 }
 
-
 <div class="panel event-panel-card eventDetails">
     <div class="panel-body">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="event-details-box">
-                    <div class="event-details-box-title">
-                        Event information
-                    </div>
+        <div class="row event-details-row">
+            <div class="col-md-4 event-details-box">
+                <div class="event-details-box-title">
+                    Event information
+                </div>
+                <hr />
+                <div class="event-details-box-content">
+                    <p><b>Event date: </b> @Model.EventDate</p>
+                    <p><b>Hall: </b> @Model.HallName</p>
+                    <p><b>Rent Time: </b> @Model.RentTimeDisplay</p>
+                    <p><b>Number of people: </b> @Model.NumberOfPeople</p>
                     <hr />
-                    <div class="event-details-box-content">
-                        <p><b>Event date: </b> @Model.EventDate</p>
-                        <p><b>Hall: </b> @Model.HallName</p>
-                        <p><b>Rent Time: </b> @Model.RentTimeDisplay</p>
-                        <p><b>Number of people: </b> @Model.NumberOfPeople</p>
-                        <hr />
-                        <p><b>Event Start: </b> @Model.EventStart</p>
-                        <p><b>Event End: </b> @Model.EventEnd</p>
-                        <hr />
-                        <p><b>Evetn Title:</b></p>
-                        <p>@Model.EventTitle</p>
-                        <p><b>Description:</b></p>
-                        @if (Model.Description == null)
-                        {
-                            <p>No description</p>
-                        }
-                        else
-                        {
-                            <p>@Model.Description</p>
-                        }
-                        <p><b>Caterer:</b></p>
-                        @if (Model.Caterer == null)
-                        {
-                            <p>No caterer</p>
-                        }
-                        else
-                        {
-                            <p>@Model.Caterer</p>
-                        }
-                    </div>
+                    <p><b>Event Start: </b> @Model.EventStart</p>
+                    <p><b>Event End: </b> @Model.EventEnd</p>
+                    <hr />
+                    <p><b>Evetn Title:</b></p>
+                    <p>@Model.EventTitle</p>
+                    <p><b>Description:</b></p>
+                    @if (Model.Description == null)
+                    {
+                        <p>No description</p>
+                    }
+                    else
+                    {
+                        <p>@Model.Description</p>
+                    }
+                    <p><b>Caterer:</b></p>
+                    @if (Model.Caterer == null)
+                    {
+                        <p>No caterer</p>
+                    }
+                    else
+                    {
+                        <p>@Model.Caterer</p>
+                    }
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="event-details-box">
-                    <div class="event-details-box-title">
-                        Personal information
-                    </div>
-                    <hr />
-                    <div class="event-details-box-content">
-                        <p><b>Name: </b>@Model.FullName</p>
-                        <p><b>Email: </b>@Model.Email</p>
-                        <p><b>Phone Number: </b>@Model.PhoneNumber</p>
-                    </div>
+            <div class="col-md-4 event-details-box">
+                <div class="event-details-box-title">
+                    Personal information
+                </div>
+                <hr />
+                <div class="event-details-box-content">
+                    <p><b>Name: </b>@Model.FullName</p>
+                    <p><b>Email: </b>@Model.Email</p>
+                    <p><b>Phone Number: </b>@Model.PhoneNumber</p>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="event-details-box">
-                    <div class="event-details-box-title">
-                        Price information
-                    </div>
-                    <hr />
-                    <div class="event-details-box-content">
-                        <p><b>Hall Rental price: </b>$@Model.HallRentalPrice.ToString("F")</p>
-                        <p><b>Tables and chairs price: </b>$@Model.TablesAndChairsPrice.ToString("F")</p>
-                        @if (Model.UsingTablesAndChairs)
-                        {
-                            <div class="event-details-box-content-details">
-                                <div>Tables and chairs cost per person: $@Model.TablesAndChairsCostPerPerson</div>
-                                <div>Number of people: @Model.NumberOfPeople</div>
-                            </div>
-
-                        }
-                        <p><b>Parking Lot Security Price </b>$@Model.ParkingLotSecurityPrice.ToString("F")</p>
-                        @if (Model.ParkingLotSecurityService)
-                        {
-
-                            <div class="event-details-box-content-details">
-                                <div>Parking Lot Security Hours: @Model.ParkingLotSecurityHours</div>
-                                <div>Security service cost per hour: $@Model.SecurityGuardCostPerHour.ToString("F")</div>
-                                <div>Security Start Time: @Model.SecurityStartTime</div>
-                                <div>Security End Time: @Model.SecurityEndTime</div>
-                            </div>
-                        }
-                        <p><b> Security Deposit </b>$@Model.SecurityDeposit.ToString("F")</p>
-                        <hr />
-                        <div class="event-details-box-content-totalPrice">
-                            <h4><b>Total Price: </b>$@Model.TotalPrice.ToString("F")</h4>
-
+            <div class="col-md-4 event-details-box">
+                <div class="event-details-box-title">
+                    Price information
+                </div>
+                <hr />
+                <div class="event-details-box-content">
+                    <p><b>Hall Rental price: </b>$@Model.HallRentalPrice.ToString("F")</p>
+                    <p><b>Tables and chairs price: </b>$@Model.TablesAndChairsPrice.ToString("F")</p>
+                    @if (Model.UsingTablesAndChairs)
+                    {
+                        <div class="event-details-box-content-details">
+                            <div>Tables and chairs cost per person: $@Model.TablesAndChairsCostPerPerson</div>
+                            <div>Number of people: @Model.NumberOfPeople</div>
                         </div>
+
+                    }
+                    <p><b>Parking Lot Security Price </b>$@Model.ParkingLotSecurityPrice.ToString("F")</p>
+                    @if (Model.ParkingLotSecurityService)
+                    {
+
+                        <div class="event-details-box-content-details">
+                            <div>Parking Lot Security Hours: @Model.ParkingLotSecurityHours</div>
+                            <div>Security service cost per hour: $@Model.SecurityGuardCostPerHour.ToString("F")</div>
+                            <div>Security Start Time: @Model.SecurityStartTime</div>
+                            <div>Security End Time: @Model.SecurityEndTime</div>
+                        </div>
+                    }
+                    <p><b> Security Deposit </b>$@Model.SecurityDeposit.ToString("F")</p>
+                    <hr />
+                    <div class="event-details-box-content-totalPrice">
+                        <h4><b>Total Price: </b>$@Model.TotalPrice.ToString("F")</h4>
+
                     </div>
                 </div>
             </div>
