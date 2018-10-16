@@ -53,6 +53,8 @@ namespace HallRental.Services.Models.Profile
 
         public decimal TablesAndChairsPrice { get; set; }
 
+        public bool ParkingLotSecurityService { get; set; }
+
         public decimal ParkingLotSecurityPrice { get; set; }
 
         public decimal SecurityDeposit { get; set; }

@@ -6,11 +6,13 @@ using HallRental.Services;
 using HallRental.Services.Models.Profile;
 using HallRental.Web.Infrastructure;
 using HallRental.Web.Models.ProfileViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HallRental.Web.Controllers
 {
+    [Authorize]
     public class ProfileController : Controller
     {
         private readonly UserManager<User> userManager;
@@ -125,7 +127,21 @@ namespace HallRental.Web.Controllers
         public IActionResult EventDetails(int id)
         {
 
+            string currentUserId = this.userManager.GetUserId(User);
+
+            bool isEventExists = this.eventService.CheckIfEventExists(id);
+
+            if (!isEventExists)
+            {
+                return RedirectToAction(nameof(MyReservations));
+            }
+
             EventDetailsServiceModel currentEvent = this.profileService.EventById(id);
+
+            if (currentUserId != currentEvent.TenantId)
+            {
+                return Forbid();
+            }
 
             currentEvent.RentTimeDisplay = this.eventService.GetRentTimeDisplay(currentEvent.RentTime);
 

@@ -6,6 +6,7 @@ namespace HallRental.Services.Implementations
     using System.Linq;
     using AutoMapper.QueryableExtensions;
     using HallRental.Data;
+    using HallRental.Data.Models;
     using HallRental.Services.Models.Profile;
 
     public class ProfileService : IProfileService
@@ -65,5 +66,7 @@ namespace HallRental.Services.Implementations
                 .FirstOrDefault();
                 
         }
+
+      
     }
 }

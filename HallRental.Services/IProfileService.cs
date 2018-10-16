@@ -1,6 +1,7 @@
 ﻿
 namespace HallRental.Services
 {
+    using HallRental.Data.Models;
     using HallRental.Services.Models.Profile;
     using System;
     using System.Collections.Generic;
@@ -16,5 +17,6 @@ namespace HallRental.Services
         int TotalPassedEvents(string userId, DateTime markDate);
 
         EventDetailsServiceModel EventById(int id);
+
     }
 }

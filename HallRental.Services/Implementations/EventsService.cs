@@ -228,5 +228,10 @@ namespace HallRental.Services.Implementations
                 return securityDepositAfter10pm;
             }
         }
+
+        public bool CheckIfEventExists(int id)
+        {
+            return this.db.Events.Any(e => e.Id == id);
+        }
     }
 }

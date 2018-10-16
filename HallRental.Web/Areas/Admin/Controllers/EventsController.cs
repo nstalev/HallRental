@@ -180,6 +180,13 @@ namespace HallRental.Web.Areas.Admin.Controllers
 
         public IActionResult Details (int id)
         {
+            bool eventExists = this.eventAdminService.EventExists(id);
+
+            if (!eventExists)
+            {
+                TempData.AddErrorMessage("The event does not exist");
+                return RedirectToAction(nameof(EventRequests));
+            }
 
             EventDetailsAdminSM currentEvent = this.eventAdminService.EventById(id);
 
@@ -202,7 +209,8 @@ namespace HallRental.Web.Areas.Admin.Controllers
 
             if (!eventExists)
             {
-                return RedirectToAction("Index", "Home");
+                TempData.AddErrorMessage("The event does not exist");
+                return RedirectToAction(nameof(EventRequests));
             }
 
             this.eventAdminService.ConfirmEvent(id);
@@ -218,7 +226,8 @@ namespace HallRental.Web.Areas.Admin.Controllers
 
             if (!eventExists)
             {
-                return RedirectToAction("Index", "Home");
+                TempData.AddErrorMessage("The event does not exist");
+                return RedirectToAction(nameof(EventRequests));
             }
 
             this.eventAdminService.DisConfirmEvent(id);
@@ -236,7 +245,8 @@ namespace HallRental.Web.Areas.Admin.Controllers
 
             if (!eventExists)
             {
-                return RedirectToAction("Index", "Home");
+                TempData.AddErrorMessage("The event does not exist");
+                return RedirectToAction(nameof(EventRequests));
             }
 
             this.eventAdminService.DeleteEvent(id);

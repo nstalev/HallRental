@@ -243,3 +243,33 @@ body {
 .secLot-input {
     width:70%;
 }
+
+.eventDetails{
+    margin-top: 25px;
+}
+
+.event-details-box {
+    border: 1px solid #cecece;
+    border-radius: 4px;
+    padding: 15px;
+    height: inherit;
+}
+
+.event-details-box-title {
+    text-align: center;
+    font-weight: bold;
+}
+
+.event-details-box-content {
+    font-size: 13px;
+}
+
+.event-details-box-content-details {
+    font-size: 11px;
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+
+.event-details-box-content-totalPrice{
+    text-align:right;
+}

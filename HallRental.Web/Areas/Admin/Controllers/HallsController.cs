@@ -66,7 +66,7 @@ namespace HallRental.Web.Areas.Admin.Controllers
 
             if (currentHall == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));
             }
 
             return View(currentHall);
