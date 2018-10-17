@@ -15,6 +15,7 @@ namespace HallRental.Web.Areas.Admin.Models.Events
         [Display(Name = "Email")]
         public string Email { get; set; }
 
+        [Required]
         [MaxLength(20)]
         [MinLength(3)]
         public string PhoneNumber { get; set; }

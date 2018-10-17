@@ -11,6 +11,12 @@
             <li>
                 <a asp-area="" asp-controller="Profile" asp-action="Index" title="Profile">Hello @UserManager.GetUserName(User)!</a>
             </li>
+            @if (!User.IsInRole(GlobalConstants.AdminRole))
+            {
+                <li>
+                    <a asp-area="" asp-controller="Profile" asp-action="MyReservations" title="MyReservations">My Reservations</a>
+                </li>
+            }
             <li>
                 <button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button>
             </li>

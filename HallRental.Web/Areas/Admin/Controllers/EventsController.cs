@@ -291,15 +291,17 @@ namespace HallRental.Web.Areas.Admin.Controllers
 
             if (!ModelState.IsValid)
             {
-                return View(editFormModel);
+                EditEventServiceModel editServiceModel = GetEventEditServiceModel(editFormModel);
+                return View(editServiceModel);
             }
 
             bool hallExists = this.hallAdminService.Exists(editFormModel.HallId);
 
             if (!hallExists)
             {
-                TempData.AddErrorMessage("The Hall does not exist");
-                return View(editFormModel);
+                EditEventServiceModel editServiceModel = GetEventEditServiceModel(editFormModel);
+                TempData.AddErrorMessage($"The Hall with ID {editServiceModel.HallId} does not exist");
+                return View(editServiceModel);
             }
 
             this.eventAdminService.EditEvent(id,
@@ -333,6 +335,35 @@ namespace HallRental.Web.Areas.Admin.Controllers
 
 
             return RedirectToAction(nameof(EventRequests));
+        }
+
+        private EditEventServiceModel GetEventEditServiceModel(EditEventFormModel editFormModel)
+        {
+            return new EditEventServiceModel
+            {
+                Email = editFormModel.Email,
+                PhoneNumber = editFormModel.PhoneNumber,
+                FullName = editFormModel.FullName,
+                HallId = editFormModel.HallId,
+                EventStart = editFormModel.EventStart,
+                EventEnd = editFormModel.EventEnd,
+                NumberOfPeople = editFormModel.NumberOfPeople,
+                EventTitle = editFormModel.EventTitle,
+                Description = editFormModel.Description,
+                Caterer = editFormModel.Caterer,
+                UsingTablesAndChairs = editFormModel.UsingTablesAndChairs,
+                TablesAndChairsCostPerPerson = editFormModel.TablesAndChairsCostPerPerson,
+                ParkingLotSecurityService = editFormModel.ParkingLotSecurityService,
+                ParkingLotSecurityHours = editFormModel.ParkingLotSecurityHours,
+                SecurityStartTime = editFormModel.SecurityStartTime,
+                SecurityEndTime = editFormModel.SecurityEndTime,
+                SecurityGuardCostPerHour = editFormModel.SecurityGuardCostPerHour,
+                HallRentalPrice = editFormModel.HallRentalPrice,
+                TablesAndChairsPrice = editFormModel.TablesAndChairsPrice,
+                ParkingLotSecurityPrice = editFormModel.ParkingLotSecurityPrice,
+                SecurityDeposit = editFormModel.SecurityDeposit,
+                TotalPrice = editFormModel.TotalPrice
+            };
         }
     }
 }
