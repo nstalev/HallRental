@@ -133,6 +133,7 @@ namespace HallRental.Web.Controllers
 
             if (!isEventExists)
             {
+                TempData.AddErrorMessage("The event does not exists");
                 return RedirectToAction(nameof(MyReservations));
             }
 

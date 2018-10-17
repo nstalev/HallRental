@@ -62,20 +62,7 @@
         </div>
     </nav>
     <div class="container body-content">
-        @if (TempData.ContainsKey(GlobalConstants.TempDataSuccessMessageKey))
-        {
-            <div class="alert alert-success alert-dismissible fade in">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                @TempData[GlobalConstants.TempDataSuccessMessageKey]
-            </div>
-        }
-        @if (TempData.ContainsKey(GlobalConstants.TempDataErrorMessageKey))
-        {
-            <div class="alert alert-danger alert-dismissible fade in">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                @TempData[GlobalConstants.TempDataErrorMessageKey]
-            </div>
-        }
+
 
         @if (User.IsInRole(GlobalConstants.AdminRole))
         {
@@ -83,16 +70,16 @@
                 <!-- Sidebar -->
                 <div id="sidebar-wrapper">
                     <ul class="sidebar-nav">
-                        <li class="sidebar-brand" >
-                            <a asp-area=""asp-controller="Home" asp-action="Index" style="text-align:center" >Administration Area</a>
-                            
+                        <li class="sidebar-brand">
+                            <a asp-area="" asp-controller="Home" asp-action="Index" style="text-align:center">Administration Area</a>
+
 
                         </li>
                         <li><a asp-area="Admin" asp-controller="Events" class="w3-btn @Url.IsLinkActive("Events", "EventRequests")" asp-action="EventRequests">Event Requests</a></li>
-                        <li><a asp-area="Admin" asp-controller="Events"  class="w3-btn @Url.IsLinkActive("Events", "ConfirmedEvents")"  asp-action="ConfirmedEvents">Confirmed Events</a></li>
+                        <li><a asp-area="Admin" asp-controller="Events" class="w3-btn @Url.IsLinkActive("Events", "ConfirmedEvents")" asp-action="ConfirmedEvents">Confirmed Events</a></li>
                         <li><a asp-area="Admin" asp-controller="Events" class="w3-btn @Url.IsLinkActive("Events", "PassedEvents")" asp-action="PassedEvents">Passed Events</a></li>
                         <li><a asp-area="Admin" asp-controller="Halls" class="w3-btn @Url.IsLinkActive("Halls", "Index")" asp-action="Index">Halls Management</a></li>
-                        <li><a asp-area="Admin" asp-controller="Identity" class= "w3-btn @Url.IsLinkActive("Identity", "All")" asp-action="All">Users Management</a></li>
+                        <li><a asp-area="Admin" asp-controller="Identity" class="w3-btn @Url.IsLinkActive("Identity", "All")" asp-action="All">Users Management</a></li>
 
                     </ul>
                 </div>
@@ -102,6 +89,20 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-12">
+                                @if (TempData.ContainsKey(GlobalConstants.TempDataSuccessMessageKey))
+                                {
+                                    <div class="alert alert-success alert-dismissible fade in">
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                        @TempData[GlobalConstants.TempDataSuccessMessageKey]
+                                    </div>
+                                }
+                                @if (TempData.ContainsKey(GlobalConstants.TempDataErrorMessageKey))
+                                {
+                                    <div class="alert alert-danger alert-dismissible fade in">
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                        @TempData[GlobalConstants.TempDataErrorMessageKey]
+                                    </div>
+                                }
                                 <!-- ------------ -->
                                 @RenderBody()
 
@@ -116,6 +117,20 @@
         }
         else
         {
+            @if (TempData.ContainsKey(GlobalConstants.TempDataSuccessMessageKey))
+            {
+                <div class="alert alert-success alert-dismissible fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    @TempData[GlobalConstants.TempDataSuccessMessageKey]
+                </div>
+            }
+            @if (TempData.ContainsKey(GlobalConstants.TempDataErrorMessageKey))
+            {
+                <div class="alert alert-danger alert-dismissible fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    @TempData[GlobalConstants.TempDataErrorMessageKey]
+                </div>
+            }
             @RenderBody()
         }
 

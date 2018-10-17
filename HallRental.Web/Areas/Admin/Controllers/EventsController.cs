@@ -213,6 +213,7 @@ namespace HallRental.Web.Areas.Admin.Controllers
                 return RedirectToAction(nameof(EventRequests));
             }
 
+
             this.eventAdminService.ConfirmEvent(id);
 
             TempData.AddSuccessMessage($"Event ID {id} has been confirmed");
