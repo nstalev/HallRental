@@ -10,6 +10,7 @@ using HallRental.Web.Models.HomeViewModels;
 using Microsoft.AspNetCore.Identity;
 using HallRental.Data.Models;
 using HallRental.Web.Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HallRental.Web.Controllers
 {
@@ -56,6 +57,12 @@ namespace HallRental.Web.Controllers
             return View();
         }
 
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

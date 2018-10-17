@@ -15,6 +15,8 @@ using HallRental.Services.Admin;
 using HallRental.Services.Admin.Implementations;
 using AutoMapper;
 using HallRental.Web.Infrastructure.Mapping;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HallRental.Web
 {
@@ -34,6 +36,13 @@ namespace HallRental.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
             services.AddDbContext<HallRentalDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -60,7 +69,8 @@ namespace HallRental.Web
             services.AddAutoMapper();
 
 
-            services.AddMvc();
+            services.AddMvc()
+                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,18 +78,25 @@ namespace HallRental.Web
         {
             app.UseDatabaseMigration();
 
+
             if (env.IsDevelopment())
             {
-                app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+                app.UseHsts();
             }
 
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseCookiePolicy();
+            // If the app uses Session or TempData based on Session:
+            // app.UseSession();
 
             app.UseAuthentication();
 
