@@ -6,6 +6,7 @@ namespace HallRental.Services.Admin.Implementations
     using System.Linq;
     using AutoMapper.QueryableExtensions;
     using HallRental.Data;
+    using HallRental.Data.Enums;
     using HallRental.Data.Models;
     using HallRental.Services.Admin.Models.Events;
 
@@ -141,6 +142,71 @@ namespace HallRental.Services.Admin.Implementations
             return this.db.Events
                 .Where(e => e.IsReservationConfirmed == false)
                 .Count();
+        }
+
+        public EditEventServiceModel GetEventByIdForEdit(int id)
+        {
+            return this.db.Events
+              .Where(e => e.Id == id)
+              .ProjectTo<EditEventServiceModel>()
+              .FirstOrDefault();
+        }
+
+        public void EditEvent(int id,
+            string email,
+            string phoneNumber,
+            string fullName,
+            int hallId,
+            DateTime eventDate,
+            Enums.RentTimeEnum rentTime,
+            DateTime eventStart,
+            DateTime eventEnd,
+            int numberOfPeople,
+            string eventTitle,
+            string description,
+            string caterer,
+            bool usingTablesAndChairs,
+            decimal tablesAndChairsCostPerPerson,
+            bool parkingLotSecurityService,
+            int parkingLotSecurityHours,
+            DateTime securityStartTime,
+            DateTime securityEndTime,
+            decimal securityGuardCostPerHour,
+            decimal hallRentalPrice,
+            decimal tablesAndChairsPrice,
+            decimal parkingLotSecurityPrice,
+            decimal securityDeposit,
+            decimal totalPrice)
+        {
+
+            Event currentEvent = this.db.Events.Find(id);
+
+            currentEvent.Email = email;
+            currentEvent.PhoneNumber = phoneNumber;
+            currentEvent.FullName = fullName;
+            currentEvent.HallId = hallId;
+            currentEvent.EventDate = eventDate;
+            currentEvent.RentTime = rentTime;
+            currentEvent.EventStart = eventStart;
+            currentEvent.EventEnd = eventEnd;
+            currentEvent.NumberOfPeople = numberOfPeople;
+            currentEvent.EventTitle = eventTitle;
+            currentEvent.Description = description;
+            currentEvent.Caterer = caterer;
+            currentEvent.UsingTablesAndChairs = usingTablesAndChairs;
+            currentEvent.TablesAndChairsCostPerPerson = tablesAndChairsCostPerPerson;
+            currentEvent.ParkingLotSecurityService = parkingLotSecurityService;
+            currentEvent.ParkingLotSecurityHours = parkingLotSecurityHours;
+            currentEvent.SecurityStartTime = securityStartTime;
+            currentEvent.SecurityEndTime = securityEndTime;
+            currentEvent.SecurityGuardCostPerHour = securityGuardCostPerHour;
+            currentEvent.HallRentalPrice = hallRentalPrice;
+            currentEvent.TablesAndChairsPrice = tablesAndChairsPrice;
+            currentEvent.ParkingLotSecurityPrice = parkingLotSecurityPrice;
+            currentEvent.SecurityDeposit = securityDeposit;
+            currentEvent.TotalPrice = totalPrice;
+
+            this.db.SaveChanges();
         }
     }
 }

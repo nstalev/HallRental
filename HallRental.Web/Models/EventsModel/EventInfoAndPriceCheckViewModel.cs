@@ -46,6 +46,8 @@
 
         public int HallCapacity { get; set; }
 
+
+        [Display(Name = "Parking Lot Security Service")]
         public bool ParkingLotSecurityService { get; set; }
 
 

@@ -21,10 +21,14 @@ namespace HallRental.Web.Infrastructure.Mapping
              .ForMember(e => e.HallName, cfg => cfg.MapFrom(h => h.Hall.Name));
 
             this.CreateMap<Event, EventDetailsAdminSM>()
-            .ForMember(e => e.HallName, cfg => cfg.MapFrom(h => h.Hall.Name));
+            .ForMember(e => e.HallName, cfg => cfg.MapFrom(h => h.Hall.Name))
+            .ForMember(e => e.UserName, cfg => cfg.MapFrom(u => u.Tenant.UserName));
 
             this.CreateMap<Event, EventsListServiceModel>()
             .ForMember(e => e.HallName, cfg => cfg.MapFrom(h => h.Hall.Name));
+
+            this.CreateMap<Event, EditEventServiceModel>();
+
 
             this.CreateMap<Hall, HallsListServiceModel>();
 

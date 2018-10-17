@@ -1,6 +1,7 @@
 ﻿
 namespace HallRental.Services.Admin
 {
+    using HallRental.Data.Enums;
     using HallRental.Services.Admin.Models.Events;
     using HallRental.Services.Models.Profile;
     using System;
@@ -34,5 +35,32 @@ namespace HallRental.Services.Admin
         void DeleteEvent(int id);
 
         int AllEventRequestsCount();
+
+        EditEventServiceModel GetEventByIdForEdit(int id);
+        void EditEvent(int id,
+            string email,
+            string phoneNumber,
+            string fullName,
+            int hallId,
+            DateTime eventDate,
+            Enums.RentTimeEnum rentTime,
+            DateTime eventStart,
+            DateTime eventEnd,
+            int numberOfPeople,
+            string eventTitle,
+            string description,
+            string caterer,
+            bool usingTablesAndChairs,
+            decimal tablesAndChairsCostPerPerson,
+            bool parkingLotSecurityService,
+            int parkingLotSecurityHours,
+            DateTime securityStartTime,
+            DateTime securityEndTime,
+            decimal securityGuardCostPerHour,
+            decimal hallRentalPrice,
+            decimal tablesAndChairsPrice,
+            decimal parkingLotSecurityPrice,
+            decimal securityDeposit,
+            decimal totalPrice);
     }
 }

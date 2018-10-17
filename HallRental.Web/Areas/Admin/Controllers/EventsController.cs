@@ -20,14 +20,17 @@ namespace HallRental.Web.Areas.Admin.Controllers
     {
         private readonly IEventsAdminService eventAdminService;
         private readonly IEventsService eventService;
+        private readonly IHallsAdminService hallAdminService;
         private const int pageSize = GlobalConstants.AdminEventsMaxPageSize;
 
 
         public EventsController(IEventsAdminService eventAdminService,
-                                IEventsService eventService)
+                                IEventsService eventService,
+                                IHallsAdminService hallAdminService)
         {
             this.eventAdminService = eventAdminService;
             this.eventService = eventService;
+            this.hallAdminService = hallAdminService;
         }
 
         public IActionResult EventRequests(string search, int page = 1)
@@ -256,6 +259,80 @@ namespace HallRental.Web.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(EventRequests));
 
+        }
+
+
+        public IActionResult Edit(int id)
+        {
+            bool eventExists = this.eventAdminService.EventExists(id);
+
+            if (!eventExists)
+            {
+                TempData.AddErrorMessage("The event does not exist");
+                return RedirectToAction(nameof(EventRequests));
+            }
+
+            EditEventServiceModel vm = this.eventAdminService.GetEventByIdForEdit(id);
+
+            return View(vm);
+        }
+
+
+        [HttpPost]
+        public IActionResult Edit(int id, EditEventFormModel editFormModel)
+        {
+            bool eventExists = this.eventAdminService.EventExists(id);
+
+            if (!eventExists)
+            {
+                TempData.AddErrorMessage("The event does not exist");
+                return RedirectToAction(nameof(EventRequests));
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(editFormModel);
+            }
+
+            bool hallExists = this.hallAdminService.Exists(editFormModel.HallId);
+
+            if (!hallExists)
+            {
+                TempData.AddErrorMessage("The Hall does not exist");
+                return View(editFormModel);
+            }
+
+            this.eventAdminService.EditEvent(id,
+                                    editFormModel.Email,
+                                    editFormModel.PhoneNumber,
+                                    editFormModel.FullName,
+                                    editFormModel.HallId,
+                                    editFormModel.EventDate,
+                                    editFormModel.RentTime,
+                                    editFormModel.EventStart,
+                                    editFormModel.EventEnd,
+                                    editFormModel.NumberOfPeople,
+                                    editFormModel.EventTitle,
+                                    editFormModel.Description,
+                                    editFormModel.Caterer,
+                                    editFormModel.UsingTablesAndChairs,
+                                    editFormModel.TablesAndChairsCostPerPerson,
+                                    editFormModel.ParkingLotSecurityService,
+                                    editFormModel.ParkingLotSecurityHours,
+                                    editFormModel.SecurityStartTime,
+                                    editFormModel.SecurityEndTime,
+                                    editFormModel.SecurityGuardCostPerHour,
+                                    editFormModel.HallRentalPrice,
+                                    editFormModel.TablesAndChairsPrice,
+                                    editFormModel.ParkingLotSecurityPrice,
+                                    editFormModel.SecurityDeposit,
+                                    editFormModel.TotalPrice);
+
+
+            TempData.AddSuccessMessage($"Event {editFormModel.Id} has been edited successfully");
+
+
+            return RedirectToAction(nameof(EventRequests));
         }
     }
 }

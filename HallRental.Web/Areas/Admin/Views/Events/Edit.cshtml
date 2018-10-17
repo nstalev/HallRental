@@ -1,0 +1,167 @@
+﻿@model EditEventServiceModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit Event &numero; @Model.Id</h2>
+
+<hr />
+<form asp-action="Edit">
+
+    <div class="row">
+        <div class="col-md-6">
+            <h3 class="text-center">Event Information</h3>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="EventDate" class="control-label"></label>
+                <input asp-for="EventDate" class="form-control" />
+                <span asp-validation-for="EventDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="HallId" class="control-label"></label>
+                <input asp-for="HallId" class="form-control" />
+                <span asp-validation-for="HallId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="RentTime" class="control-label"></label>
+                <select class="form-control" asp-for="RentTime" asp-items="Html.GetEnumSelectList<HallRental.Data.Enums.Enums.RentTimeEnum>()"></select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="EventStart" class="control-label"></label>
+                <input asp-for="EventStart" class="form-control" />
+                <span asp-validation-for="EventStart" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EventEnd" class="control-label"></label>
+                <input asp-for="EventEnd" class="form-control" />
+                <span asp-validation-for="EventEnd" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="NumberOfPeople" class="control-label"></label>
+                <input asp-for="NumberOfPeople" class="form-control" />
+                <span asp-validation-for="NumberOfPeople" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EventTitle" class="control-label"></label>
+                <input asp-for="EventTitle" class="form-control" />
+                <span asp-validation-for="EventTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control"> </textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Caterer" class="control-label"></label>
+                <textarea asp-for="Caterer" class="form-control"> </textarea>
+                <span asp-validation-for="Caterer" class="text-danger"></span>
+            </div>
+            <hr />
+
+            <div class="form-group">
+                <input class="w3-check" asp-for="UsingTablesAndChairs" />
+                <label>
+                    @Html.DisplayNameFor(model => model.UsingTablesAndChairs)
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="TablesAndChairsCostPerPerson" class="control-label"></label>
+                <input asp-for="TablesAndChairsCostPerPerson" class="form-control" />
+                <span asp-validation-for="TablesAndChairsCostPerPerson" class="text-danger"></span>
+            </div>
+            <hr />
+
+            <div class="form-group">
+                <input id="ParkingLotSecurity-checkbox" asp-for="ParkingLotSecurityService" class="w3-check" type="checkbox" />
+                <label>
+                    @Html.DisplayNameFor(model => model.ParkingLotSecurityService)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="ParkingLotSecurityHours" class="control-label"></label>
+                <input asp-for="ParkingLotSecurityHours" class="form-control" />
+                <span asp-validation-for="ParkingLotSecurityHours" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecurityStartTime" class="control-label"></label>
+                <input asp-for="SecurityStartTime" class="form-control" />
+                <span asp-validation-for="SecurityStartTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecurityEndTime" class="control-label"></label>
+                <input asp-for="SecurityEndTime" class="form-control" />
+                <span asp-validation-for="SecurityEndTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecurityGuardCostPerHour" class="control-label"></label>
+                <input asp-for="SecurityGuardCostPerHour" class="form-control" />
+                <span asp-validation-for="SecurityGuardCostPerHour" class="text-danger"></span>
+            </div>
+            <hr />
+            <div class="form-group">
+                <label asp-for="HallRentalPrice" class="control-label"></label>
+                <input asp-for="HallRentalPrice" class="form-control" />
+                <span asp-validation-for="HallRentalPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TablesAndChairsPrice" class="control-label"></label>
+                <input asp-for="TablesAndChairsPrice" class="form-control" />
+                <span asp-validation-for="TablesAndChairsPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ParkingLotSecurityPrice" class="control-label"></label>
+                <input asp-for="ParkingLotSecurityPrice" class="form-control" />
+                <span asp-validation-for="ParkingLotSecurityPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecurityDeposit" class="control-label"></label>
+                <input asp-for="SecurityDeposit" class="form-control" />
+                <span asp-validation-for="SecurityDeposit" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalPrice" class="control-label"></label>
+                <input asp-for="TotalPrice" class="form-control" />
+                <span asp-validation-for="TotalPrice" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h3 class="text-center">Person Information</h3>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FullName" class="control-label"></label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+            <hr />
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
