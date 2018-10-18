@@ -4,7 +4,16 @@
     ViewData["Title"] = "EventDetails";
 }
 
+@{
+    var routeValue = new Dictionary<string, string> { ["id"] = Model.Id.ToString() };
+}
+
 <div class="panel event-panel-card eventDetails">
+
+    @if (Model.IsReservationConfirmed)
+    {
+        <a asp-controller="Profile" asp-action="PdfContractSupplement" asp-all-route-data="routeValue" class="btn btn-sm btn-default">Download</a>
+    }
     <div class="panel-body">
         <div class="row event-details-row">
             <div class="col-md-4 event-details-box">
@@ -70,7 +79,7 @@
                         </div>
 
                     }
-                    <p><b>Parking Lot Security Price </b>$@Model.ParkingLotSecurityPrice.ToString("F")</p>
+                    <p><b>Parking Lot Security Price: </b>$@Model.ParkingLotSecurityPrice.ToString("F")</p>
                     @if (Model.ParkingLotSecurityService)
                     {
 
@@ -81,8 +90,16 @@
                             <div>Security End Time: @Model.SecurityEndTime</div>
                         </div>
                     }
-                    <p><b> Security Deposit </b>$@Model.SecurityDeposit.ToString("F")</p>
+                    <p><b> Security Deposit: </b>$@Model.SecurityDeposit.ToString("F")</p>
                     <hr />
+                    @if (Model.AdditionalCharges > 0)
+                    {
+                        <p><b>Additional charges: </b>$@Model.AdditionalCharges.ToString("F")</p>
+                        <div class="event-details-box-content-details">
+                            <div>@Model.AdditionalChargesInformation</div>
+                        </div>
+                        <hr />
+                    }
                     <div class="event-details-box-content-totalPrice">
                         <h4><b>Total Price: </b>$@Model.TotalPrice.ToString("F")</h4>
 

@@ -58,14 +58,14 @@ namespace HallRental.Services.Implementations
                     .Count();
         }
 
-        public EventDetailsServiceModel EventById(int id)
-        {
-            return this.db.Events
-                .Where(e => e.Id == id)
-                .ProjectTo<EventDetailsServiceModel>()
-                .FirstOrDefault();
+        //public EventDetailsServiceModel EventById(int id)
+        //{
+        //    return this.db.Events
+        //        .Where(e => e.Id == id)
+        //        .ProjectTo<EventDetailsServiceModel>()
+        //        .FirstOrDefault();
                 
-        }
+        //}
 
       
     }

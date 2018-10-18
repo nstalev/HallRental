@@ -57,6 +57,8 @@ namespace HallRental.Services.Admin
             DateTime securityStartTime,
             DateTime securityEndTime,
             decimal securityGuardCostPerHour,
+            decimal additionalCharges,
+            string additionalChargesInformation,
             decimal hallRentalPrice,
             decimal tablesAndChairsPrice,
             decimal parkingLotSecurityPrice,

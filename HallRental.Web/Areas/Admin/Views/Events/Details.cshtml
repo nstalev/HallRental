@@ -181,7 +181,7 @@ else
                         </div>
 
                     }
-                    <p><b>Parking Lot Security Price </b>$@Model.ParkingLotSecurityPrice.ToString("F")</p>
+                    <p><b>Parking Lot Security Price: </b>$@Model.ParkingLotSecurityPrice.ToString("F")</p>
                     @if (Model.ParkingLotSecurityService)
                     {
 
@@ -192,8 +192,16 @@ else
                             <div>Security End Time: @Model.SecurityEndTime</div>
                         </div>
                     }
-                    <p><b> Security Deposit </b>$@Model.SecurityDeposit.ToString("F")</p>
+                    <p><b> Security Deposit: </b>$@Model.SecurityDeposit.ToString("F")</p>
                     <hr />
+                    @if (Model.AdditionalCharges > 0)
+                    {
+                        <p><b>Additional charges: </b>$@Model.AdditionalCharges.ToString("F")</p>
+                        <div class="event-details-box-content-details">
+                            <div>@Model.AdditionalChargesInformation</div>
+                        </div>
+                        <hr />
+                    }
                     <div class="event-details-box-content-totalPrice">
                         <h4><b>Total Price: </b>$@Model.TotalPrice.ToString("F")</h4>
 

@@ -1,9 +1,11 @@
 ﻿
 namespace HallRental.Services.Implementations
 {
+    using AutoMapper.QueryableExtensions;
     using HallRental.Data;
     using HallRental.Data.Enums;
     using HallRental.Data.Models;
+    using HallRental.Services.Models.Profile;
     using System;
     using System.Linq;
     using static HallRental.Data.Enums.Enums;
@@ -232,6 +234,22 @@ namespace HallRental.Services.Implementations
         public bool CheckIfEventExists(int id)
         {
             return this.db.Events.Any(e => e.Id == id);
+        }
+
+
+        public EventDetailsServiceModel EventById(int id)
+        {
+            return this.db.Events
+               .Where(e => e.Id == id)
+               .ProjectTo<EventDetailsServiceModel>()
+               .FirstOrDefault();
+        }
+
+        public byte[] GeneratePdf(EventDetailsServiceModel currentEvent)
+        {
+            //ToDo
+
+            throw new NotImplementedException();
         }
     }
 }

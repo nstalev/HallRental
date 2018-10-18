@@ -76,6 +76,10 @@ namespace HallRental.Web.Areas.Admin.Models.Events
 
         public decimal SecurityGuardCostPerHour { get; set; }
 
+        public decimal AdditionalCharges { get; set; }
+
+        public string AdditionalChargesInformation { get; set; }
+
         [Required]
         public decimal HallRentalPrice { get; set; }
 

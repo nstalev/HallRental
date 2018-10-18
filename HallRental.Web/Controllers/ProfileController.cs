@@ -137,7 +137,7 @@ namespace HallRental.Web.Controllers
                 return RedirectToAction(nameof(MyReservations));
             }
 
-            EventDetailsServiceModel currentEvent = this.profileService.EventById(id);
+            EventDetailsServiceModel currentEvent = this.eventService.EventById(id);
 
             if (currentUserId != currentEvent.TenantId)
             {
@@ -147,6 +147,31 @@ namespace HallRental.Web.Controllers
             currentEvent.RentTimeDisplay = this.eventService.GetRentTimeDisplay(currentEvent.RentTime);
 
             return View(currentEvent);
+        }
+
+
+        public IActionResult PdfContractSupplement(int id)
+        {
+            string currentUserId = this.userManager.GetUserId(User);
+
+            bool isEventExists = this.eventService.CheckIfEventExists(id);
+
+            if (!isEventExists)
+            {
+                TempData.AddErrorMessage("The event does not exists");
+                return RedirectToAction(nameof(MyReservations));
+            }
+
+            EventDetailsServiceModel currentEvent = this.eventService.EventById(id);
+
+            if (currentUserId != currentEvent.TenantId)
+            {
+                return Forbid();
+            }
+
+            var pdfFile = this.eventService.GeneratePdf(currentEvent);
+
+            return File(pdfFile, "application/pdf");
         }
     }
 }

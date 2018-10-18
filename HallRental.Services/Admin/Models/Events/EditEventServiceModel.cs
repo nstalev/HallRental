@@ -72,6 +72,12 @@ namespace HallRental.Services.Admin.Models.Events
 
         public decimal SecurityGuardCostPerHour { get; set; }
 
+        [Display(Name = "Additional Charges")]
+        public decimal AdditionalCharges { get; set; }
+
+        [Display(Name = "Additional Charges Info")]
+        public string AdditionalChargesInformation { get; set; }
+
         [Range(0, double.MaxValue)]
         public decimal HallRentalPrice { get; set; }
 

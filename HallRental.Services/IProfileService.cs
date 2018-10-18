@@ -16,7 +16,6 @@ namespace HallRental.Services
 
         int TotalPassedEvents(string userId, DateTime markDate);
 
-        EventDetailsServiceModel EventById(int id);
-
+       // EventDetailsServiceModel EventById(int id);
     }
 }

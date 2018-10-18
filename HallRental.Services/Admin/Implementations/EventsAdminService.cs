@@ -172,6 +172,8 @@ namespace HallRental.Services.Admin.Implementations
             DateTime securityStartTime,
             DateTime securityEndTime,
             decimal securityGuardCostPerHour,
+            decimal additionalCharges,
+            string additionalChargesInformation,
             decimal hallRentalPrice,
             decimal tablesAndChairsPrice,
             decimal parkingLotSecurityPrice,
@@ -200,6 +202,8 @@ namespace HallRental.Services.Admin.Implementations
             currentEvent.SecurityStartTime = securityStartTime;
             currentEvent.SecurityEndTime = securityEndTime;
             currentEvent.SecurityGuardCostPerHour = securityGuardCostPerHour;
+            currentEvent.AdditionalCharges = additionalCharges;
+            currentEvent.AdditionalChargesInformation = additionalChargesInformation;
             currentEvent.HallRentalPrice = hallRentalPrice;
             currentEvent.TablesAndChairsPrice = tablesAndChairsPrice;
             currentEvent.ParkingLotSecurityPrice = parkingLotSecurityPrice;
