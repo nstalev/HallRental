@@ -61,6 +61,14 @@ namespace HallRental.Services.Admin.Models.Halls
         [Range(0, double.MaxValue)]
         public decimal SecurityGuardCostPerHour { get; set; }
 
+        [Required]
+        [Display(Name = "Security Deposit Before 10 pm")]
+        public decimal SecurityDepositBefore10pm { get; set; }
+
+        [Required]
+        [Display(Name = "Security Deposit After 10 pm")]
+        public decimal SecurityDepositAfter10pm { get; set; }
+
         public bool IsHallActive { get; set; }
     }
 }

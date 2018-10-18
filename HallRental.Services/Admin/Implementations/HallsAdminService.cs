@@ -52,7 +52,9 @@ namespace HallRental.Services.Admin.Implementations
                            decimal sunday8amTo3pm,
                            decimal sunday4pmToMN,
                            decimal tablesAndChairsCostPerPerson,
-                           decimal securityGuardCostPerHour)
+                           decimal securityGuardCostPerHour,
+                           decimal securityDepositBefore10pm,
+                           decimal securityDepositAfter10pm)
         {
             Hall newHall = new Hall
             {
@@ -67,7 +69,10 @@ namespace HallRental.Services.Admin.Implementations
                 Sunday4pmToMN = sunday4pmToMN,
                 TablesAndChairsCostPerPerson = tablesAndChairsCostPerPerson,
                 SecurityGuardCostPerHour = securityGuardCostPerHour,
+                SecurityDepositBefore10pm = securityDepositBefore10pm,
+                SecurityDepositAfter10pm = securityDepositAfter10pm,
                 IsHallActive = true
+            
             };
 
             this.db.Halls.Add(newHall);
@@ -88,7 +93,9 @@ namespace HallRental.Services.Admin.Implementations
                          decimal sunday8amTo3pm,
                          decimal sunday4pmToMN,
                          decimal tablesAndChairsCostPerPerson,
-                         decimal securityGuardCostPerHour)
+                         decimal securityGuardCostPerHour,
+                         decimal securityDepositBefore10pm,
+                         decimal securityDepositAfter10pm)
         {
             Hall currentHall = this.db.Halls.Find(id);
 
@@ -108,6 +115,8 @@ namespace HallRental.Services.Admin.Implementations
             currentHall.Sunday4pmToMN = sunday4pmToMN;
             currentHall.TablesAndChairsCostPerPerson = tablesAndChairsCostPerPerson;
             currentHall.SecurityGuardCostPerHour = securityGuardCostPerHour;
+            currentHall.SecurityDepositBefore10pm = securityDepositBefore10pm;
+            currentHall.SecurityDepositAfter10pm = securityDepositAfter10pm;
 
             this.db.SaveChanges();
 

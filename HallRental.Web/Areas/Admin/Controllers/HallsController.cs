@@ -51,7 +51,9 @@ namespace HallRental.Web.Areas.Admin.Controllers
                         hallsFormModel.Sunday8amTo3pm,
                         hallsFormModel.Sunday4pmToMN,
                         hallsFormModel.TablesAndChairsCostPerPerson,
-                        hallsFormModel.SecurityGuardCostPerHour);
+                        hallsFormModel.SecurityGuardCostPerHour,
+                        hallsFormModel.SecurityDepositBefore10pm,
+                        hallsFormModel.SecurityDepositAfter10pm);
 
 
             TempData.AddSuccessMessage($"Hall {hallsFormModel.Name} has been created");
@@ -118,7 +120,9 @@ namespace HallRental.Web.Areas.Admin.Controllers
                         hallsFormModel.Sunday8amTo3pm,
                         hallsFormModel.Sunday4pmToMN,
                         hallsFormModel.TablesAndChairsCostPerPerson,
-                        hallsFormModel.SecurityGuardCostPerHour);
+                        hallsFormModel.SecurityGuardCostPerHour,
+                        hallsFormModel.SecurityDepositBefore10pm,
+                        hallsFormModel.SecurityDepositAfter10pm);
 
             TempData.AddSuccessMessage($"Hall {hallsFormModel.Name} has been edited");
 

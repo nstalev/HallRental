@@ -16,9 +16,9 @@ namespace HallRental.Services.Admin
 
         bool Exists(int id);
 
-        void Edit(int id, string name, int hallCapacity, decimal mondayFriday8amTo3pm, decimal mondayThursday4pmToMN, decimal friday4pmToMN, decimal saturday8amTo3pm, decimal saturday4pmToMN, decimal sunday8amTo3pm, decimal sunday4pmToMN,decimal tablesAndChairsCostPerPerson, decimal securityGuardCostPerHour);
+        void Edit(int id, string name, int hallCapacity, decimal mondayFriday8amTo3pm, decimal mondayThursday4pmToMN, decimal friday4pmToMN, decimal saturday8amTo3pm, decimal saturday4pmToMN, decimal sunday8amTo3pm, decimal sunday4pmToMN,decimal tablesAndChairsCostPerPerson, decimal securityGuardCostPerHour, decimal securityDepositBefore10pm, decimal securityDepositAfter10pm);
 
-        void Create(string name, int hallCapacity, decimal mondayFriday8amTo3pm, decimal mondayThursday4pmToMN, decimal friday4pmToMN, decimal saturday8amTo3pm, decimal saturday4pmToMN, decimal sunday8amTo3pm, decimal sunday4pmToMN, decimal tablesAndChairsCostPerPerson, decimal securityGuardCostPerHour);
+        void Create(string name, int hallCapacity, decimal mondayFriday8amTo3pm, decimal mondayThursday4pmToMN, decimal friday4pmToMN, decimal saturday8amTo3pm, decimal saturday4pmToMN, decimal sunday8amTo3pm, decimal sunday4pmToMN, decimal tablesAndChairsCostPerPerson, decimal securityGuardCostPerHour, decimal securityDepositBefore10pm, decimal securityDepositAfter10pm);
 
         void DisableHall(int id);
         void EnableHall(int id);

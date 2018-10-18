@@ -69,6 +69,17 @@
                 <span asp-validation-for="SecurityGuardCostPerHour" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="SecurityDepositBefore10pm" class="control-label"></label>
+                <input asp-for="SecurityDepositBefore10pm" class="form-control" />
+                <span asp-validation-for="SecurityDepositBefore10pm" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecurityDepositAfter10pm" class="control-label"></label>
+                <input asp-for="SecurityDepositAfter10pm" class="form-control" />
+                <span asp-validation-for="SecurityDepositAfter10pm" class="text-danger"></span>
+            </div>
+           
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </form>

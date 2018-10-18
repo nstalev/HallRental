@@ -32,5 +32,9 @@ namespace HallRental.Services.Admin.Models.Halls
         public decimal TablesAndChairsCostPerPerson { get; set; }
 
         public decimal SecurityGuardCostPerHour { get; set; }
+
+        public decimal SecurityDepositBefore10pm { get; set; }
+
+        public decimal SecurityDepositAfter10pm { get; set; }
     }
 }
