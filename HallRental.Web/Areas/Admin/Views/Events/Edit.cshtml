@@ -170,15 +170,18 @@
 </form>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-area="Admin" asp-action="Details" asp-controller="Events" asp-route-id="@Model.Id">Back to Details</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+    <script>
+        $(document).ready(function () {
+            console.log('ready')
+        })
+    </script>
+
 }
 
-@*<script>
-    $(document).ready(function () {
-        console.log('ready')
-    })
-</script>*@

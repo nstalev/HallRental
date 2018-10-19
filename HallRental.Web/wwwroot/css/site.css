@@ -316,3 +316,12 @@ body {
 .event-details-personal-info-content {
     font-size: 13px;
 }
+
+/* Gallery */
+.modal-dialog {
+    width: 800px;
+}
+
+.thumbnail {
+    margin-bottom: 6px;
+}
