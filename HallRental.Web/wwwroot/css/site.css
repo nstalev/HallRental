@@ -48,6 +48,13 @@ body {
     pointer-events: none;
 }
 
+
+/* Calendar */
+
+.fc-button-group, .fc button {
+    display: block;
+}
+
 /* Footer */
 
 .footer {

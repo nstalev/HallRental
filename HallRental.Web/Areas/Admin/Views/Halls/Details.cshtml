@@ -14,12 +14,12 @@
 
     <h4><b>Hall Capacity: </b>@Model.HallCapacity people</h4>
     <br />
-    <h4>Prices:</h4>
+    <h4 class="text-center"><b>Prices</b></h4>
 
     <hr />
 
     <div class="row">
-        <div class="col-md-4" style="text-align: right;">
+        <div class="col-md-6" style="text-align: right;">
             <p><b>Monday to Friday</b> 8:00 am to 3:00 pm:</p>
             <p><b>Monday to Thursday</b> 4:00 pm to Midnight:</p>
             <p><b>Friday</b> 4:00 pm to Midnight:</p>
@@ -59,6 +59,6 @@
     @{
         var routeValue = new Dictionary<string, string> { ["id"] = Model.Id.ToString() };
     }
-    <a asp-area="Admin" asp-controller="Halls" asp-action="Edit" asp-all-route-data=" routeValue" >Edit</a> |
+    <a asp-area="Admin" asp-controller="Halls" asp-action="Edit" asp-all-route-data=" routeValue">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
