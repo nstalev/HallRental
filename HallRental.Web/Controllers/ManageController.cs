@@ -14,6 +14,7 @@ namespace HallRental.Web.Controllers
     using HallRental.Data.Models;
     using HallRental.Web.Models.ManageViewModels;
     using HallRental.Web.Services;
+    using HallRental.Services;
 
     [Authorize]
     [Route("[controller]/[action]")]
@@ -24,6 +25,7 @@ namespace HallRental.Web.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
         private readonly UrlEncoder _urlEncoder;
+        private readonly IManageService manageService;
 
         private const string AuthenticatorUriFormat = "otpauth://totp/{0}:{1}?secret={2}&issuer={0}&digits=6";
         private const string RecoveryCodesKey = nameof(RecoveryCodesKey);
@@ -33,13 +35,15 @@ namespace HallRental.Web.Controllers
           SignInManager<User> signInManager,
           IEmailSender emailSender,
           ILogger<ManageController> logger,
-          UrlEncoder urlEncoder)
+          UrlEncoder urlEncoder,
+          IManageService manageService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
             _urlEncoder = urlEncoder;
+            this.manageService = manageService;
         }
 
         [TempData]
@@ -60,6 +64,8 @@ namespace HallRental.Web.Controllers
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
                 IsEmailConfirmed = user.EmailConfirmed,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
                 StatusMessage = StatusMessage
             };
 
@@ -99,6 +105,12 @@ namespace HallRental.Web.Controllers
                 {
                     throw new ApplicationException($"Unexpected error occurred setting phone number for user with ID '{user.Id}'.");
                 }
+            }
+            
+            if (model.FirstName != user.FirstName
+                || model.LastName != user.LastName)
+            {
+                this.manageService.UpdateUserName(user.Id, model.FirstName, model.LastName);
             }
 
             StatusMessage = "Your profile has been updated";
