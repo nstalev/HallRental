@@ -1,4 +1,6 @@
-﻿@{
+﻿@model ContactFormModel
+
+@{
     ViewData["Title"] = "Contact";
 }
 <h2>@ViewData["Title"]</h2>
@@ -16,4 +18,45 @@
     <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
 </address>
 
-  
+
+<div class="row">
+    <div class="col-md-6">
+        <section>
+            <div class="w3-card-4 w3-round">
+                <div class="w3-container contact-form-title w3-blue">
+                    <h2>@ViewData["Title"]</h2>
+                </div>
+                <form class="w3-container" method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <input asp-for="Name" class="w3-input w3-animate-input" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" class="w3-input" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Subject"></label>
+                        <input asp-for="Subject" class="w3-input" />
+                        <span asp-validation-for="Subject" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Message">Your Message:</label>
+                        <textarea asp-for="Message" rows="6" class="w3-input"></textarea>
+                        <span asp-validation-for="Message" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="w3-button w3-white w3-border w3-border-blue w3-round-large">Send</button>
+                    </div>
+
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+
+

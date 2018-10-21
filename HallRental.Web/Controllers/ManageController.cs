@@ -106,7 +106,7 @@ namespace HallRental.Web.Controllers
                     throw new ApplicationException($"Unexpected error occurred setting phone number for user with ID '{user.Id}'.");
                 }
             }
-            
+
             if (model.FirstName != user.FirstName
                 || model.LastName != user.LastName)
             {

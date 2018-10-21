@@ -66,6 +66,7 @@ namespace HallRental.Web
             services.AddTransient<IHallsAdminService, HallsAdminService>();
             services.AddTransient<IEventsAdminService, EventsAdminService>();
             services.AddTransient<IManageService, ManageService>();
+            services.AddTransient<IHomeService, HomeService>();
 
             services.AddAutoMapper();
 

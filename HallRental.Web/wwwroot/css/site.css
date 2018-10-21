@@ -81,6 +81,12 @@ body {
     margin-top: 10px;
 }
 
+@media(max-width:990px) {
+    .footer {
+        height: 200px;
+    }
+}
+
 /* SideBar */
 
 #wrapper {
@@ -351,3 +357,11 @@ body {
     #profile-grid .img-rounded {
         border-radius: 4px 4px 0 0;
     }
+
+
+
+
+.contact-form-title {
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+}

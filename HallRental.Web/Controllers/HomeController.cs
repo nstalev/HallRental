@@ -1,29 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using HallRental.Web.Models;
-using HallRental.Services.Admin;
-using HallRental.Web.Models.HomeViewModels;
-using Microsoft.AspNetCore.Identity;
-using HallRental.Data.Models;
-using HallRental.Web.Infrastructure;
-using Microsoft.AspNetCore.Authorization;
-
+﻿
 namespace HallRental.Web.Controllers
 {
+    using System.Diagnostics;
+    using Microsoft.AspNetCore.Mvc;
+    using HallRental.Web.Models;
+    using HallRental.Services.Admin;
+    using HallRental.Web.Models.HomeViewModels;
+    using Microsoft.AspNetCore.Identity;
+    using HallRental.Data.Models;
+    using HallRental.Web.Infrastructure;
+    using HallRental.Services;
+
     public class HomeController : Controller
     {
         private readonly IEventsAdminService eventAdminService;
         private readonly UserManager<User> userManager;
+        private readonly IHomeService homeService;
 
         public HomeController(IEventsAdminService eventAdminService,
-                               UserManager<User> userManager)
+                               UserManager<User> userManager,
+                               IHomeService homeService)
         {
             this.eventAdminService = eventAdminService;
             this.userManager = userManager;
+            this.homeService = homeService;
         }
 
         public IActionResult Index()
@@ -55,6 +55,21 @@ namespace HallRental.Web.Controllers
             ViewData["Message"] = "Your contact page.";
 
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Contact(ContactFormModel contactForm)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return View(contactForm);
+            }
+
+            this.homeService.SendEmail(contactForm.Name, contactForm.Email, contactForm.Subject, contactForm.Message);
+            TempData.AddSuccessMessage("Your message has been successfully sent");
+
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Privacy()
