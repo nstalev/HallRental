@@ -143,21 +143,27 @@ namespace HallRental.Web.Controllers
 
             if (!ModelState.IsValid)
             {
-                DateCheckFormModel dateCheckModel = new DateCheckFormModel
-                {
-                    Date = summaryModel.Date,
-                    HallId = summaryModel.HallId,
-                    RentTime = summaryModel.RentTime,
-                    TotalPrice = summaryModel.HallRentalPrice
+                var dateCheckModel = GetDateCheckFormModel(summaryModel);
 
-                };
-
+                TempData.AddErrorMessage("Invalid input. Please fill in all required fields");
                 return RedirectToAction("PriceCheck", dateCheckModel);
             }
 
             if (summaryModel.HallId == 0 || summaryModel.Date == null)
             {
-                return NotFound();
+                var dateCheckModel = GetDateCheckFormModel(summaryModel);
+
+                TempData.AddErrorMessage("Invalid input. Please fill in all required fields");
+                return RedirectToAction("PriceCheck", dateCheckModel);
+            }
+
+            if (summaryModel.ParkingLotSecurityService == true 
+                &&summaryModel.ParkingLotSecurityPrice <= 0)
+            {
+                var dateCheckModel = GetDateCheckFormModel(summaryModel);
+
+                TempData.AddErrorMessage("Invalid input. Please fill in all required fields");
+                return RedirectToAction("PriceCheck", dateCheckModel);
             }
 
             Hall currentHall = this.hallsServices.GetHallById(summaryModel.HallId);
@@ -236,13 +242,13 @@ namespace HallRental.Web.Controllers
                     TablesAndChairsPrice = eventModel.TablesAndChairsPrice,
                     SecurityDeposit = eventModel.SecurityDeposit,
                     TotalPrice = eventModel.TotalPrice,
-                    FullName=  eventModel.FullName,
+                    FullName = eventModel.FullName,
                     Email = eventModel.Email,
                     PhoneNumber = eventModel.PhoneNumber,
                     TablesAndChairsCostPerPerson = eventModel.TablesAndChairsCostPerPerson,
                     Caterer = eventModel.Caterer,
                     EventDescription = eventModel.EventDescription
-                            
+
                 };
 
                 return View("Summary", summaryModel);
@@ -302,6 +308,20 @@ namespace HallRental.Web.Controllers
             }
 
             return Json(eventDate);
+        }
+
+
+
+
+        public DateCheckFormModel GetDateCheckFormModel(SummaryAndPersonalInfoModel summaryModel)
+        {
+            return new DateCheckFormModel
+            {
+                Date = summaryModel.Date,
+                HallId = summaryModel.HallId,
+                RentTime = summaryModel.RentTime,
+                TotalPrice = summaryModel.HallRentalPrice
+            };
         }
 
     }

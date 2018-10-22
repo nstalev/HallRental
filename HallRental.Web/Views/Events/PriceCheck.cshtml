@@ -40,7 +40,7 @@
                     <span asp-validation-for="NumberOfPeople" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <input id="UseTablesAndChairs" class="w3-check" asp-for="UsingTablesAndChairs" />
+                    <input id="UseTablesAndChairs-checkbox" class="w3-check" asp-for="UsingTablesAndChairs" />
                     <label>
                         @Html.DisplayNameFor(model => model.UsingTablesAndChairs)
                     </label>
@@ -97,7 +97,6 @@
 
 <script>
 
-
         $(document).ready(function () {
             console.log('ready')
 
@@ -126,11 +125,15 @@
             let secDepositCheckTime = new Date(utcSecondsStartTime);
             secDepositCheckTime.setHours(22)
 
-            //FirstCheck
+            //First checkbox
             if ($('#ParkingLotSecurity-checkbox').prop('checked')) {
                 CalculateParkingLotSecurityPrice();
             }
 
+            //Second checkbox
+            if ($('#ParkingLotSecurity-checkbox').prop('checked')) {
+                CalculateTablesAndChairsPrice();
+            }
 
 
             //Event Start-End Time
@@ -228,8 +231,11 @@
 
 
             //Table and Chairs Price Calcualtion
+            $('#UseTablesAndChairs-checkbox').change(() => {
+                CalculateTablesAndChairsPrice();
+            })
 
-            $('#UseTablesAndChairs').change(function () {
+            function CalculateTablesAndChairsPrice(){
                 let numberOfPeople = $('#NumberOfPeople').val()
 
                 if (numberOfPeople > hallCapacity) {
@@ -241,7 +247,7 @@
                     correctDataTabAndCh = true;
                 }
 
-                if ($(this).prop('checked')) {
+                if ($('#UseTablesAndChairs-checkbox').prop('checked')) {
 
                     if (numberOfPeople < 1) {
                         $('#NumberOfPeople-error').text("Please e mark the number of people")
@@ -260,8 +266,9 @@
 
                 let parkLotSecHours = checkDifference();
                 UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice, parkLotSecHours, securityDeposit)
-            })
-            
+            }
+
+
 
             $('#NumberOfPeople').change(function () {
                 let numberOfPeople = $('#NumberOfPeople').val()
@@ -276,7 +283,7 @@
                     correctDataTabAndCh = true;
                 }
 
-                if ($('#UseTablesAndChairs').prop('checked')) {
+                if ($('#UseTablesAndChairs-checkbox').prop('checked')) {
 
                     if (numberOfPeople < 1) {
                         $('#NumberOfPeople-error').text("Please e mark the number of people")
