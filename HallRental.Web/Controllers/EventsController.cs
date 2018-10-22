@@ -52,7 +52,6 @@ namespace HallRental.Web.Controllers
             return View(vm);
         }
 
-        [Authorize]
         public IActionResult PriceCheck(DateCheckFormModel dateCheckModel)
         {
             DateTime today = DateTime.UtcNow;
@@ -132,7 +131,6 @@ namespace HallRental.Web.Controllers
         }
 
 
-        [Authorize]
         public IActionResult UpdatePriceView(EventPriceModel priceModel)
         {
             return PartialView("_PartialPrice", priceModel);

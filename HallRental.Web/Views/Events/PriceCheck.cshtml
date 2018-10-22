@@ -9,7 +9,7 @@
     <div class="col-md-6">
         <div class="w3-container w3-card-4 w3-round w3-light-grey input-card-panel">
             <h2>Price Calculation</h2>
-            <form asp-action="Summary" id="submitForm">
+            <form method="get" asp-action="Summary" id="submitForm">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input asp-for="Date" type="hidden" />
                 <input asp-for="HallId" type="hidden" />
@@ -67,10 +67,18 @@
                 <input id="parkingLotSecurityHours" asp-for="ParkingLotSecurityHours" type="hidden" />
                 <div class="form-group">
                     <input type="submit" value="Continue" class="w3-button w3-border w3-border-grey w3-round" />
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <span class="input-redirect">
+                            By pressing the button Continue you will be redirected to login in your account
+                        </span>
+                    }
                 </div>
+               
             </form>
         </div>
     </div>
+  
 
     <div class="col-md-6 event-side-info">
         <p>Hall: <b>@Model.HallName</b></p>

@@ -35,10 +35,8 @@
             </div>
             <div class="form-group">
                 <input it="checkBtn" type="button" onclick="CheckDateAndTime()" value="Check" class="w3-button w3-round w3-grey" />
-                @if (User.Identity.IsAuthenticated)
-                {
+               
                     <input type="submit" id="dateCheck-submit-btn" class="w3-button w3-round w3-blue" value="Continue" style="display: none" />
-                }
             </div>
 
         </form>
@@ -51,14 +49,7 @@
         </div>
         <h2 id="eventDateResult"></h2>
         <hr />
-        @if (!User.Identity.IsAuthenticated)
-        {
-            <span>
-                To Continue with Price Check and Reservevation, please <a asp-controller="Account"
-                                                    asp-action="Login"
-                                                    asp-route-returnUrl="@Context.Request.Path">login</a> in your account
-            </span>
-        }
+
         
 
     </div>
