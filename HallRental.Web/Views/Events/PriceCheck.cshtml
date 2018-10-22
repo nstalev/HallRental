@@ -126,12 +126,18 @@
             let secDepositCheckTime = new Date(utcSecondsStartTime);
             secDepositCheckTime.setHours(22)
 
+            //FirstCheck
+            if ($('#ParkingLotSecurity-checkbox').prop('checked')) {
+                CalculateParkingLotSecurityPrice();
+            }
+
+
+
             //Event Start-End Time
 
             $('#EventStartTime').change(() => {
 
                 correctDataEventTime = CheckIfEventDataIsCorrect();
-
             })
 
 
@@ -157,7 +163,6 @@
 
                     totalPrice = startPrice + tablesAndChairsPrice + securityPrice + securityDeposit;
                     UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice, parkLotSecHours, securityDeposit)
-                
                 }           
 
             })
@@ -234,11 +239,9 @@
                 } else {
                     $('#NumberOfPeople-error').text("")
                     correctDataTabAndCh = true;
-
                 }
 
                 if ($(this).prop('checked')) {
-
 
                     if (numberOfPeople < 1) {
                         $('#NumberOfPeople-error').text("Please e mark the number of people")
@@ -247,21 +250,18 @@
                     tablesAndChairsPrice = numberOfPeople * chairCostPerPerson;
 
                     totalPrice = startPrice + tablesAndChairsPrice + securityPrice + securityDeposit;
-
-
                 }
                 else {
                     console.log('UseTablesAndChairs checkbox  - not checked')
                     tablesAndChairsPrice = 0;
 
                     totalPrice = startPrice + tablesAndChairsPrice + securityPrice + securityDeposit;
-
-
                 }
+
                 let parkLotSecHours = checkDifference();
                 UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice, parkLotSecHours, securityDeposit)
-
             })
+            
 
             $('#NumberOfPeople').change(function () {
                 let numberOfPeople = $('#NumberOfPeople').val()
@@ -283,7 +283,6 @@
                         return;
                     } else {
                         $('#NumberOfPeople-error').text("")
-
                     }
 
                     tablesAndChairsPrice = numberOfPeople * chairCostPerPerson;
@@ -291,18 +290,20 @@
                     totalPrice = startPrice + tablesAndChairsPrice + securityPrice + securityDeposit;
                     let parkLotSecHours = checkDifference();
                     UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice, parkLotSecHours, securityDeposit)
-
                 }
-
             })
+
 
 
 
             //ParkingLotSecurity
 
-
-
             $('#ParkingLotSecurity-checkbox').change(() => {
+
+                CalculateParkingLotSecurityPrice();
+            })
+
+            function CalculateParkingLotSecurityPrice() {
 
                 if ($('#ParkingLotSecurity-checkbox').prop('checked')) {
 
@@ -317,7 +318,6 @@
                     return;
                 }
 
-
                 let isDateCorrect = CheckIfSecurityDataIsCorrect();
 
                 console.log(isDateCorrect);
@@ -331,8 +331,7 @@
                 let hoursDiff = checkDifference();
 
                 UpdateSecurityPrice(hoursDiff);
-
-            })
+            }
 
 
             $("#ParkLotSecStart").change(() => {
@@ -505,7 +504,6 @@
         $('#SecurityPriceInput').val(securityPrice)
         $('#SecurityDeposit').val(securityDeposit)
 
-
             $.ajax({
                 type: "Post",
                 url: "/Events/UpdatePriceView",
@@ -531,7 +529,6 @@
             $("#refTable").html(data);
 
         }
-
 
 </script>
 }
