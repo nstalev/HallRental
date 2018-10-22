@@ -158,7 +158,16 @@ namespace HallRental.Web.Controllers
             }
 
             if (summaryModel.ParkingLotSecurityService == true 
-                &&summaryModel.ParkingLotSecurityPrice <= 0)
+                && summaryModel.ParkingLotSecurityPrice <= 0)
+            {
+                var dateCheckModel = GetDateCheckFormModel(summaryModel);
+
+                TempData.AddErrorMessage("Invalid input. Please fill in all required fields");
+                return RedirectToAction("PriceCheck", dateCheckModel);
+            }
+
+            if (summaryModel.UsingTablesAndChairs == true
+               && summaryModel.TablesAndChairsPrice <= 0)
             {
                 var dateCheckModel = GetDateCheckFormModel(summaryModel);
 

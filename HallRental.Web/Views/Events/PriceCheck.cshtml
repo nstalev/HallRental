@@ -125,14 +125,20 @@
             let secDepositCheckTime = new Date(utcSecondsStartTime);
             secDepositCheckTime.setHours(22)
 
-            //First checkbox
+            //Tables and chairs checkbox
             if ($('#ParkingLotSecurity-checkbox').prop('checked')) {
-                CalculateParkingLotSecurityPrice();
+                calculateParkingLotSecurityPrice();
             }
 
-            //Second checkbox
+            //Parking Lot Security checkbox
             if ($('#ParkingLotSecurity-checkbox').prop('checked')) {
-                CalculateTablesAndChairsPrice();
+                calculateTablesAndChairsPrice();
+            }
+
+            //EventEndTime check
+            let rentEndDateTime = new Date(utcSecondsEndTime)
+            if (rentEndDateTime > secDepositCheckTime) {
+                checkEventEntTime();
             }
 
 
@@ -140,13 +146,18 @@
 
             $('#EventStartTime').change(() => {
 
-                correctDataEventTime = CheckIfEventDataIsCorrect();
+                correctDataEventTime = checkIfEventDataIsCorrect();
             })
 
 
             $('#EventEndTime').change(() => {
 
-                correctDataEventTime = CheckIfEventDataIsCorrect();
+                checkEventEntTime();
+
+            });
+
+            function checkEventEntTime() {
+                correctDataEventTime = checkIfEventDataIsCorrect();
 
                 let rentEndDateTime = new Date(utcSecondsEndTime)
 
@@ -165,13 +176,12 @@
                     let parkLotSecHours = checkDifference();
 
                     totalPrice = startPrice + tablesAndChairsPrice + securityPrice + securityDeposit;
-                    UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice, parkLotSecHours, securityDeposit)
-                }           
+                    updatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice, parkLotSecHours, securityDeposit)
+                }         
+            }
 
-            })
 
-
-            function CheckIfEventDataIsCorrect() {
+            function checkIfEventDataIsCorrect() {
                 let inputEventStartTimeVal = $('#EventStartTime').val();
                 let inputEventEndTimeVal = $("#EventEndTime").val();
 
@@ -232,10 +242,10 @@
 
             //Table and Chairs Price Calcualtion
             $('#UseTablesAndChairs-checkbox').change(() => {
-                CalculateTablesAndChairsPrice();
+                calculateTablesAndChairsPrice();
             })
 
-            function CalculateTablesAndChairsPrice(){
+            function calculateTablesAndChairsPrice(){
                 let numberOfPeople = $('#NumberOfPeople').val()
 
                 if (numberOfPeople > hallCapacity) {
@@ -265,7 +275,7 @@
                 }
 
                 let parkLotSecHours = checkDifference();
-                UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice, parkLotSecHours, securityDeposit)
+                updatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice, parkLotSecHours, securityDeposit)
             }
 
 
@@ -296,7 +306,7 @@
 
                     totalPrice = startPrice + tablesAndChairsPrice + securityPrice + securityDeposit;
                     let parkLotSecHours = checkDifference();
-                    UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice, parkLotSecHours, securityDeposit)
+                    updatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice, parkLotSecHours, securityDeposit)
                 }
             })
 
@@ -307,10 +317,10 @@
 
             $('#ParkingLotSecurity-checkbox').change(() => {
 
-                CalculateParkingLotSecurityPrice();
+                calculateParkingLotSecurityPrice();
             })
 
-            function CalculateParkingLotSecurityPrice() {
+            function calculateParkingLotSecurityPrice() {
 
                 if ($('#ParkingLotSecurity-checkbox').prop('checked')) {
 
@@ -321,11 +331,11 @@
                     console.log('ParkingLotSecurity - NOT checked')
                     $('#SecurityLot-inputs').hide();
                     correctDataSecurity = true;
-                    UpdateSecurityPrice(0)
+                    updateSecurityPrice(0)
                     return;
                 }
 
-                let isDateCorrect = CheckIfSecurityDataIsCorrect();
+                let isDateCorrect = checkIfSecurityDataIsCorrect();
 
                 console.log(isDateCorrect);
 
@@ -337,13 +347,13 @@
                 correctDataSecurity = true;
                 let hoursDiff = checkDifference();
 
-                UpdateSecurityPrice(hoursDiff);
+                updateSecurityPrice(hoursDiff);
             }
 
 
             $("#ParkLotSecStart").change(() => {
 
-                let isDateCorrect = CheckIfSecurityDataIsCorrect();
+                let isDateCorrect = checkIfSecurityDataIsCorrect();
                 console.log(isDateCorrect);
 
                 if (isDateCorrect == false) {
@@ -355,12 +365,12 @@
 
                 let hoursDiff = checkDifference();
 
-                UpdateSecurityPrice(hoursDiff);
+                updateSecurityPrice(hoursDiff);
             });
 
             $("#ParkLotSecEnd").change(() => {
 
-                let isDateCorrect = CheckIfSecurityDataIsCorrect();
+                let isDateCorrect = checkIfSecurityDataIsCorrect();
 
                 console.log(isDateCorrect);
                 if (isDateCorrect == false) {
@@ -371,11 +381,11 @@
                 correctDataSecurity = true;
                 let hoursDiff = checkDifference();
 
-                UpdateSecurityPrice(hoursDiff);
+                updateSecurityPrice(hoursDiff);
             });
 
 
-            function CheckIfSecurityDataIsCorrect() {
+            function checkIfSecurityDataIsCorrect() {
                 let parkLotSecStartTimeValue = $("#ParkLotSecStart").val();
                 let parkLotSecEndTimeValue = $("#ParkLotSecEnd").val();
 
@@ -461,7 +471,7 @@
                 return hoursDiff;
             }
 
-            function UpdateSecurityPrice(hoursDiff) {
+            function updateSecurityPrice(hoursDiff) {
                 if (isNaN(hoursDiff)) {
                     hoursDiff = 0;
                 }
@@ -479,7 +489,7 @@
 
                 totalPrice = startPrice + tablesAndChairsPrice + securityPrice + securityDeposit;
 
-                UpdatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice, hoursDiff, securityDeposit)
+                updatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice, hoursDiff, securityDeposit)
             }
 
 
@@ -504,7 +514,7 @@
     });
 
 
-    function UpdatePriceModelAndPartialView(totalPrice, securityPrice, tabAndChairsPrice, parkLotSecHours, securityDeposit) {
+    function updatePriceModelAndPartialView(totalPrice, securityPrice, tabAndChairsPrice, parkLotSecHours, securityDeposit) {
 
         $('#PriceInput').val(totalPrice)
         $('#TablesAndChairsPriceInput').val(tabAndChairsPrice)
