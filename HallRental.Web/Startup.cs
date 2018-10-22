@@ -94,9 +94,8 @@ namespace HallRental.Web
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
 
-            app.UseCookiePolicy();
+
             // If the app uses Session or TempData based on Session:
             // app.UseSession();
 
@@ -113,6 +112,11 @@ namespace HallRental.Web
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+           // app.UseCookiePolicy();
+
+            app.UseStaticFiles();
+
         }
     }
 }
