@@ -83,7 +83,7 @@ body {
 
 @media(max-width:990px) {
     .footer {
-        height: 200px;
+        height: 100px;
     }
 }
 
@@ -361,7 +361,7 @@ body {
 
 
 
-.contact-form-title {
+.form-title {
     border-top-right-radius: 4px;
     border-top-left-radius: 4px;
 }
