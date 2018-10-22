@@ -4,12 +4,18 @@
 }
 <hr />
 
-<div class="btn-group btn-group-justified">
+<div class="btn-group btn-group-justified hidden-xs">
     @foreach (var item in Model.AllHals)
     {
         <a class="btn btn-default @(Model.CurrentHall.Id == @item.Id ? "active": String.Empty)" href="Calendar?hallId=@item.Id">@item.Name</a>
     }
+</div>
 
+<div class="btn-group btn-group-vertical visible-xs">
+    @foreach (var item in Model.AllHals)
+    {
+        <a class="btn btn-default @(Model.CurrentHall.Id == @item.Id ? "active": String.Empty)" href="Calendar?hallId=@item.Id">@item.Name</a>
+    }
 </div>
 
 <hr />
