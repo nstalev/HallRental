@@ -1,13 +1,59 @@
-﻿
+﻿@model IEnumerable<RentalContractServiceModel>
+
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Contracts Index</h2>
+<h2>Contracts Management</h2>
+<hr />
 
-<form asp-action="SubmitContract" method="post" enctype='multipart/form-data'>
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input type="file" name="contract" accept=".pdf" />
-    <input type="submit" class="btn btn-default" />
-</form>
 
+<div class="row">
+    <div class="col-md-4">
+        <p>Upload only '.pdf' files</p>
+        <form asp-action="SubmitContract" method="post" enctype='multipart/form-data'>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="file" name="contract" accept=".pdf" />
+            <input type="submit" class="btn btn-default" />
+        </form>
+    </div>
+</div>
+
+
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Date</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.Id</th>
+                <td>@item.Name</td>
+                <td>@item.DateSubmitted.</td>
+                <td><a asp-area="Admin" class="btn btn-sm btn-primary" asp-controller="Contracts" asp-action="DownloadContract" asp-route-id="@item.Id">Download</a></td>
+                <td>
+                    <button class="btn btn-sm btn-danger" data-toggle="confirmation" onclick="DeleteFile(@item.Id)">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+
+    function DeleteFile(id) {
+        var result = confirm("Are you sure you want to delete this file")
+        if (result) {
+            window.location.href = `/admin/Contracts/DeleteContract/${id}`;
+        }
+    }
+
+</script>

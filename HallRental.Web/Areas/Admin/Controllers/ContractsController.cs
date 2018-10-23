@@ -24,7 +24,10 @@ namespace HallRental.Web.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            return View();
+
+            var allUploadedContracts = this.contractsService.GetAllContracts();
+
+            return View(allUploadedContracts);
         }
 
         [HttpPost]
@@ -43,7 +46,9 @@ namespace HallRental.Web.Areas.Admin.Controllers
 
             DateTime currentDate = DateTime.UtcNow;
 
-            bool success = await this.contractsService.SaveContractSubmission(contractSubmission, currentDate);
+            string fileName = contract.FileName;
+
+            bool success = await this.contractsService.SaveContractSubmission(contractSubmission, currentDate, fileName);
 
             if (!success)
             {
@@ -51,6 +56,51 @@ namespace HallRental.Web.Areas.Admin.Controllers
             }
 
             TempData.AddSuccessMessage("Contract submission saved successfully");
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        public async Task<IActionResult> DownloadContract(int id)
+        {
+            bool contractExists =  this.contractsService.ContractExists(id);
+
+            if (!contractExists)
+            {
+                TempData.AddErrorMessage("Contract does not exists");
+                return RedirectToAction(nameof(Index));
+            }
+
+            var contractSubmission = await this.contractsService.GetContractSubmission(id);
+
+            if (contractSubmission == null)
+            {
+                return BadRequest();
+            }
+
+          //  Response.Headers.Add("content-disposition", "attachment;, filename="  + $"Contract{id}");
+            Response.Headers.Add("content-disposition", "attachment;");
+
+            return File(contractSubmission, "application/pdf");
+        }
+
+        public IActionResult DeleteContract(int id)
+        {
+            bool contractExists = this.contractsService.ContractExists(id);
+
+            if (!contractExists)
+            {
+                TempData.AddErrorMessage("Contract does not exists");
+                return RedirectToAction(nameof(Index));
+            }
+
+            bool isContactDeleted = this.contractsService.DeleteContract(id);
+
+            if (!isContactDeleted)
+            {
+                return BadRequest();
+            }
+
+            TempData.AddSuccessMessage("Contract deleted successfully");
             return RedirectToAction(nameof(Index));
         }
     }

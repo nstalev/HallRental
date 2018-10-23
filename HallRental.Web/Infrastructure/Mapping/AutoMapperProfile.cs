@@ -4,6 +4,7 @@ namespace HallRental.Web.Infrastructure.Mapping
     using AutoMapper;
     using HallRental.Data.Models;
     using HallRental.Services.Admin.Models;
+    using HallRental.Services.Admin.Models.Contracts;
     using HallRental.Services.Admin.Models.Events;
     using HallRental.Services.Admin.Models.Halls;
     using HallRental.Services.Models.Profile;
@@ -37,6 +38,8 @@ namespace HallRental.Web.Infrastructure.Mapping
             this.CreateMap<Hall, HallsFormServiceModel>();
 
             this.CreateMap<User, UserModel>();
+
+            this.CreateMap<RentalContract, RentalContractServiceModel>();
         }
     }
 }
