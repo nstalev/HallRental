@@ -18,6 +18,8 @@ namespace HallRental.Data
 
         public DbSet<Hall> Halls { get; set; }
 
+        public DbSet<Contract> Contracts { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Event>()

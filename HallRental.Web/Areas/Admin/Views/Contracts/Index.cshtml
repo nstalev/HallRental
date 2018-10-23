@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Contracts Index</h2>
+
+<form asp-action="SubmitContract" method="post" enctype='multipart/form-data'>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="file" name="contract" accept=".pdf" />
+    <input type="submit" class="btn btn-default" />
+</form>
+

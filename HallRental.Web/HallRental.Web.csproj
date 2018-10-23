@@ -5,10 +5,17 @@
     <UserSecretsId>aspnet-HallRental.Web-FAA18400-1BB0-4C39-8672-DD5815726A92</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Areas\Admin\Models\Halls\**" />
+    <Content Remove="Areas\Admin\Models\Halls\**" />
+    <EmbeddedResource Remove="Areas\Admin\Models\Halls\**" />
+    <None Remove="Areas\Admin\Models\Halls\**" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="5.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.App"/>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" PrivateAssets="All" />
   </ItemGroup>
 
@@ -19,7 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Models\Halls\" />
     <Folder Include="wwwroot\lib\w3css\" />
   </ItemGroup>
 
