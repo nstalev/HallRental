@@ -36,6 +36,8 @@ namespace HallRental.Services.Admin
 
         int AllEventRequestsCount();
 
+        void SendEmail(string name, string email, string subject, string messageBody);
+
         EditEventServiceModel GetEventByIdForEdit(int id);
         void EditEvent(int id,
             string email,
@@ -64,5 +66,8 @@ namespace HallRental.Services.Admin
             decimal parkingLotSecurityPrice,
             decimal securityDeposit,
             decimal totalPrice);
+
+
+        string GetEmailTextBody(EventDetailsAdminSM currentEvent);
     }
 }

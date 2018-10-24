@@ -4,11 +4,14 @@ namespace HallRental.Services.Admin.Implementations
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
     using AutoMapper.QueryableExtensions;
     using HallRental.Data;
     using HallRental.Data.Enums;
     using HallRental.Data.Models;
     using HallRental.Services.Admin.Models.Events;
+    using MailKit.Net.Smtp;
+    using MimeKit;
 
     public class EventsAdminService : IEventsAdminService
     {
@@ -212,5 +215,91 @@ namespace HallRental.Services.Admin.Implementations
 
             this.db.SaveChanges();
         }
+
+
+        public string GetEmailTextBody(EventDetailsAdminSM currentEvent)
+        {
+            var sb = new StringBuilder();
+            sb.Append($"Dear, {currentEvent.FullName}");
+            sb.Append(Environment.NewLine);
+            sb.Append(Environment.NewLine);
+            sb.Append("We would like to inform you that your reservation has been confirmed.");
+            sb.Append(Environment.NewLine);
+            sb.Append("Below you can find detailed information about the event and price calculation.");
+            sb.Append(Environment.NewLine);
+            sb.Append(Environment.NewLine);
+            sb.Append($"Hall: {currentEvent.HallName}");
+            sb.Append(Environment.NewLine);
+            sb.Append($"Event Date: {currentEvent.EventDate}");
+            sb.Append(Environment.NewLine);
+            sb.Append($"Rent Time: {currentEvent.RentTimeDisplay}");
+            sb.Append(Environment.NewLine);
+            sb.Append($"Event Start Time: {currentEvent.EventStart}");
+            sb.Append(Environment.NewLine);
+            sb.Append($"Event End Time: {currentEvent.EventEnd}");
+            sb.Append(Environment.NewLine);
+            sb.Append(Environment.NewLine);
+            sb.Append($"Price Information:");
+            sb.Append(Environment.NewLine);
+            sb.Append($"Hall Rental price: ${currentEvent.HallRentalPrice.ToString("F")}");
+            sb.Append(Environment.NewLine);
+            if (currentEvent.UsingTablesAndChairs)
+            {
+                sb.Append($"Using tables and chairs price: ${currentEvent.TablesAndChairsPrice.ToString("F")}");
+                sb.Append(Environment.NewLine);
+                sb.Append($"---Tables and chairs cost per person: ${currentEvent.TablesAndChairsCostPerPerson.ToString("F")}");
+                sb.Append(Environment.NewLine);
+                sb.Append($"---Number of people: {currentEvent.NumberOfPeople}");
+                sb.Append(Environment.NewLine);
+            }
+            if (currentEvent.ParkingLotSecurityService)
+            {
+                sb.Append($"Parking Lot Security Price:: ${currentEvent.ParkingLotSecurityPrice.ToString("F")}");
+                sb.Append(Environment.NewLine);
+                sb.Append($"---Parking Lot Security Hours: {currentEvent.ParkingLotSecurityHours}");
+                sb.Append(Environment.NewLine);
+                sb.Append($"---Security service cost per hour: ${currentEvent.SecurityGuardCostPerHour.ToString("F")}");
+                sb.Append(Environment.NewLine);
+                sb.Append($"---Security Start Time: ${currentEvent.SecurityStartTime}");
+                sb.Append(Environment.NewLine);
+                sb.Append($"---Security End Time: ${currentEvent.SecurityEndTime}");
+                sb.Append(Environment.NewLine);
+            }
+            sb.Append(Environment.NewLine);
+            sb.Append($"Security Deposit: ${currentEvent.SecurityDeposit.ToString("F")}");
+            sb.Append(Environment.NewLine);
+            sb.Append(Environment.NewLine);
+            sb.Append($"Total Price: ${currentEvent.TotalPrice.ToString("F")}");
+
+
+
+            return sb.ToString();
+        }
+
+
+
+        public void SendEmail(string name, string email, string subject, string messageBody)
+        {
+
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress(name, ServiceConstants.ConfirmReservationEmail));
+            message.To.Add(new MailboxAddress(name, email));
+            message.Subject = subject;
+
+            message.Body = new TextPart("plain")
+            {
+                Text = messageBody.ToString()
+            };
+
+            using (var client = new SmtpClient())
+            {
+                client.Connect("smtp.gmail.com", 587);
+                client.Authenticate(ServiceConstants.ConfirmReservationEmail, ServiceConstants.ConfirmReservationEmailPassword);
+                client.Send(message);
+                client.Disconnect(true);
+            }
+        }
+
+       
     }
 }
