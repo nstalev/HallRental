@@ -4,6 +4,7 @@ namespace HallRental.Services.Implementations
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using AutoMapper.QueryableExtensions;
     using HallRental.Data;
     using HallRental.Data.Models;
@@ -58,15 +59,22 @@ namespace HallRental.Services.Implementations
                     .Count();
         }
 
-        //public EventDetailsServiceModel EventById(int id)
-        //{
-        //    return this.db.Events
-        //        .Where(e => e.Id == id)
-        //        .ProjectTo<EventDetailsServiceModel>()
-        //        .FirstOrDefault();
-                
-        //}
+        public bool ContractExists()
+        {
+            return this.db.Contracts.Any();
+        }
 
-      
+        public byte[] GetFirstContractSubmission()
+        {
+            var contracSubmission = this.db.Contracts.FirstOrDefault();
+
+            if (contracSubmission == null)
+            {
+                return null;
+            }
+
+            return contracSubmission.ContractSubmission;
+                
+        }
     }
 }

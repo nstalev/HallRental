@@ -5,6 +5,7 @@ namespace HallRental.Services
     using HallRental.Services.Models.Profile;
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     public interface IProfileService
     {
@@ -15,7 +16,9 @@ namespace HallRental.Services
         IEnumerable<MyEventsServiceModel> MyPassedEvents(string userId, int page, int pageSize, DateTime markDate);
 
         int TotalPassedEvents(string userId, DateTime markDate);
+        bool ContractExists();
 
-       // EventDetailsServiceModel EventById(int id);
+        byte[] GetFirstContractSubmission();
+
     }
 }

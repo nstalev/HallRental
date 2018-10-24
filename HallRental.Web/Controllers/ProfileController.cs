@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using HallRental.Data.Models;
 using HallRental.Services;
 using HallRental.Services.Models.Profile;
@@ -148,6 +149,27 @@ namespace HallRental.Web.Controllers
 
             return View(currentEvent);
         }
+
+
+        public IActionResult ContractDownload(int id)
+        {
+            bool contractExists = this.profileService.ContractExists();
+
+            if (!contractExists)
+            {
+                TempData.AddErrorMessage("The contract is not uploaded. Please contact our team.");
+                return RedirectToAction("EventDetails", new { id });
+            }
+
+            byte[] contractSubmission =  this.profileService.GetFirstContractSubmission();
+
+
+            Response.Headers.Add("content-disposition", "attachment; filename=Contract.pdf" );
+
+            return File(contractSubmission, "application/pdf");
+
+        }
+
 
 
         public IActionResult PdfContractSupplement(int id)

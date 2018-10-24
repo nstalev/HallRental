@@ -32,16 +32,19 @@ namespace HallRental.Services.Admin.Implementations
                 .ToList();
         }
 
-        public async Task<byte[]> GetContractSubmission(int id)
+        public RentalContractServiceModel GetContractSubmissionById(int id)
         {
-            var currentContract = await this.db.Contracts.FindAsync(id);
+            var currentContract = this.db.Contracts
+                .Where(c => c.Id == id)
+                .ProjectTo<RentalContractServiceModel>()
+                .FirstOrDefault();
 
             if (currentContract == null)
             {
                 return null;
             }
 
-            return currentContract.ContractSubmission;
+            return currentContract;
         }
 
         public async Task<bool> SaveContractSubmission(byte[] contractSubmission, DateTime currentDate, string fileName)

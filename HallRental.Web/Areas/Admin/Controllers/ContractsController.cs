@@ -3,6 +3,7 @@ namespace HallRental.Web.Areas.Admin.Controllers
 {
     using HallRental.Data;
     using HallRental.Services.Admin;
+    using HallRental.Services.Admin.Models.Contracts;
     using HallRental.Web.Infrastructure;
     using HallRental.Web.Infrastructure.Extensions;
     using Microsoft.AspNetCore.Authorization;
@@ -33,6 +34,12 @@ namespace HallRental.Web.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> SubmitContract(IFormFile contract)
         {
+            if (contract == null)
+            {
+                TempData.AddErrorMessage("Please select a '.pdf' file");
+                return RedirectToAction(nameof(Index));
+            }
+
             if (!contract.FileName.EndsWith(".pdf")
                 || contract.Length > DataConstants.ContractSubmissionFileLength)
             {
@@ -60,7 +67,7 @@ namespace HallRental.Web.Areas.Admin.Controllers
         }
 
 
-        public async Task<IActionResult> DownloadContract(int id)
+        public IActionResult DownloadContract(int id)
         {
             bool contractExists =  this.contractsService.ContractExists(id);
 
@@ -70,17 +77,16 @@ namespace HallRental.Web.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            var contractSubmission = await this.contractsService.GetContractSubmission(id);
+            RentalContractServiceModel contractSubmission = this.contractsService.GetContractSubmissionById(id);
 
             if (contractSubmission == null)
             {
                 return BadRequest();
             }
 
-          //  Response.Headers.Add("content-disposition", "attachment;, filename="  + $"Contract{id}");
-            Response.Headers.Add("content-disposition", "attachment;");
+            Response.Headers.Add("content-disposition", "attachment; filename=" + contractSubmission.Name);
 
-            return File(contractSubmission, "application/pdf");
+            return File(contractSubmission.ContractSubmission, "application/pdf");
         }
 
         public IActionResult DeleteContract(int id)

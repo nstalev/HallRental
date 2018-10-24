@@ -13,8 +13,8 @@
         <p>Upload only '.pdf' files</p>
         <form asp-action="SubmitContract" method="post" enctype='multipart/form-data'>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="file" name="contract" accept=".pdf" />
-            <input type="submit" class="btn btn-default" />
+            <input type="file" name="contract" accept=".pdf" required />
+            <input type="submit" class="btn btn-default" value="Upload" />
         </form>
     </div>
 </div>
@@ -26,8 +26,7 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Name</th>
-            <th scope="col">Date</th>
-            <th scope="col"></th>
+            <th scope="col">Date uploaded</th>
             <th scope="col"></th>
         </tr>
     </thead>
@@ -38,8 +37,8 @@
                 <th scope="row">@item.Id</th>
                 <td>@item.Name</td>
                 <td>@item.DateSubmitted.</td>
-                <td><a asp-area="Admin" class="btn btn-sm btn-primary" asp-controller="Contracts" asp-action="DownloadContract" asp-route-id="@item.Id">Download</a></td>
-                <td>
+                <td><a asp-area="Admin" class="btn btn-sm btn-primary" asp-controller="Contracts" asp-action="DownloadContract" asp-route-id="@item.Id">Download</a>
+                |
                     <button class="btn btn-sm btn-danger" data-toggle="confirmation" onclick="DeleteFile(@item.Id)">Delete</button>
                 </td>
             </tr>

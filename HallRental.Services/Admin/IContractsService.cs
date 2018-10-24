@@ -15,7 +15,7 @@ namespace HallRental.Services.Admin
 
         bool ContractExists(int id);
 
-        Task<byte[]> GetContractSubmission(int id);
+        RentalContractServiceModel GetContractSubmissionById(int id);
 
         bool DeleteContract(int id);
     }
