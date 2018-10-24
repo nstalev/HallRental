@@ -222,11 +222,13 @@ namespace HallRental.Web.Areas.Admin.Controllers
             TempData.AddSuccessMessage($"Event ID {id} has been confirmed");
 
 
+            //Send Email confirmation
+
             EventDetailsAdminSM currentEvent = this.eventAdminService.EventById(id);
             currentEvent.RentTimeDisplay = this.eventService.GetRentTimeDisplay(currentEvent.RentTime);
-
+           
             string messageBody = this.eventAdminService.GetEmailTextBody(currentEvent);
-
+           
             this.eventAdminService.SendEmail(ServiceConstants.ConfirmReservationEmailName, currentEvent.Email, ServiceConstants.ConfirmReservationEmailSubject, messageBody);
 
             return RedirectToAction(nameof(ConfirmedEvents));

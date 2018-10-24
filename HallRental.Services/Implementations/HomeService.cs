@@ -20,14 +20,15 @@ namespace HallRental.Services.Implementations
         {
 
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress(name, email));
-            message.To.Add(new MailboxAddress(name, ServiceConstants.ContactFormEmail));
+            message.From.Add(new MailboxAddress(ServiceConstants.ContactFormEmailFromToName, ServiceConstants.ContactFormEmailFrom));
+            message.To.Add(new MailboxAddress(ServiceConstants.ContactFormEmailToName, ServiceConstants.ContactFormEmailTo));
             message.Subject = subject;
 
             var sb = new StringBuilder();
             sb.Append($"email from: {name}");
             sb.Append(Environment.NewLine);
             sb.Append($"email: {email}");
+            sb.Append(Environment.NewLine);
             sb.Append(Environment.NewLine);
             sb.Append(messageBody);
 
@@ -42,7 +43,7 @@ namespace HallRental.Services.Implementations
             using (var client = new SmtpClient())
             {
                 client.Connect("smtp.gmail.com", 587);
-                client.Authenticate(ServiceConstants.ContactFormEmail, ServiceConstants.ContactFormEmailPassword);
+                client.Authenticate(ServiceConstants.ContactFormEmailFrom, ServiceConstants.ContactFormEmailFromPassword);
                 client.Send(message);
                 client.Disconnect(true);
             }
