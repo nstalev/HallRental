@@ -227,9 +227,10 @@ namespace HallRental.Web.Areas.Admin.Controllers
             EventDetailsAdminSM currentEvent = this.eventAdminService.EventById(id);
             currentEvent.RentTimeDisplay = this.eventService.GetRentTimeDisplay(currentEvent.RentTime);
            
-            string messageBody = this.eventAdminService.GetEmailTextBody(currentEvent);
-           
-            this.eventAdminService.SendEmail(ServiceConstants.ConfirmReservationEmailName, currentEvent.Email, ServiceConstants.ConfirmReservationEmailSubject, messageBody);
+            string messageBody = this.eventAdminService.GetEmailConfirmationTextBody(currentEvent);
+
+            this.eventService.SendEmail(ServiceConstants.ConfirmReservationEmailName, currentEvent.Email, ServiceConstants.ConfirmReservationEmailSubject, messageBody);
+
 
             return RedirectToAction(nameof(ConfirmedEvents));
         }

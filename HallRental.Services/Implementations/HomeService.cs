@@ -16,11 +16,15 @@ namespace HallRental.Services.Implementations
             this.db = db;
         }
 
+
+
+        //SEND EMAIL SERVICE FROM CONTACT FORM
+
         public void SendEmail(string name, string email, string subject, string messageBody)
         {
 
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress(ServiceConstants.ContactFormEmailFromToName, ServiceConstants.ContactFormEmailFrom));
+            message.From.Add(new MailboxAddress(ServiceConstants.ContactFormOperattingEmailName, ServiceConstants.MyOperatingEmail));
             message.To.Add(new MailboxAddress(ServiceConstants.ContactFormEmailToName, ServiceConstants.ContactFormEmailTo));
             message.Subject = subject;
 
@@ -42,8 +46,8 @@ namespace HallRental.Services.Implementations
 
             using (var client = new SmtpClient())
             {
-                client.Connect("smtp.gmail.com", 587);
-                client.Authenticate(ServiceConstants.ContactFormEmailFrom, ServiceConstants.ContactFormEmailFromPassword);
+                client.Connect(ServiceConstants.EmailProviderOperatingEmail, ServiceConstants.PortNumberOperatingEmail);
+                client.Authenticate(ServiceConstants.MyOperatingEmail, ServiceConstants.MyOperatingEmailPassword);
                 client.Send(message);
                 client.Disconnect(true);
             }

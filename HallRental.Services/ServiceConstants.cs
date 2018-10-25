@@ -3,22 +3,28 @@ namespace HallRental.Services
 {
     public class ServiceConstants
     {
-        //Contact Form
-      
+        //OPERATING EMAIL
+
+        public const string MyOperatingEmail = "";
+        public const string MyOperatingEmailPassword = "";
+                                                        
+                                                           //for gmail
+        public const string EmailProviderOperatingEmail = "smtp.gmail.com";
+        public const int PortNumberOperatingEmail = 587;
+
+
+
+        //Contact Form To
+
         public const string ContactFormEmailTo = "";
         public const string ContactFormEmailToName = "";
 
-        //for gmail
-        public const string ContactFormEmailFrom = "";
-        public const string ContactFormEmailFromPassword = "";
-        public const string ContactFormEmailFromToName = "Hall Rental Contact Form";
+    
+        public const string ContactFormOperattingEmailName = "Hall Rental Contact Form";
 
 
-
-
-        //for gmail
-        public const string ConfirmReservationEmail = "";
-        public const string ConfirmReservationEmailPassword = "";
+       
+        //confirm reservation 
         public const string ConfirmReservationEmailSubject = "";
         public const string ConfirmReservationEmailName = "";
     }

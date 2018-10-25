@@ -228,6 +228,8 @@ namespace HallRental.Web.Controllers
                 return NotFound();
             }
 
+
+
             if (!ModelState.IsValid)
             {
                 string rentTimeDisplay = eventsServices.GetRentTimeDisplay(eventModel.RentTime);
@@ -292,6 +294,19 @@ namespace HallRental.Web.Controllers
                 eventModel.EventDescription,
                 eventModel.Caterer,
                 eventModel.EventTitle);
+
+
+            //Send Email to Administration 
+
+            string messageBody = this.eventsServices.GetTextBodyForEmailForReservation(
+                                                                    eventModel.Date,
+                                                                    eventModel.FullName,
+                                                                    eventModel.Email,
+                                                                    eventModel.PhoneNumber,
+                                                                    eventModel.NumberOfPeople,
+                                                                    eventModel.TotalPrice);
+
+            this.eventsServices.SendEmail("HallRental", ServiceConstants.ContactFormEmailTo, "Reservation request", messageBody);
 
 
             return RedirectToAction(nameof(ReservationSuccessful));

@@ -216,8 +216,8 @@ namespace HallRental.Services.Admin.Implementations
             this.db.SaveChanges();
         }
 
-
-        public string GetEmailTextBody(EventDetailsAdminSM currentEvent)
+        //GENERATE EMAIL CONFIRMATION SERVICE 
+        public string GetEmailConfirmationTextBody(EventDetailsAdminSM currentEvent)
         {
             var sb = new StringBuilder();
             sb.Append($"Dear, {currentEvent.FullName}");
@@ -227,6 +227,8 @@ namespace HallRental.Services.Admin.Implementations
             sb.Append(Environment.NewLine);
             sb.Append("Below you can find detailed information about the event and price calculation.");
             sb.Append(Environment.NewLine);
+            sb.Append(Environment.NewLine);
+            sb.Append($"Event number: {currentEvent.Id}");
             sb.Append(Environment.NewLine);
             sb.Append($"Hall: {currentEvent.HallName}");
             sb.Append(Environment.NewLine);
@@ -277,28 +279,7 @@ namespace HallRental.Services.Admin.Implementations
         }
 
 
-
-        public void SendEmail(string name, string email, string subject, string messageBody)
-        {
-
-            var message = new MimeMessage();
-            message.From.Add(new MailboxAddress(name, ServiceConstants.ConfirmReservationEmail));
-            message.To.Add(new MailboxAddress(name, email));
-            message.Subject = subject;
-
-            message.Body = new TextPart("plain")
-            {
-                Text = messageBody.ToString()
-            };
-
-            using (var client = new SmtpClient())
-            {
-                client.Connect("smtp.gmail.com", 587);
-                client.Authenticate(ServiceConstants.ConfirmReservationEmail, ServiceConstants.ConfirmReservationEmailPassword);
-                client.Send(message);
-                client.Disconnect(true);
-            }
-        }
+       
 
        
     }

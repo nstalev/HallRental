@@ -6,8 +6,11 @@ namespace HallRental.Services.Implementations
     using HallRental.Data.Enums;
     using HallRental.Data.Models;
     using HallRental.Services.Models.Profile;
+    using MailKit.Net.Smtp;
+    using MimeKit;
     using System;
     using System.Linq;
+    using System.Text;
     using static HallRental.Data.Enums.Enums;
 
     public class EventsService : IEventsService
@@ -250,6 +253,53 @@ namespace HallRental.Services.Implementations
             //ToDo
 
             throw new NotImplementedException();
+        }
+
+
+        //SEND EMAIL SERVICE FOR RESERVATIONS
+
+        public void SendEmail(string name, string email, string subject, string messageBody)
+        {
+
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress(name, ServiceConstants.MyOperatingEmail));
+            message.To.Add(new MailboxAddress(name, email));
+            message.Subject = subject;
+
+            message.Body = new TextPart("plain")
+            {
+                Text = messageBody.ToString()
+            };
+
+            using (var client = new SmtpClient())
+            {
+                client.Connect(ServiceConstants.EmailProviderOperatingEmail, ServiceConstants.PortNumberOperatingEmail);
+                client.Authenticate(ServiceConstants.MyOperatingEmail, ServiceConstants.MyOperatingEmailPassword);
+                client.Send(message);
+                client.Disconnect(true);
+            }
+        }
+
+        public string GetTextBodyForEmailForReservation(DateTime date,
+                                                        string fullName,
+                                                        string email,
+                                                        string phoneNumber,
+                                                        int numberOfPeople,
+                                                        decimal totalPrice)
+        {
+            var sb = new StringBuilder();
+            sb.Append($"Request for hall reservation on {date.ToShortDateString()}");
+            sb.Append(Environment.NewLine);
+            sb.Append($"Name: {fullName}");
+            sb.Append(Environment.NewLine);
+            sb.Append($"email: {email}");
+            sb.Append(Environment.NewLine);
+            sb.Append($"Phone Number: {phoneNumber}");
+            sb.Append(Environment.NewLine);
+            sb.Append(Environment.NewLine);
+            sb.Append($"Total Price: ${totalPrice.ToString("F")}");
+
+            return sb.ToString();
         }
     }
 }
