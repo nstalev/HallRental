@@ -10,20 +10,25 @@ namespace HallRental.Web.Controllers
     using HallRental.Data.Models;
     using HallRental.Web.Infrastructure;
     using HallRental.Services;
+    using HallRental.Web.Services;
+    using System.Threading.Tasks;
 
     public class HomeController : Controller
     {
         private readonly IEventsAdminService eventAdminService;
         private readonly UserManager<User> userManager;
         private readonly IHomeService homeService;
+        private readonly IEmailSender emailSender;
 
         public HomeController(IEventsAdminService eventAdminService,
                                UserManager<User> userManager,
-                               IHomeService homeService)
+                               IHomeService homeService,
+                               IEmailSender emailSender)
         {
             this.eventAdminService = eventAdminService;
             this.userManager = userManager;
             this.homeService = homeService;
+            this.emailSender = emailSender;
         }
 
         public IActionResult Index()
@@ -36,9 +41,7 @@ namespace HallRental.Web.Controllers
             {
                 int allEventRequestsCount = this.eventAdminService.AllEventRequestsCount();
                 vm.AllEventRequestsCount = allEventRequestsCount;
-
             }
-
 
             return View(vm);
         }
@@ -58,7 +61,7 @@ namespace HallRental.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Contact(ContactFormModel contactForm)
+        public async Task<IActionResult> Contact(ContactFormModel contactForm)
         {
 
             if (!ModelState.IsValid)
@@ -66,7 +69,13 @@ namespace HallRental.Web.Controllers
                 return View(contactForm);
             }
 
-            this.homeService.SendEmail(contactForm.Name, contactForm.Email, contactForm.Subject, contactForm.Message);
+
+            string messageBody = this.homeService.GetEmailTextBodyFromContactForm(contactForm.Email,
+                                                             contactForm.Name,
+                                                             contactForm.Message);
+
+            await this.emailSender.SendEmailAsync(GlobalConstants.HomeEmail, contactForm.Subject, messageBody);
+
             TempData.AddSuccessMessage("Your message has been successfully sent");
 
             return RedirectToAction(nameof(Index));

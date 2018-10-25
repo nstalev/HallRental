@@ -51,8 +51,6 @@ namespace HallRental.Services
         bool CheckIfEventExists(int id);
         EventDetailsServiceModel EventById(int id);
 
-        void SendEmail(string name, string email, string subject, string messageBody);
-
 
         byte[] GeneratePdf(EventDetailsServiceModel currentEvent);
         string GetTextBodyForEmailForReservation(DateTime date,

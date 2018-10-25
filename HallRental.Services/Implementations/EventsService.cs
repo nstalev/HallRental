@@ -256,29 +256,7 @@ namespace HallRental.Services.Implementations
         }
 
 
-        //SEND EMAIL SERVICE FOR RESERVATIONS
-
-        public void SendEmail(string name, string email, string subject, string messageBody)
-        {
-
-            var message = new MimeMessage();
-            message.From.Add(new MailboxAddress(name, ServiceConstants.MyOperatingEmail));
-            message.To.Add(new MailboxAddress(name, email));
-            message.Subject = subject;
-
-            message.Body = new TextPart("plain")
-            {
-                Text = messageBody.ToString()
-            };
-
-            using (var client = new SmtpClient())
-            {
-                client.Connect(ServiceConstants.EmailProviderOperatingEmail, ServiceConstants.PortNumberOperatingEmail);
-                client.Authenticate(ServiceConstants.MyOperatingEmail, ServiceConstants.MyOperatingEmailPassword);
-                client.Send(message);
-                client.Disconnect(true);
-            }
-        }
+        //GET EMAIL TEXT FOR RESERVATIONS
 
         public string GetTextBodyForEmailForReservation(DateTime date,
                                                         string fullName,

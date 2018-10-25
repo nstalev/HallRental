@@ -12,20 +12,24 @@ namespace HallRental.Web.Controllers
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using System.Threading.Tasks;
+    using HallRental.Web.Services;
 
     public class EventsController : Controller
     {
         private readonly IEventsService eventsServices;
         private readonly IHallsService hallsServices;
         private readonly UserManager<User> userManager;
+        private readonly IEmailSender emailSender;
 
         public EventsController(IEventsService eventsServices,
                                 IHallsService hallsServices,
-                                UserManager<User> userManager)
+                                UserManager<User> userManager,
+                                IEmailSender emailSender)
         {
             this.eventsServices = eventsServices;
             this.hallsServices = hallsServices;
             this.userManager = userManager;
+            this.emailSender = emailSender;
         }
 
 
@@ -306,7 +310,7 @@ namespace HallRental.Web.Controllers
                                                                     eventModel.NumberOfPeople,
                                                                     eventModel.TotalPrice);
 
-            this.eventsServices.SendEmail("HallRental", ServiceConstants.ContactFormEmailTo, "Reservation request", messageBody);
+            await this.emailSender.SendEmailAsync(GlobalConstants.HomeEmail, "Reservation request", messageBody);
 
 
             return RedirectToAction(nameof(ReservationSuccessful));

@@ -8,9 +8,9 @@ namespace HallRental.Web.Areas.Admin.Controllers
     using HallRental.Services;
     using HallRental.Services.Admin;
     using HallRental.Services.Admin.Models.Events;
-    using HallRental.Services.Models.Profile;
     using HallRental.Web.Areas.Admin.Models.Events;
     using HallRental.Web.Infrastructure;
+    using HallRental.Web.Services;
     using Microsoft.AspNetCore.Authorization;
 
     using Microsoft.AspNetCore.Mvc;
@@ -21,16 +21,19 @@ namespace HallRental.Web.Areas.Admin.Controllers
         private readonly IEventsAdminService eventAdminService;
         private readonly IEventsService eventService;
         private readonly IHallsAdminService hallAdminService;
+        private readonly IEmailSender emailSender;
         private const int pageSize = GlobalConstants.AdminEventsMaxPageSize;
 
 
         public EventsController(IEventsAdminService eventAdminService,
                                 IEventsService eventService,
-                                IHallsAdminService hallAdminService)
+                                IHallsAdminService hallAdminService,
+                                IEmailSender emailSender)
         {
             this.eventAdminService = eventAdminService;
             this.eventService = eventService;
             this.hallAdminService = hallAdminService;
+            this.emailSender = emailSender;
         }
 
         public IActionResult EventRequests(string search, int page = 1)
@@ -205,7 +208,7 @@ namespace HallRental.Web.Areas.Admin.Controllers
         }
 
 
-        public IActionResult ConfirmEvent(int id)
+        public async Task<IActionResult> ConfirmEvent(int id)
         {
 
             bool eventExists = this.eventAdminService.EventExists(id);
@@ -229,8 +232,7 @@ namespace HallRental.Web.Areas.Admin.Controllers
            
             string messageBody = this.eventAdminService.GetEmailConfirmationTextBody(currentEvent);
 
-            this.eventService.SendEmail(ServiceConstants.ConfirmReservationEmailName, currentEvent.Email, ServiceConstants.ConfirmReservationEmailSubject, messageBody);
-
+            await this.emailSender.SendEmailAsync(currentEvent.Email, "Reservation cunfirmed", messageBody);
 
             return RedirectToAction(nameof(ConfirmedEvents));
         }
