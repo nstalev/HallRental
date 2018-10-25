@@ -288,7 +288,7 @@ namespace HallRental.Services.Implementations
                                                         decimal totalPrice)
         {
             var sb = new StringBuilder();
-            sb.Append($"Request for hall reservation on {date.ToShortDateString()}");
+            sb.Append($"Request for reservation on {date.ToShortDateString()}");
             sb.Append(Environment.NewLine);
             sb.Append($"Name: {fullName}");
             sb.Append(Environment.NewLine);

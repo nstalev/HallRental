@@ -36,7 +36,6 @@ namespace HallRental.Services.Implementations
             sb.Append(Environment.NewLine);
             sb.Append(messageBody);
 
-
             message.Body = new TextPart("plain")
             {
 

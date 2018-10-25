@@ -319,7 +319,6 @@ namespace HallRental.Web.Controllers
 
 
 
-
         public JsonResult CheckCurrentDate(DateCheckJsonModel dateModel)
         {
             var eventDate = new EventDateModel();

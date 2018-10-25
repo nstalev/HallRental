@@ -10,8 +10,7 @@ namespace HallRental.Services.Admin.Implementations
     using HallRental.Data.Enums;
     using HallRental.Data.Models;
     using HallRental.Services.Admin.Models.Events;
-    using MailKit.Net.Smtp;
-    using MimeKit;
+
 
     public class EventsAdminService : IEventsAdminService
     {
@@ -247,6 +246,7 @@ namespace HallRental.Services.Admin.Implementations
             sb.Append(Environment.NewLine);
             if (currentEvent.UsingTablesAndChairs)
             {
+                sb.Append(Environment.NewLine);
                 sb.Append($"Using tables and chairs price: ${currentEvent.TablesAndChairsPrice.ToString("F")}");
                 sb.Append(Environment.NewLine);
                 sb.Append($"---Tables and chairs cost per person: ${currentEvent.TablesAndChairsCostPerPerson.ToString("F")}");
@@ -256,28 +256,43 @@ namespace HallRental.Services.Admin.Implementations
             }
             if (currentEvent.ParkingLotSecurityService)
             {
-                sb.Append($"Parking Lot Security Price:: ${currentEvent.ParkingLotSecurityPrice.ToString("F")}");
+                sb.Append(Environment.NewLine);
+                sb.Append($"Parking Lot Security Price: ${currentEvent.ParkingLotSecurityPrice.ToString("F")}");
                 sb.Append(Environment.NewLine);
                 sb.Append($"---Parking Lot Security Hours: {currentEvent.ParkingLotSecurityHours}");
                 sb.Append(Environment.NewLine);
                 sb.Append($"---Security service cost per hour: ${currentEvent.SecurityGuardCostPerHour.ToString("F")}");
                 sb.Append(Environment.NewLine);
-                sb.Append($"---Security Start Time: ${currentEvent.SecurityStartTime}");
+                sb.Append($"---Security Start Time: {currentEvent.SecurityStartTime}");
                 sb.Append(Environment.NewLine);
-                sb.Append($"---Security End Time: ${currentEvent.SecurityEndTime}");
+                sb.Append($"---Security End Time: {currentEvent.SecurityEndTime}");
                 sb.Append(Environment.NewLine);
+            }
+            if (currentEvent.AdditionalCharges > 0)
+            {
+                sb.Append(Environment.NewLine);
+                sb.Append($"Additional Charges: ${currentEvent.AdditionalCharges.ToString("F")}");
+                sb.Append(Environment.NewLine);
+                sb.Append($"---Additional Charges Info: {currentEvent.SecurityEndTime}");
+                sb.Append(Environment.NewLine);
+
+
             }
             sb.Append(Environment.NewLine);
             sb.Append($"Security Deposit: ${currentEvent.SecurityDeposit.ToString("F")}");
             sb.Append(Environment.NewLine);
             sb.Append(Environment.NewLine);
             sb.Append($"Total Price: ${currentEvent.TotalPrice.ToString("F")}");
+            sb.Append(Environment.NewLine);
+            sb.Append(Environment.NewLine);
+            sb.Append(Environment.NewLine);
 
-
+            sb.Append("This is an automatically generated email – please do not reply to it.");
+            sb.Append(Environment.NewLine);
+            sb.Append("If you have any queries regarding your resevation please use our contact form or email to ...");
 
             return sb.ToString();
         }
-
 
        
 

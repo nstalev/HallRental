@@ -25,7 +25,9 @@ namespace HallRental.Services
 
        
         //confirm reservation 
-        public const string ConfirmReservationEmailSubject = "";
-        public const string ConfirmReservationEmailName = "";
+        public const string ConfirmReservationEmailSubject = "Reservation confirmed";
+
+        //should be the name of the site
+        public const string ConfirmReservationEmailName = "Hall Rental";
     }
 }
