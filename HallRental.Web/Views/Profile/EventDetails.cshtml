@@ -75,7 +75,7 @@
                     @if (Model.UsingTablesAndChairs)
                     {
                         <div class="event-details-box-content-details">
-                            <div>Tables and chairs cost per person: $@Model.TablesAndChairsCostPerPerson</div>
+                            <div>Tables and chairs cost per person: $@Model.TablesAndChairsCostPerPerson.ToString("F")</div>
                             <div>Number of people: @Model.NumberOfPeople</div>
                         </div>
 

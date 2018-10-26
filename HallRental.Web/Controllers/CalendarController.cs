@@ -25,6 +25,11 @@ namespace HallRental.Web.Controllers
         {
             var halls = this.hallsService.AllHalls();
 
+            if (halls == null)
+            {
+                return View();
+            }
+
             if (hallId == 0)
             {
                 hallId = halls.First().Id;
