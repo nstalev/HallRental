@@ -3,6 +3,7 @@ namespace HallRental.Services.Implementations
 {
     using System.Collections.Generic;
     using System.Linq;
+    using AutoMapper.QueryableExtensions;
     using HallRental.Data;
     using HallRental.Data.Models;
     using HallRental.Services.Models.Halls;
@@ -14,6 +15,15 @@ namespace HallRental.Services.Implementations
         public HallsService(HallRentalDbContext db)
         {
             this.db = db;
+        }
+
+        public IEnumerable<HallPriceListServiceModel> AllHallsPriceList()
+        {
+            return this.db.Halls
+                .Where(h => h.IsHallActive == true)
+                .ProjectTo<HallPriceListServiceModel>()
+                .AsQueryable();
+
         }
 
         public IEnumerable<HallEventCheckModel> AllHalls()

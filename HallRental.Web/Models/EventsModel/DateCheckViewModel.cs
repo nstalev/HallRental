@@ -1,6 +1,7 @@
 ﻿
 namespace HallRental.Web.Models.EventsModel
 {
+    using HallRental.Services.Models.Halls;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using System;
     using System.Collections.Generic;
@@ -19,5 +20,7 @@ namespace HallRental.Web.Models.EventsModel
         public RentTimeEnum RentTime { get; set; }
 
         public long CurrentDateTimeInMs { get; set; }
+
+        public  IEnumerable<HallPriceListServiceModel> HallsPriceList { get; set; }
     }
 }

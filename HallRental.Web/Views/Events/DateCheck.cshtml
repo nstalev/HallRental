@@ -4,12 +4,11 @@
     ViewData["Title"] = "DateCheck";
 }
 
-
 <hr />
 <div class="row">
     <div class="col-md-6">
         <form asp-action="PriceCheck" class="w3-container w3-card-4 w3-round w3-light-grey" id="submitForm">
-            <h2>Check if the Hall is free</h2>
+            <h2>Check for free dates</h2>
 
             <div class="form-group">
                 <label asp-for="Halls" class="control-label">Select Hall</label>
@@ -45,9 +44,54 @@
 
     <div class="col-md-6">
         <div>
+            <h2 id="eventDateResult"></h2>
+            <hr />
+            <a href="#" data-toggle="modal" data-target="#myModal">Cultural Center Schedule of Requested Donation</a>
 
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Cultural Center Schedule of Requested Donation</h4>
+                        </div>
+                        <div class="modal-body">
+                            @foreach (var item in Model.HallsPriceList)
+                            {
+                                <h4 class="text-center">Hall: @item.Name</h4>
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <p><span class="hall-rental-prices-title"><b>Monday to Friday</b> 8:00 am to 3:00 pm:</span> <span class="hall-rental-prices">$@item.MondayFriday8amTo3pm.ToString("F")</span></p>
+                                        <p><span class="hall-rental-prices-title"><b>Monday to Thursday</b> 4:00 pm to Midnight:</span> <span class="hall-rental-prices">$@item.MondayThursday4pmToMN.ToString("F")</span></p>
+                                        <p><span class="hall-rental-prices-title"><b>Friday</b> 4:00 pm to Midnight:</span> <span class="hall-rental-prices">$@item.Friday4pmToMN.ToString("F")</span></p>
+                                        <p><span class="hall-rental-prices-title"><b>Saturday</b> 8:00 am to 3:00 pm:</span> <span class="hall-rental-prices">$@item.Saturday8amTo3pm.ToString("F")</span></p>
+                                        <p><span class="hall-rental-prices-title"><b>Saturday</b> 4:00 pm to Midnight:</span> <span class="hall-rental-prices">$@item.Saturday4pmToMN.ToString("F")</span></p>
+                                        <p><span class="hall-rental-prices-title"><b>Sunday</b> 8:00 am to 3:00 pm:</span> <span class="hall-rental-prices">$@item.Sunday8amTo3pm.ToString("F")</span></p>
+                                        <p><span class="hall-rental-prices-title"><b>Sunday</b> 4:00 pm to Midnight:</span> <span class="hall-rental-prices">$@item.Sunday4pmToMN.ToString("F")</span></p>
+                                        <br />
+                                        <p><span class="hall-rental-prices-title">Tables and chairs cost per person:</span> <span class="hall-rental-prices">$@item.TablesAndChairsCostPerPerson.ToString("F")</span></p>
+                                        <p><span class="hall-rental-prices-title">Parking Lot Security service cost per hour:</span> <span class="hall-rental-prices">$@item.SecurityGuardCostPerHour.ToString("F")</span></p>
+                                        <p><span class="hall-rental-prices-title">Security Deposit Before 10 pm:</span> <span class="hall-rental-prices">$@item.SecurityDepositBefore10pm.ToString("F")</span></p>
+                                        <p><span class="hall-rental-prices-title">Security Deposit After 10 pm:</span> <span class="hall-rental-prices">$@item.SecurityDepositAfter10pm.ToString("F")</span></p>
+                                       
+
+                                    </div>
+                                </div>
+                                <hr />
+                            }
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </div>
-        <h2 id="eventDateResult"></h2>
         <hr />
 
         

@@ -17,7 +17,7 @@ namespace HallRental.Web.Infrastructure
 
         public const int AdminEventsMaxPageSize = 5;
 
-        public const int UsersListMaxPageSize = 5;
+        public const int UsersListMaxPageSize = 10;
 
 
         //FOR EMAIL SENDER

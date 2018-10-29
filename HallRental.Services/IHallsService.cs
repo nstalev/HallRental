@@ -9,6 +9,8 @@ namespace HallRental.Services
     {
         IEnumerable<HallEventCheckModel> AllHalls();
 
+        IEnumerable<HallPriceListServiceModel> AllHallsPriceList();
+
         Hall GetHallById (int hallId);
 
         bool HallExists(int hallId);

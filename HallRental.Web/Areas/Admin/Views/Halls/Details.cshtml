@@ -19,46 +19,28 @@
     <hr />
 
     <div class="row">
-        <div class="col-md-6" style="text-align: right;">
-            <p><b>Monday to Friday</b> 8:00 am to 3:00 pm:</p>
-            <p><b>Monday to Thursday</b> 4:00 pm to Midnight:</p>
-            <p><b>Friday</b> 4:00 pm to Midnight:</p>
-            <p><b>Saturday</b> 8:00 am to 3:00 pm:</p>
-            <p><b>Saturday</b> 4:00 pm to Midnight:</p>
-            <p><b>Sunday</b> 8:00 am to 3:00 pm:</p>
-            <p><b>Sunday</b> 4:00 pm to Midnight:</p>
+        <div class="col-md-8" style="text-align: right;">
+            <p><b>Monday to Friday</b> 8:00 am to 3:00 pm: <span class="hall-details-price">$@Model.MondayFriday8amTo3pm.ToString("F")</span></p>
+            <p><b>Monday to Thursday</b> 4:00 pm to Midnight: <span class="hall-details-price">$@Model.MondayThursday4pmToMN.ToString("F")</span></p>
+            <p><b>Friday</b> 4:00 pm to Midnight: <span class="hall-details-price">$@Model.Friday4pmToMN.ToString("F")</span></p>
+            <p><b>Saturday</b> 8:00 am to 3:00 pm: <span class="hall-details-price">$@Model.Saturday8amTo3pm.ToString("F")</span></p>
+            <p><b>Saturday</b> 4:00 pm to Midnight: <span class="hall-details-price">$@Model.Saturday4pmToMN.ToString("F")</span></p>
+            <p><b>Sunday</b> 8:00 am to 3:00 pm: <span class="hall-details-price">$@Model.Sunday8amTo3pm.ToString("F")</span></p>
+            <p><b>Sunday</b> 4:00 pm to Midnight: <span class="hall-details-price">$@Model.Sunday4pmToMN.ToString("F")</span></p>
             <hr />
-            <p><b>Tables and chairs cost by person</b> </p>
-            <p><b>Security Guard service cost per hour</b> </p>
-            <p><b>Security Deposit Before 10 pm</b> </p>
-            <p><b>Security Deposit After 10 pm</b> </p>
-
-        </div>
-        <div class="col-md-4">
-            <p>$@Model.MondayFriday8amTo3pm</p>
-            <p>$@Model.MondayThursday4pmToMN</p>
-            <p>$@Model.Friday4pmToMN</p>
-            <p>$@Model.Saturday8amTo3pm</p>
-            <p>$@Model.Saturday4pmToMN</p>
-            <p>$@Model.Sunday8amTo3pm</p>
-            <p>$@Model.Sunday4pmToMN</p>
-            <hr />
-            <p>$@Model.TablesAndChairsCostPerPerson</p>
-            <p>$@Model.SecurityGuardCostPerHour</p>
-            <p>$@Model.SecurityDepositBefore10pm</p>
-            <p>$@Model.SecurityDepositAfter10pm</p>
-
+            <p>Tables and chairs cost per person: <span class="hall-details-price">$@Model.TablesAndChairsCostPerPerson.ToString("F")</span></p>
+            <p>Parking Lot Security service cost per hour: <span class="hall-details-price">$@Model.SecurityGuardCostPerHour.ToString("F")</span></p>
+            <p>Security Deposit Before 10 pm: <span class="hall-details-price">$@Model.SecurityDepositBefore10pm.ToString("F")</span></p>
+            <p>Security Deposit After 10 pm: <span class="hall-details-price">$@Model.SecurityDepositAfter10pm.ToString("F")</span></p>
 
         </div>
     </div>
-
-
-</div>
-<hr />
-<div>
-    @{
-        var routeValue = new Dictionary<string, string> { ["id"] = Model.Id.ToString() };
-    }
-    <a asp-area="Admin" asp-controller="Halls" asp-action="Edit" asp-all-route-data=" routeValue">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <hr />
+    <div>
+        @{
+            var routeValue = new Dictionary<string, string> { ["id"] = Model.Id.ToString() };
+        }
+        <a asp-area="Admin" asp-controller="Halls" asp-action="Edit" asp-all-route-data=" routeValue">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
 </div>
