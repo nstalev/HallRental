@@ -12,25 +12,20 @@
 
             <div class="form-group">
                 <label asp-for="Halls" class="control-label">Select Hall</label>
-                <select name="HallId" asp-items="Model.Halls" class="halls-dropDown form-control">
+                <select name="HallId" id="HallSelectId" asp-items="Model.Halls" class="halls-dropDown form-control">
                     <option value="" disabled selected>Select Hall...</option>
                 </select>
                 <span id="hall-error" class="error-note"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Date" class="control-label"></label>
-                <input id="EventDate" asp-for="Date" class="form-control" required />
+                <input id="EventDateInputId" asp-for="Date" class="form-control" required />
                 <span id="date-error" class="error-note"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="RentTime" class="control-label"></label>
-                <select id="RentTime" name="Renttime" class="form-control" required>
-
-                    <option value="1">8:00 am to 3:00 pm</option>
-                    <option value="2">4:00 pm to Midnight</option>
-                    <option value="3">All Day</option>
-                </select>
+                <select id="RentTimeSelectId" name="Renttime" class="form-control" asp-items="Html.GetEnumSelectList<HallRental.Data.Enums.Enums.RentTimeEnum>()" required> </select>
             </div>
             <div class="form-group">
                 <input it="checkBtn" type="button" onclick="CheckDateAndTime()" value="Check" class="w3-button w3-round w3-grey" />
@@ -111,7 +106,7 @@
             let currentDate = new Date(utcSecondsCurrentDate);
 
 
-            let reservationDateVal = $("#EventDate").val();
+            let reservationDateVal = $("#EventDateInputId").val();
             let reservationDate = new Date(reservationDateVal);
 
             if (currentDate.setHours(0, 0, 0, 0) > reservationDate) {
@@ -128,13 +123,27 @@
         }
 
 
-       
+        $('#EventDateInputId').change(() => {
+            resetCheck();
+        })
+        $('#RentTimeSelectId').change(() => {
+            resetCheck();
+        })
+        $('#HallSelectId').change(() => {
+            resetCheck();
+        })
+
+
+        function resetCheck() {
+            $('#dateCheck-submit-btn').hide();
+            $('#eventDateResult').text('');
+        }
 
 
         function CheckDateAndTime() {
 
-            let eventDate = $('#EventDate').val();
-            let rentTime = $('#RentTime').val();
+            let eventDate = $('#EventDateInputId').val();
+            let rentTime = $('#RentTimeSelectId').val();
 
             let hallSelected = $('.halls-dropDown option:selected').val();
 
@@ -179,16 +188,17 @@
                     },
                     success: function (data) {
 
-                        CheckIfHallIsAvailable(data)
+                        checkIfHallIsAvailable(data)
                     },
                     error: function (error) {
                         alert('failed');
                     }
                 })
             }
+           
 
 
-            function CheckIfHallIsAvailable(data) {
+            function checkIfHallIsAvailable(data) {
                 //console.log(data.eventExists)
                 if (data.eventExists) {
                     console.log('not available')
@@ -203,14 +213,9 @@
                     console.log('available')
 
                 }
-
             }
 
-
-
-
         }
-
 
     </script>
 
