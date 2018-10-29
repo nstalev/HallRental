@@ -27,20 +27,15 @@
 
 </div>
 
-@*@{
-        var firstHall = Model.First();
-        string hallName = Model.First().Name;
+<link href="~/lib/calendar/fullcalendar.min.css" rel="stylesheet" />
+<link href="~/lib/calendar/fullcalendar.print.css" rel="stylesheet" />
+<link href="~/css/calendar.css" rel="stylesheet" />
 
-    }*@
-
-
-<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css" rel="stylesheet" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.print.css" rel="stylesheet" />
 
 @section Scripts {
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
+    <script src="~/lib/calendar/moment.min.js"></script>
+    <script src="~/lib/calendar/fullcalendar.min.js"></script>
 
     <script>
 
@@ -52,12 +47,10 @@
 
 
 
-
         function GenerateView() {
             let hallId = @Model.CurrentHall.Id;
             GetCalendarData(hallId)
         }
-
 
 
 

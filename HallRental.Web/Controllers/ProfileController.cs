@@ -171,29 +171,28 @@ namespace HallRental.Web.Controllers
         }
 
 
+        //public IActionResult PdfContractSupplement(int id)
+        //{
+        //    string currentUserId = this.userManager.GetUserId(User);
 
-        public IActionResult PdfContractSupplement(int id)
-        {
-            string currentUserId = this.userManager.GetUserId(User);
+        //    bool isEventExists = this.eventService.CheckIfEventExists(id);
 
-            bool isEventExists = this.eventService.CheckIfEventExists(id);
+        //    if (!isEventExists)
+        //    {
+        //        TempData.AddErrorMessage("The event does not exists");
+        //        return RedirectToAction(nameof(MyReservations));
+        //    }
 
-            if (!isEventExists)
-            {
-                TempData.AddErrorMessage("The event does not exists");
-                return RedirectToAction(nameof(MyReservations));
-            }
+        //    EventDetailsServiceModel currentEvent = this.eventService.EventById(id);
 
-            EventDetailsServiceModel currentEvent = this.eventService.EventById(id);
+        //    if (currentUserId != currentEvent.TenantId)
+        //    {
+        //        return Forbid();
+        //    }
 
-            if (currentUserId != currentEvent.TenantId)
-            {
-                return Forbid();
-            }
+        //    var pdfFile = this.eventService.GeneratePdf(currentEvent);
 
-            var pdfFile = this.eventService.GeneratePdf(currentEvent);
-
-            return File(pdfFile, "application/pdf");
-        }
+        //    return File(pdfFile, "application/pdf");
+        //}
     }
 }
