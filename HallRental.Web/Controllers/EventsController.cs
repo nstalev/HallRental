@@ -98,13 +98,11 @@ namespace HallRental.Web.Controllers
             var startTime = eventsServices.GetStartTimeDefault(dateCheckModel.RentTime, eventDate);
             var endTime = eventsServices.GetEndTimeDefault(dateCheckModel.RentTime, eventDate);
 
-            decimal securityDeposit = eventsServices.CalculateSecurityDeposit(dateCheckModel.RentTime, currentHall.SecurityDepositBefore10pm, currentHall.SecurityDepositAfter10pm);
 
             var eventPriceModel = new EventPriceModel()
             {
                 HallPrice = hallRentalPrice,
-                SecurityDeposit = securityDeposit,
-                TotalPrice = hallRentalPrice + securityDeposit
+                TotalPrice = hallRentalPrice
             };
 
             var priceCheckViewModel = new EventInfoAndPriceCheckViewModel()
@@ -115,10 +113,8 @@ namespace HallRental.Web.Controllers
                 HallName = hallName,
                 RentTimeDisplay = rentTimeDisplay,
                 HallRentalPrice = hallRentalPrice,
-                TotalPrice = hallRentalPrice + securityDeposit,
+                TotalPrice = hallRentalPrice,
                 SecurityGuardCostPerHour = currentHall.SecurityGuardCostPerHour,
-                SecurityDepositBefore10pm = currentHall.SecurityDepositBefore10pm,
-                SecurityDepositAfter10pm = currentHall.SecurityDepositAfter10pm,
                 HallCapacity = currentHall.HallCapacity,
                 ChairTableCostPerPerson = currentHall.TablesAndChairsCostPerPerson,
                 EventPriceModel = eventPriceModel,
@@ -127,8 +123,7 @@ namespace HallRental.Web.Controllers
                 SecurityStartTime = startTime,
                 SecurityEndTime = endTime,
                 EventStartDateTimeInMs = (long)startTime.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds,
-                EventEndDateTimeInMs = (long)endTime.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds,
-                SecurityDeposit = securityDeposit
+                EventEndDateTimeInMs = (long)endTime.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds
             };
 
             return View(priceCheckViewModel);
@@ -184,6 +179,7 @@ namespace HallRental.Web.Controllers
 
             User currentUser = await this.userManager.GetUserAsync(User);
 
+            decimal securityDeposit = eventsServices.CalculateSecurityDeposit(summaryModel.RentTime, summaryModel.EventEnd, summaryModel.Date,  currentHall.SecurityDepositBefore10pm, currentHall.SecurityDepositAfter10pm);
 
 
             var summaryVM = new SummaryAndPerInfoVM()
@@ -207,7 +203,7 @@ namespace HallRental.Web.Controllers
                 HallRentalPrice = summaryModel.HallRentalPrice,
                 TablesAndChairsPrice = summaryModel.TablesAndChairsPrice,
                 ParkingLotSecurityPrice = summaryModel.ParkingLotSecurityPrice,
-                SecurityDeposit = summaryModel.SecurityDeposit,
+                SecurityDeposit = securityDeposit,
                 TotalPrice = summaryModel.TotalPrice,
 
                 FullName = currentUser.FirstName + " " + currentUser.LastName,
@@ -255,7 +251,6 @@ namespace HallRental.Web.Controllers
                     SecurityEndTime = eventModel.SecurityEndTime,
                     ParkingLotSecurityPrice = eventModel.ParkingLotSecurityPrice,
                     TablesAndChairsPrice = eventModel.TablesAndChairsPrice,
-                    SecurityDeposit = eventModel.SecurityDeposit,
                     TotalPrice = eventModel.TotalPrice,
                     FullName = eventModel.FullName,
                     Email = eventModel.Email,

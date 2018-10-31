@@ -46,7 +46,7 @@ namespace HallRental.Services
 
         DateTime GetEndTimeDefault(RentTimeEnum rentTime, DateTime eventDate);
 
-        decimal CalculateSecurityDeposit(RentTimeEnum rentTime, decimal securityDepositBefore10pm, decimal securityDepositAfter10pm);
+        decimal CalculateSecurityDeposit(RentTimeEnum rentTime, DateTime eventEnd, DateTime date, decimal securityDepositBefore10pm, decimal securityDepositAfter10pm);
 
         bool CheckIfEventExists(int id);
         EventDetailsServiceModel EventById(int id);

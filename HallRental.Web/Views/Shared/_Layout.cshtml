@@ -49,7 +49,7 @@
                             <ul class="dropdown-menu">
                                 <li><a asp-area="Admin" asp-controller="Events" asp-action="EventRequests">Event Requests</a></li>
                                 <li><a asp-area="Admin" asp-controller="Events" asp-action="ConfirmedEvents">Confirmed Events</a></li>
-                                <li><a asp-area="Admin" asp-controller="Events" asp-action="PassedEvents">Passed Events</a></li>
+                                <li><a asp-area="Admin" asp-controller="Events" asp-action="PastEvents">Past Events</a></li>
                                 <li><a asp-area="Admin" asp-controller="Halls" asp-action="Index">Halls Management</a></li>
                                 <li><a asp-area="Admin" asp-controller="Identity" asp-action="All">Users Management</a></li>
                                 <li><a asp-area="Admin" asp-controller="Contracts" asp-action="Index">Contracts Management</a></li>
@@ -79,7 +79,7 @@
                         </li>
                         <li><a asp-area="Admin" asp-controller="Events" class="w3-btn @Url.IsLinkActive("Events", "EventRequests")" asp-action="EventRequests">Event Requests</a></li>
                         <li><a asp-area="Admin" asp-controller="Events" class="w3-btn @Url.IsLinkActive("Events", "ConfirmedEvents")" asp-action="ConfirmedEvents">Confirmed Events</a></li>
-                        <li><a asp-area="Admin" asp-controller="Events" class="w3-btn @Url.IsLinkActive("Events", "PassedEvents")" asp-action="PassedEvents">Passed Events</a></li>
+                        <li><a asp-area="Admin" asp-controller="Events" class="w3-btn @Url.IsLinkActive("Events", "PastEvents")" asp-action="PastEvents">Past Events</a></li>
                         <li><a asp-area="Admin" asp-controller="Halls" class="w3-btn @Url.IsLinkActive("Halls", "Index")" asp-action="Index">Halls Management</a></li>
                         <li><a asp-area="Admin" asp-controller="Identity" class="w3-btn @Url.IsLinkActive("Identity", "All")" asp-action="All">Users Management</a></li>
                         <li><a asp-area="Admin" asp-controller="Contracts" class="w3-btn @Url.IsLinkActive("Contracts", "Index")" asp-action="Index">Contracts Management</a></li>

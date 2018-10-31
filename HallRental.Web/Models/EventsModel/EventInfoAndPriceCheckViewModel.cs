@@ -61,11 +61,6 @@
 
         public decimal SecurityGuardCostPerHour { get; set; }
 
-        public decimal SecurityDepositBefore10pm { get; set; }
-
-        public decimal SecurityDepositAfter10pm { get; set; }
-
-
         public decimal ChairTableCostPerPerson { get; set; }
 
         public decimal HallRentalPrice { get; set; }
@@ -74,7 +69,6 @@
 
         public decimal ParkingLotSecurityPrice { get; set; }
 
-        public decimal SecurityDeposit { get; set; }
 
         public decimal TotalPrice { get; set; }
 

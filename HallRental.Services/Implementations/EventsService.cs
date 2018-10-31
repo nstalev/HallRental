@@ -222,7 +222,7 @@ namespace HallRental.Services.Implementations
         }
 
 
-        public decimal CalculateSecurityDeposit(RentTimeEnum rentTime, decimal securityDepositBefore10pm, decimal securityDepositAfter10pm)
+        public decimal CalculateSecurityDeposit(RentTimeEnum rentTime, DateTime eventEnd, DateTime date, decimal securityDepositBefore10pm, decimal securityDepositAfter10pm)
         {
             if (rentTime == RentTimeEnum.EightAMtoThreePM)
             {
@@ -230,7 +230,18 @@ namespace HallRental.Services.Implementations
             }
             else
             {
-                return securityDepositAfter10pm;
+                TimeSpan time = new TimeSpan(22, 00, 00);
+                var eventDate10pm = date.Add(time);
+
+                if (eventDate10pm < eventEnd)
+                {
+                    return securityDepositAfter10pm;
+                }
+                else
+                {
+                    return securityDepositBefore10pm;
+                }
+
             }
         }
 

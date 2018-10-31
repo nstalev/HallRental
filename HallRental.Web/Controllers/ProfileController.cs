@@ -82,7 +82,7 @@ namespace HallRental.Web.Controllers
         }
 
 
-        public IActionResult PassedEvents(int page = 1)
+        public IActionResult PastEvents(int page = 1)
         {
             if (page <= 0)
             {

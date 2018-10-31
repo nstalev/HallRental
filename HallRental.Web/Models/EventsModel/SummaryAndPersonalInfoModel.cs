@@ -49,7 +49,6 @@ namespace HallRental.Web.Models.EventsModel
 
         public decimal ParkingLotSecurityPrice { get; set; }
 
-        public decimal SecurityDeposit { get; set; }
 
         public decimal TotalPrice { get; set; }
     }

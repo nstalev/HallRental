@@ -135,7 +135,7 @@ namespace HallRental.Web.Areas.Admin.Controllers
             return View(vm);
         }
 
-        public IActionResult PassedEvents(string search, int page = 1)
+        public IActionResult PastEvents(string search, int page = 1)
         {
             if (string.IsNullOrEmpty(search))
             {
@@ -149,7 +149,7 @@ namespace HallRental.Web.Areas.Admin.Controllers
 
             DateTime currentDate = DateTime.Now.Date;
 
-            int passedEventsCount = this.eventAdminService.TotalPassedEvents(search, currentDate);
+            int pastEventsCount = this.eventAdminService.TotalPassedEvents(search, currentDate);
 
             IEnumerable<EventsListServiceModel> passedEventsSM = this.eventAdminService.GetPassedEvents(search, page, pageSize, currentDate);
 
@@ -175,7 +175,7 @@ namespace HallRental.Web.Areas.Admin.Controllers
                 Events = passedEvents,
                 Search = search,
                 CurrentPage = page,
-                TotalPages = (int)Math.Ceiling(passedEventsCount / (double)pageSize)
+                TotalPages = (int)Math.Ceiling(pastEventsCount / (double)pageSize)
             };
 
             vm.TotalPages = vm.TotalPages == 0 ? 1 : vm.TotalPages;
