@@ -230,14 +230,21 @@ body {
     .event-side-title-info {
         border-top: 2px solid black;
         padding-top: 10px;
-
     }
+
+        .event-side-title-info p {
+            font-size: 14px;
+        }
 
     .price-side-info {
         border-top: 2px solid black;
         padding-top: 10px;
         margin-top: 10px;
     }
+
+        .price-side-info p {
+            font-size: 14px;
+        }
 }
 
 .input-card-panel {
@@ -254,15 +261,15 @@ body {
 }
 
 .secLot-input {
-    width:70%;
+    width: 70%;
 }
 
-.eventDetails{
+.eventDetails {
     margin-top: 25px;
     padding: 15px;
 }
-@media(min-width:900px)
-{
+
+@media(min-width:900px) {
     .event-details-row {
         display: flex
     }
@@ -278,7 +285,7 @@ body {
 
 @media(max-width:899px) {
     .event-details-row {
-        display:  grid
+        display: grid
     }
 
     .event-details-box {
@@ -306,8 +313,8 @@ body {
     margin-bottom: 15px;
 }
 
-.event-details-box-content-totalPrice{
-    text-align:right;
+.event-details-box-content-totalPrice {
+    text-align: right;
 }
 
 .event-details-personal-info {
@@ -315,6 +322,7 @@ body {
     border-radius: 4px;
     padding: 15px;
 }
+
 .event-details-personal-info-title {
     font-weight: bold;
 }
@@ -375,6 +383,7 @@ body {
     font-size: 11px;
     font-style: italic;
 }
+
 .hall-rental-prices {
     font-size: 11px;
     text-align: right;

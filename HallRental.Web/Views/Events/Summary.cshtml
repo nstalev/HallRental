@@ -69,35 +69,35 @@
             </form>
         </div>
     </div>
-        <div class="col-md-6 event-side-info">
-            <p>Hall: <b>@Model.HallName</b></p>
-            <p>Date: <b>@Model.Date.ToShortDateString()</b></p>
-            <p>Rent Time: <b>@Model.RentTimeDisplay</b></p>
+    <div class="col-md-6 event-side-info">
+        <p>Hall: <b>@Model.HallName</b></p>
+        <p>Date: <b>@Model.Date.ToShortDateString()</b></p>
+        <p>Rent Time: <b>@Model.RentTimeDisplay</b></p>
 
-            <div class="event-side-title-info">
-                <div>Event Start: @Model.EventStart</div>
-                <div>Event End: @Model.EventEnd</div>
-                <p>Number of people: @Model.NumberOfPeople</p>
-            </div>
+        <div class="event-side-title-info">
+            <p>Event Start: @Model.EventStart</p>
+            <p>Event End: @Model.EventEnd</p>
+            <p>Number of people: @Model.NumberOfPeople</p>
+        </div>
 
-            <div class="price-side-info">
-                <p><b>Hall rental price: </b>$@Model.HallRentalPrice.ToString("F")</p>
-                <p><b>Tables and chairs price: </b>$@Model.TablesAndChairsPrice.ToString("F")</p>
-                @if (Model.ParkingLotSecurityPrice > 0)
-                {
-                    <p>Parking Lot Security Hours: @Model.ParkingLotSecurityHours</p>
-                }
-                <p><b>Security Price: </b>$@Model.ParkingLotSecurityPrice.ToString("F")</p>
+        <div class="price-side-info">
+            <p><b>Hall rental price: </b>$@Model.HallRentalPrice.ToString("F")</p>
+            <p><b>Tables and chairs price: </b>$@Model.TablesAndChairsPrice.ToString("F")</p>
+            @if (Model.ParkingLotSecurityPrice > 0)
+            {
+                <p>Parking Lot Security Hours: @Model.ParkingLotSecurityHours</p>
+            }
+            <p><b>Security Price: </b>$@Model.ParkingLotSecurityPrice.ToString("F")</p>
 
 
-                <hr />
-                <h4><b>Total Price: </b>$@Model.TotalPrice.ToString("F")</h4>
-                <p>Security Deposit: $@Model.SecurityDeposit.ToString("F")</p>
-            </div>
+            <hr />
+            <h4><b>Total Price: </b>$@Model.TotalPrice.ToString("F")</h4>
+            <p>Security Deposit: $@Model.SecurityDeposit.ToString("F")</p>
         </div>
     </div>
+</div>
 
 
-    @section Scripts {
-        @await Html.PartialAsync("_ValidationScriptsPartial")
-    }
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

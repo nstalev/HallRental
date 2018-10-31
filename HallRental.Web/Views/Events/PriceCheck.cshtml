@@ -73,11 +73,11 @@
                         </span>
                     }
                 </div>
-               
+
             </form>
         </div>
     </div>
-  
+
 
     <div class="col-md-6 event-side-info">
         <p>Hall: <b>@Model.HallName</b></p>
@@ -94,50 +94,63 @@
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-<script>
+    <script>
 
-        $(document).ready(function () {
-            console.log('ready')
+            let tablesAndChairsPrice;
+            let securityPrice;
 
-            let tablesAndChairsPrice = 0;
-            let securityPrice = 0;
+            let startPrice;
 
-            let startPrice = @Model.HallRentalPrice;
+            let totalPrice;
+            let chairCostPerPerson;
+            let hallCapacity;
 
-            let totalPrice = @Model.TotalPrice;
-            let chairCostPerPerson = @Model.ChairTableCostPerPerson;
-            let hallCapacity = @Model.HallCapacity;
+            let securityGuardCostPerHour;
 
-            let securityGuardCostPerHour = @Model.SecurityGuardCostPerHour;
-
-            let correctDataTabAndCh = true;
-            let correctDataSecurity = true;
-            let correctDataEventTime = true;
+            let correctDataTabAndCh;
+            let correctDataSecurity;
+            let correctDataEventTime;
 
             //Models
-            let utcSecondsStartTime = @Model.EventStartDateTimeInMs;
-            let utcSecondsEndTime = @Model.EventEndDateTimeInMs;
+            let rentStartDateTimeModel;
+            let rentEndDateTimeModel;
 
-            
-            ////Security Deposit Check Time
-            //let secDepositCheckTime = new Date(utcSecondsStartTime);
-            //secDepositCheckTime.setHours(22)
+        $(() => {
+            console.log('ready')
 
-            //Tables and chairs checkbox
-            if ($('#ParkingLotSecurity-checkbox').prop('checked')) {
-                calculateParkingLotSecurityPrice();
-            }
+             tablesAndChairsPrice = 0;
+             securityPrice = 0;
 
-            //Parking Lot Security checkbox
-            if ($('#ParkingLotSecurity-checkbox').prop('checked')) {
-                calculateTablesAndChairsPrice();
-            }
+             startPrice = @Model.HallRentalPrice;
 
-            //EventEndTime check
-            //let rentEndDateTime = new Date(utcSecondsEndTime)
-            //if (rentEndDateTime > secDepositCheckTime) {
-            //    checkEventEntTime();
+             totalPrice = @Model.TotalPrice;
+             chairCostPerPerson = @Model.ChairTableCostPerPerson;
+             hallCapacity = @Model.HallCapacity;
+
+             securityGuardCostPerHour = @Model.SecurityGuardCostPerHour;
+
+             correctDataTabAndCh = true;
+             correctDataSecurity = true;
+             correctDataEventTime = true;
+
+
+            //Models
+             rentStartDateTimeModel = '@(Model.EventStart)';
+             rentEndDateTimeModel = '@(Model.EventEnd)';
+
+            ////Tables and chairs checkbox
+            //if ($('#ParkingLotSecurity-checkbox').prop('checked')) {
+            //    calculateParkingLotSecurityPrice();
             //}
+
+            ////Parking Lot Security checkbox
+            //if ($('#ParkingLotSecurity-checkbox').prop('checked')) {
+            //    calculateTablesAndChairsPrice();
+            //}
+
+
+        });
+
 
 
             //Event Start-End Time
@@ -145,30 +158,44 @@
             $('#EventStartTime').change(() => {
 
                 correctDataEventTime = checkIfEventDataIsCorrect();
+                console.log('EventStartTime '  + correctDataEventTime)
             })
 
 
             $('#EventEndTime').change(() => {
 
-                checkEventEntTime();
+                correctDataEventTime = checkIfEventDataIsCorrect();
+                console.log('EventEndTime ' + correctDataEventTime)
 
             });
 
-            function checkEventEntTime() {
-                correctDataEventTime = checkIfEventDataIsCorrect();
-     
-            }
 
 
             function checkIfEventDataIsCorrect() {
+
+                //Input Event Start
                 let inputEventStartTimeVal = $('#EventStartTime').val();
-                let inputEventEndTimeVal = $("#EventEndTime").val();
-
                 let inputEventStartTime = new Date(inputEventStartTimeVal)
-                let inputEventEndTime = new Date(inputEventEndTimeVal)
+                console.log('inputStartTime - ' + inputEventStartTime)
 
-                let rentStartDateTime = new Date(utcSecondsStartTime);
-                let rentEndDateTime = new Date(utcSecondsEndTime)
+
+                //Input Event End
+                let inputEventEndTimeVal = $("#EventEndTime").val();
+                let inputEventEndTime = new Date(inputEventEndTimeVal)
+                console.log('inputEventEndTime - ' + inputEventEndTime)
+
+
+                //Rent Start Time
+                let rentStartDateTime = new Date(rentStartDateTimeModel);
+                console.log('rentStartDateTime - ' + rentStartDateTime)
+
+
+                //Rent End Time
+                let rentEndDateTime = new Date(rentEndDateTimeModel);
+                console.log('rentEndDateTime - ' + rentEndDateTime)
+
+
+                console.log('---------------------------')
 
                 if (isValidDate(inputEventStartTime) == false) {
                     $('#EventStartTime-error').text('Invalid Date');
@@ -256,7 +283,6 @@
                 let parkLotSecHours = checkDifference();
                 updatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice, parkLotSecHours)
             }
-
 
 
             $('#NumberOfPeople').change(function () {
@@ -372,8 +398,8 @@
                 let parkLotSecEndTime = new Date(parkLotSecEndTimeValue)
 
                 //Models Date
-                let eventStartDate = new Date(utcSecondsStartTime);
-                let eventEndDate = new Date(utcSecondsEndTime)
+                let eventStartDate = new Date(rentStartDateTimeModel);
+                let eventEndDate = new Date(rentEndDateTimeModel)
 
 
                 if (isValidDate(parkLotSecStartTime) == false) {
@@ -490,7 +516,6 @@
                     e.preventDefault();
                 }
             })
-    });
 
 
     function updatePriceModelAndPartialView(totalPrice, securityPrice, tabAndChairsPrice, parkLotSecHours) {
@@ -514,6 +539,7 @@
                 },
                 error: function (error) {
                     alert('failed');
+                    console.log(error)
                 }
             })
         }
@@ -524,5 +550,5 @@
 
         }
 
-</script>
+    </script>
 }

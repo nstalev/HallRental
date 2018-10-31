@@ -121,9 +121,7 @@ namespace HallRental.Web.Controllers
                 EventStart = startTime,
                 EventEnd = endTime,
                 SecurityStartTime = startTime,
-                SecurityEndTime = endTime,
-                EventStartDateTimeInMs = (long)startTime.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds,
-                EventEndDateTimeInMs = (long)endTime.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds
+                SecurityEndTime = endTime
             };
 
             return View(priceCheckViewModel);

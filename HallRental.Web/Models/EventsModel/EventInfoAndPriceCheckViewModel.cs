@@ -12,8 +12,6 @@
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
 
-        public long EventStartDateTimeInMs { get; set; }
-        public long EventEndDateTimeInMs { get; set; }
 
         public long TestTimeInMs { get; set; }
 
