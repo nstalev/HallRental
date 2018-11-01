@@ -49,6 +49,9 @@
                     <label>
                         @Html.DisplayNameFor(model => model.ParkingLotSecurityService)
                     </label>
+                    <div>
+                        <span id="ParkLotSecurity-error" class="price-check-error"></span>
+                    </div>
                 </div>
                 <div id="SecurityLot-inputs" style="display:none">
                     <div class="form-group">
@@ -138,15 +141,15 @@
              rentStartDateTimeModel = '@(Model.EventStart)';
              rentEndDateTimeModel = '@(Model.EventEnd)';
 
-            ////Tables and chairs checkbox
-            //if ($('#ParkingLotSecurity-checkbox').prop('checked')) {
-            //    calculateParkingLotSecurityPrice();
-            //}
+            //Tables and chairs checkbox
+            if ($('#ParkingLotSecurity-checkbox').prop('checked')) {
+                calculateParkingLotSecurityPrice();
+            }
 
-            ////Parking Lot Security checkbox
-            //if ($('#ParkingLotSecurity-checkbox').prop('checked')) {
-            //    calculateTablesAndChairsPrice();
-            //}
+            //Parking Lot Security checkbox
+            if ($('#ParkingLotSecurity-checkbox').prop('checked')) {
+                calculateTablesAndChairsPrice();
+            }
 
 
         });
@@ -401,6 +404,10 @@
                 let eventStartDate = new Date(rentStartDateTimeModel);
                 let eventEndDate = new Date(rentEndDateTimeModel)
 
+                let eventEnd2hoursAfterRentEndTime = new Date(rentEndDateTimeModel)
+                eventEnd2hoursAfterRentEndTime.setHours(eventEnd2hoursAfterRentEndTime.getHours() + 2);
+                console.log('eventEnd2hoursAfterRentEndTime' + eventEnd2hoursAfterRentEndTime);
+
 
                 if (isValidDate(parkLotSecStartTime) == false) {
                     $('#ParkLotSecStart-error').text('Invalid Date');
@@ -433,8 +440,8 @@
                     $('#ParkLotSecEnd-error').text('');
                 }
 
-                if (parkLotSecEndTime > eventEndDate) {
-                    $('#ParkLotSecEnd-error').text('Security End Time cannot be after Rent End Time');
+                if (parkLotSecEndTime > eventEnd2hoursAfterRentEndTime) {
+                    $('#ParkLotSecEnd-error').text('Security End Time cannot be more than 2 hours after Rent End Time');
                     return false;
                 } else {
                     $('#ParkLotSecEnd-error').text('');
@@ -481,7 +488,16 @@
                     hoursDiff = 0;
                 }
 
+
                 if ($('#ParkingLotSecurity-checkbox').prop('checked')) {
+
+                    //Check if hours are less than 4
+                    if (hoursDiff < 4) {
+                        $('#ParkLotSecurity-error').text('Parking Lot Security hours cannot be less than 4')
+                        console.log('Parking Lot Security hours cannot be less than 4')
+                        correctDataSecurity = false;
+                        return;
+                    }
 
                     securityPrice = hoursDiff * securityGuardCostPerHour;
 
