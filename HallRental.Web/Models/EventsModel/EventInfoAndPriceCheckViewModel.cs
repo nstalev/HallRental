@@ -39,6 +39,7 @@
         [Display(Name = "Number of People")]
         public int NumberOfPeople { get; set; }
 
+        [Display(Name = "Using Tables and Chairs")]
         public bool UsingTablesAndChairs { get; set; }
 
 

@@ -48,7 +48,7 @@ namespace HallRental.Web.Controllers
                     Selected = false
                 }).ToList(),
                 Date = null,
-                CurrentDateTimeInMs = (long)today.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds,
+                CurrentDateTime = today,
                 HallsPriceList = this.hallsServices.AllHallsPriceList()
             };
 

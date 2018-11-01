@@ -8,7 +8,7 @@
 <div class="row">
     <div class="col-md-6">
         <form asp-action="PriceCheck" class="w3-container w3-card-4 w3-round w3-light-grey" id="submitForm">
-            <h2>Check for free dates</h2>
+            <h2>Check for free date</h2>
 
             <div class="form-group">
                 <label asp-for="Halls" class="control-label">Select Hall</label>
@@ -99,11 +99,10 @@
 
     <script>
 
-        
 
         function checkIfSelectedDateIsCorrect() {
-            let utcSecondsCurrentDate = @Model.CurrentDateTimeInMs;
-            let currentDate = new Date(utcSecondsCurrentDate);
+            let currentDateModel = '@(Model.CurrentDateTime)';
+            let currentDate = new Date(currentDateModel);
 
 
             let reservationDateVal = $("#EventDateInputId").val();
@@ -191,6 +190,7 @@
                         checkIfHallIsAvailable(data)
                     },
                     error: function (error) {
+                        console.log(error)
                         alert('failed');
                     }
                 })
@@ -202,7 +202,7 @@
                 //console.log(data.eventExists)
                 if (data.eventExists) {
                     console.log('not available')
-                    $('#eventDateResult').text('The Hall is not available on this this day and time')
+                    $('#eventDateResult').text('The Hall is not available on this day and time')
                     $('#eventDateResult').css("color", "red")
                     $('#dateCheck-submit-btn').hide();
                 }

@@ -17,9 +17,10 @@ namespace HallRental.Web.Models.EventsModel
         public DateTime? Date { get; set; }
 
         [Required]
+        [Display(Name = "Rent Time")]
         public RentTimeEnum RentTime { get; set; }
 
-        public long CurrentDateTimeInMs { get; set; }
+        public DateTime CurrentDateTime{ get; set; }
 
         public  IEnumerable<HallPriceListServiceModel> HallsPriceList { get; set; }
     }
