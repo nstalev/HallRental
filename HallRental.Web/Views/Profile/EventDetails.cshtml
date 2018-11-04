@@ -17,7 +17,7 @@
     <div class="panel-body event-details-body">
         <div class="row event-details-row">
             <div class="col-md-4 event-details-box">
-                <div class="event-details-box-title w3-container w3-blue">
+                <div class="event-details-box-title w3-container w3-dark-gray">
                     Event information
                 </div>
                 <hr />
@@ -53,7 +53,7 @@
                 </div>
             </div>
             <div class="col-md-4 event-details-box">
-                <div class="event-details-box-title">
+                <div class="event-details-box-title w3-container w3-dark-gray">
                     Personal information
                 </div>
                 <hr />
@@ -64,7 +64,7 @@
                 </div>
             </div>
             <div class="col-md-4 event-details-box">
-                <div class="event-details-box-title">
+                <div class="event-details-box-title w3-container w3-dark-gray">
                     Price information
                 </div>
                 <hr />
@@ -90,7 +90,6 @@
                             <div>Security End Time: @Model.SecurityEndTime</div>
                         </div>
                     }
-                    <p><b> Security Deposit: </b>$@Model.SecurityDeposit.ToString("F")</p>
                     <hr />
                     @if (Model.AdditionalCharges > 0)
                     {
@@ -103,6 +102,11 @@
                     <div class="event-details-box-content-totalPrice">
                         <h4><b>Total Price: </b>$@Model.TotalPrice.ToString("F")</h4>
 
+                    </div>
+                    <hr />
+                    <p><b> Security Deposit: </b>$@Model.SecurityDeposit.ToString("F")</p>
+                    <div class="security-deposit-info-link">
+                        For more information about the Security Deposit please check our  <a asp-area="" asp-controller="Home" asp-action="TermsAndConditions">Terms and Conditions</a>
                     </div>
                 </div>
             </div>
