@@ -9,11 +9,11 @@
         {
             var controller1 = url.ActionContext.RouteData.Values["controller"].ToString();
             var action11 = url.ActionContext.RouteData.Values["action"].ToString();
-
+            
             if (url.ActionContext.RouteData.Values["controller"].ToString() == controller &&
                 url.ActionContext.RouteData.Values["action"].ToString() == action)
             {
-                return "w3-grey";
+                return "w3-dark-grey";
             }
 
             return "";

@@ -4,95 +4,107 @@
     ViewData["Title"] = "DateCheck";
 }
 
-<hr />
 <div class="row">
     <div class="col-md-6">
-        <form asp-action="PriceCheck" class="w3-container w3-card-4 w3-round w3-light-grey" id="submitForm">
-            <h2>Check for free date</h2>
-
-            <div class="form-group">
-                <label asp-for="Halls" class="control-label">Select Hall</label>
-                <select name="HallId" id="HallSelectId" asp-items="Model.Halls" class="halls-dropDown form-control">
-                    <option value="" disabled selected>Select Hall...</option>
-                </select>
-                <span id="hall-error" class="error-note"></span>
+        <div class="w3-card-4 w3-round w3-light-grey input-card-panel">
+            <div class="w3-container form-title w3-dark-gray">
+                <h2>Check for free date</h2>
             </div>
-            <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input id="EventDateInputId" asp-for="Date" class="form-control" required />
-                <span id="date-error" class="error-note"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="RentTime" class="control-label"></label>
-                <select id="RentTimeSelectId" name="Renttime" class="form-control" asp-items="Html.GetEnumSelectList<HallRental.Data.Enums.Enums.RentTimeEnum>()" required> </select>
-            </div>
-            <div class="form-group">
-                <input it="checkBtn" type="button" onclick="CheckDateAndTime()" value="Check" class="w3-button w3-round w3-grey" />
-               
-                    <input type="submit" id="dateCheck-submit-btn" class="w3-button w3-round w3-blue" value="Continue" style="display: none" />
-            </div>
-
-        </form>
-
-    </div>
-
-    <div class="col-md-6">
-        <div>
-            <h2 id="eventDateResult"></h2>
-            <hr />
-            <a href="#" data-toggle="modal" data-target="#myModal">Cultural Center Schedule of Requested Donation</a>
-
-            <!-- Modal -->
-            <div class="modal fade" id="myModal" role="dialog">
-                <div class="modal-dialog">
-
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Cultural Center Schedule of Requested Donation</h4>
-                        </div>
-                        <div class="modal-body">
-                            @foreach (var item in Model.HallsPriceList)
-                            {
-                                <h4 class="text-center">Hall: @item.Name</h4>
-                                <br />
-                                <div class="row">
-                                    <div class="col-md-10">
-                                        <p><span class="hall-rental-prices-title"><b>Monday to Friday</b> 8:00 am to 3:00 pm:</span> <span class="hall-rental-prices">$@item.MondayFriday8amTo3pm.ToString("F")</span></p>
-                                        <p><span class="hall-rental-prices-title"><b>Monday to Thursday</b> 4:00 pm to Midnight:</span> <span class="hall-rental-prices">$@item.MondayThursday4pmToMN.ToString("F")</span></p>
-                                        <p><span class="hall-rental-prices-title"><b>Friday</b> 4:00 pm to Midnight:</span> <span class="hall-rental-prices">$@item.Friday4pmToMN.ToString("F")</span></p>
-                                        <p><span class="hall-rental-prices-title"><b>Saturday</b> 8:00 am to 3:00 pm:</span> <span class="hall-rental-prices">$@item.Saturday8amTo3pm.ToString("F")</span></p>
-                                        <p><span class="hall-rental-prices-title"><b>Saturday</b> 4:00 pm to Midnight:</span> <span class="hall-rental-prices">$@item.Saturday4pmToMN.ToString("F")</span></p>
-                                        <p><span class="hall-rental-prices-title"><b>Sunday</b> 8:00 am to 3:00 pm:</span> <span class="hall-rental-prices">$@item.Sunday8amTo3pm.ToString("F")</span></p>
-                                        <p><span class="hall-rental-prices-title"><b>Sunday</b> 4:00 pm to Midnight:</span> <span class="hall-rental-prices">$@item.Sunday4pmToMN.ToString("F")</span></p>
-                                        <br />
-                                        <p><span class="hall-rental-prices-title">Tables and chairs cost per person:</span> <span class="hall-rental-prices">$@item.TablesAndChairsCostPerPerson.ToString("F")</span></p>
-                                        <p><span class="hall-rental-prices-title">Parking Lot Security service cost per hour:</span> <span class="hall-rental-prices">$@item.SecurityGuardCostPerHour.ToString("F")</span></p>
-                                        <p><span class="hall-rental-prices-title">Security Deposit Before 10 pm:</span> <span class="hall-rental-prices">$@item.SecurityDepositBefore10pm.ToString("F")</span></p>
-                                        <p><span class="hall-rental-prices-title">Security Deposit After 10 pm:</span> <span class="hall-rental-prices">$@item.SecurityDepositAfter10pm.ToString("F")</span></p>
-                                       
-
-                                    </div>
-                                </div>
-                                <hr />
-                            }
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
+            <div class="w3-container panel-form-body">
+                <form asp-action="PriceCheck" id="submitForm">
+                    <div class="form-group">
+                        <label asp-for="Halls" class="control-label">Select Hall</label>
+                        <select name="HallId" id="HallSelectId" asp-items="Model.Halls" class="halls-dropDown form-control">
+                            <option value="" disabled selected>Select Hall...</option>
+                        </select>
+                        <span id="hall-error" class="error-note"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Date" class="control-label"></label>
+                        <input id="EventDateInputId" asp-for="Date" class="form-control" required />
+                        <span id="date-error" class="error-note"></span>
                     </div>
 
-                </div>
+                    <div class="form-group">
+                        <label asp-for="RentTime" class="control-label"></label>
+                        <select id="RentTimeSelectId" name="Renttime" class="form-control" asp-items="Html.GetEnumSelectList<HallRental.Data.Enums.Enums.RentTimeEnum>()" required> </select>
+                    </div>
+                    <div class="form-group">
+                        <input it="checkBtn" type="button" onclick="CheckDateAndTime()" value="Check" class="w3-button w3-border w3-border-grey w3-round" />
+
+                        <input type="submit" id="dateCheck-submit-btn" class="w3-button w3-round w3-dark-gray" value="Continue" style="display: none" />
+                    </div>
+
+                </form>
             </div>
         </div>
-        <hr />
-
-        
 
     </div>
-</div>
+
+        <div class="col-md-6 panel-form-body">
+            <div>
+                <div class="w3-container">
+                    <div class="w3-panel w3-pale-blue w3-bottombar w3-border-blue" id="eventDateResult-success" style="display:none">
+                        <h2>The Hall is Available</h2>
+                    </div>
+                    <div class="w3-panel w3-pale-red w3-bottombar w3-border-red" id="eventDateResult-not-success" style="display:none">
+                        <h2>The Hall is Not available on this day and time</h2>
+                    </div>
+                </div>
+                
+                <hr />
+                <a href="#" data-toggle="modal" data-target="#myModal">Cultural Center Schedule of Requested Donation</a>
+
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Cultural Center Schedule of Requested Donation</h4>
+                            </div>
+                            <div class="modal-body">
+                                @foreach (var item in Model.HallsPriceList)
+                                {
+                                    <h4 class="text-center">Hall: @item.Name</h4>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <p><span class="hall-rental-prices-title"><b>Monday to Friday</b> 8:00 am to 3:00 pm:</span> <span class="hall-rental-prices">$@item.MondayFriday8amTo3pm.ToString("F")</span></p>
+                                            <p><span class="hall-rental-prices-title"><b>Monday to Thursday</b> 4:00 pm to Midnight:</span> <span class="hall-rental-prices">$@item.MondayThursday4pmToMN.ToString("F")</span></p>
+                                            <p><span class="hall-rental-prices-title"><b>Friday</b> 4:00 pm to Midnight:</span> <span class="hall-rental-prices">$@item.Friday4pmToMN.ToString("F")</span></p>
+                                            <p><span class="hall-rental-prices-title"><b>Saturday</b> 8:00 am to 3:00 pm:</span> <span class="hall-rental-prices">$@item.Saturday8amTo3pm.ToString("F")</span></p>
+                                            <p><span class="hall-rental-prices-title"><b>Saturday</b> 4:00 pm to Midnight:</span> <span class="hall-rental-prices">$@item.Saturday4pmToMN.ToString("F")</span></p>
+                                            <p><span class="hall-rental-prices-title"><b>Sunday</b> 8:00 am to 3:00 pm:</span> <span class="hall-rental-prices">$@item.Sunday8amTo3pm.ToString("F")</span></p>
+                                            <p><span class="hall-rental-prices-title"><b>Sunday</b> 4:00 pm to Midnight:</span> <span class="hall-rental-prices">$@item.Sunday4pmToMN.ToString("F")</span></p>
+                                            <br />
+                                            <p><span class="hall-rental-prices-title">Tables and chairs cost per person:</span> <span class="hall-rental-prices">$@item.TablesAndChairsCostPerPerson.ToString("F")</span></p>
+                                            <p><span class="hall-rental-prices-title">Parking Lot Security service cost per hour:</span> <span class="hall-rental-prices">$@item.SecurityGuardCostPerHour.ToString("F")</span></p>
+                                            <p><span class="hall-rental-prices-title">Security Deposit Before 10 pm:</span> <span class="hall-rental-prices">$@item.SecurityDepositBefore10pm.ToString("F")</span></p>
+                                            <p><span class="hall-rental-prices-title">Security Deposit After 10 pm:</span> <span class="hall-rental-prices">$@item.SecurityDepositAfter10pm.ToString("F")</span></p>
+
+
+                                        </div>
+                                    </div>
+                                    <hr />
+                                }
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <hr />
+
+
+
+        </div>
+    </div>
 
 
 @section Scripts{
@@ -118,7 +130,6 @@
                 $('#date-error').text('')
                 return true;
             }
-
         }
 
 
@@ -134,8 +145,9 @@
 
 
         function resetCheck() {
+            $('#eventDateResult-success').hide();
+            $('#eventDateResult-not-success').hide();
             $('#dateCheck-submit-btn').hide();
-            $('#eventDateResult').text('');
         }
 
 
@@ -171,8 +183,7 @@
                 let correctDate = checkIfSelectedDateIsCorrect();
 
                 if (!correctDate) {
-                    $('#dateCheck-submit-btn').hide();
-                    $('#eventDateResult').text('')
+                    resetCheck();
                     return;
                 }
 
@@ -195,20 +206,20 @@
                     }
                 })
             }
-           
 
+         
 
             function checkIfHallIsAvailable(data) {
                 //console.log(data.eventExists)
                 if (data.eventExists) {
                     console.log('not available')
-                    $('#eventDateResult').text('The Hall is not available on this day and time')
-                    $('#eventDateResult').css("color", "red")
+                    $('#eventDateResult-success').hide();
+                    $('#eventDateResult-not-success').show();
                     $('#dateCheck-submit-btn').hide();
                 }
                 else {
-                    $('#eventDateResult').text('The Hall is available')
-                    $('#eventDateResult').css("color", "blue")
+                    $('#eventDateResult-success').show();
+                    $('#eventDateResult-not-success').hide();
                     $('#dateCheck-submit-btn').show();
                     console.log('available')
 

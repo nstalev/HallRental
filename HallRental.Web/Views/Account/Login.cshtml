@@ -10,43 +10,46 @@
 }
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-5">
         <section>
             <div class="w3-card-4 w3-round">
                 <div class="w3-container form-title w3-dark-gray">
                     <h2>@ViewData["Title"]</h2>
                 </div>
-                <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="w3-container">
-                    <div asp-validation-summary="All" class="text-danger"></div>
-                    <div class="form-group">
-                        <label asp-for="UserName"></label>
-                        <input asp-for="UserName" class="w3-input" />
-                        <span asp-validation-for="UserName" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Password"></label>
-                        <input asp-for="Password" class="w3-input" />
-                        <span asp-validation-for="Password" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
+                <div class="w3-container panel-form-body">
+                    <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="w3-container">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="UserName"></label>
+                            <input asp-for="UserName" class="w3-input" />
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Password"></label>
+                            <input asp-for="Password" class="w3-input" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
                             <input asp-for="RememberMe" class="w3-check" />
                             <label asp-for="RememberMe">
                                 @Html.DisplayNameFor(m => m.RememberMe)
                             </label>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="w3-button w3-border w3-border-grey w3-round">Log in</button>
-                    </div>
-                    <div class="form-group">
-                        <p>
-                            <a asp-action="ForgotPassword">Forgot your password?</a>
-                        </p>
-                        <p>
-                            <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Register as a new user?</a>
-                        </p>
-                    </div>
-                </form>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="w3-button w3-border w3-dark-grey w3-round">Log in</button>
+                        </div>
+                        <div class="form-group">
+                            <p>
+                                <a asp-action="ForgotPassword">Forgot your password?</a>
+                            </p>
+                            <p>
+                                <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Register as a new user?</a>
+                            </p>
+                        </div>
+                    </form>
+                </div>
             </div>
+
 
         </section>
     </div>
