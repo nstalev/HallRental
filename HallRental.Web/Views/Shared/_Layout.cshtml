@@ -29,7 +29,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">HallRental.Web</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">@GlobalConstants.Brand</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -138,42 +138,42 @@
 
 
     </div>
-    <div class="footer">
+    <footer class="footer">
         <div class="container">
-
             <div class="row">
-                <div class="col-md-4">
-                    <div class="footer-grid">
-                        <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    </div>
-                    <div class="footer-grid">
-                        <a asp-area="" asp-controller="Home" asp-action="About">About</a>
-                    </div>
+                <div class="col-sm-3">
+                    <h2 class="footer-logo">@GlobalConstants.Brand</h2>
                 </div>
-                <div class="col-md-4">
-                    <div class="footer-grid">
-                        <a asp-area="" asp-controller="Calendar" asp-action="Index">Calendar</a>
-                    </div>
-                    <div class="footer-grid">
-                        <a asp-area="" asp-controller="Home" asp-action="Gallery">Gallery</a>
-                    </div>
+                <div class="col-sm-2 get-starter-footer">
+                    <h5>Get started</h5>
+                    <ul>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a asp-area="" asp-controller="Account" asp-action="Register">Sign up</a></li>
+                    </ul> 
                 </div>
-                <div class="col-md-4">
-                <div class="footer-grid">
-                    <a asp-area="" asp-controller="Home" asp-action="TermsAndConditions">Terms and Conditions</a>
+                <div class="col-sm-2">
+                    <h5>About us</h5>
+                    <ul>
+                        <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Gallery">Gallery</a></li>
+                    </ul>
                 </div>
-                <div class="footer-grid">
-                    <a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+                <div class="col-sm-2">
+                    <h5>Support</h5>
+                    <ul>
+                        <li><a asp-area="" asp-controller="Home" asp-action="About">Term&Conditions</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contacts</a></li>
+                    </ul>
                 </div>
-            </div>
-            </div>
-
-            <div class="copyright">
-                <p>&copy; 2018 - HallRental.Web</p>
+                <div class="col-sm-3">
+                    <a  class="btn btn-default" asp-area=""  asp-controller="Home" asp-action="Contact" id="footer-button">Contact us</a>
+                </div>
             </div>
         </div>
-
-    </div>
+        <div class="footer-copyright">
+            <p>© 2016 Copyright Text </p>
+        </div>
+    </footer>
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>

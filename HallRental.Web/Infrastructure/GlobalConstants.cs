@@ -3,6 +3,9 @@ namespace HallRental.Web.Infrastructure
 {
     public class GlobalConstants
     {
+
+        public const string Brand = "Hall Rentals";
+
         public const string AdminRole = "Admin";
 
         public const string TempDataSuccessMessageKey = "SuccessMessage";
