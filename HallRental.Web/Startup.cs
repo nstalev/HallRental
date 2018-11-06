@@ -68,6 +68,7 @@ namespace HallRental.Web
             services.AddTransient<IManageService, ManageService>();
             services.AddTransient<IHomeService, HomeService>();
             services.AddTransient<IContractsService, ContractsService>();
+            services.AddTransient<IAccountService, AccountService>();
 
             services.AddAutoMapper();
 

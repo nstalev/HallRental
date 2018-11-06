@@ -14,6 +14,7 @@ namespace HallRental.Web.Controllers
     using HallRental.Web.Models.AccountViewModels;
     using HallRental.Web.Services;
     using System.Web;
+    using HallRental.Services;
 
     [Authorize]
     [Route("[controller]/[action]")]
@@ -23,17 +24,20 @@ namespace HallRental.Web.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
+        private readonly IAccountService accountService;
 
         public AccountController(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             IEmailSender emailSender,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger,
+            IAccountService accountService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            this.accountService = accountService;
         }
 
         [TempData]
@@ -219,6 +223,14 @@ namespace HallRental.Web.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
+                //check if email exists
+                bool emailExists = this.accountService.CheckIfEmailExists(model.Email);
+                if (emailExists)
+                {
+                    ModelState.AddModelError("CustomError", $"The email '{model.Email}' already exists in our Database");
+                    return View();
+                }
+
                 var user = new User { UserName = model.UserName,
                                     Email = model.Email,
                                     PhoneNumber = model.PhoneNumber,
@@ -230,7 +242,7 @@ namespace HallRental.Web.Controllers
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
+                   // var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                    // await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
