@@ -22,8 +22,8 @@ namespace HallRental.Web.Models.EventsModel
         [Required]
         [MaxLength(30)]
         [MinLength(3)]
-        [Display(Name = "Event Title")]
-        public string EventTitle { get; set; }
+        [Display(Name = "Type Of Event")]
+        public string TypeOfEvent { get; set; }
 
         public DateTime EventStart { get; set; }
 
@@ -45,7 +45,7 @@ namespace HallRental.Web.Models.EventsModel
         [Display(Name = "Security End Time")]
         public DateTime SecurityEndTime { get; set; }
 
-        public decimal SecurityGuardCostPerHour { get; set; }
+        public decimal SecurityCostPerHour { get; set; }
 
         public decimal HallRentalPrice { get; set; }
 

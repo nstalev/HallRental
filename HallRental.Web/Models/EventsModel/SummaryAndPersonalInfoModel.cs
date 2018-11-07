@@ -29,7 +29,7 @@ namespace HallRental.Web.Models.EventsModel
 
         public bool UsingTablesAndChairs { get; set; }
 
-        public decimal SecurityGuardCostPerHour { get; set; }
+        public decimal SecurityCostPerHour { get; set; }
 
         public bool ParkingLotSecurityService { get; set; }
 

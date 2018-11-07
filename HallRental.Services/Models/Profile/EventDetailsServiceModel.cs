@@ -31,7 +31,7 @@ namespace HallRental.Services.Models.Profile
 
         public int NumberOfPeople { get; set; }
 
-        public string EventTitle { get; set; }
+        public string TypeOfEvent { get; set; }
 
         public string Description { get; set; }
 
@@ -47,7 +47,7 @@ namespace HallRental.Services.Models.Profile
 
         public DateTime SecurityEndTime { get; set; }
 
-        public decimal SecurityGuardCostPerHour { get; set; }
+        public decimal SecurityCostPerHour { get; set; }
 
         [Display(Name = "Additional Charges")]
         public decimal AdditionalCharges { get; set; }

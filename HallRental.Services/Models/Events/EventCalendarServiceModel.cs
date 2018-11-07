@@ -6,7 +6,7 @@ namespace HallRental.Services.Models.Events
 
     public class EventCalendarServiceModel
     {
-        public string Title { get; set; }
+        public string TypeOfEvent { get; set; }
         public string Descrtiption { get; set; }
 
         public DateTime Start { get; set; }

@@ -164,7 +164,7 @@ namespace HallRental.Services.Admin.Implementations
             DateTime eventStart,
             DateTime eventEnd,
             int numberOfPeople,
-            string eventTitle,
+            string typeOfEvent,
             string description,
             string caterer,
             bool usingTablesAndChairs,
@@ -173,7 +173,7 @@ namespace HallRental.Services.Admin.Implementations
             int parkingLotSecurityHours,
             DateTime securityStartTime,
             DateTime securityEndTime,
-            decimal securityGuardCostPerHour,
+            decimal securityCostPerHour,
             decimal additionalCharges,
             string additionalChargesInformation,
             decimal hallRentalPrice,
@@ -194,7 +194,7 @@ namespace HallRental.Services.Admin.Implementations
             currentEvent.EventStart = eventStart;
             currentEvent.EventEnd = eventEnd;
             currentEvent.NumberOfPeople = numberOfPeople;
-            currentEvent.EventTitle = eventTitle;
+            currentEvent.TypeOfEvent = typeOfEvent;
             currentEvent.Description = description;
             currentEvent.Caterer = caterer;
             currentEvent.UsingTablesAndChairs = usingTablesAndChairs;
@@ -203,7 +203,7 @@ namespace HallRental.Services.Admin.Implementations
             currentEvent.ParkingLotSecurityHours = parkingLotSecurityHours;
             currentEvent.SecurityStartTime = securityStartTime;
             currentEvent.SecurityEndTime = securityEndTime;
-            currentEvent.SecurityGuardCostPerHour = securityGuardCostPerHour;
+            currentEvent.SecurityCostPerHour = securityCostPerHour;
             currentEvent.AdditionalCharges = additionalCharges;
             currentEvent.AdditionalChargesInformation = additionalChargesInformation;
             currentEvent.HallRentalPrice = hallRentalPrice;
@@ -261,7 +261,7 @@ namespace HallRental.Services.Admin.Implementations
                 sb.Append(Environment.NewLine);
                 sb.Append($"---Parking Lot Security Hours: {currentEvent.ParkingLotSecurityHours}");
                 sb.Append(Environment.NewLine);
-                sb.Append($"---Security service cost per hour: ${currentEvent.SecurityGuardCostPerHour.ToString("F")}");
+                sb.Append($"---Security service cost per hour: ${currentEvent.SecurityCostPerHour.ToString("F")}");
                 sb.Append(Environment.NewLine);
                 sb.Append($"---Security Start Time: {currentEvent.SecurityStartTime}");
                 sb.Append(Environment.NewLine);

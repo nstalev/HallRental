@@ -23,7 +23,7 @@ namespace HallRental.Services.Implementations
         }
 
 
-        public void Create(int hallId, string tenantId, DateTime eventDate, RentTimeEnum rentTime, string fullName, string email, string phoneNumber, DateTime eventStart, DateTime eventEnd, int numberOfPeople, bool usingTablesAndChairs, decimal tablesAndChairsCostPerPerson, decimal securityGuardCostPerHour, bool parkingLotSecurityService, int parkingLotSecurityHours, DateTime securityStartTime, DateTime securityEndTime, decimal hallRentalPrice, decimal tablesAndChairsPrice, decimal parkingLotSecurityPrice, decimal securityDeposit, decimal totalPrice, string description, string caterer, string eventTitle)
+        public void Create(int hallId, string tenantId, DateTime eventDate, RentTimeEnum rentTime, string fullName, string email, string phoneNumber, DateTime eventStart, DateTime eventEnd, int numberOfPeople, bool usingTablesAndChairs, decimal tablesAndChairsCostPerPerson, decimal securityCostPerHour, bool parkingLotSecurityService, int parkingLotSecurityHours, DateTime securityStartTime, DateTime securityEndTime, decimal hallRentalPrice, decimal tablesAndChairsPrice, decimal parkingLotSecurityPrice, decimal securityDeposit, decimal totalPrice, string description, string caterer, string typeOfEvent)
         {
             Event newEvent = new Event
             {
@@ -40,13 +40,13 @@ namespace HallRental.Services.Implementations
 
                  UsingTablesAndChairs= usingTablesAndChairs,
                  TablesAndChairsCostPerPerson = tablesAndChairsCostPerPerson,
-                 SecurityGuardCostPerHour = securityGuardCostPerHour,
+                 SecurityCostPerHour = securityCostPerHour,
                  ParkingLotSecurityService = parkingLotSecurityService,
                  ParkingLotSecurityHours = parkingLotSecurityHours,
                  SecurityStartTime = securityStartTime,
                  SecurityEndTime = securityEndTime,
 
-                 EventTitle = eventTitle,
+                 TypeOfEvent = typeOfEvent,
                  Description = description,
                  Caterer = caterer,
 

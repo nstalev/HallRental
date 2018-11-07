@@ -50,8 +50,8 @@ namespace HallRental.Services.Admin.Models.Events
         public int NumberOfPeople { get; set; }
 
         [Required]
-        [Display(Name = "Event Title")]
-        public string EventTitle { get; set; }
+        [Display(Name = "Type Of Event")]
+        public string TypeOfEvent { get; set; }
 
         public string Description { get; set; }
 
@@ -77,7 +77,7 @@ namespace HallRental.Services.Admin.Models.Events
         public DateTime SecurityEndTime { get; set; }
 
         [Display(Name = "Security cost per hour")]
-        public decimal SecurityGuardCostPerHour { get; set; }
+        public decimal SecurityCostPerHour { get; set; }
 
         [Display(Name = "Additional Charges")]
         public decimal AdditionalCharges { get; set; }

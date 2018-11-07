@@ -42,8 +42,8 @@ namespace HallRental.Web.Models.EventsModel
         [Required]
         [MaxLength(30)]
         [MinLength(3)]
-        [Display(Name = "Event Title")]
-        public string EventTitle { get; set; }
+        [Display(Name = "Type Of Event")]
+        public string TypeOfEvent { get; set; }
 
         //TablesAndChairs
         public bool UsingTablesAndChairs { get; set; }
@@ -52,7 +52,7 @@ namespace HallRental.Web.Models.EventsModel
 
 
         //Security
-        public decimal SecurityGuardCostPerHour { get; set; }
+        public decimal SecurityCostPerHour { get; set; }
 
         public bool ParkingLotSecurityService { get; set; }
 

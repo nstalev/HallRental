@@ -114,7 +114,7 @@ namespace HallRental.Web.Controllers
                 RentTimeDisplay = rentTimeDisplay,
                 HallRentalPrice = hallRentalPrice,
                 TotalPrice = hallRentalPrice,
-                SecurityGuardCostPerHour = currentHall.SecurityGuardCostPerHour,
+                SecurityCostPerHour = currentHall.SecurityGuardCostPerHour,
                 HallCapacity = currentHall.HallCapacity,
                 ChairTableCostPerPerson = currentHall.TablesAndChairsCostPerPerson,
                 EventPriceModel = eventPriceModel,
@@ -192,7 +192,7 @@ namespace HallRental.Web.Controllers
                 NumberOfPeople = summaryModel.NumberOfPeople,
                 UsingTablesAndChairs = summaryModel.UsingTablesAndChairs,
                 TablesAndChairsCostPerPerson = currentHall.TablesAndChairsCostPerPerson,
-                SecurityGuardCostPerHour = summaryModel.SecurityGuardCostPerHour,
+                SecurityCostPerHour = summaryModel.SecurityCostPerHour,
                 ParkingLotSecurityService = summaryModel.ParkingLotSecurityService,
                 ParkingLotSecurityHours = summaryModel.ParkingLotSecurityHours,
                 SecurityStartTime = summaryModel.SecurityStartTime,
@@ -240,9 +240,9 @@ namespace HallRental.Web.Controllers
                     RentTimeDisplay = rentTimeDisplay,
                     NumberOfPeople = eventModel.NumberOfPeople,
                     UsingTablesAndChairs = eventModel.UsingTablesAndChairs,
-                    EventTitle = eventModel.EventTitle,
+                    TypeOfEvent = eventModel.TypeOfEvent,
                     HallRentalPrice = eventModel.HallRentalPrice,
-                    SecurityGuardCostPerHour = eventModel.SecurityGuardCostPerHour,
+                    SecurityCostPerHour = eventModel.SecurityCostPerHour,
                     ParkingLotSecurityService = eventModel.ParkingLotSecurityService,
                     ParkingLotSecurityHours = eventModel.ParkingLotSecurityHours,
                     SecurityStartTime = eventModel.SecurityStartTime,
@@ -278,7 +278,7 @@ namespace HallRental.Web.Controllers
                 eventModel.NumberOfPeople,
                 eventModel.UsingTablesAndChairs,
                 eventModel.TablesAndChairsCostPerPerson,
-                eventModel.SecurityGuardCostPerHour,
+                eventModel.SecurityCostPerHour,
                 eventModel.ParkingLotSecurityService,
                 eventModel.ParkingLotSecurityHours,
                 eventModel.SecurityStartTime,
@@ -290,7 +290,7 @@ namespace HallRental.Web.Controllers
                 eventModel.TotalPrice,
                 eventModel.EventDescription,
                 eventModel.Caterer,
-                eventModel.EventTitle);
+                eventModel.TypeOfEvent);
 
 
             //Send Email to Administration 

@@ -25,7 +25,7 @@ namespace HallRental.Services.Implementations
                 && e.IsReservationConfirmed == true)
                 .Select(e => new EventCalendarServiceModel
                 {
-                    Title = e.EventTitle,
+                    TypeOfEvent = e.TypeOfEvent,
                     Start = e.EventDate,
                     Descrtiption = e.Description,
                     RentTime = e.RentTime

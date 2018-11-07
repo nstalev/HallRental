@@ -13,7 +13,7 @@ namespace HallRental.Web.Models.ProfileViewModels
 
         public string HallName { get; set; }
 
-        public string EventTitle { get; set; }
+        public string TypeOfEvent { get; set; }
 
         public string RentTimeDisplay { get; set; }
 

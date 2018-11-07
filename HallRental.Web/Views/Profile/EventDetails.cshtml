@@ -30,8 +30,8 @@
                     <p><b>Event Start: </b> @Model.EventStart</p>
                     <p><b>Event End: </b> @Model.EventEnd</p>
                     <hr />
-                    <p><b>Evetn Title:</b></p>
-                    <p>@Model.EventTitle</p>
+                    <p><b>Type Of Event:</b></p>
+                    <p>@Model.TypeOfEvent</p>
                     <p><b>Description:</b></p>
                     @if (Model.Description == null)
                     {
@@ -85,7 +85,7 @@
 
                         <div class="event-details-box-content-details">
                             <div>Parking Lot Security Hours: @Model.ParkingLotSecurityHours</div>
-                            <div>Security service cost per hour: $@Model.SecurityGuardCostPerHour.ToString("F")</div>
+                            <div>Security service cost per hour: $@Model.SecurityCostPerHour.ToString("F")</div>
                             <div>Security Start Time: @Model.SecurityStartTime</div>
                             <div>Security End Time: @Model.SecurityEndTime</div>
                         </div>

@@ -25,7 +25,7 @@ namespace HallRental.Web.Models.EventsModel
         public int NumberOfPeople { get; set; }
 
         [Required]
-        public string EventTitle { get; set; }
+        public string TypeOfEvent { get; set; }
 
         [Required]
         public string Description { get; set; }

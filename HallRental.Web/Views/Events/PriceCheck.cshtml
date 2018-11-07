@@ -17,7 +17,7 @@
                     <input asp-for="Date" type="hidden" />
                     <input asp-for="HallId" type="hidden" />
                     <input asp-for="RentTime" type="hidden" />
-                    <input asp-for="SecurityGuardCostPerHour" type="hidden" />
+                    <input asp-for="SecurityCostPerHour" type="hidden" />
                     <input id="HallRentPriceInput" asp-for="HallRentalPrice" type="hidden" />
                     <input id="TablesAndChairsPriceInput" asp-for="TablesAndChairsPrice" type="hidden" />
                     <input id="SecurityPriceInput" asp-for="ParkingLotSecurityPrice" type="hidden" />
@@ -133,7 +133,7 @@
              chairCostPerPerson = @Model.ChairTableCostPerPerson;
              hallCapacity = @Model.HallCapacity;
 
-             securityGuardCostPerHour = @Model.SecurityGuardCostPerHour;
+             securityGuardCostPerHour = @Model.SecurityCostPerHour;
 
              correctDataTabAndCh = true;
              correctDataSecurity = true;

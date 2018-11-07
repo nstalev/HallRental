@@ -58,7 +58,7 @@
         [Display(Name = "Security End Time")]
         public DateTime SecurityEndTime { get; set; }
 
-        public decimal SecurityGuardCostPerHour { get; set; }
+        public decimal SecurityCostPerHour { get; set; }
 
         public decimal ChairTableCostPerPerson { get; set; }
 

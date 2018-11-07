@@ -44,7 +44,7 @@ namespace HallRental.Data.Models
         [Required]
         [MaxLength(30)]
         [MinLength(3)]
-        public string EventTitle { get; set; }
+        public string TypeOfEvent { get; set; }
 
         [MaxLength(500)]
         public string Description { get; set; }
@@ -68,7 +68,7 @@ namespace HallRental.Data.Models
 
         public DateTime SecurityEndTime { get; set; }
 
-        public decimal SecurityGuardCostPerHour { get; set; }
+        public decimal SecurityCostPerHour { get; set; }
 
         public decimal AdditionalCharges { get; set; }
 
