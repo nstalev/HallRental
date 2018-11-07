@@ -22,7 +22,7 @@ namespace HallRental.Web.Models.EventsModel
         [Required]
         [MaxLength(30)]
         [MinLength(3)]
-        [Display(Name = "Type Of Event")]
+        [Display(Name = "Type of Event")]
         public string TypeOfEvent { get; set; }
 
         public DateTime EventStart { get; set; }
