@@ -22,7 +22,7 @@ body {
     padding-left: -15px;
     padding-right: -15px;
     /*height: 100vh;*/
-    height: 85vh;
+    height: 95vh;
     min-height: 600px;
 }
 
@@ -33,18 +33,17 @@ body {
 }
 
     .carousel-fullscreen .carousel-inner .item {
-        height: 85vh;
+        height: 95vh;
         min-height: 600px;
         background-position: center center;
         background-repeat: no-repeat;
         background-size: cover;
     }
 
-
     /* carousel fullscreen - vertically centered caption*/
 
     .carousel-fullscreen .carousel-caption {
-        top: 50%;
+        top: 30%;
         bottom: auto;
         -webkit-transform: translate(0, -50%);
         -ms-transform: translate(0, -50%);
@@ -146,6 +145,8 @@ h1, h2, h3, h4 {
     }
 }
 
+/* Carousel END*/
+
 /* Event Card */
 
 .event-card {
@@ -169,7 +170,7 @@ h1, h2, h3, h4 {
 /* Footer */
 .footer {
     position: absolute;
-    bottom: 0;
+    bottom: -100px;
     width: 100%;
     background-color: lightgray;
     height: 120px;
@@ -234,6 +235,7 @@ h1, h2, h3, h4 {
         text-align: center;
         height: 150px;
         background-color: transparent;
+        bottom: -130px;
     }
 
         .footer div ul li a {
@@ -263,8 +265,8 @@ h1, h2, h3, h4 {
 
 
     .carousel-fullscreen .carousel-inner .item {
-        height: 85vh;
-        min-height: 400px;
+        height: 95vh;
+        min-height: 500px;
         background-position: center center;
         background-repeat: no-repeat;
         background-size: cover;
@@ -445,7 +447,6 @@ h1, h2, h3, h4 {
         text-align: center;
         box-shadow: 2px 2px 5px grey;
     }
-
 }
 
 .input-card-panel {
@@ -630,5 +631,5 @@ h1, h2, h3, h4 {
 
 
 .page-content {
-    padding-bottom: 40px;
+    padding-bottom: 20px;
 }
