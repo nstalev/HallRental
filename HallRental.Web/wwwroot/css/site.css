@@ -633,3 +633,31 @@ h1, h2, h3, h4 {
 .page-content {
     padding-bottom: 20px;
 }
+
+
+/* Mobile text */
+@media screen and (max-width: 500px) {
+    #hall-name {
+        font-size: 23px;
+        text-align: center;
+    }
+
+    .form-title-text {
+        font-size: 23px;
+    }
+
+    .fc-left h2 {
+        font-size: 23px;
+    }
+
+}
+
+@media screen and (min-width: 500px) {
+    #hall-name {
+        font-size: 30px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    
+}

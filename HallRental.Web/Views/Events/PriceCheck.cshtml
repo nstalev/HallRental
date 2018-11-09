@@ -9,7 +9,7 @@
     <div class="col-md-6">
         <div class="w3-card-4 w3-round w3-light-grey input-card-panel">
             <div class="w3-container form-title w3-dark-gray">
-                <h2>Price Calculation</h2>
+                <h2 class="form-title-text">Price Calculation</h2>
             </div>
             <div class="w3-container panel-form-body">
                 <form method="get" asp-action="Summary" id="submitForm">
@@ -90,7 +90,7 @@
         <p>Date: <b>@Model.Date.ToShortDateString()</b></p>
         <p>Rent Time: <b>@Model.RentTimeDisplay</b></p>
         <div id="refTable" class="price-side-info">
-            @Html.Partial("_PartialPrice", Model.EventPriceModel)
+            @await Html.PartialAsync("_PartialPrice", Model.EventPriceModel);
         </div>
     </div>
 </div>
