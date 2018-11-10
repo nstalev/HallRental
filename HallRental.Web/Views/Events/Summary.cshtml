@@ -55,7 +55,7 @@
                     </div>
                     <hr />
                     <div class="form-group">
-                        <label asp-for="TypeOfEvent" class="control-label"></label>
+                        <label asp-for="TypeOfEvent" class="control-label" data-toggle="tooltip" title="e.g. Wedding, Baby Shower, Anniversary, Community Event, Sporting Event."></label>
                         <input asp-for="TypeOfEvent" class="form-control" />
                         <span asp-validation-for="TypeOfEvent" class="text-danger"></span>
                     </div>
@@ -75,7 +75,7 @@
             </div>
 
         </div>
-        </div>
+    </div>
     <div class="col-md-6 event-side-info">
         <p>Hall: <b>@Model.HallName</b></p>
         <p>Date: <b>@Model.Date.ToShortDateString()</b></p>
@@ -98,7 +98,10 @@
 
 
             <hr />
-            <h4><b>Total Price: </b>$@Model.TotalPrice.ToString("F")</h4>
+            <div class="w3-container w3-dark-gray">
+                <h4><b>Total Price: </b>$@Model.TotalPrice.ToString("F")</h4>
+            </div>
+            <hr />
             <p>Security Deposit: $@Model.SecurityDeposit.ToString("F")</p>
             <div class="security-deposit-info-link">
                 For more information about the Security Deposit please check our  <a asp-area="" asp-controller="Home" asp-action="TermsAndConditions">Terms and Conditions</a>
@@ -110,4 +113,12 @@
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
+
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+    </script>
+
 }

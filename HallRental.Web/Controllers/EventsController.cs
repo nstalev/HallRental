@@ -116,7 +116,7 @@ namespace HallRental.Web.Controllers
                 TotalPrice = hallRentalPrice,
                 SecurityCostPerHour = currentHall.SecurityGuardCostPerHour,
                 HallCapacity = currentHall.HallCapacity,
-                ChairTableCostPerPerson = currentHall.TablesAndChairsCostPerPerson,
+                TablesAndChairsCostPerPerson = currentHall.TablesAndChairsCostPerPerson,
                 EventPriceModel = eventPriceModel,
                 EventStart = startTime,
                 EventEnd = endTime,
@@ -164,7 +164,8 @@ namespace HallRental.Web.Controllers
             }
 
             if (summaryModel.UsingTablesAndChairs == true
-               && summaryModel.TablesAndChairsPrice <= 0)
+               && summaryModel.TablesAndChairsPrice <= 0
+               && summaryModel.TablesAndChairsCostPerPerson > 0)
             {
                 var dateCheckModel = GetDateCheckFormModel(summaryModel);
 

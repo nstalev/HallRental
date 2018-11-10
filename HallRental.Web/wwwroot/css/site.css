@@ -71,12 +71,12 @@ h1, h2, h3, h4 {
 }
 
 .super-heading {
-    font-size: 70px;
+    font-size: 50px;
 }
 
 
 .super-paragraph {
-    font-size: 30px;
+    font-size: 25px;
     font-weight: 300;
 }
 
@@ -195,6 +195,10 @@ h1, h2, h3, h4 {
         padding-left: 0;
         line-height: 1.7;
     }
+
+        .footer ul li a:hover {
+            color: black;
+        }
 
 
     .footer h5 {
@@ -406,7 +410,7 @@ h1, h2, h3, h4 {
 
     .event-side-info {
         background-color: #e6e6e6;
-        min-height: 90%;
+        min-height: 96%;
         position: absolute;
         right: 0;
         width: 350px;
@@ -635,6 +639,26 @@ h1, h2, h3, h4 {
 }
 
 
+.gallery-image {
+    height: 230px;
+    width: 350px;
+    background-position: center;
+    background-size: cover;
+    object-fit: cover
+}
+
+.imgContainer {
+    overflow: hidden;
+    width: 350px;
+    height: 230px;
+}
+
+    .imgContainer img {
+        width: 350px;
+        height: 230px;
+    }
+
+
 /* Mobile text */
 @media screen and (max-width: 500px) {
     #hall-name {
@@ -649,7 +673,6 @@ h1, h2, h3, h4 {
     .fc-left h2 {
         font-size: 23px;
     }
-
 }
 
 @media screen and (min-width: 500px) {
@@ -658,6 +681,4 @@ h1, h2, h3, h4 {
         text-align: center;
         font-weight: bold;
     }
-
-    
 }

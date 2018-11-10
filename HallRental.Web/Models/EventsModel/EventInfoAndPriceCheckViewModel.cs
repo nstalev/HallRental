@@ -60,7 +60,7 @@
 
         public decimal SecurityCostPerHour { get; set; }
 
-        public decimal ChairTableCostPerPerson { get; set; }
+        public decimal TablesAndChairsCostPerPerson { get; set; }
 
         public decimal HallRentalPrice { get; set; }
 

@@ -22,6 +22,7 @@
                     <input id="TablesAndChairsPriceInput" asp-for="TablesAndChairsPrice" type="hidden" />
                     <input id="SecurityPriceInput" asp-for="ParkingLotSecurityPrice" type="hidden" />
                     <input id="PriceInput" asp-for="TotalPrice" type="hidden" />
+                    <input asp-for="TablesAndChairsCostPerPerson" type="hidden" />
 
                     <div class="form-group">
                         <label asp-for="EventStart" class="control-label"></label>
@@ -130,7 +131,7 @@
              startPrice = @Model.HallRentalPrice;
 
              totalPrice = @Model.TotalPrice;
-             chairCostPerPerson = @Model.ChairTableCostPerPerson;
+             chairCostPerPerson = @Model.TablesAndChairsCostPerPerson;
              hallCapacity = @Model.HallCapacity;
 
              securityGuardCostPerHour = @Model.SecurityCostPerHour;
