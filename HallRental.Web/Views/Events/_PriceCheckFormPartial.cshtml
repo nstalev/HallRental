@@ -1,0 +1,67 @@
+﻿@model EventInfoAndPriceCheckViewModel
+
+
+<form method="get" asp-action="Summary" id="submitForm">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input asp-for="Date" type="hidden" />
+    <input asp-for="HallId" type="hidden" />
+    <input asp-for="RentTime" type="hidden" />
+    <input asp-for="SecurityCostPerHour" type="hidden" />
+    <input id="HallRentPriceInput" asp-for="HallRentalPrice" type="hidden" />
+    <input id="TablesAndChairsPriceInput" asp-for="TablesAndChairsPrice" type="hidden" />
+    <input id="SecurityPriceInput" asp-for="ParkingLotSecurityPrice" type="hidden" />
+    <input id="PriceInput" asp-for="TotalPrice" type="hidden" />
+    <input asp-for="TablesAndChairsCostPerPerson" type="hidden" />
+
+    <div class="form-group">
+        <label asp-for="EventStart" class="control-label"></label>
+        <input id="EventStartTime" asp-for="EventStart" class="form-control" />
+        <span id="EventStartTime-error" class="price-check-error"></span>
+        <span asp-validation-for="EventStart" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="EventEnd" class="control-label"></label>
+        <input id="EventEndTime" asp-for="EventEnd" class="form-control" />
+        <span id="EventEndTime-error" class="price-check-error"></span>
+        <span asp-validation-for="EventEnd" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NumberOfPeople" class="control-label"></label>
+        <input id="NumberOfPeople" asp-for="NumberOfPeople" class="form-control" />
+        <span id="NumberOfPeople-error" class="price-check-error"></span>
+        <span asp-validation-for="NumberOfPeople" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input id="UseTablesAndChairs-checkbox" class="w3-check" asp-for="UsingTablesAndChairs" />
+        <label>
+            @Html.DisplayNameFor(model => model.UsingTablesAndChairs)
+        </label>
+    </div>
+    <div class="form-group">
+        <input id="ParkingLotSecurity-checkbox" asp-for="ParkingLotSecurityService" class="w3-check" type="checkbox" />
+        <label>
+            @Html.DisplayNameFor(model => model.ParkingLotSecurityService)
+        </label>
+        <div>
+            <span id="ParkLotSecurity-error" class="price-check-error"></span>
+        </div>
+    </div>
+    <div id="SecurityLot-inputs" style="display:none">
+        <div class="form-group">
+            <label class="control-label" asp-for="SecurityStartTime"></label>
+            <input id="ParkLotSecStart" asp-for="SecurityStartTime" class="form-control secLot-input" />
+            <span id="ParkLotSecStart-error" class="price-check-error"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label" asp-for="SecurityEndTime"></label>
+            <input id="ParkLotSecEnd" asp-for="SecurityEndTime" class="form-control secLot-input" />
+            <span id="ParkLotSecEnd-error" class="price-check-error"></span>
+        </div>
+    </div>
+    <input id="parkingLotSecurityHours" asp-for="ParkingLotSecurityHours" type="hidden" />
+    <div class="form-group">
+        <input type="submit" value="Continue" class="w3-button w3-dark-grey w3-round" />
+
+    </div>
+</form>

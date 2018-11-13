@@ -13,6 +13,7 @@ namespace HallRental.Web.Controllers
     using Microsoft.AspNetCore.Identity;
     using System.Threading.Tasks;
     using HallRental.Web.Services;
+    using static HallRental.Data.Enums.Enums;
 
     public class EventsController : Controller
     {
@@ -56,11 +57,16 @@ namespace HallRental.Web.Controllers
             return View(vm);
         }
 
+        
         public IActionResult PriceCheck(DateCheckFormModel dateCheckModel)
         {
             DateTime today = DateTime.UtcNow;
 
-            if (dateCheckModel.Date == null || dateCheckModel.HallId == 0)
+            var hallExists = this.hallsServices.HallExists(dateCheckModel.HallId);
+
+              var enumExists = Enum.IsDefined(typeof(RentTimeEnum), dateCheckModel.RentTime);
+
+            if (dateCheckModel.Date == null || !hallExists || !enumExists)
             {
                 TempData.AddErrorMessage("Please make sure all required fields are filled out correctly");
                 return RedirectToAction(nameof(DateCheck), dateCheckModel);
@@ -80,51 +86,46 @@ namespace HallRental.Web.Controllers
                 return RedirectToAction(nameof(DateCheck), dateCheckModel);
             }
 
-            Hall currentHall = this.hallsServices.GetHallById(dateCheckModel.HallId);
-            DayOfWeek eventDateOfWeek = eventDate.DayOfWeek;
+            var priceCheckViewModel = GetEventInfoAndPriceCheckViewModel(dateCheckModel, eventDate);
 
-            decimal hallRentalPrice = dateCheckModel.TotalPrice;
-
-            if (hallRentalPrice <= 0)
-            {
-                hallRentalPrice = eventsServices.CheckHallStartPrice(currentHall, eventDateOfWeek, dateCheckModel.RentTime);
-
-            }
-            string hallName = currentHall.Name;
-
-            string rentTimeDisplay = eventsServices.GetRentTimeDisplay(dateCheckModel.RentTime);
-
-
-            var startTime = eventsServices.GetStartTimeDefault(dateCheckModel.RentTime, eventDate);
-            var endTime = eventsServices.GetEndTimeDefault(dateCheckModel.RentTime, eventDate);
-
-
-            var eventPriceModel = new EventPriceModel()
-            {
-                HallPrice = hallRentalPrice,
-                TotalPrice = hallRentalPrice
-            };
-
-            var priceCheckViewModel = new EventInfoAndPriceCheckViewModel()
-            {
-                Date = eventDate,
-                RentTime = dateCheckModel.RentTime,
-                HallId = dateCheckModel.HallId,
-                HallName = hallName,
-                RentTimeDisplay = rentTimeDisplay,
-                HallRentalPrice = hallRentalPrice,
-                TotalPrice = hallRentalPrice,
-                SecurityCostPerHour = currentHall.SecurityGuardCostPerHour,
-                HallCapacity = currentHall.HallCapacity,
-                TablesAndChairsCostPerPerson = currentHall.TablesAndChairsCostPerPerson,
-                EventPriceModel = eventPriceModel,
-                EventStart = startTime,
-                EventEnd = endTime,
-                SecurityStartTime = startTime,
-                SecurityEndTime = endTime
-            };
 
             return View(priceCheckViewModel);
+        }
+
+        [Authorize]
+        public IActionResult PriceCheckAuthorize(DateCheckFormModel dateCheckModel)
+        {
+            DateTime today = DateTime.UtcNow;
+
+            var hallExists = this.hallsServices.HallExists(dateCheckModel.HallId);
+
+            var enumExists = Enum.IsDefined(typeof(RentTimeEnum), dateCheckModel.RentTime);
+
+            if (dateCheckModel.Date == null || !hallExists || !enumExists)
+            {
+                TempData.AddErrorMessage("Please make sure all required fields are filled out correctly");
+                return RedirectToAction(nameof(DateCheck), dateCheckModel);
+            }
+
+            DateTime eventDate = dateCheckModel.Date ?? DateTime.UtcNow;
+
+            if (eventsServices.EventExists(eventDate, dateCheckModel.RentTime, dateCheckModel.HallId))
+            {
+                TempData.AddErrorMessage("The selected Hall and Date are already reserved");
+                return RedirectToAction(nameof(DateCheck), dateCheckModel);
+            }
+
+            if (eventDate.Date < today.Date)
+            {
+                TempData.AddErrorMessage("You cannot make a reservation for a past date");
+                return RedirectToAction(nameof(DateCheck), dateCheckModel);
+            }
+
+            var priceCheckViewModel = GetEventInfoAndPriceCheckViewModel(dateCheckModel, eventDate);
+
+
+            return View(priceCheckViewModel);
+
         }
 
 
@@ -134,7 +135,6 @@ namespace HallRental.Web.Controllers
         }
 
 
-        [Authorize]
         public async Task<IActionResult> Summary(SummaryAndPersonalInfoModel summaryModel)
         {
 
@@ -176,7 +176,7 @@ namespace HallRental.Web.Controllers
             Hall currentHall = this.hallsServices.GetHallById(summaryModel.HallId);
             string rentTimeDisplay = eventsServices.GetRentTimeDisplay(summaryModel.RentTime);
 
-            User currentUser = await this.userManager.GetUserAsync(User);
+           
 
             decimal securityDeposit = eventsServices.CalculateSecurityDeposit(summaryModel.RentTime, summaryModel.EventEnd, summaryModel.Date,  currentHall.SecurityDepositBefore10pm, currentHall.SecurityDepositAfter10pm);
 
@@ -205,18 +205,22 @@ namespace HallRental.Web.Controllers
                 SecurityDeposit = securityDeposit,
                 TotalPrice = summaryModel.TotalPrice,
 
-                FullName = currentUser.FirstName + " " + currentUser.LastName,
-                PhoneNumber = currentUser.PhoneNumber,
-                Email = currentUser.Email
 
             };
+
+            User currentUser = await this.userManager.GetUserAsync(User);
+
+            if (currentUser != null)
+            {
+                summaryVM.FullName = currentUser.FirstName + " " + currentUser.LastName;
+                summaryVM.PhoneNumber = currentUser.PhoneNumber;
+                summaryVM.Email = currentUser.Email;
+            }
 
 
             return View(summaryVM);
         }
 
-        //[HttpPost]
-        [Authorize]
         public async Task<IActionResult> CreateEvent(CreateEventFormModel eventModel)
         {
             var hallExists = hallsServices.HallExists(eventModel.HallId);
@@ -343,6 +347,58 @@ namespace HallRental.Web.Controllers
                 RentTime = summaryModel.RentTime,
                 TotalPrice = summaryModel.HallRentalPrice
             };
+        }
+
+
+
+        private EventInfoAndPriceCheckViewModel GetEventInfoAndPriceCheckViewModel(DateCheckFormModel dateCheckModel, DateTime eventDate)
+        {
+
+            Hall currentHall = this.hallsServices.GetHallById(dateCheckModel.HallId);
+            DayOfWeek eventDateOfWeek = eventDate.DayOfWeek;
+
+            decimal hallRentalPrice = dateCheckModel.TotalPrice;
+
+            if (hallRentalPrice <= 0)
+            {
+                hallRentalPrice = eventsServices.CheckHallStartPrice(currentHall, eventDateOfWeek, dateCheckModel.RentTime);
+
+            }
+            string hallName = currentHall.Name;
+
+            string rentTimeDisplay = eventsServices.GetRentTimeDisplay(dateCheckModel.RentTime);
+
+
+            var startTime = eventsServices.GetStartTimeDefault(dateCheckModel.RentTime, eventDate);
+            var endTime = eventsServices.GetEndTimeDefault(dateCheckModel.RentTime, eventDate);
+
+
+            var eventPriceModel = new EventPriceModel()
+            {
+                HallPrice = hallRentalPrice,
+                TotalPrice = hallRentalPrice
+            };
+
+            var priceCheckViewModel = new EventInfoAndPriceCheckViewModel()
+            {
+                Date = eventDate,
+                RentTime = dateCheckModel.RentTime,
+                HallId = dateCheckModel.HallId,
+                HallName = hallName,
+                RentTimeDisplay = rentTimeDisplay,
+                HallRentalPrice = hallRentalPrice,
+                TotalPrice = hallRentalPrice,
+                SecurityCostPerHour = currentHall.SecurityGuardCostPerHour,
+                HallCapacity = currentHall.HallCapacity,
+                TablesAndChairsCostPerPerson = currentHall.TablesAndChairsCostPerPerson,
+                EventPriceModel = eventPriceModel,
+                EventStart = startTime,
+                EventEnd = endTime,
+                SecurityStartTime = startTime,
+                SecurityEndTime = endTime
+            };
+
+            return priceCheckViewModel;
         }
 
     }

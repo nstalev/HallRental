@@ -1,9 +1,8 @@
 ﻿@model EventInfoAndPriceCheckViewModel
 
 @{
-    ViewData["Title"] = "PriceCheck";
+    ViewData["Title"] = "PriceCheckAuthorize";
 }
-
 
 <div class="row page-content">
     <div class="col-md-6">
@@ -17,13 +16,12 @@
         </div>
     </div>
 
-
     <div class="col-md-6 event-side-info">
         <p>Hall: <b>@Model.HallName</b></p>
         <p>Date: <b>@Model.Date.ToShortDateString()</b></p>
         <p>Rent Time: <b>@Model.RentTimeDisplay</b></p>
         <div id="refTable" class="price-side-info">
-            @await Html.PartialAsync("_PartialPrice", Model.EventPriceModel)
+            @await Html.PartialAsync("_PartialPrice", Model.EventPriceModel);
         </div>
     </div>
 </div>
@@ -86,7 +84,6 @@
             if ($('#ParkingLotSecurity-checkbox').prop('checked')) {
                 calculateTablesAndChairsPrice();
             }
-
 
         });
 
@@ -253,8 +250,6 @@
                     updatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice, parkLotSecHours)
                 }
             })
-
-
 
 
             //ParkingLotSecurity

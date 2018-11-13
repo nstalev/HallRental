@@ -11,7 +11,7 @@
                 <h2 class="form-title-text">Check for free date</h2>
             </div>
             <div class="w3-container panel-form-body">
-                <form asp-action="PriceCheck" id="submitForm">
+                <form method="get"  id="submitForm">
                     <div class="form-group">
                         <label asp-for="Halls" class="control-label">Select Hall</label>
                         <select name="HallId" id="HallSelectId" asp-items="Model.Halls" class="halls-dropDown form-control">
@@ -31,8 +31,17 @@
                     </div>
                     <div class="form-group">
                         <input it="checkBtn" type="button" onclick="CheckDateAndTime()" value="Check" class="w3-button w3-border w3-border-grey w3-round" />
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <input asp-action="PriceCheckAuthorize" type="submit" id="dateCheck-submit-btn-host" class="w3-button w3-round w3-dark-gray" value="Continue" style="display: none" />
 
-                        <input type="submit" id="dateCheck-submit-btn" class="w3-button w3-round w3-dark-gray" value="Continue" style="display: none" />
+                        }
+                        else
+                        {
+                            <input asp-action="PriceCheck" type="submit" id="dateCheck-submit-btn" class="w3-button w3-round  w3-dark-gray" value="Continue as a Guest" style="display: none" />
+                            <input asp-action="PriceCheckAuthorize" type="submit" id="dateCheck-submit-btn-host" class="w3-button w3-round w3-dark-gray" value="Continue to Login" style="display: none" />
+                        }
+                    
                     </div>
 
                 </form>
@@ -111,6 +120,8 @@
 
     <script>
 
+    
+
 
         function checkIfSelectedDateIsCorrect() {
             let currentDateModel = '@(Model.CurrentDateTime)';
@@ -148,6 +159,7 @@
             $('#eventDateResult-success').hide();
             $('#eventDateResult-not-success').hide();
             $('#dateCheck-submit-btn').hide();
+            $('#dateCheck-submit-btn-host').hide();
         }
 
 
@@ -216,11 +228,13 @@
                     $('#eventDateResult-success').hide();
                     $('#eventDateResult-not-success').show();
                     $('#dateCheck-submit-btn').hide();
+                    $('#dateCheck-submit-btn-host').hide();
                 }
                 else {
                     $('#eventDateResult-success').show();
                     $('#eventDateResult-not-success').hide();
                     $('#dateCheck-submit-btn').show();
+                    $('#dateCheck-submit-btn-host').show();
                     console.log('available')
 
                 }
