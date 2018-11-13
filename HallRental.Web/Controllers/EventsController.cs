@@ -268,11 +268,18 @@ namespace HallRental.Web.Controllers
             }
 
 
+            string tenantId = null;
+
             User currentUser = await this.userManager.GetUserAsync(User);
+
+            if (currentUser != null)
+            {
+                tenantId = currentUser.Id;
+            }
 
             this.eventsServices.Create(
                 eventModel.HallId,
-                currentUser.Id,
+                tenantId,
                 eventModel.Date,
                 eventModel.RentTime,
                 eventModel.FullName,
@@ -308,7 +315,15 @@ namespace HallRental.Web.Controllers
                                                                     eventModel.NumberOfPeople,
                                                                     eventModel.TotalPrice);
 
+            string messageBodyForTenant = this.eventsServices.GetTextBodyForTenant(
+                                                                   eventModel.Date,
+                                                                   eventModel.FullName,
+                                                                   eventModel.NumberOfPeople,
+                                                                   eventModel.TotalPrice);
+
             await this.emailSender.SendEmailAsync(GlobalConstants.HomeEmail, "Reservation request", messageBody);
+
+            await this.emailSender.SendEmailAsync(eventModel.Email, "Reservation request received", messageBodyForTenant);
 
 
             return RedirectToAction(nameof(ReservationSuccessful));

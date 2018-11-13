@@ -21,7 +21,7 @@
         <p>Date: <b>@Model.Date.ToShortDateString()</b></p>
         <p>Rent Time: <b>@Model.RentTimeDisplay</b></p>
         <div id="refTable" class="price-side-info">
-            @await Html.PartialAsync("_PartialPrice", Model.EventPriceModel);
+            @await Html.PartialAsync("_PartialPrice", Model.EventPriceModel)
         </div>
     </div>
 </div>

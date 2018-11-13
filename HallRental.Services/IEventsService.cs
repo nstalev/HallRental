@@ -59,6 +59,7 @@ namespace HallRental.Services
                                                 string phoneNumber,
                                                 int numberOfPeople,
                                                 decimal totalPrice);
+        string GetTextBodyForTenant(DateTime date, string fullName, int numberOfPeople, decimal totalPrice);
     }
 
 }

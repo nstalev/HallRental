@@ -290,5 +290,22 @@ namespace HallRental.Services.Implementations
 
             return sb.ToString();
         }
+
+        public string GetTextBodyForTenant(DateTime date, string fullName, int numberOfPeople, decimal totalPrice)
+        {
+            var sb = new StringBuilder();
+            sb.Append($"Your request for reservation has been received.");
+            sb.Append(Environment.NewLine);
+            sb.Append($"We will process your request and we will contat you.");
+            sb.Append(Environment.NewLine);
+            sb.Append(Environment.NewLine);
+            sb.Append($"The reservation is the name of: {fullName}");
+            sb.Append(Environment.NewLine);
+            sb.Append($"Event Date: {date.ToShortDateString()}");
+            sb.Append(Environment.NewLine);
+            sb.Append($"Total Price: ${totalPrice.ToString("F")}");
+
+            return sb.ToString();
+        }
     }
 }
