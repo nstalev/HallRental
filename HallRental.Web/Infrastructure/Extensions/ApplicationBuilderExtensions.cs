@@ -115,32 +115,12 @@ namespace HallRental.Web.Infrastructure.Extensions
                              SecurityDepositAfter10pm = 1500
                          };
 
-                         Hall conferenceMediaRoom = new Hall
-                         {
-                             Name = "Conference/Media Room",
-                             MondayFriday8amTo3pm = 250,
-                             MondayThursday4pmToMN = 375,
-                             Friday4pmToMN = 500,
-                             Saturday8amTo3pm = 500,
-                             Saturday4pmToMN = 750,
-                             Sunday8amTo3pm = 250,
-                             Sunday4pmToMN = 750,
-                             TablesAndChairsCostPerPerson = 3.5m,
-                             HallCapacity = 60,
-                             SecurityGuardCostPerHour = 35,
-                             IsHallActive = true,
-                             SecurityDepositBefore10pm = 1000,
-                             SecurityDepositAfter10pm = 1500
-                         };
 
                          await db.Halls.AddAsync(grandFoyerAndBallRoom);
                          await db.Halls.AddAsync(grandFoyerOnly);
-                         await db.Halls.AddAsync(conferenceMediaRoom);
                          db.SaveChanges();
                      }
 
-
-                  
                     
                  })
                  .GetAwaiter()

@@ -3,62 +3,89 @@
 @{
     ViewData["Title"] = "Contact";
 }
+
+
+
 <h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
 
+<hr />
+<div class="container">
 
-<div class="row page-content">
-    <div class="col-md-6">
-        <address>
-            One Microsoft Way<br />
-            Redmond, WA 98052-6399<br />
-            <abbr title="Phone">P:</abbr>
-            425.555.0100
-        </address>
+    <div class="row page-content">
+        <div class="row">
 
-        <address>
-            <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
-            <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-        </address>
-    </div>
+            <div class="col-md-4">
+                <address>
+                    <p>Annunciation Greek Orthodox Church</p>
+                    <p>9400 West Congress Street</p>
+                    <p>Milwaukee, Wisconsin 53225</p>
+                    <p>Phone: (414) 461-9400</p>
+                    <p>Fax: (414) 461-9468</p>
+                </address>
 
-    <div class="col-md-6">
-        <section>
-            <div class="w3-card-4 w3-round">
-                <div class="w3-container form-title w3-blue">
-                    <h2>@ViewData["Title"]</h2>
-                </div>
-                <form class="w3-container" method="post">
-                    <div asp-validation-summary="All" class="text-danger"></div>
-                    <div class="form-group">
-                        <label asp-for="Name"></label>
-                        <input asp-for="Name" class="w3-input w3-animate-input" />
-                        <span asp-validation-for="Name" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Email"></label>
-                        <input asp-for="Email" class="w3-input" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
-
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Subject"></label>
-                        <input asp-for="Subject" class="w3-input" />
-                        <span asp-validation-for="Subject" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Message">Your Message:</label>
-                        <textarea asp-for="Message" rows="6" class="w3-input"></textarea>
-                        <span asp-validation-for="Message" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="w3-button w3-white w3-border w3-border-blue w3-round-large">Send</button>
-                    </div>
-
-                </form>
+                <address>
+                    <strong>Email:</strong> <a href="rentals@annunciationwi.org">rentals@annunciationwi.org</a><br />
+                </address>
             </div>
-        </section>
+            <div class="col-md-8">
+                <div id="map"></div>
+            </div>
+        </div>
+
+        <div class="contact-form-content">
+            <section>
+                <div class="w3-card-4 w3-round">
+                    <div class="w3-container form-title w3-dark-grey">
+                        <h2>Contact Us</h2>
+                    </div>
+                    <form class="w3-container w3-light-grey" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <input asp-for="Name" placeholder="Your Name" class="w3-input w3-border-0" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="Email" placeholder="Your Email" class="w3-input w3-border-0" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="Subject" placeholder="Subject" class="w3-input w3-border-0" />
+                            <span asp-validation-for="Subject" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <textarea asp-for="Message" rows="4" placeholder="Your Message:" class="w3-input w3-border-0"></textarea>
+                            <span asp-validation-for="Message" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="w3-button w3-border w3-dark-grey w3-round">Send</button>
+                        </div>
+
+                    </form>
+                </div>
+            </section>
+
+        </div>
+
     </div>
 </div>
 
 
+@section Scripts {
+    <script>
+        // Initialize and add the map
+        function initMap() {
+            // The location of Uluru
+            var uluru = { lat: 40.797604, lng: -73.9586937 };
+            // The map, centered at Uluru
+            var map = new google.maps.Map(
+                document.getElementById('map'), { zoom: 10, center: uluru });
+            // The marker, positioned at Uluru
+            var marker = new google.maps.Marker({ position: uluru, map: map });
+        }
+    </script>
+
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+    </script>
+}
