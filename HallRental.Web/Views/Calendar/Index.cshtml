@@ -41,14 +41,13 @@
 
 
         $(document).ready(function () {
-
-            GenerateView();
+            GenerateView(@Model.CurrentHall.Id);
         })
 
 
 
-        function GenerateView() {
-            let hallId = @Model.CurrentHall.Id;
+        function GenerateView(hallId) {
+            
             GetCalendarData(hallId)
         }
 
@@ -57,7 +56,6 @@
         function GetCalendarData(hallId) {
 
             console.log('aa ' + hallId)
-          //  $('#"hall-name').text(hallName)
 
             $.ajax({
                 type: "GET",
@@ -73,7 +71,6 @@
                     alert('failed');
                 }
             })
-
         }
 
         function GenerateCalendar(events) {
@@ -89,7 +86,6 @@
                     right: 'prev,next'
                 },
                 weekNumbers: true,
-               // editable: true,
                 droppable: true,
                 eventLimit: true,
                 eventColor: 'red',
