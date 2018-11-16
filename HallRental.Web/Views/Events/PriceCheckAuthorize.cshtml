@@ -1,8 +1,9 @@
 ﻿@model EventInfoAndPriceCheckViewModel
 
 @{
-    ViewData["Title"] = "PriceCheckAuthorize";
+    ViewData["Title"] = "PriceCheck";
 }
+
 
 <div class="row page-content">
     <div class="col-md-6">
@@ -16,6 +17,7 @@
         </div>
     </div>
 
+
     <div class="col-md-6 event-side-info">
         <p>Hall: <b>@Model.HallName</b></p>
         <p>Date: <b>@Model.Date.ToShortDateString()</b></p>
@@ -28,31 +30,32 @@
 
 
 @section Scripts {
+    <script src="~/lib/calendar/moment.min.js"></script>
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
     <script>
 
-            let tablesAndChairsPrice;
-            let securityPrice;
+            var tablesAndChairsPrice;
+            var securityPrice;
 
-            let startPrice;
+            var startPrice;
 
-            let totalPrice;
-            let chairCostPerPerson;
-            let hallCapacity;
+            var totalPrice;
+            var chairCostPerPerson;
+            var hallCapacity;
 
-            let securityGuardCostPerHour;
+            var securityGuardCostPerHour;
 
-            let correctDataTabAndCh;
-            let correctDataSecurity;
-            let correctDataEventTime;
+            var correctDataTabAndCh;
+            var correctDataSecurity;
+            var correctDataEventTime;
 
             //Models
-            let rentStartDateTimeModel;
-            let rentEndDateTimeModel;
+            var rentStartDateTimeModel;
+            var rentEndDateTimeModel;
 
-        $(() => {
+        $(document).ready(function () {
             console.log('ready')
 
              tablesAndChairsPrice = 0;
@@ -85,20 +88,21 @@
                 calculateTablesAndChairsPrice();
             }
 
+
         });
 
 
 
             //Event Start-End Time
 
-            $('#EventStartTime').change(() => {
+            $('#EventStartTime').change(function () {
 
                 correctDataEventTime = checkIfEventDataIsCorrect();
                 console.log('EventStartTime '  + correctDataEventTime)
             })
 
 
-            $('#EventEndTime').change(() => {
+            $('#EventEndTime').change(function () {
 
                 correctDataEventTime = checkIfEventDataIsCorrect();
                 console.log('EventEndTime ' + correctDataEventTime)
@@ -110,24 +114,24 @@
             function checkIfEventDataIsCorrect() {
 
                 //Input Event Start
-                let inputEventStartTimeVal = $('#EventStartTime').val();
-                let inputEventStartTime = new Date(inputEventStartTimeVal)
+                var inputEventStartTimeVal = moment($("#EventStartTime").val(), moment.ISO_8601);
+                var inputEventStartTime = new Date(inputEventStartTimeVal)
                 console.log('inputStartTime - ' + inputEventStartTime)
 
 
                 //Input Event End
-                let inputEventEndTimeVal = $("#EventEndTime").val();
-                let inputEventEndTime = new Date(inputEventEndTimeVal)
+                var inputEventEndTimeVal = moment($("#EventEndTime").val(), moment.ISO_8601);
+                var inputEventEndTime = new Date(inputEventEndTimeVal)
                 console.log('inputEventEndTime - ' + inputEventEndTime)
 
 
                 //Rent Start Time
-                let rentStartDateTime = new Date(rentStartDateTimeModel);
+                var rentStartDateTime = new Date(rentStartDateTimeModel);
                 console.log('rentStartDateTime - ' + rentStartDateTime)
 
 
                 //Rent End Time
-                let rentEndDateTime = new Date(rentEndDateTimeModel);
+                var rentEndDateTime = new Date(rentEndDateTimeModel);
                 console.log('rentEndDateTime - ' + rentEndDateTime)
 
 
@@ -183,15 +187,15 @@
 
 
             //Table and Chairs Price Calcualtion
-            $('#UseTablesAndChairs-checkbox').change(() => {
+            $('#UseTablesAndChairs-checkbox').change(function () {
                 calculateTablesAndChairsPrice();
             })
 
             function calculateTablesAndChairsPrice(){
-                let numberOfPeople = $('#NumberOfPeople').val()
+                var numberOfPeople = $('#NumberOfPeople').val()
 
                 if (numberOfPeople > hallCapacity) {
-                    $('#NumberOfPeople-error').text(`The Hall capacity is ${hallCapacity} people`)
+                    $('#NumberOfPeople-error').text('The Hall capacity is ' +  hallCapacity + ' people' )
                     correctDataTabAndCh = false;
                     return;
                 } else {
@@ -216,16 +220,16 @@
                     totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
                 }
 
-                let parkLotSecHours = checkDifference();
+                var parkLotSecHours = checkDifference();
                 updatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice, parkLotSecHours)
             }
 
 
             $('#NumberOfPeople').change(function () {
-                let numberOfPeople = $('#NumberOfPeople').val()
+                var numberOfPeople = $('#NumberOfPeople').val()
 
                 if (numberOfPeople > hallCapacity) {
-                    $('#NumberOfPeople-error').text(`The Hall capacity is ${hallCapacity} people`)
+                    $('#NumberOfPeople-error').text('The Hall capacity is ' + hallCapacity + ' people')
                     tablesAndChairsPrice = 0;
                     correctDataTabAndCh = false;
                     return;
@@ -246,15 +250,17 @@
                     tablesAndChairsPrice = numberOfPeople * chairCostPerPerson;
 
                     totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
-                    let parkLotSecHours = checkDifference();
+                    var parkLotSecHours = checkDifference();
                     updatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice, parkLotSecHours)
                 }
             })
 
 
+
+
             //ParkingLotSecurity
 
-            $('#ParkingLotSecurity-checkbox').change(() => {
+            $('#ParkingLotSecurity-checkbox').change(function () {
 
                 calculateParkingLotSecurityPrice();
             })
@@ -274,7 +280,7 @@
                     return;
                 }
 
-                let isDateCorrect = checkIfSecurityDataIsCorrect();
+                var isDateCorrect = checkIfSecurityDataIsCorrect();
 
                 console.log(isDateCorrect);
 
@@ -284,15 +290,15 @@
                 }
 
                 correctDataSecurity = true;
-                let hoursDiff = checkDifference();
+                var hoursDiff = checkDifference();
 
                 updateSecurityPrice(hoursDiff);
             }
 
 
-            $("#ParkLotSecStart").change(() => {
+            $("#ParkLotSecStart").change(function () {
 
-                let isDateCorrect = checkIfSecurityDataIsCorrect();
+                var isDateCorrect = checkIfSecurityDataIsCorrect();
                 console.log(isDateCorrect);
 
                 if (isDateCorrect == false) {
@@ -302,14 +308,14 @@
 
                 correctDataSecurity = true;
 
-                let hoursDiff = checkDifference();
+                var hoursDiff = checkDifference();
 
                 updateSecurityPrice(hoursDiff);
             });
 
-            $("#ParkLotSecEnd").change(() => {
+            $("#ParkLotSecEnd").change(function () {
 
-                let isDateCorrect = checkIfSecurityDataIsCorrect();
+                var isDateCorrect = checkIfSecurityDataIsCorrect();
 
                 console.log(isDateCorrect);
                 if (isDateCorrect == false) {
@@ -318,24 +324,28 @@
                 }
 
                 correctDataSecurity = true;
-                let hoursDiff = checkDifference();
+                var hoursDiff = checkDifference();
 
                 updateSecurityPrice(hoursDiff);
             });
 
 
             function checkIfSecurityDataIsCorrect() {
-                let parkLotSecStartTimeValue = $("#ParkLotSecStart").val();
-                let parkLotSecEndTimeValue = $("#ParkLotSecEnd").val();
+                //var parkLotSecStartTimeValue = $("#ParkLotSecStart").val();
+                //var parkLotSecEndTimeValue = $("#ParkLotSecEnd").val();
 
-                let parkLotSecStartTime = new Date(parkLotSecStartTimeValue)
-                let parkLotSecEndTime = new Date(parkLotSecEndTimeValue)
+
+                var momentparkLotSecStartTime = moment($("#ParkLotSecStart").val(), moment.ISO_8601);
+                var momentparkLotSecEndTime = moment($("#ParkLotSecEnd").val(), moment.ISO_8601);
+                console.log("moment - " + momentparkLotSecStartTime)
+
+                var parkLotSecStartTime = new Date(momentparkLotSecStartTime)
+                var parkLotSecEndTime = new Date(momentparkLotSecEndTime)
 
                 //Models Date
-                let eventStartDate = new Date(rentStartDateTimeModel);
-                let eventEndDate = new Date(rentEndDateTimeModel)
+                var eventStartDate = new Date(rentStartDateTimeModel);
 
-                let eventEnd2hoursAfterRentEndTime = new Date(rentEndDateTimeModel)
+                var eventEnd2hoursAfterRentEndTime = new Date(rentEndDateTimeModel)
                 eventEnd2hoursAfterRentEndTime.setHours(eventEnd2hoursAfterRentEndTime.getHours() + 2);
                 console.log('eventEnd2hoursAfterRentEndTime' + eventEnd2hoursAfterRentEndTime);
 
@@ -397,19 +407,19 @@
 
 
             function checkDifference() {
-                let parkLotSecStartTimeValue = $("#ParkLotSecStart").val();
-                let parkLotSecEndTimeValue = $("#ParkLotSecEnd").val();
+                var parkLotSecStartTimeValue = moment($("#ParkLotSecStart").val(), moment.ISO_8601);
+                var parkLotSecEndTimeValue = moment($("#ParkLotSecEnd").val(), moment.ISO_8601);
 
-                let parkLotSecStartTime = new Date(parkLotSecStartTimeValue)
-                let parkLotSecEndTime = new Date(parkLotSecEndTimeValue)
+                var parkLotSecStartTime = new Date(parkLotSecStartTimeValue)
+                var parkLotSecEndTime = new Date(parkLotSecEndTimeValue)
 
-                let hoursDiff = Math.abs(parkLotSecEndTime - parkLotSecStartTime) / 36e5;
+                var hoursDiff = Math.abs(parkLotSecEndTime - parkLotSecStartTime) / 36e5;
 
                 hoursDiff = Math.ceil(hoursDiff);
 
-                console.log(`Sec start - ${parkLotSecStartTime}`);
-                console.log(`Sec end - ${parkLotSecEndTime}`);
-                console.log(`Parking Lot Security hours - ${hoursDiff}`);
+                console.log('Sec start - ' + parkLotSecStartTime);
+                console.log('Sec end - ' + parkLotSecEndTime);
+                console.log('Parking Lot Security hours - ' + hoursDiff);
 
                 return hoursDiff;
             }
@@ -428,6 +438,8 @@
                         console.log('Parking Lot Security hours cannot be less than 4')
                         correctDataSecurity = false;
                         return;
+                    } else {
+                        $('#ParkLotSecurity-error').text('')
                     }
 
                     securityPrice = hoursDiff * securityGuardCostPerHour;

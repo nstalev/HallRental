@@ -30,7 +30,6 @@ namespace HallRental.Services.Admin.Models.Events
 
         [Required]
         [Display(Name = "Event Date")]
-        [DataType(DataType.Date)]
         public DateTime EventDate { get; set; }
 
         [Required]

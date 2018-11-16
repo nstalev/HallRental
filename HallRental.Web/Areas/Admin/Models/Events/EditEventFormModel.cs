@@ -29,7 +29,6 @@ namespace HallRental.Web.Areas.Admin.Models.Events
 
 
         [Required]
-        [DataType(DataType.Date)]
         public DateTime EventDate { get; set; }
 
         [Required]
