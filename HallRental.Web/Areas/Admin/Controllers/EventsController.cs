@@ -232,7 +232,7 @@ namespace HallRental.Web.Areas.Admin.Controllers
            
             string messageBody = this.eventAdminService.GetEmailConfirmationTextBody(currentEvent);
 
-            await this.emailSender.SendEmailAsync(currentEvent.Email, "Reservation cunfirmed", messageBody);
+            await this.emailSender.SendEmailAsync(currentEvent.Email, "Reservation confirmed", messageBody);
 
             return RedirectToAction(nameof(ConfirmedEvents));
         }
@@ -314,6 +314,20 @@ namespace HallRental.Web.Areas.Admin.Controllers
             {
                 EditEventServiceModel editServiceModel = GetEventEditServiceModel(editFormModel);
                 TempData.AddErrorMessage($"The Hall with ID {editServiceModel.HallId} does not exist");
+                return View(editServiceModel);
+            }
+
+            if (editFormModel.EventDate.Date != editFormModel.EventStart.Date)
+            {
+                EditEventServiceModel editServiceModel = GetEventEditServiceModel(editFormModel);
+                TempData.AddErrorMessage($"EventDate and EventStart should be on the same day");
+                return View(editServiceModel);
+            }
+
+            if (editFormModel.EventDate.Date != editFormModel.SecurityStartTime.Date)
+            {
+                EditEventServiceModel editServiceModel = GetEventEditServiceModel(editFormModel);
+                TempData.AddErrorMessage($"EventDate and SecurityStartTime should be on the same day");
                 return View(editServiceModel);
             }
 
