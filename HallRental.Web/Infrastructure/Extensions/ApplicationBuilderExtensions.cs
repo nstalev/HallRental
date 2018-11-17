@@ -78,9 +78,9 @@ namespace HallRental.Web.Infrastructure.Extensions
                      //Seed Hall
                      if (!await db.Halls.AnyAsync())
                      {
-                         Hall grandFoyerAndBallRoom = new Hall
+                         Hall grandHall = new Hall
                          {
-                             Name = "Grand Foyer and BallRoom",
+                             Name = "Grand Hall",
                              MondayFriday8amTo3pm = 750,
                              MondayThursday4pmToMN = 1000,
                              Friday4pmToMN = 1250,
@@ -97,9 +97,9 @@ namespace HallRental.Web.Infrastructure.Extensions
 
                          };
 
-                         Hall grandFoyerOnly = new Hall
+                         Hall mediRoom = new Hall
                          {
-                             Name = "Grand Foyer Only",
+                             Name = "Media Room",
                              MondayFriday8amTo3pm = 250,
                              MondayThursday4pmToMN = 375,
                              Friday4pmToMN = 500,
@@ -116,8 +116,8 @@ namespace HallRental.Web.Infrastructure.Extensions
                          };
 
 
-                         await db.Halls.AddAsync(grandFoyerAndBallRoom);
-                         await db.Halls.AddAsync(grandFoyerOnly);
+                         await db.Halls.AddAsync(grandHall);
+                         await db.Halls.AddAsync(mediRoom);
                          db.SaveChanges();
                      }
 
