@@ -78,9 +78,9 @@ namespace HallRental.Web.Infrastructure.Extensions
                      //Seed Hall
                      if (!await db.Halls.AnyAsync())
                      {
-                         Hall grandFoyerAndBallRoom = new Hall
+                         Hall grandHall = new Hall
                          {
-                             Name = "Grand Foyer and BallRoom",
+                             Name = "Grand Hall",
                              MondayFriday8amTo3pm = 750,
                              MondayThursday4pmToMN = 1000,
                              Friday4pmToMN = 1250,
@@ -89,7 +89,7 @@ namespace HallRental.Web.Infrastructure.Extensions
                              Sunday8amTo3pm = 750,
                              Sunday4pmToMN = 1750,
                              TablesAndChairsCostPerPerson =3.5m,
-                             HallCapacity = 375,
+                             HallCapacity = 275,
                              SecurityGuardCostPerHour = 35,
                              IsHallActive = true,
                              SecurityDepositBefore10pm = 1000,
@@ -97,9 +97,9 @@ namespace HallRental.Web.Infrastructure.Extensions
 
                          };
 
-                         Hall grandFoyerOnly = new Hall
+                         Hall mediaRoom = new Hall
                          {
-                             Name = "Grand Foyer Only",
+                             Name = "MediaRoom",
                              MondayFriday8amTo3pm = 250,
                              MondayThursday4pmToMN = 375,
                              Friday4pmToMN = 500,
@@ -116,8 +116,8 @@ namespace HallRental.Web.Infrastructure.Extensions
                          };
 
 
-                         await db.Halls.AddAsync(grandFoyerAndBallRoom);
-                         await db.Halls.AddAsync(grandFoyerOnly);
+                         await db.Halls.AddAsync(grandHall);
+                         await db.Halls.AddAsync(mediaRoom);
                          db.SaveChanges();
                      }
 
