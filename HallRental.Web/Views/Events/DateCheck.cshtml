@@ -21,7 +21,12 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="Date" class="control-label"></label>
-                        <input id="EventDateInputId" asp-for="Date" class="form-control" required />
+                        <div class='input-group date' id='datetimepicker1'>
+                            <input type="text" id="EventDateInputId" asp-for="Date" class="form-control" required />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
                         <span id="date-error" class="error-note"></span>
                     </div>
 
@@ -117,9 +122,23 @@
 
 
 @section Scripts{
-    <script src="~/lib/calendar/moment.min.js"></script>
 
     <script>
+        $(document).ready(function () {
+
+
+            $('#datetimepicker1').datetimepicker({
+                format: 'YYYY/MM/DD',
+            })
+
+            $('#datetimepicker1').on("dp.change", function () {
+                resetCheck()
+                console.log('datetimepicker works')
+            });
+
+        })
+
+
 
         function checkIfSelectedDateIsCorrect() {
             var currentDateModel = '@(Model.CurrentDateTime)';
@@ -129,8 +148,10 @@
             console.log('current Date - ' + currentDate)
 
 
-            var momentResevationDate = moment($("#EventDateInputId").val(), moment.ISO_8601);
+            var momentResevationDate = new Date($("#EventDateInputId").val());
             var reservationDate = new Date(momentResevationDate);
+
+            console.log('Reservation Date - ' + reservationDate)
 
             if (currentDate.setHours(0, 0, 0, 0) > reservationDate) {
                 $('#date-error').text('You cannot make a reservation for a past date')

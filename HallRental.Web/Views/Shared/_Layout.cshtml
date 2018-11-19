@@ -8,11 +8,13 @@
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/lib/w3css/w3.css" />
+        <link href="~/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/lib/w3css/w3.css" />
+        <link href="~/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
 </head>
@@ -178,6 +180,8 @@
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/lib/calendar/moment.min.js"></script>
+        <script src="~/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
@@ -193,6 +197,8 @@
                 crossorigin="anonymous"
                 integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
         </script>
+        <script src="~/lib/calendar/moment.min.js"></script>
+        <script src="~/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
 
     </environment>
