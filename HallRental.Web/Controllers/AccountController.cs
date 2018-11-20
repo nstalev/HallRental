@@ -12,7 +12,6 @@ namespace HallRental.Web.Controllers
     using HallRental.Data.Models;
     using HallRental.Web.Models.AccountViewModels;
     using HallRental.Web.Services;
-    using System.Web;
     using HallRental.Services;
 
     [Authorize]
