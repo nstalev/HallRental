@@ -209,7 +209,7 @@ h1, h2, h3, h4 {
     }
 
 .footer-logo {
-    font-size: 30px;
+    font-size: 20px;
     text-align: center;
     color: rgb(96, 125, 139);
 }
@@ -419,13 +419,24 @@ h1, h2, h3, h4 {
         text-align: center;
     }
 
-    .event-side-title-info {
+    .event-side-info-title {
+        border-bottom: 2px solid black;
+    }
+
+        .event-side-info-title p {
+            font-size: 17px;
+            font-weight: bold;
+            font-style: oblique;
+            color: #616161
+        }
+
+    .event-side-time-info {
         border-top: 2px solid black;
         padding-top: 10px;
     }
 
-        .event-side-title-info p {
-            font-size: 14px;
+        .event-side-time-info p {
+            font-size: 15px;
         }
 
     .price-side-info {
@@ -434,22 +445,43 @@ h1, h2, h3, h4 {
         margin-top: 10px;
     }
 
-        .price-side-info p {
-            font-size: 14px;
+    .event-side-general-info {
+        padding-top: 10px;
+    }
+
+        .event-side-general-info p {
+            font-size: 15px;
         }
 }
 
 
 
 @media(max-width:990px) {
+
+
     .event-side-info {
         padding-top: 20px;
         padding-bottom: 20px;
-        margin: 15px;
+        margin: 25px 15px 15px 15px;
         border-radius: 4px;
         background-color: #e6e6e6;
         text-align: center;
-        box-shadow: 2px 2px 5px grey;
+        /*box-shadow: 2px 2px 5px grey;*/
+    }
+
+    .event-side-info-title {
+        border-bottom: 2px solid black;
+    }
+
+        .event-side-info-title p {
+            font-size: 17px;
+            font-weight: bold;
+            font-style: oblique;
+            color: #616161
+        }
+
+    .event-side-general-info {
+        padding-top: 10px;
     }
 }
 
@@ -682,6 +714,7 @@ h1, h2, h3, h4 {
         font-weight: bold;
     }
 }
+
 
 #map {
     height: 400px; /* The height is 400 pixels */

@@ -16,15 +16,24 @@
         </div>
     </div>
 
-    <div class="col-md-6 event-side-info">
-        <p>Hall: <b>@Model.HallName</b></p>
-        <p>Date: <b>@Model.Date.ToShortDateString()</b></p>
-        <p>Rent Time: <b>@Model.RentTimeDisplay</b></p>
+
+    <div class="col-md-6 w3-card-4 event-side-info">
+        <div class="event-side-info-title">
+            <p>Hall Rentals</p>
+
+        </div>
+        <div class="event-side-general-info">
+            <p>Hall: <b>@Model.HallName</b></p>
+            <p>Date: <b>@Model.Date.ToShortDateString()</b></p>
+            <p>Rent Time: <b>@Model.RentTimeDisplay</b></p>
+        </div>
         <div id="refTable" class="price-side-info">
             @await Html.PartialAsync("_PartialPrice", Model.EventPriceModel)
         </div>
     </div>
 </div>
+
+
 
 
 @section Scripts {
@@ -33,26 +42,26 @@
 
     <script>
 
-            let tablesAndChairsPrice;
-            let securityPrice;
+            var tablesAndChairsPrice;
+            var securityPrice;
 
-            let startPrice;
+            var startPrice;
 
-            let totalPrice;
-            let chairCostPerPerson;
-            let hallCapacity;
+            var totalPrice;
+            var chairCostPerPerson;
+            var hallCapacity;
 
-            let securityGuardCostPerHour;
+            var securityGuardCostPerHour;
 
-            let correctDataTabAndCh;
-            let correctDataSecurity;
-            let correctDataEventTime;
+            var correctDataTabAndCh;
+            var correctDataSecurity;
+            var correctDataEventTime;
 
             //Models
-            let rentStartDateTimeModel;
-            let rentEndDateTimeModel;
+            var rentStartDateTimeModel;
+            var rentEndDateTimeModel;
 
-        $(() => {
+        $(document).ready(function () {
             console.log('ready')
 
              tablesAndChairsPrice = 0;
@@ -72,8 +81,23 @@
 
 
             //Models
-             rentStartDateTimeModel = '@(Model.EventStart)';
-             rentEndDateTimeModel = '@(Model.EventEnd)';
+            rentStartDateTimeModel = '@(Model.EventStart)';
+            rentEndDateTimeModel = '@(Model.EventEnd)';
+
+
+
+            $('#datetimepicker1').datetimepicker({
+                sideBySide: true,
+            })
+            $('#datetimepicker2').datetimepicker({
+                sideBySide: true,
+            })
+            $('#datetimepicker3').datetimepicker({
+                sideBySide: true,
+            })
+            $('#datetimepicker4').datetimepicker({
+                sideBySide: true,
+            })
 
             //Tables and chairs checkbox
             if ($('#ParkingLotSecurity-checkbox').prop('checked')) {
@@ -85,24 +109,42 @@
                 calculateTablesAndChairsPrice();
             }
 
+
         });
 
+        $('#datetimepicker1').on("dp.change", function () {
+            correctDataEventTime = checkIfEventDataIsCorrect();
+            //console.log('EventStartTime ' + correctDataEventTime)
+        });
+
+
+        $('#datetimepicker2').on("dp.change", function () {
+            correctDataEventTime = checkIfEventDataIsCorrect();
+            //console.log('EventEndTime ' + correctDataEventTime)
+        });
+
+        $('#datetimepicker3').on("dp.change", function () {
+            calculateParkingLotSecurityPrice();
+        });
+
+        $('#datetimepicker4').on("dp.change", function () {
+            calculateParkingLotSecurityPrice();
+        });
 
 
             //Event Start-End Time
 
-            $('#EventStartTime').change(() => {
+            $('#EventStartTime').change(function () {
 
                 correctDataEventTime = checkIfEventDataIsCorrect();
                 console.log('EventStartTime '  + correctDataEventTime)
             })
 
 
-            $('#EventEndTime').change(() => {
+            $('#EventEndTime').change(function () {
 
                 correctDataEventTime = checkIfEventDataIsCorrect();
                 console.log('EventEndTime ' + correctDataEventTime)
-
             });
 
 
@@ -110,24 +152,22 @@
             function checkIfEventDataIsCorrect() {
 
                 //Input Event Start
-                let inputEventStartTimeVal = $('#EventStartTime').val();
-                let inputEventStartTime = new Date(inputEventStartTimeVal)
+                var inputEventStartTime = new Date($("#EventStartTime").val())
                 console.log('inputStartTime - ' + inputEventStartTime)
 
 
                 //Input Event End
-                let inputEventEndTimeVal = $("#EventEndTime").val();
-                let inputEventEndTime = new Date(inputEventEndTimeVal)
+                var inputEventEndTime = new Date($("#EventEndTime").val())
                 console.log('inputEventEndTime - ' + inputEventEndTime)
 
 
                 //Rent Start Time
-                let rentStartDateTime = new Date(rentStartDateTimeModel);
+                var rentStartDateTime = new Date(rentStartDateTimeModel);
                 console.log('rentStartDateTime - ' + rentStartDateTime)
 
 
                 //Rent End Time
-                let rentEndDateTime = new Date(rentEndDateTimeModel);
+                var rentEndDateTime = new Date(rentEndDateTimeModel);
                 console.log('rentEndDateTime - ' + rentEndDateTime)
 
 
@@ -183,15 +223,15 @@
 
 
             //Table and Chairs Price Calcualtion
-            $('#UseTablesAndChairs-checkbox').change(() => {
+            $('#UseTablesAndChairs-checkbox').change(function () {
                 calculateTablesAndChairsPrice();
             })
 
             function calculateTablesAndChairsPrice(){
-                let numberOfPeople = $('#NumberOfPeople').val()
+                var numberOfPeople = $('#NumberOfPeople').val()
 
                 if (numberOfPeople > hallCapacity) {
-                    $('#NumberOfPeople-error').text(`The Hall capacity is ${hallCapacity} people`)
+                    $('#NumberOfPeople-error').text('The Hall capacity is ' +  hallCapacity + ' people' )
                     correctDataTabAndCh = false;
                     return;
                 } else {
@@ -216,16 +256,16 @@
                     totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
                 }
 
-                let parkLotSecHours = checkDifference();
+                var parkLotSecHours = checkDifference();
                 updatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice, parkLotSecHours)
             }
 
 
             $('#NumberOfPeople').change(function () {
-                let numberOfPeople = $('#NumberOfPeople').val()
+                var numberOfPeople = $('#NumberOfPeople').val()
 
                 if (numberOfPeople > hallCapacity) {
-                    $('#NumberOfPeople-error').text(`The Hall capacity is ${hallCapacity} people`)
+                    $('#NumberOfPeople-error').text('The Hall capacity is ' + hallCapacity + ' people')
                     tablesAndChairsPrice = 0;
                     correctDataTabAndCh = false;
                     return;
@@ -246,15 +286,17 @@
                     tablesAndChairsPrice = numberOfPeople * chairCostPerPerson;
 
                     totalPrice = startPrice + tablesAndChairsPrice + securityPrice;
-                    let parkLotSecHours = checkDifference();
+                    var parkLotSecHours = checkDifference();
                     updatePriceModelAndPartialView(totalPrice, securityPrice, tablesAndChairsPrice, parkLotSecHours)
                 }
             })
 
 
+
+
             //ParkingLotSecurity
 
-            $('#ParkingLotSecurity-checkbox').change(() => {
+            $('#ParkingLotSecurity-checkbox').change(function () {
 
                 calculateParkingLotSecurityPrice();
             })
@@ -274,7 +316,7 @@
                     return;
                 }
 
-                let isDateCorrect = checkIfSecurityDataIsCorrect();
+                var isDateCorrect = checkIfSecurityDataIsCorrect();
 
                 console.log(isDateCorrect);
 
@@ -284,15 +326,15 @@
                 }
 
                 correctDataSecurity = true;
-                let hoursDiff = checkDifference();
+                var hoursDiff = checkDifference();
 
                 updateSecurityPrice(hoursDiff);
             }
 
 
-            $("#ParkLotSecStart").change(() => {
+            $("#ParkLotSecStart").change(function () {
 
-                let isDateCorrect = checkIfSecurityDataIsCorrect();
+                var isDateCorrect = checkIfSecurityDataIsCorrect();
                 console.log(isDateCorrect);
 
                 if (isDateCorrect == false) {
@@ -302,14 +344,14 @@
 
                 correctDataSecurity = true;
 
-                let hoursDiff = checkDifference();
+                var hoursDiff = checkDifference();
 
                 updateSecurityPrice(hoursDiff);
             });
 
-            $("#ParkLotSecEnd").change(() => {
+            $("#ParkLotSecEnd").change(function () {
 
-                let isDateCorrect = checkIfSecurityDataIsCorrect();
+                var isDateCorrect = checkIfSecurityDataIsCorrect();
 
                 console.log(isDateCorrect);
                 if (isDateCorrect == false) {
@@ -318,24 +360,21 @@
                 }
 
                 correctDataSecurity = true;
-                let hoursDiff = checkDifference();
+                var hoursDiff = checkDifference();
 
                 updateSecurityPrice(hoursDiff);
             });
 
 
             function checkIfSecurityDataIsCorrect() {
-                let parkLotSecStartTimeValue = $("#ParkLotSecStart").val();
-                let parkLotSecEndTimeValue = $("#ParkLotSecEnd").val();
 
-                let parkLotSecStartTime = new Date(parkLotSecStartTimeValue)
-                let parkLotSecEndTime = new Date(parkLotSecEndTimeValue)
+                var parkLotSecStartTime = new Date($("#ParkLotSecStart").val())
+                var parkLotSecEndTime = new Date($("#ParkLotSecEnd").val())
 
                 //Models Date
-                let eventStartDate = new Date(rentStartDateTimeModel);
-                let eventEndDate = new Date(rentEndDateTimeModel)
+                var eventStartDate = new Date(rentStartDateTimeModel);
 
-                let eventEnd2hoursAfterRentEndTime = new Date(rentEndDateTimeModel)
+                var eventEnd2hoursAfterRentEndTime = new Date(rentEndDateTimeModel)
                 eventEnd2hoursAfterRentEndTime.setHours(eventEnd2hoursAfterRentEndTime.getHours() + 2);
                 console.log('eventEnd2hoursAfterRentEndTime' + eventEnd2hoursAfterRentEndTime);
 
@@ -349,7 +388,6 @@
                     $('#ParkLotSecEnd-error').text('Invalid Date');
                     return false;
                 }
-
 
                 if (parkLotSecEndTime <= eventStartDate) {
                     $('#ParkLotSecEnd-error').text('Security End DateTime cannot be before Rent Start DateTime');
@@ -397,19 +435,17 @@
 
 
             function checkDifference() {
-                let parkLotSecStartTimeValue = $("#ParkLotSecStart").val();
-                let parkLotSecEndTimeValue = $("#ParkLotSecEnd").val();
 
-                let parkLotSecStartTime = new Date(parkLotSecStartTimeValue)
-                let parkLotSecEndTime = new Date(parkLotSecEndTimeValue)
+                var parkLotSecStartTime = new Date($("#ParkLotSecStart").val())
+                var parkLotSecEndTime = new Date($("#ParkLotSecEnd").val())
 
-                let hoursDiff = Math.abs(parkLotSecEndTime - parkLotSecStartTime) / 36e5;
+                var hoursDiff = Math.abs(parkLotSecEndTime - parkLotSecStartTime) / 36e5;
 
                 hoursDiff = Math.ceil(hoursDiff);
 
-                console.log(`Sec start - ${parkLotSecStartTime}`);
-                console.log(`Sec end - ${parkLotSecEndTime}`);
-                console.log(`Parking Lot Security hours - ${hoursDiff}`);
+                console.log('Sec start - ' + parkLotSecStartTime);
+                console.log('Sec end - ' + parkLotSecEndTime);
+                console.log('Parking Lot Security hours - ' + hoursDiff);
 
                 return hoursDiff;
             }
@@ -428,6 +464,8 @@
                         console.log('Parking Lot Security hours cannot be less than 4')
                         correctDataSecurity = false;
                         return;
+                    } else {
+                        $('#ParkLotSecurity-error').text('')
                     }
 
                     securityPrice = hoursDiff * securityGuardCostPerHour;

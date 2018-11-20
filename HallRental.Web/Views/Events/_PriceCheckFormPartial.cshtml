@@ -15,13 +15,23 @@
 
     <div class="form-group">
         <label asp-for="EventStart" class="control-label"></label>
-        <input id="EventStartTime" asp-for="EventStart" class="form-control" />
+        <div class='input-group date' id='datetimepicker1'>
+            <input type="text" id="EventStartTime" asp-for="EventStart" class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
         <span id="EventStartTime-error" class="price-check-error"></span>
         <span asp-validation-for="EventStart" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="EventEnd" class="control-label"></label>
-        <input id="EventEndTime" asp-for="EventEnd" class="form-control" />
+        <div class='input-group date' id='datetimepicker2'>
+            <input type="text" id="EventEndTime" asp-for="EventEnd" class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
         <span id="EventEndTime-error" class="price-check-error"></span>
         <span asp-validation-for="EventEnd" class="text-danger"></span>
     </div>
@@ -34,11 +44,11 @@
     <div class="form-group">
         <input id="UseTablesAndChairs-checkbox" class="w3-check" asp-for="UsingTablesAndChairs" />
         <label>
-            @Html.DisplayNameFor(model => model.UsingTablesAndChairs)
+            Click here if you are using our tables, chairs and a bar
         </label>
     </div>
     <div class="form-group">
-        <input id="ParkingLotSecurity-checkbox" asp-for="ParkingLotSecurityService" class="w3-check" type="checkbox" />
+        <input id="ParkingLotSecurity-checkbox" asp-for="ParkingLotSecurityService" class="w3-check" type="checkbox" checked="checked" />
         <label>
             @Html.DisplayNameFor(model => model.ParkingLotSecurityService)
         </label>
@@ -49,13 +59,23 @@
     <div id="SecurityLot-inputs" style="display:none">
         <div class="form-group">
             <label class="control-label" asp-for="SecurityStartTime"></label>
-            <input id="ParkLotSecStart" asp-for="SecurityStartTime" class="form-control secLot-input" />
+            <div class='input-group date' id='datetimepicker3'>
+                <input type="text" id="ParkLotSecStart" asp-for="SecurityStartTime" class="form-control secLot-input" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
             <span id="ParkLotSecStart-error" class="price-check-error"></span>
         </div>
 
         <div class="form-group">
             <label class="control-label" asp-for="SecurityEndTime"></label>
-            <input id="ParkLotSecEnd" asp-for="SecurityEndTime" class="form-control secLot-input" />
+            <div class='input-group date' id='datetimepicker4'>
+                <input type="text" id="ParkLotSecEnd" asp-for="SecurityEndTime" class="form-control secLot-input" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
             <span id="ParkLotSecEnd-error" class="price-check-error"></span>
         </div>
     </div>

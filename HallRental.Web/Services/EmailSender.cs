@@ -1,16 +1,12 @@
-﻿using HallRental.Services;
-using HallRental.Web.Infrastructure;
-using MailKit.Net.Smtp;
-using MimeKit;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+﻿
 namespace HallRental.Web.Services
 {
-    // This class is used by the application to send email for account confirmation and password reset.
-    // For more details see https://go.microsoft.com/fwlink/?LinkID=532713
+    using HallRental.Web.Infrastructure;
+    using MailKit.Net.Smtp;
+    using MimeKit;
+    using System.Threading.Tasks;
+
+
     public class EmailSender : IEmailSender
     {
         public Task SendEmailAsync(string email, string subject, string messageBody)
