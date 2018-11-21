@@ -22,7 +22,7 @@
                 </div>
                 <hr />
                 <div class="event-details-box-content">
-                    <p><b>Event date: </b> @Model.EventDate</p>
+                    <p><b>Event date: </b> @Model.EventDate.ToShortDateString()</p>
                     <p><b>Hall: </b> @Model.HallName</p>
                     <p><b>Rent Time: </b> @Model.RentTimeDisplay</p>
                     <p><b>Number of people: </b> @Model.NumberOfPeople</p>

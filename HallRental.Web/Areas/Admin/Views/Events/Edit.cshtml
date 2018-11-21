@@ -16,7 +16,12 @@
 
             <div class="form-group">
                 <label asp-for="EventDate" class="control-label"></label>
-                <input asp-for="EventDate" class="form-control" />
+                <div class='input-group date' id='datetimepicker1'>
+                    <input type="text" asp-for="EventDate" class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
                 <span asp-validation-for="EventDate" class="text-danger"></span>
             </div>
 
@@ -33,12 +38,22 @@
 
             <div class="form-group">
                 <label asp-for="EventStart" class="control-label"></label>
-                <input asp-for="EventStart" class="form-control" />
+                <div class='input-group date' id='datetimepicker2'>
+                    <input type="text" asp-for="EventStart" class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
                 <span asp-validation-for="EventStart" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EventEnd" class="control-label"></label>
-                <input asp-for="EventEnd" class="form-control" />
+                <div class='input-group date' id='datetimepicker3'>
+                    <input type="text" asp-for="EventEnd" class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
                 <span asp-validation-for="EventEnd" class="text-danger"></span>
             </div>
 
@@ -91,12 +106,22 @@
             </div>
             <div class="form-group">
                 <label asp-for="SecurityStartTime" class="control-label"></label>
-                <input asp-for="SecurityStartTime" class="form-control" />
+                <div class='input-group date' id='datetimepicker4'>
+                    <input type="text" asp-for="SecurityStartTime" class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
                 <span asp-validation-for="SecurityStartTime" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SecurityEndTime" class="control-label"></label>
-                <input asp-for="SecurityEndTime" class="form-control" />
+                <div class='input-group date' id='datetimepicker5'>
+                    <input type="text" asp-for="SecurityEndTime" class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
                 <span asp-validation-for="SecurityEndTime" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -180,6 +205,25 @@
     <script>
         $(document).ready(function () {
             console.log('ready')
+
+            $('#datetimepicker1').datetimepicker({
+                format: 'MM/DD/YYYY'
+            })
+
+            $('#datetimepicker2').datetimepicker({
+                sideBySide: true,
+            })
+
+            $('#datetimepicker3').datetimepicker({
+                sideBySide: true,
+            })
+            $('#datetimepicker4').datetimepicker({
+                sideBySide: true,
+            })
+            $('#datetimepicker5').datetimepicker({
+                sideBySide: true,
+            })
+
         })
     </script>
 
