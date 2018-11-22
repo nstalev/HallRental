@@ -3,7 +3,6 @@ namespace HallRental.Services.Admin
 {
     using HallRental.Data.Enums;
     using HallRental.Services.Admin.Models.Events;
-    using HallRental.Services.Models.Profile;
     using System;
     using System.Collections.Generic;
 
@@ -66,7 +65,5 @@ namespace HallRental.Services.Admin
             decimal securityDeposit,
             decimal totalPrice);
 
-
-        string GetEmailConfirmationTextBody(EventDetailsAdminSM currentEvent);
     }
 }

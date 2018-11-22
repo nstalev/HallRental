@@ -17,18 +17,18 @@ namespace HallRental.Web.Controllers
     {
         private readonly IEventsAdminService eventAdminService;
         private readonly UserManager<User> userManager;
-        private readonly IHomeService homeService;
         private readonly IEmailSender emailSender;
+        private readonly IEmailService emailService;
 
         public HomeController(IEventsAdminService eventAdminService,
                                UserManager<User> userManager,
-                               IHomeService homeService,
-                               IEmailSender emailSender)
+                               IEmailSender emailSender,
+                               IEmailService emailService)
         {
             this.eventAdminService = eventAdminService;
             this.userManager = userManager;
-            this.homeService = homeService;
             this.emailSender = emailSender;
+            this.emailService = emailService;
         }
 
         public IActionResult Index()
@@ -70,7 +70,7 @@ namespace HallRental.Web.Controllers
             }
 
 
-            string messageBody = this.homeService.GetEmailTextBodyFromContactForm(contactForm.Email,
+            string messageBody = this.emailService.GetEmailTextBodyFromContactForm(contactForm.Email,
                                                              contactForm.Name,
                                                              contactForm.Message);
 
@@ -78,7 +78,7 @@ namespace HallRental.Web.Controllers
 
             TempData.AddSuccessMessage("Your message has been successfully sent");
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Contact));
         }
 
         public IActionResult Privacy()

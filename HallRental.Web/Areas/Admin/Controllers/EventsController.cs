@@ -22,18 +22,21 @@ namespace HallRental.Web.Areas.Admin.Controllers
         private readonly IEventsService eventService;
         private readonly IHallsAdminService hallAdminService;
         private readonly IEmailSender emailSender;
+        private readonly IEmailService emailService;
         private const int pageSize = GlobalConstants.AdminEventsMaxPageSize;
 
 
         public EventsController(IEventsAdminService eventAdminService,
                                 IEventsService eventService,
                                 IHallsAdminService hallAdminService,
-                                IEmailSender emailSender)
+                                IEmailSender emailSender,
+                                IEmailService emailService)
         {
             this.eventAdminService = eventAdminService;
             this.eventService = eventService;
             this.hallAdminService = hallAdminService;
             this.emailSender = emailSender;
+            this.emailService = emailService;
         }
 
         public IActionResult EventRequests(string search, int page = 1)
@@ -230,7 +233,7 @@ namespace HallRental.Web.Areas.Admin.Controllers
             EventDetailsAdminSM currentEvent = this.eventAdminService.EventById(id);
             currentEvent.RentTimeDisplay = this.eventService.GetRentTimeDisplay(currentEvent.RentTime);
            
-            string messageBody = this.eventAdminService.GetEmailConfirmationTextBody(currentEvent);
+            string messageBody = this.emailService.GetEmailConfirmationTextBody(currentEvent);
 
             await this.emailSender.SendEmailAsync(currentEvent.Email, "Reservation confirmed", messageBody);
 

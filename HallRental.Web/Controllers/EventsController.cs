@@ -21,16 +21,20 @@ namespace HallRental.Web.Controllers
         private readonly IHallsService hallsServices;
         private readonly UserManager<User> userManager;
         private readonly IEmailSender emailSender;
+        private readonly IEmailService emailService;
+
 
         public EventsController(IEventsService eventsServices,
                                 IHallsService hallsServices,
                                 UserManager<User> userManager,
-                                IEmailSender emailSender)
+                                IEmailSender emailSender,
+                                IEmailService emailService)
         {
             this.eventsServices = eventsServices;
             this.hallsServices = hallsServices;
             this.userManager = userManager;
             this.emailSender = emailSender;
+            this.emailService = emailService;
         }
 
 
@@ -307,7 +311,7 @@ namespace HallRental.Web.Controllers
 
             //Send Email to Administration 
 
-            string messageBody = this.eventsServices.GetTextBodyForEmailForReservation(
+            string messageBody = this.emailService.GetTextBodyForEmailForReservation(
                                                                     eventModel.Date,
                                                                     eventModel.FullName,
                                                                     eventModel.Email,
@@ -315,7 +319,7 @@ namespace HallRental.Web.Controllers
                                                                     eventModel.NumberOfPeople,
                                                                     eventModel.TotalPrice);
 
-            string messageBodyForTenant = this.eventsServices.GetTextBodyForTenant(
+            string messageBodyForTenant = this.emailService.GetTextBodyForTenant(
                                                                    eventModel.Date,
                                                                    eventModel.FullName,
                                                                    eventModel.NumberOfPeople,

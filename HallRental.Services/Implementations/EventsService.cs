@@ -3,14 +3,10 @@ namespace HallRental.Services.Implementations
 {
     using AutoMapper.QueryableExtensions;
     using HallRental.Data;
-    using HallRental.Data.Enums;
     using HallRental.Data.Models;
     using HallRental.Services.Models.Profile;
-    using MailKit.Net.Smtp;
-    using MimeKit;
     using System;
     using System.Linq;
-    using System.Text;
     using static HallRental.Data.Enums.Enums;
 
     public class EventsService : IEventsService
@@ -258,54 +254,6 @@ namespace HallRental.Services.Implementations
                .ProjectTo<EventDetailsServiceModel>()
                .FirstOrDefault();
         }
-
-        public byte[] GeneratePdf(EventDetailsServiceModel currentEvent)
-        {
-            //ToDo
-
-            throw new NotImplementedException();
-        }
-
-
-        //GET EMAIL TEXT FOR RESERVATIONS
-
-        public string GetTextBodyForEmailForReservation(DateTime date,
-                                                        string fullName,
-                                                        string email,
-                                                        string phoneNumber,
-                                                        int numberOfPeople,
-                                                        decimal totalPrice)
-        {
-            var sb = new StringBuilder();
-            sb.Append($"Request for reservation on {date.ToShortDateString()}");
-            sb.Append(Environment.NewLine);
-            sb.Append($"Name: {fullName}");
-            sb.Append(Environment.NewLine);
-            sb.Append($"email: {email}");
-            sb.Append(Environment.NewLine);
-            sb.Append($"Phone Number: {phoneNumber}");
-            sb.Append(Environment.NewLine);
-            sb.Append(Environment.NewLine);
-            sb.Append($"Total Price: ${totalPrice.ToString("F")}");
-
-            return sb.ToString();
-        }
-
-        public string GetTextBodyForTenant(DateTime date, string fullName, int numberOfPeople, decimal totalPrice)
-        {
-            var sb = new StringBuilder();
-            sb.Append($"Your request for reservation has been received.");
-            sb.Append(Environment.NewLine);
-            sb.Append($"We will process your request and we will contat you.");
-            sb.Append(Environment.NewLine);
-            sb.Append(Environment.NewLine);
-            sb.Append($"The reservation is the name of: {fullName}");
-            sb.Append(Environment.NewLine);
-            sb.Append($"Event Date: {date.ToShortDateString()}");
-            sb.Append(Environment.NewLine);
-            sb.Append($"Total Price: ${totalPrice.ToString("F")}");
-
-            return sb.ToString();
-        }
+       
     }
 }

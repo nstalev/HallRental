@@ -1,7 +1,6 @@
 ﻿
 namespace HallRental.Services
 {
-    using HallRental.Data.Enums;
     using HallRental.Data.Models;
     using HallRental.Services.Models.Profile;
     using System;
@@ -51,15 +50,7 @@ namespace HallRental.Services
         bool CheckIfEventExists(int id);
         EventDetailsServiceModel EventById(int id);
 
-
-        byte[] GeneratePdf(EventDetailsServiceModel currentEvent);
-        string GetTextBodyForEmailForReservation(DateTime date,
-                                                string fullName,
-                                                string email,
-                                                string phoneNumber,
-                                                int numberOfPeople,
-                                                decimal totalPrice);
-        string GetTextBodyForTenant(DateTime date, string fullName, int numberOfPeople, decimal totalPrice);
+      
     }
 
 }
